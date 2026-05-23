@@ -98,6 +98,44 @@ body {
 }
 .child-block h3 { font-size: 0.88rem; font-weight: 800; color: #2e7d32; margin-bottom: 10px; }
 
+/* 子どもなし表示 */
+.no-kids-info {
+  background: #e8f5e9; border: 1.5px solid #a5d6a7;
+  border-radius: 11px; padding: 16px; margin-top: 10px;
+  font-size: 0.88rem; color: #2e7d32; font-weight: 600;
+  line-height: 1.7; text-align: center;
+}
+
+/* 55歳以上：シニアカード */
+.senior-card {
+  background: linear-gradient(160deg, #fff8e1, #fffde7);
+  border: 2px solid #f9a825;
+  border-radius: 14px; padding: 16px; margin-bottom: 12px;
+  width: 100%; overflow: hidden;
+  box-shadow: 0 2px 10px rgba(249,168,37,0.18);
+}
+.senior-title {
+  font-size: 1rem; font-weight: 900; color: #e65100;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.senior-lead {
+  font-size: 0.82rem; color: #555; line-height: 1.7; margin-bottom: 12px;
+}
+.senior-item {
+  background: white; border-radius: 9px;
+  padding: 11px 13px; margin-bottom: 8px;
+  border-left: 4px solid #f9a825;
+  font-size: 0.85rem; color: #333; line-height: 1.55;
+}
+.senior-item:last-child { margin-bottom: 0; }
+.senior-item strong { color: #b45309; }
+.senior-roadmap {
+  margin-top: 14px; background: #e8eaf6;
+  border-radius: 9px; padding: 12px;
+  font-size: 0.88rem; color: #1a237e; font-weight: 800;
+  text-align: center; letter-spacing: 0.02em;
+}
+
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0;
   background: white; border-top: 1px solid #e8e8e8;
@@ -220,7 +258,7 @@ body {
     <div class="form-group">
       <label>あなたの年齢</label>
       <div class="input-wrap">
-        <input type="number" id="myAge" value="35" min="20" max="65" inputmode="numeric">
+        <input type="number" id="myAge" value="35" min="20" max="75" inputmode="numeric">
         <span class="unit">歳</span>
       </div>
     </div>
@@ -253,12 +291,11 @@ body {
       </div>
     </div>
     <div class="form-group">
-      <label>老後の想定期間</label>
+      <label>想定寿命</label>
       <div class="input-wrap">
-        <input type="number" id="retirePeriod" value="25" min="10" max="45" inputmode="numeric">
-        <span class="unit">年</span>
+        <input type="number" id="lifeExpAge" value="90" min="60" max="120" inputmode="numeric">
+        <span class="unit">歳</span>
       </div>
-      <div class="hint">例：65歳退職〜90歳想定 = 25年</div>
     </div>
   </div>
   <div class="bottom-nav">
@@ -274,6 +311,7 @@ body {
       <label>子どもの人数</label>
       <div class="input-wrap">
         <select id="childCount" onchange="buildChildInputs()">
+          <option value="0">子どもがいない（すでに独立している）</option>
           <option value="1">1人</option>
           <option value="2" selected>2人</option>
           <option value="3">3人</option>
@@ -304,6 +342,7 @@ const UNI_ENTRY = 18;
 const UNI_COST  = { national:243, private_lib:408, private_sci:551 };
 const UNI_LABEL = { national:'国公立大学', private_lib:'私立大学（文科系）', private_sci:'私立大学（理科系）' };
 const ORDINAL   = ['第1子','第2子','第3子','第4子'];
+const SENIOR_AGE = 55;
 
 const AGE_FULL = {
    0:'0歳（乳児）',  1:'1歳',         2:'2歳',
@@ -330,6 +369,17 @@ const AGE_SHORT = {
 
 function buildChildInputs() {
   const n = parseInt(document.getElementById('childCount').value);
+
+  // 子どもなし
+  if (n === 0) {
+    document.getElementById('childInputs').innerHTML = `
+      <div class="no-kids-info">
+        ✅ 教育費の心配なし！<br>
+        老後資金の積立に全力を集中できます。
+      </div>`;
+    return;
+  }
+
   const defAges = [7, 6, 3, 0];
   let html = '';
   for (let i = 0; i < n; i++) {
@@ -402,59 +452,72 @@ function goStep(n) {
 function goStep2() { buildChildInputs(); goStep(2); }
 
 function runCalc() {
-  const myAge     = parseFloat(document.getElementById('myAge').value)       || 35;
-  const income    = parseFloat(document.getElementById('income').value)      || 35;
-  const retireAge = parseFloat(document.getElementById('retireAge').value)   || 65;
-  const lifeExp   = parseFloat(document.getElementById('lifeExp').value)     || 26;
-  const pension   = parseFloat(document.getElementById('pension').value)     || 20;
-  const retirePer = parseFloat(document.getElementById('retirePeriod').value)|| 25;
+  const myAge     = parseFloat(document.getElementById('myAge').value)        || 35;
+  const income    = parseFloat(document.getElementById('income').value)        || 35;
+  const retireAge = parseFloat(document.getElementById('retireAge').value)     || 65;
+  const lifeExp   = parseFloat(document.getElementById('lifeExp').value)       || 26;  // 老後の希望生活費（月額）
+  const pension   = parseFloat(document.getElementById('pension').value)       || 20;  // 年金見込み額（月・夫婦合計）
+  const lifeExpAge = parseFloat(document.getElementById('lifeExpAge').value)    || 90;  // 想定寿命（歳）
+  const retirePer  = Math.max(1, lifeExpAge - retireAge);                               // 老後の想定期間（年）= 想定寿命 − 退職年齢
   const nKids     = parseInt(document.getElementById('childCount').value);
+  const noKids    = nKids === 0;
 
+  // 子ども情報
   const kids = [];
-  for (let i = 0; i < nKids; i++) {
-    const age   = parseFloat(document.getElementById(`childAge${i}`).value);
-    const uType = document.getElementById(`childUni${i}`).value;
-    const cost  = uType === 'none' ? 0 : UNI_COST[uType];
-    const allow = allowance(age, i + 1);
-    kids.push({ age, uType, cost, allow, net: Math.max(0, cost - allow) });
+  if (!noKids) {
+    for (let i = 0; i < nKids; i++) {
+      const age   = parseFloat(document.getElementById(`childAge${i}`).value);
+      const uType = document.getElementById(`childUni${i}`).value;
+      const cost  = uType === 'none' ? 0 : UNI_COST[uType];
+      const allow = allowance(age, i + 1);
+      kids.push({ age, uType, cost, allow, net: Math.max(0, cost - allow) });
+    }
   }
 
-  // 箱1
+  // ===== 箱1：教育費 =====
   let eduRaw = 0;
-  kids.forEach(k => {
-    if (!k.cost) return;
-    const mo = Math.max(6, (UNI_ENTRY - k.age) * 12);
-    eduRaw += pmtCalc(k.net * 10000, RATE, mo) / 10000;
-  });
-  const eduMonthly = Math.max(0.5, Math.ceil(eduRaw * 2) / 2);
+  if (!noKids) {
+    kids.forEach(k => {
+      if (!k.cost) return;
+      const mo = Math.max(6, (UNI_ENTRY - k.age) * 12);
+      eduRaw += pmtCalc(k.net * 10000, RATE, mo) / 10000;
+    });
+  }
+  const eduMonthly = noKids ? 0 : Math.max(0.5, Math.ceil(eduRaw * 2) / 2);
   const totalCost  = kids.reduce((s,k) => s+k.cost,  0);
   const totalAllow = kids.reduce((s,k) => s+k.allow, 0);
   const totalNet   = kids.reduce((s,k) => s+k.net,   0);
-  const youngest   = Math.min(...kids.map(k => k.age));
-  const eduEndAge  = Math.round(myAge + (UNI_ENTRY - youngest));
 
-  // 箱2
-  const gap        = Math.max(0, lifeExp - pension);
-  const box2Total  = Math.round(gap * 12 * retirePer);
-  const moRet      = Math.max(12, (retireAge - eduEndAge) * 12);
+  // 末子の年齢（子どもなし時は即フェーズ2開始）
+  const youngest  = noKids ? null : Math.min(...kids.map(k => k.age));
+  const eduEndAge = noKids
+    ? myAge
+    : Math.round(myAge + (UNI_ENTRY - youngest));
+
+  // ===== 箱2：老後資金 =====
+  // 年金を考慮した月の不足額 = 希望生活費 − 年金見込み額
+  const gap       = Math.max(0, lifeExp - pension);
+  // 必要な老後資金 = 月不足額 × 12ヶ月 × 老後年数
+  const box2Total = Math.round(gap * 12 * retirePer);
+  const moRet     = Math.max(12, (retireAge - eduEndAge) * 12);
   const retMonthly = Math.max(0.5, Math.ceil(pmtCalc(box2Total*10000, RATE, moRet)/10000*2)/2);
 
-  // 箱3
-  const fixIdeal  = income * 0.45;
-  const varIdeal  = income * 0.35;
-  const savIdeal  = income * 0.20;
-  const savRatio  = (eduMonthly / income) * 100;
+  // ===== 箱3：家計管理 =====
+  const fixIdeal = income * 0.45;
+  const varIdeal = income * 0.35;
+  const savIdeal = income * 0.20;
+  const savRatio = noKids ? 0 : (eduMonthly / income) * 100;
 
-  // タイミング
-  const hasUrgent = kids.some(k => k.cost > 0 && k.age >= 15);
-  const eduOk     = !hasUrgent && savRatio <= 28;
+  // タイミング判定
+  const hasUrgent = !noKids && kids.some(k => k.cost > 0 && k.age >= 15);
+  const eduOk     = noKids || (!hasUrgent && savRatio <= 28);
   const retAccum  = fvCalc(retMonthly * 10000, RATE, moRet) / 10000;
   const retOk     = retAccum >= box2Total * 0.92;
   const ph1Yr     = Math.max(0, eduEndAge - myAge);
   const ph2Yr     = Math.max(0, retireAge - eduEndAge);
 
   render({
-    myAge, income, retireAge, lifeExp, pension, retirePer, nKids,
+    myAge, income, retireAge, lifeExp, pension, lifeExpAge, retirePer, nKids, noKids,
     kids, eduMonthly, totalCost, totalAllow, totalNet, eduEndAge,
     box2Total, gap, retMonthly, moRet,
     fixIdeal, varIdeal, savIdeal, savRatio,
@@ -465,15 +528,78 @@ function runCalc() {
 
 function render(d) {
   const {
-    myAge, income, retireAge, lifeExp, pension, retirePer, nKids,
+    myAge, income, retireAge, lifeExp, pension, lifeExpAge, retirePer, nKids, noKids,
     kids, eduMonthly, totalCost, totalAllow, totalNet, eduEndAge,
     box2Total, gap, retMonthly, moRet,
     fixIdeal, varIdeal, savIdeal, savRatio,
     hasUrgent, eduOk, retAccum, retOk, ph1Yr, ph2Yr,
   } = d;
 
-  // 子カード
-  const kidCards = kids.map((k,i) => {
+  // ===== 55歳以上：特別メッセージ =====
+  if (myAge >= SENIOR_AGE) {
+    const fixI = income * 0.45;
+    const varI = income * 0.35;
+    const savI = income * 0.20;
+    document.getElementById('results').innerHTML = `
+    <div class="senior-card">
+      <div class="senior-title">⚠️ ${myAge}歳からの資産戦略について</div>
+      <p class="senior-lead">
+        ${myAge}歳以降は運用期間が15年以下となるため、<strong>増やすより「使っていくフェーズ」へのシフト</strong>が大切です。
+        以下の3点を意識しましょう。
+      </p>
+      <div class="senior-item">
+        🤔 <strong>そもそも投資が必要か？</strong><br>
+        <span style="font-size:0.8rem;color:#666">今の資産残高と生活費を照らし合わせ、本当に運用が必要かを再確認しましょう。</span>
+      </div>
+      <div class="senior-item">
+        🏦 <strong>退職金の一括投資は避けよう</strong><br>
+        <span style="font-size:0.8rem;color:#666">大きな金額を一度にリスク資産へ投入するのは危険。時間を分散した段階的な運用を検討しましょう。</span>
+      </div>
+      <div class="senior-item">
+        📉 <strong>リスク許容度を下げる（株式より債券や現金を重視）</strong><br>
+        <span style="font-size:0.8rem;color:#666">相場の下落に耐える時間が短くなります。守りの資産配分へ切り替える時期です。</span>
+      </div>
+      <div class="senior-roadmap">
+        📋 ロードマップを作成し目的を明確にしよう！
+      </div>
+    </div>
+
+    <!-- 箱3のみ表示（家計管理は年齢問わず有効） -->
+    <div class="box-card box3">
+      <div class="box-header"><div class="box-emoji">🟡</div><div class="box-title">箱3｜家計管理（黄金比率）</div></div>
+      <div class="monthly-hero">
+        <div class="monthly-label">手取り月収（世帯）</div>
+        <div class="monthly-amount">${fmt(income,1)}<span class="unit">万円</span></div>
+      </div>
+      <div class="ratio-section">
+        <div class="ratio-row">
+          <div class="ratio-name">固定費 45%</div>
+          <div class="ratio-num">${fmt(fixI,1)}万</div>
+          <div class="ratio-bar-bg"><div class="ratio-bar-fill" style="width:45%;background:#ef6c00"></div></div>
+        </div>
+        <div class="ratio-row">
+          <div class="ratio-name">変動費 35%</div>
+          <div class="ratio-num">${fmt(varI,1)}万</div>
+          <div class="ratio-bar-bg"><div class="ratio-bar-fill" style="width:35%;background:#43a047"></div></div>
+        </div>
+        <div class="ratio-row">
+          <div class="ratio-name">貯蓄 20%</div>
+          <div class="ratio-num">${fmt(savI,1)}万</div>
+          <div class="ratio-bar-bg"><div class="ratio-bar-fill" style="width:20%;background:#1e88e5"></div></div>
+        </div>
+      </div>
+      <div class="note-text">
+        ※ 家計黄金比率：固定費45% / 変動費35% / 貯蓄20%<br>
+        ※ 年齢・資産状況に応じた個別プランはFPにご相談ください
+      </div>
+    </div>`;
+    return;
+  }
+
+  // ===== 通常表示（55歳未満） =====
+
+  // 子どもカード
+  const kidCards = noKids ? '' : kids.map((k,i) => {
     if (!k.cost) return `<div class="child-edu-card">
       <div class="child-edu-title">${ORDINAL[i]}（${AGE_SHORT[k.age]??k.age+'歳'}）<span class="badge badge-gray">大学なし</span></div>
       <div style="font-size:0.78rem;color:#999">教育費積立の対象外</div>
@@ -490,20 +616,25 @@ function render(d) {
   }).join('');
 
   // タイミングカード 箱1
-  const tc1 = `<div class="timing-card ${eduOk?'timing-ok':'timing-ng'}">
-    <div class="timing-title">${eduOk?'✅ 教育費：計画通り達成見込み！':'⚠️ 教育費：見直しを検討してください'}</div>
-    <div class="timing-body">
-      ${totalNet>0?`月${fmt(eduMonthly,1)}万円を${ph1Yr}年間積立（年率5%複利）`:''}
-      ${!eduOk?`
-        ${hasUrgent?'<div class="suggestion-item">⚡ 大学まで間もない子がいます。早急に積立を開始してください。</div>':''}
-        <div style="margin-top:6px;font-weight:700;color:#e65100;font-size:0.8rem">改善案：</div>
-        <div class="suggestion-item">💡 月の積立額を増やす</div>
-        <div class="suggestion-item">💡 私立→国公立に変更すると費用が大幅減</div>
-        <div class="suggestion-item">💡 奨学金・教育ローンを一部活用する</div>`:''}
-    </div>
-  </div>`;
+  const tc1 = noKids
+    ? `<div class="timing-card timing-ok">
+        <div class="timing-title">✅ 教育費の負担なし</div>
+        <div class="timing-body">子どもがいない・すでに独立しているため、老後資金の積立に全力を向けられます！</div>
+       </div>`
+    : `<div class="timing-card ${eduOk?'timing-ok':'timing-ng'}">
+        <div class="timing-title">${eduOk?'✅ 教育費：計画通り達成見込み！':'⚠️ 教育費：見直しを検討してください'}</div>
+        <div class="timing-body">
+          ${totalNet>0?`月${fmt(eduMonthly,1)}万円を${ph1Yr}年間積立（年率5%複利）`:''}
+          ${!eduOk?`
+            ${hasUrgent?'<div class="suggestion-item">⚡ 大学まで間もない子がいます。早急に積立を開始してください。</div>':''}
+            <div style="margin-top:6px;font-weight:700;color:#e65100;font-size:0.8rem">改善案：</div>
+            <div class="suggestion-item">💡 月の積立額を増やす</div>
+            <div class="suggestion-item">💡 私立→国公立に変更すると費用が大幅減</div>
+            <div class="suggestion-item">💡 奨学金・教育ローンを一部活用する</div>`:''}
+        </div>
+      </div>`;
 
-  // タイミングカード 箱2（目標額の行を削除し「月○万円を○年間積立」表記に変更）
+  // タイミングカード 箱2
   const tc2 = `<div class="timing-card ${retOk?'timing-ok':'timing-ng'}">
     <div class="timing-title">${retOk
       ? `✅ ${retireAge}歳で老後資金 ${fmt(box2Total)}万円を達成見込み！`
@@ -522,47 +653,71 @@ function render(d) {
   const ss = savRatio<=20?'✅ 理想範囲内（20%以内）':savRatio<=28?'⚠️ やや高め（目安20%）':'❗ 見直しが必要（20%超過）';
   const sb = savRatio<=20?'rgba(232,245,233,0.9)':savRatio<=28?'rgba(255,243,224,0.9)':'rgba(255,235,238,0.9)';
 
+  // 箱2の表示（子どもなし時はフェーズ1なしで即フェーズ2）
+  const box2StartLabel = noKids
+    ? `あなた${myAge}歳（今すぐ開始）`
+    : `あなた${eduEndAge}歳（教育費完了後）`;
+  const box2SubLabel = noKids
+    ? `あなた${myAge}歳〜${retireAge}歳（${ph2Yr}年間）`
+    : `あなた${eduEndAge}歳〜${retireAge}歳（${ph2Yr}年間）`;
+
   // ロードマップ
-  const road = [
-    { age: myAge,            desc: `スタート！月${fmt(eduMonthly,1)}万円NISA積立開始（フェーズ1：教育費）` },
-    ...kids.filter(k=>k.cost>0).map((k,i)=>({
-      age:  Math.round(myAge + (UNI_ENTRY - k.age)),
-      desc: `${ORDINAL[i]}大学入学（${UNI_LABEL[k.uType]}）`,
-    })),
-    { age: eduEndAge,        desc: `教育費完了 → フェーズ2開始！月${fmt(retMonthly,1)}万円NISA（老後）` },
-    { age: retireAge,        desc: `退職予定 ― 老後資金 約${fmt(Math.round(retAccum))}万円 達成 🎉` },
-    { age: retireAge+retirePer, desc: `老後${retirePer}年間の想定終点（〜${retireAge+retirePer}歳）` },
-  ].sort((a,b)=>a.age-b.age).map(it=>`<div class="roadmap-item">
-    <div class="roadmap-age">${it.age}歳</div>
-    <div class="roadmap-desc">${it.desc}</div>
-  </div>`).join('');
+  const roadItems = noKids
+    ? [
+        { age: myAge,               desc: `スタート！月${fmt(retMonthly,1)}万円NISA積立開始（老後資金）` },
+        { age: retireAge,           desc: `退職予定 ― 老後資金 約${fmt(Math.round(retAccum))}万円 達成 🎉` },
+        { age: lifeExpAge, desc: `老後${retirePer}年間の想定終点（〜${lifeExpAge}歳）` },
+      ]
+    : [
+        { age: myAge,               desc: `スタート！月${fmt(eduMonthly,1)}万円NISA積立開始（フェーズ1：教育費）` },
+        ...kids.filter(k=>k.cost>0).map((k,i)=>({
+          age:  Math.round(myAge + (UNI_ENTRY - k.age)),
+          desc: `${ORDINAL[i]}大学入学（${UNI_LABEL[k.uType]}）`,
+        })),
+        { age: eduEndAge,           desc: `教育費完了 → フェーズ2開始！月${fmt(retMonthly,1)}万円NISA（老後）` },
+        { age: retireAge,           desc: `退職予定 ― 老後資金 約${fmt(Math.round(retAccum))}万円 達成 🎉` },
+        { age: lifeExpAge, desc: `老後${retirePer}年間の想定終点（〜${lifeExpAge}歳）` },
+      ];
+
+  const road = roadItems
+    .sort((a,b) => a.age - b.age)
+    .map(it => `<div class="roadmap-item">
+      <div class="roadmap-age">${it.age}歳</div>
+      <div class="roadmap-desc">${it.desc}</div>
+    </div>`).join('');
 
   document.getElementById('results').innerHTML = `
 
   <!-- 箱1 -->
   <div class="box-card box1">
     <div class="box-header"><div class="box-emoji">🟢</div><div class="box-title">箱1｜教育費プラン（大学4年間）</div></div>
-    <div class="monthly-hero">
-      <div class="monthly-label">フェーズ1　毎月のNISA積立額</div>
-      <div class="monthly-amount">${fmt(eduMonthly,1)}<span class="unit">万円／月</span></div>
-      <div class="monthly-sub">年率5%複利想定・子ども${nKids}人分合計・${ph1Yr}年間</div>
-    </div>
-    ${kidCards}
-    <div style="margin-top:8px">
-      <div class="info-row"><span class="info-label">大学費用 合計</span><span class="info-value">${fmt(totalCost)}万円</span></div>
-      <div class="info-row"><span class="info-label">児童手当 合計</span><span class="info-value">−${fmt(totalAllow)}万円</span></div>
-      <div class="info-row"><span class="info-label">NISAで用意する合計額</span><span class="info-value accent">${fmt(totalNet)}万円</span></div>
-      <div class="info-row"><span class="info-label">教育費完了予定</span><span class="info-value">あなた${eduEndAge}歳</span></div>
-    </div>
-    <a class="rakuten-btn" href="https://www.rakuten-sec.co.jp/web/fund/saving/simulation/" target="_blank">
-      <span style="font-size:1.3rem;flex-shrink:0">📊</span>
-      <div class="rakuten-btn-text">
-        <div class="rakuten-btn-title">楽天証券 積立シミュレーターで確認</div>
-        <div class="rakuten-btn-sub">月${fmt(eduMonthly,1)}万円・年利5%・${ph1Yr}年で試算</div>
-      </div>
-      <span style="flex-shrink:0">›</span>
-    </a>
-    ${tc1}
+    ${noKids
+      ? `<div class="timing-card timing-ok" style="margin-bottom:0">
+          <div class="timing-title">✅ 教育費の負担なし</div>
+          <div class="timing-body">子どもがいない・すでに独立しているため、老後資金の積立に全力を向けられます！</div>
+         </div>`
+      : `<div class="monthly-hero">
+          <div class="monthly-label">フェーズ1　毎月のNISA積立額</div>
+          <div class="monthly-amount">${fmt(eduMonthly,1)}<span class="unit">万円／月</span></div>
+          <div class="monthly-sub">年率5%複利想定・子ども${nKids}人分合計・${ph1Yr}年間</div>
+        </div>
+        ${kidCards}
+        <div style="margin-top:8px">
+          <div class="info-row"><span class="info-label">大学費用 合計</span><span class="info-value">${fmt(totalCost)}万円</span></div>
+          <div class="info-row"><span class="info-label">児童手当 合計</span><span class="info-value">−${fmt(totalAllow)}万円</span></div>
+          <div class="info-row"><span class="info-label">NISAで用意する合計額</span><span class="info-value accent">${fmt(totalNet)}万円</span></div>
+          <div class="info-row"><span class="info-label">教育費完了予定</span><span class="info-value">あなた${eduEndAge}歳</span></div>
+        </div>
+        <a class="rakuten-btn" href="https://www.rakuten-sec.co.jp/web/fund/saving/simulation/" target="_blank">
+          <span style="font-size:1.3rem;flex-shrink:0">📊</span>
+          <div class="rakuten-btn-text">
+            <div class="rakuten-btn-title">楽天証券 積立シミュレーターで確認</div>
+            <div class="rakuten-btn-sub">月${fmt(eduMonthly,1)}万円・年利5%・${ph1Yr}年で試算</div>
+          </div>
+          <span style="flex-shrink:0">›</span>
+        </a>
+        ${tc1}`
+    }
   </div>
 
   <!-- 箱2 -->
@@ -571,19 +726,19 @@ function render(d) {
     <div class="monthly-hero">
       <div class="monthly-label">フェーズ2　毎月のNISA積立額</div>
       <div class="monthly-amount">${fmt(retMonthly,1)}<span class="unit">万円／月</span></div>
-      <div class="monthly-sub">あなた${eduEndAge}歳〜${retireAge}歳（${ph2Yr}年間）</div>
+      <div class="monthly-sub">${box2SubLabel}</div>
     </div>
     <div class="info-row"><span class="info-label">老後の希望生活費</span><span class="info-value">月${fmt(lifeExp,1)}万円</span></div>
     <div class="info-row"><span class="info-label">年金見込み（夫婦合計）</span><span class="info-value">月${fmt(pension,1)}万円</span></div>
-    <div class="info-row"><span class="info-label">月々の不足額</span><span class="info-value">月${fmt(gap,1)}万円</span></div>
-    <div class="info-row"><span class="info-label">老後の想定期間</span><span class="info-value">${retirePer}年（〜${retireAge+retirePer}歳）</span></div>
+    <div class="info-row"><span class="info-label">月々の不足額（資産運用で備える）</span><span class="info-value accent2">月${fmt(gap,1)}万円</span></div>
+    <div class="info-row"><span class="info-label">老後の想定期間</span><span class="info-value">${retirePer}年（${retireAge}〜${lifeExpAge}歳）</span></div>
     <div class="info-row"><span class="info-label">必要な老後資金</span><span class="info-value accent2">${fmt(box2Total)}万円</span></div>
-    <div class="info-row"><span class="info-label">フェーズ2開始</span><span class="info-value">あなた${eduEndAge}歳（教育費完了後）</span></div>
-    <div class="phase-block">
+    <div class="info-row"><span class="info-label">フェーズ2開始</span><span class="info-value">${box2StartLabel}</span></div>
+    ${!noKids ? `<div class="phase-block">
       <div class="phase-block-title">📋 2フェーズ積立プラン</div>
       <div class="info-row"><span class="info-label">🟢 フェーズ1（教育費）</span><span class="info-value">${myAge}〜${eduEndAge}歳<br>月${fmt(eduMonthly,1)}万円</span></div>
       <div class="info-row"><span class="info-label">🔵 フェーズ2（老後）</span><span class="info-value">${eduEndAge}〜${retireAge}歳<br>月${fmt(retMonthly,1)}万円</span></div>
-    </div>
+    </div>` : ''}
     <a class="rakuten-btn" href="https://www.rakuten-sec.co.jp/web/fund/saving/simulation/" target="_blank">
       <span style="font-size:1.3rem;flex-shrink:0">📊</span>
       <div class="rakuten-btn-text">
@@ -620,16 +775,17 @@ function render(d) {
       </div>
     </div>
     <div class="info-row"><span class="info-label">黄金比率の貯蓄枠（20%）</span><span class="info-value">${fmt(savIdeal,1)}万円</span></div>
-    <div class="info-row"><span class="info-label">フェーズ1 NISA積立（教育費）</span><span class="info-value">${fmt(eduMonthly,1)}万円</span></div>
-    <div class="info-row"><span class="info-label">フェーズ2 NISA積立（老後）</span><span class="info-value">${fmt(retMonthly,1)}万円（${eduEndAge}歳〜）</span></div>
-    <div style="margin-top:10px;padding:12px;border-radius:9px;background:${sb};border:1.5px solid ${sc}">
+    ${!noKids ? `<div class="info-row"><span class="info-label">フェーズ1 NISA積立（教育費）</span><span class="info-value">${fmt(eduMonthly,1)}万円</span></div>` : ''}
+    <div class="info-row"><span class="info-label">フェーズ2 NISA積立（老後）</span><span class="info-value">${fmt(retMonthly,1)}万円（${noKids?myAge:eduEndAge}歳〜）</span></div>
+    ${!noKids ? `<div style="margin-top:10px;padding:12px;border-radius:9px;background:${sb};border:1.5px solid ${sc}">
       <div style="font-size:0.88rem;font-weight:800;color:${sc}">${ss}</div>
       <div style="font-size:0.76rem;color:#666;margin-top:4px">フェーズ1のNISA積立は手取りの約${Math.round(savRatio)}%（理想：20%以内）</div>
-    </div>
+    </div>` : ''}
     <div class="note-text">
       ※ 家計黄金比率：固定費45% / 変動費35% / 貯蓄20%<br>
       ※ 大学費用は文部科学省データ準拠（国公立243万・私立文系408万・私立理系551万）<br>
-      ※ 児童手当は2026年制度で計算
+      ※ 児童手当は2026年制度で計算<br>
+      ※ 老後資金＝（希望生活費−年金）×12×老後年数。年金分を差し引いた不足額を資産運用で備えます
     </div>
   </div>
 
