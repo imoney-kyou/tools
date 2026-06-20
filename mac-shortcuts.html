@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Mac ショートカット集</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --text: #1d1d1f;
+    --sub: #6e6e73;
+    --accent: #0071e3;
+    --key-bg: #e8e8ed;
+    --key-border: #c7c7cc;
+    --key-text: #1d1d1f;
+    --divider: #e5e5ea;
+    --search-bg: #e8e8ed;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000;
+      --card: #1c1c1e;
+      --text: #f5f5f7;
+      --sub: #98989d;
+      --accent: #2997ff;
+      --key-bg: #2c2c2e;
+      --key-border: #48484a;
+      --key-text: #f5f5f7;
+      --divider: #38383a;
+      --search-bg: #1c1c1e;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,245,247,0.85);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    padding: 16px 16px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  @media (prefers-color-scheme: dark) {
+    header { background: rgba(0,0,0,0.85); }
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .header-icon {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .search-wrap {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--sub);
+    font-size: 15px;
+    pointer-events: none;
+  }
+
+  #search {
+    width: 100%;
+    padding: 10px 16px 10px 36px;
+    border: none;
+    border-radius: 12px;
+    background: var(--search-bg);
+    color: var(--text);
+    font-size: 16px;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  #search::placeholder { color: var(--sub); }
+
+  .tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: none;
+    background: var(--search-bg);
+    color: var(--sub);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+    -webkit-appearance: none;
+  }
+
+  .tab.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  main {
+    padding: 16px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .section { margin-bottom: 28px; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--sub);
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .shortcut-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    gap: 12px;
+    border-bottom: 1px solid var(--divider);
+    transition: background 0.1s;
+    cursor: default;
+  }
+
+  .shortcut-row:last-child { border-bottom: none; }
+  .shortcut-row:active { background: var(--bg); }
+
+  .shortcut-desc {
+    font-size: 15px;
+    font-weight: 400;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .keys {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 7px;
+    background: var(--key-bg);
+    border: 1px solid var(--key-border);
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--key-text);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    white-space: nowrap;
+  }
+
+  .plus {
+    color: var(--sub);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .no-result {
+    text-align: center;
+    color: var(--sub);
+    padding: 60px 20px;
+    font-size: 16px;
+  }
+
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <span class="header-icon">⌨️</span>
+    <h1>Mac ショートカット集</h1>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="search" placeholder="ショートカットを検索..." autocomplete="off" autocorrect="off" spellcheck="false">
+  </div>
+  <div class="tabs" id="tabs"></div>
+</header>
+
+<main id="main"></main>
+
+<script>
+const DATA = [
+  {
+    category: "基本操作",
+    icon: "✂️",
+    items: [
+      { desc: "コピー", keys: ["⌘", "C"] },
+      { desc: "ペースト", keys: ["⌘", "V"] },
+      { desc: "カット（切り取り）", keys: ["⌘", "X"] },
+      { desc: "元に戻す（アンドゥ）", keys: ["⌘", "Z"] },
+      { desc: "やり直す（リドゥ）", keys: ["⌘", "⇧", "Z"] },
+      { desc: "すべて選択", keys: ["⌘", "A"] },
+      { desc: "保存", keys: ["⌘", "S"] },
+      { desc: "名前を付けて保存", keys: ["⌘", "⇧", "S"] },
+      { desc: "印刷", keys: ["⌘", "P"] },
+      { desc: "開く", keys: ["⌘", "O"] },
+      { desc: "新規作成", keys: ["⌘", "N"] },
+      { desc: "閉じる", keys: ["⌘", "W"] },
+      { desc: "検索", keys: ["⌘", "F"] },
+      { desc: "アプリを終了", keys: ["⌘", "Q"] },
+    ]
+  },
+  {
+    category: "スクリーンショット",
+    icon: "📸",
+    items: [
+      { desc: "全画面スクショ（ファイル保存）", keys: ["⌘", "⇧", "3"] },
+      { desc: "範囲選択スクショ（ファイル保存）", keys: ["⌘", "⇧", "4"] },
+      { desc: "ウィンドウのスクショ", keys: ["⌘", "⇧", "4", "Space"] },
+      { desc: "スクショツール（録画も可）", keys: ["⌘", "⇧", "5"] },
+      { desc: "全画面スクショ（クリップボード）", keys: ["⌘", "⌃", "⇧", "3"] },
+      { desc: "範囲選択スクショ（クリップボード）", keys: ["⌘", "⌃", "⇧", "4"] },
+      { desc: "Touch Barのスクショ", keys: ["⌘", "⇧", "6"] },
+    ]
+  },
+  {
+    category: "ウィンドウ管理",
+    icon: "🪟",
+    items: [
+      { desc: "アプリ切り替え", keys: ["⌘", "Tab"] },
+      { desc: "同アプリ内ウィンドウ切り替え", keys: ["⌘", "`"] },
+      { desc: "Mission Control（全ウィンドウ）", keys: ["⌃", "↑"] },
+      { desc: "アプリのウィンドウ一覧", keys: ["⌃", "↓"] },
+      { desc: "デスクトップを表示", keys: ["⌃", "F3"] },
+      { desc: "Launchpad（アプリ一覧）", keys: ["F4"] },
+      { desc: "左のデスクトップへ", keys: ["⌃", "←"] },
+      { desc: "右のデスクトップへ", keys: ["⌃", "→"] },
+      { desc: "ウィンドウを最小化", keys: ["⌘", "M"] },
+      { desc: "フルスクリーン切り替え", keys: ["⌘", "⌃", "F"] },
+      { desc: "Spotlight 検索", keys: ["⌘", "Space"] },
+    ]
+  },
+  {
+    category: "テキスト編集",
+    icon: "✍️",
+    items: [
+      { desc: "太字", keys: ["⌘", "B"] },
+      { desc: "斜体（イタリック）", keys: ["⌘", "I"] },
+      { desc: "下線", keys: ["⌘", "U"] },
+      { desc: "行の先頭に移動", keys: ["⌘", "←"] },
+      { desc: "行の末尾に移動", keys: ["⌘", "→"] },
+      { desc: "文書の先頭に移動", keys: ["⌘", "↑"] },
+      { desc: "文書の末尾に移動", keys: ["⌘", "↓"] },
+      { desc: "前の単語に移動", keys: ["⌥", "←"] },
+      { desc: "次の単語に移動", keys: ["⌥", "→"] },
+      { desc: "1行選択（先頭から）", keys: ["⌘", "⇧", "←"] },
+      { desc: "1行選択（末尾まで）", keys: ["⌘", "⇧", "→"] },
+      { desc: "単語を削除（カーソル左）", keys: ["⌥", "Delete"] },
+      { desc: "行を削除（カーソル左）", keys: ["⌘", "Delete"] },
+      { desc: "絵文字・記号の入力", keys: ["⌘", "⌃", "Space"] },
+    ]
+  },
+  {
+    category: "Safari",
+    icon: "🌐",
+    items: [
+      { desc: "新しいタブを開く", keys: ["⌘", "T"] },
+      { desc: "タブを閉じる", keys: ["⌘", "W"] },
+      { desc: "前のタブへ", keys: ["⌘", "⇧", "["] },
+      { desc: "次のタブへ", keys: ["⌘", "⇧", "]"] },
+      { desc: "ページを再読み込み", keys: ["⌘", "R"] },
+      { desc: "新しいウィンドウ", keys: ["⌘", "N"] },
+      { desc: "プライベートウィンドウ", keys: ["⌘", "⇧", "N"] },
+      { desc: "アドレスバーにフォーカス", keys: ["⌘", "L"] },
+      { desc: "ページ内検索", keys: ["⌘", "F"] },
+      { desc: "読み込みを停止", keys: ["⌘", "."] },
+      { desc: "前のページに戻る", keys: ["⌘", "["] },
+      { desc: "次のページに進む", keys: ["⌘", "]"] },
+      { desc: "ブックマークを追加", keys: ["⌘", "D"] },
+      { desc: "ブックマーク一覧", keys: ["⌘", "⌥", "B"] },
+      { desc: "開発者ツール", keys: ["⌘", "⌥", "I"] },
+    ]
+  },
+  {
+    category: "Finder",
+    icon: "📁",
+    items: [
+      { desc: "新しいFinderウィンドウ", keys: ["⌘", "N"] },
+      { desc: "新しいフォルダを作成", keys: ["⌘", "⇧", "N"] },
+      { desc: "ファイルを開く", keys: ["⌘", "O"] },
+      { desc: "クイックルック（プレビュー）", keys: ["Space"] },
+      { desc: "ゴミ箱に移動", keys: ["⌘", "Delete"] },
+      { desc: "ゴミ箱を空にする", keys: ["⌘", "⇧", "Delete"] },
+      { desc: "情報を見る", keys: ["⌘", "I"] },
+      { desc: "名前を変更", keys: ["Return"] },
+      { desc: "項目を複製", keys: ["⌘", "D"] },
+      { desc: "Airdropを開く", keys: ["⌘", "R"] },
+      { desc: "パスバーを表示/非表示", keys: ["⌘", "⌥", "P"] },
+      { desc: "サイドバーを表示/非表示", keys: ["⌘", "⌥", "S"] },
+      { desc: "ステータスバーを表示/非表示", keys: ["⌘", "/"] },
+      { desc: "アイコン表示", keys: ["⌘", "1"] },
+      { desc: "リスト表示", keys: ["⌘", "2"] },
+      { desc: "カラム表示", keys: ["⌘", "3"] },
+      { desc: "ギャラリー表示", keys: ["⌘", "4"] },
+    ]
+  },
+  {
+    category: "システム・電源",
+    icon: "⚙️",
+    items: [
+      { desc: "強制終了メニューを開く", keys: ["⌘", "⌥", "Esc"] },
+      { desc: "アプリを強制終了", keys: ["⌘", "⌥", "⇧", "Esc"] },
+      { desc: "スリープ", keys: ["⌘", "⌥", "電源"] },
+      { desc: "システム環境設定を開く", keys: ["⌘", "Space", "→ System"] },
+      { desc: "画面のロック", keys: ["⌘", "⌃", "Q"] },
+      { desc: "ログアウト", keys: ["⌘", "⇧", "Q"] },
+      { desc: "再起動・シャットダウンダイアログ", keys: ["⌃", "電源"] },
+      { desc: "アクティビティモニタを開く", keys: ["⌘", "Space", "→ Activity"] },
+      { desc: "音量を上げる", keys: ["F12"] },
+      { desc: "音量を下げる", keys: ["F11"] },
+      { desc: "輝度を上げる", keys: ["F2"] },
+      { desc: "輝度を下げる", keys: ["F1"] },
+    ]
+  },
+  {
+    category: "アクセシビリティ",
+    icon: "♿",
+    items: [
+      { desc: "ズームイン", keys: ["⌘", "⌥", "="] },
+      { desc: "ズームアウト", keys: ["⌘", "⌥", "-"] },
+      { desc: "VoiceOver 開始/終了", keys: ["⌘", "F5"] },
+      { desc: "反転カラー", keys: ["⌘", "⌃", "⌥", "8"] },
+      { desc: "コントラスト上げる", keys: ["⌘", "⌃", "."] },
+      { desc: "コントラスト下げる", keys: ["⌘", "⌃", ","] },
+    ]
+  }
+];
+
+const SYMBOL_MAP = {
+  "⌘": "Command",
+  "⌥": "Option",
+  "⇧": "Shift",
+  "⌃": "Control",
+  "Space": "Space",
+  "Delete": "Delete",
+  "Return": "Return",
+  "Tab": "Tab",
+  "Esc": "Esc",
+};
+
+function renderKeys(keys) {
+  return keys.map((k, i) => `<span class="key">${k}</span>`).join('');
+}
+
+function createRow(item) {
+  const div = document.createElement('div');
+  div.className = 'shortcut-row';
+  div.innerHTML = `
+    <span class="shortcut-desc">${item.desc}</span>
+    <div class="keys">${renderKeys(item.keys)}</div>
+  `;
+  return div;
+}
+
+let currentCategory = 'すべて';
+
+function render(query = '') {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  query = query.toLowerCase().trim();
+
+  let found = 0;
+
+  DATA.forEach(section => {
+    if (currentCategory !== 'すべて' && section.category !== currentCategory) return;
+
+    const filtered = section.items.filter(item =>
+      !query ||
+      item.desc.toLowerCase().includes(query) ||
+      item.keys.join('').toLowerCase().includes(query)
+    );
+
+    if (filtered.length === 0) return;
+
+    found += filtered.length;
+
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `<div class="section-title">${section.icon} ${section.category}</div>`;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    filtered.forEach(item => card.appendChild(createRow(item)));
+    sec.appendChild(card);
+    main.appendChild(sec);
+  });
+
+  if (found === 0) {
+    main.innerHTML = '<div class="no-result">「' + (query || currentCategory) + '」に一致するショートカットが見つかりません</div>';
+  }
+}
+
+function buildTabs() {
+  const tabs = document.getElementById('tabs');
+  const categories = ['すべて', ...DATA.map(d => d.category)];
+
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'tab' + (cat === 'すべて' ? ' active' : '');
+    btn.textContent = cat;
+    btn.addEventListener('click', () => {
+      currentCategory = cat;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      render(document.getElementById('search').value);
+    });
+    tabs.appendChild(btn);
+  });
+}
+
+document.getElementById('search').addEventListener('input', e => {
+  render(e.target.value);
+});
+
+buildTabs();
+render();
+</script>
+</body>
+</html>
