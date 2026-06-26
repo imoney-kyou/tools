@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>30秒でわかる｜老後のお金診断</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --primary: #1A3A5C;
+    --accent: #E8A020;
+    --accent-light: #FFF3DC;
+    --success: #2E7D32;
+    --warning: #E65100;
+    --danger: #B71C1C;
+    --bg: #F5F7FA;
+    --card: #FFFFFF;
+    --text: #1C2B3A;
+    --sub: #607080;
+    --radius: 16px;
+  }
+
+  body {
+    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 40px;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    width: 100%;
+    background: var(--primary);
+    padding: 14px 20px;
+    text-align: center;
+    color: white;
+  }
+  .header .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+  .header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+  .header .sub {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+
+  /* ===== Progress ===== */
+  .progress-wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 16px 20px 0;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #DDE3EA;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #2979B0);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  /* ===== Screen ===== */
+  .screen {
+    display: none;
+    width: 100%;
+    max-width: 480px;
+    padding: 20px 16px;
+    animation: fadeIn 0.3s ease;
+  }
+  .screen.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Card ===== */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  /* ===== Question ===== */
+  .q-icon { font-size: 32px; margin-bottom: 10px; }
+  .q-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .q-title {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .q-note {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  /* ===== Choices ===== */
+  .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .choice-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: #F0F4F8;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    -webkit-appearance: none;
+  }
+  .choice-btn .icon { font-size: 20px; min-width: 28px; }
+  .choice-btn .label { flex: 1; }
+  .choice-btn .sub-label {
+    font-size: 11px;
+    color: var(--sub);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .choice-btn:hover, .choice-btn:active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    transform: scale(0.98);
+  }
+
+  /* ===== Top Screen ===== */
+  #screen-top .top-visual {
+    text-align: center;
+    padding: 8px 0 20px;
+  }
+  #screen-top .money-icon { font-size: 56px; margin-bottom: 8px; }
+  #screen-top h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  #screen-top .desc {
+    font-size: 14px;
+    color: var(--sub);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .feature-list {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  .feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text);
+    padding: 8px 0;
+    border-bottom: 1px solid #EEF1F5;
+  }
+  .feature-list li:last-child { border-bottom: none; }
+  .feature-list .check { color: var(--accent); font-size: 16px; }
+
+  /* ===== Start Button ===== */
+  .btn-start {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent) 0%, #F0B030 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 17px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 16px rgba(232,160,32,0.35);
+    transition: all 0.2s;
+  }
+  .btn-start:active { transform: scale(0.97); }
+  .btn-start .arrow { margin-left: 6px; }
+
+  /* ===== Result Screen ===== */
+  .result-top {
+    text-align: center;
+    padding: 8px 0 20px;
+  }
+  .result-type-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+  }
+  .result-icon { font-size: 52px; margin-bottom: 6px; }
+  .result-type-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .result-message {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.7;
+  }
+
+  /* ===== Numbers ===== */
+  .numbers-wrap {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .number-row {
+    background: #F0F4F8;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .number-row .n-label {
+    font-size: 13px;
+    color: var(--sub);
+    font-weight: 500;
+  }
+  .number-row .n-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .number-row.highlight {
+    background: var(--accent-light);
+    border: 1px solid #F5C060;
+  }
+  .number-row.highlight .n-label { color: #C07010; }
+  .number-row.highlight .n-value { color: var(--warning); }
+  .number-row.safe {
+    background: #E8F5E9;
+    border: 1px solid #A5D6A7;
+  }
+  .number-row.safe .n-label { color: #388E3C; }
+  .number-row.safe .n-value { color: var(--success); }
+
+  /* ===== Gap bar ===== */
+  .gap-visual {
+    margin-top: 20px;
+    padding: 16px;
+    background: #F0F4F8;
+    border-radius: 12px;
+  }
+  .gap-visual .g-title {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .bar-wrap { position: relative; height: 28px; background: #DDE3EA; border-radius: 8px; overflow: hidden; }
+  .bar-savings {
+    height: 100%;
+    background: linear-gradient(90deg, #2E86C1, #52AAD8);
+    border-radius: 8px;
+    transition: width 1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+  }
+  .bar-savings span {
+    font-size: 10px;
+    color: white;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .bar-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+  .bar-labels span { font-size: 11px; color: var(--sub); }
+
+  /* ===== Advice ===== */
+  .advice-card {
+    margin-top: 16px;
+    background: var(--primary);
+    color: white;
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .advice-card .a-title {
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0.7;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+  .advice-list { list-style: none; }
+  .advice-list li {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .advice-list li:last-child { border-bottom: none; }
+  .advice-list .num {
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ===== Age Picker ===== */
+  .age-picker { margin-bottom: 24px; }
+  .age-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .age-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .age-btn:active { background: var(--primary); color: white; transform: scale(0.9); }
+  .age-value-wrap { text-align: center; min-width: 100px; }
+  .age-value {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+    display: block;
+  }
+  .age-unit { font-size: 18px; color: var(--sub); }
+  .age-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 8px;
+    outline: none;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .age-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .age-slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: none;
+  }
+  .age-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--sub);
+    margin-top: 6px;
+  }
+  .age-range-labels .age-mid { color: var(--accent); font-weight: 700; font-size: 13px; }
+  .btn-next {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, #2979B0 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 17px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 14px rgba(26,58,92,0.25);
+    transition: all 0.2s;
+  }
+  .btn-next:active { transform: scale(0.97); }
+
+  /* ===== Money Sliders ===== */
+  .ms-group { margin-bottom: 4px; }
+  .ms-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .ms-icon-tag { font-size: 22px; flex-shrink: 0; }
+  .ms-label-wrap { flex: 1; }
+  .ms-label { font-size: 14px; font-weight: 700; color: var(--text); }
+  .ms-sub { font-size: 11px; color: var(--sub); margin-top: 1px; }
+  .ms-value-display {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 6px 0 10px;
+    line-height: 1;
+  }
+  .ms-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .ms-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .ms-btn:active { background: var(--primary); color: white; transform: scale(0.9); }
+  .money-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+  }
+  .money-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .money-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: none;
+  }
+  .ms-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--sub);
+    padding: 0 23px;
+  }
+  .ms-divider { height: 1px; background: #EEF1F5; margin: 16px 0; }
+  .number-row .n-sub {
+    font-size: 10px;
+    color: var(--sub);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  /* ===== CTA ===== */
+  .cta-card {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #FFF8E8 0%, #FFF0CC 100%);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .cta-card .cta-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .cta-card .cta-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .cta-card .cta-desc {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .btn-cta {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #06C755 0%, #05A547 100%);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 14px rgba(6,199,85,0.35);
+    transition: all 0.2s;
+  }
+  .btn-cta:active { transform: scale(0.97); }
+
+  .retry-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 1px solid #DDE3EA;
+    color: var(--sub);
+    font-size: 13px;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+  }
+  .retry-btn:active { background: #F0F4F8; }
+
+  /* ===== Type colors ===== */
+  .type-a .result-type-badge { background: #E8F5E9; color: #2E7D32; }
+  .type-a .result-type-name { color: #2E7D32; }
+  .type-b .result-type-badge { background: #E3F2FD; color: #1565C0; }
+  .type-b .result-type-name { color: #1565C0; }
+  .type-c .result-type-badge { background: #FFF3E0; color: #E65100; }
+  .type-c .result-type-name { color: #E65100; }
+  .type-d .result-type-badge { background: #FFEBEE; color: #B71C1C; }
+  .type-d .result-type-name { color: #B71C1C; }
+
+  /* ===== Footer ===== */
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: #AAB5BF;
+    padding: 16px 20px 0;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="badge">LINE登録者限定 無料ツール</div>
+  <h1>30秒でわかる<br>老後のお金診断シミュレーター</h1>
+  <div class="sub">by きょう（i-money）</div>
+</div>
+
+<!-- Screen: Top -->
+<div id="screen-top" class="screen active">
+  <div class="card">
+    <div class="top-visual">
+      <div class="money-icon">💰</div>
+      <h2>あなたの老後資金、<br>今のままで大丈夫？</h2>
+      <p class="desc">質問に答えるだけで30秒。<br>老後の不足額と、今すぐやるべきことがわかります。</p>
+    </div>
+    <ul class="feature-list">
+      <li><span class="check">✓</span> 登録不要・完全無料</li>
+      <li><span class="check">✓</span> 4問だけでOK（所要30秒）</li>
+      <li><span class="check">✓</span> あなた専用の診断結果を表示</li>
+      <li><span class="check">✓</span> 今やるべきアドバイスつき</li>
+    </ul>
+    <button class="btn-start" onclick="startQuiz()">診断スタート <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap" id="progress-wrap" style="display:none;">
+  <div class="progress-label">
+    <span id="progress-text">STEP 1 / 4</span>
+    <span id="progress-pct">25%</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill" style="width:25%"></div>
+  </div>
+</div>
+
+<!-- Screen: Q1 年齢 -->
+<div id="screen-q1" class="screen">
+  <div class="card">
+    <div class="q-icon">🎂</div>
+    <div class="q-label">STEP 1 / 4</div>
+    <div class="q-title">今、何歳ですか？</div>
+    <div class="q-note">退職まで何年あるかを計算します。</div>
+    <div class="age-picker">
+      <div class="age-display">
+        <button class="age-btn" onclick="adjustAge(-1)">－</button>
+        <div class="age-value-wrap">
+          <span class="age-value" id="age-display">35</span>
+          <span class="age-unit">歳</span>
+        </div>
+        <button class="age-btn" onclick="adjustAge(1)">＋</button>
+      </div>
+      <input type="range" id="age-slider" min="20" max="64" value="35"
+             class="age-slider" oninput="syncAge(this.value)">
+      <div class="age-range-labels">
+        <span>20歳</span>
+        <span class="age-mid" id="age-retire-note">老後まで30年</span>
+        <span>64歳</span>
+      </div>
+    </div>
+    <button class="btn-next" onclick="confirmAge()">この年齢で診断する →</button>
+  </div>
+</div>
+
+<!-- Screen: Q2 毎月の積立 -->
+<div id="screen-q2" class="screen">
+  <div class="card">
+    <div class="q-icon">🐖</div>
+    <div class="q-label">STEP 2 / 4</div>
+    <div class="q-title">毎月の積立額を<br>教えてください</div>
+    <div class="q-note">現金貯蓄と投資（NISA等）を分けて入力します。</div>
+
+    <div class="ms-group">
+      <div class="ms-header">
+        <span class="ms-icon-tag">🏦</span>
+        <div class="ms-label-wrap">
+          <div class="ms-label">毎月の貯蓄額（現金）</div>
+          <div class="ms-sub">普通預金・定期預金など</div>
+        </div>
+      </div>
+      <div class="ms-value-display" id="monthly-cash-display">5,000円</div>
+      <div class="ms-slider-row">
+        <button class="ms-btn" onclick="adjustMoney('monthly-cash',-1000,200000)">－</button>
+        <input type="range" id="monthly-cash-slider" min="0" max="200000" step="1000" value="5000"
+               class="money-slider" oninput="syncMoney('monthly-cash',this.value,200000)">
+        <button class="ms-btn" onclick="adjustMoney('monthly-cash',1000,200000)">＋</button>
+      </div>
+      <div class="ms-range-labels"><span>0円</span><span>20万円</span></div>
+    </div>
+
+    <div class="ms-divider"></div>
+
+    <div class="ms-group">
+      <div class="ms-header">
+        <span class="ms-icon-tag">📈</span>
+        <div class="ms-label-wrap">
+          <div class="ms-label">毎月の投資額（NISA等）</div>
+          <div class="ms-sub">積立投信・つみたてNISAなど</div>
+        </div>
+      </div>
+      <div class="ms-value-display" id="monthly-invest-display">1万円</div>
+      <div class="ms-slider-row">
+        <button class="ms-btn" onclick="adjustMoney('monthly-invest',-1000,200000)">－</button>
+        <input type="range" id="monthly-invest-slider" min="0" max="200000" step="1000" value="10000"
+               class="money-slider" oninput="syncMoney('monthly-invest',this.value,200000)">
+        <button class="ms-btn" onclick="adjustMoney('monthly-invest',1000,200000)">＋</button>
+      </div>
+      <div class="ms-range-labels"><span>0円</span><span>20万円</span></div>
+    </div>
+
+    <button class="btn-next" onclick="confirmMonthly()">次へ →</button>
+  </div>
+</div>
+
+<!-- Screen: Q3 現在の資産 -->
+<div id="screen-q3" class="screen">
+  <div class="card">
+    <div class="q-icon">🏦</div>
+    <div class="q-label">STEP 3 / 4</div>
+    <div class="q-title">現在の資産残高を<br>教えてください</div>
+    <div class="q-note">現金貯蓄と投資資産を分けて入力します。</div>
+
+    <div class="ms-group">
+      <div class="ms-header">
+        <span class="ms-icon-tag">💴</span>
+        <div class="ms-label-wrap">
+          <div class="ms-label">現在の貯蓄（現金）</div>
+          <div class="ms-sub">預金・現金など</div>
+        </div>
+      </div>
+      <div class="ms-value-display" id="cash-display">100万円</div>
+      <div class="ms-slider-row">
+        <button class="ms-btn" onclick="adjustMoney('cash',-100000,5000000)">－</button>
+        <input type="range" id="cash-slider" min="0" max="5000000" step="100000" value="1000000"
+               class="money-slider" oninput="syncMoney('cash',this.value,5000000)">
+        <button class="ms-btn" onclick="adjustMoney('cash',100000,5000000)">＋</button>
+      </div>
+      <div class="ms-range-labels"><span>0円</span><span>500万円</span></div>
+    </div>
+
+    <div class="ms-divider"></div>
+
+    <div class="ms-group">
+      <div class="ms-header">
+        <span class="ms-icon-tag">📊</span>
+        <div class="ms-label-wrap">
+          <div class="ms-label">現在の投資残高（NISA等）</div>
+          <div class="ms-sub">投資信託・株・ETFなど</div>
+        </div>
+      </div>
+      <div class="ms-value-display" id="invest-display">50万円</div>
+      <div class="ms-slider-row">
+        <button class="ms-btn" onclick="adjustMoney('invest',-100000,10000000)">－</button>
+        <input type="range" id="invest-slider" min="0" max="10000000" step="100000" value="500000"
+               class="money-slider" oninput="syncMoney('invest',this.value,10000000)">
+        <button class="ms-btn" onclick="adjustMoney('invest',100000,10000000)">＋</button>
+      </div>
+      <div class="ms-range-labels"><span>0円</span><span>1,000万円</span></div>
+    </div>
+
+    <button class="btn-next" onclick="confirmAssets()">次へ →</button>
+  </div>
+</div>
+
+<!-- Screen: Q4 老後の生活費 -->
+<div id="screen-q4" class="screen">
+  <div class="card">
+    <div class="q-icon">🏡</div>
+    <div class="q-label">STEP 4 / 4</div>
+    <div class="q-title">老後に毎月いくら必要ですか？</div>
+    <div class="q-note">旅行・趣味などゆとりも含めた理想の生活費。</div>
+    <div class="choices">
+      <button class="choice-btn" onclick="answer('monthly',150000)">
+        <span class="icon">🍚</span>
+        <div class="label">月15万円<div class="sub-label">シンプルな生活でOK</div></div>
+      </button>
+      <button class="choice-btn" onclick="answer('monthly',200000)">
+        <span class="icon">☕</span>
+        <div class="label">月20万円<div class="sub-label">ゆとりある普通の暮らし</div></div>
+      </button>
+      <button class="choice-btn" onclick="answer('monthly',250000)">
+        <span class="icon">✈️</span>
+        <div class="label">月25万円<div class="sub-label">旅行も楽しみたい</div></div>
+      </button>
+      <button class="choice-btn" onclick="answer('monthly',300000)">
+        <span class="icon">🌟</span>
+        <div class="label">月30万円以上<div class="sub-label">充実した老後を送りたい</div></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Screen: Result -->
+<div id="screen-result" class="screen">
+  <div class="card" id="result-card">
+    <div class="result-top">
+      <div class="result-type-badge" id="r-badge"></div>
+      <div class="result-icon" id="r-icon"></div>
+      <div class="result-type-name" id="r-type-name"></div>
+      <div class="result-message" id="r-message"></div>
+    </div>
+
+    <div class="numbers-wrap">
+      <div class="number-row">
+        <div class="n-label">老後に必要な総額</div>
+        <div class="n-value" id="r-need">—</div>
+      </div>
+      <div class="number-row">
+        <div class="n-label">
+          今のペースで貯まる額
+          <div class="n-sub" id="r-projected-sub"></div>
+        </div>
+        <div class="n-value" id="r-projected">—</div>
+      </div>
+      <div class="number-row" id="r-gap-row">
+        <div class="n-label" id="r-gap-label">不足額</div>
+        <div class="n-value" id="r-gap">—</div>
+      </div>
+    </div>
+
+    <div class="gap-visual">
+      <div class="g-title">貯蓄達成率（老後資金）</div>
+      <div class="bar-wrap">
+        <div class="bar-savings" id="r-bar" style="width:0%">
+          <span id="r-bar-label"></span>
+        </div>
+      </div>
+      <div class="bar-labels">
+        <span>0%</span>
+        <span id="r-bar-pct-end">100%（目標）</span>
+      </div>
+    </div>
+
+    <div class="advice-card">
+      <div class="a-title">▶ 今すぐやるべきこと</div>
+      <ul class="advice-list" id="r-advice"></ul>
+    </div>
+  </div>
+
+  <button class="retry-btn" onclick="restart()">↩ もう一度診断する</button>
+
+  <div class="footer-note">
+    ※ この診断は公的年金月15万円受給を仮定した概算です。<br>投資部分は年利5%複利（インデックス投資の長期平均）で計算。<br>実際の金額は個人の状況により異なります。投資は元本保証ではありません。
+  </div>
+</div>
+
+<script>
+  const answers = {};
+
+  const screens = ['screen-top','screen-q1','screen-q2','screen-q3','screen-q4','screen-result'];
+
+  function startQuiz() {
+    showScreen('screen-q1');
+    document.getElementById('progress-wrap').style.display = 'block';
+    updateProgress(1, 4);
+  }
+
+  // ===== Age slider =====
+  function syncAge(val) {
+    const age = parseInt(val);
+    document.getElementById('age-display').textContent = age;
+    document.getElementById('age-slider').value = age;
+    const pct = ((age - 20) / (64 - 20)) * 100;
+    document.getElementById('age-slider').style.background =
+      `linear-gradient(90deg, #1A3A5C ${pct}%, #DDE3EA ${pct}%)`;
+    const yearsLeft = Math.max(0, 65 - age);
+    document.getElementById('age-retire-note').textContent =
+      yearsLeft > 0 ? `老後まで${yearsLeft}年` : 'もうすぐ老後！';
+  }
+
+  function adjustAge(delta) {
+    const slider = document.getElementById('age-slider');
+    syncAge(Math.min(64, Math.max(20, parseInt(slider.value) + delta)));
+  }
+
+  function confirmAge() {
+    answers.age = parseInt(document.getElementById('age-slider').value);
+    showScreen('screen-q2');
+    updateProgress(2, 4);
+  }
+
+  // ===== Money sliders =====
+  function fmtSlider(val) {
+    val = parseInt(val);
+    if (val === 0) return '0円';
+    if (val >= 10000) {
+      const man = val / 10000;
+      return (Number.isInteger(man) ? man : man.toFixed(1)) + '万円';
+    }
+    return val.toLocaleString() + '円';
+  }
+
+  function syncMoney(id, val, max) {
+    const v = parseInt(val);
+    document.getElementById(id + '-display').textContent = fmtSlider(v);
+    document.getElementById(id + '-slider').value = v;
+    const pct = (v / max) * 100;
+    document.getElementById(id + '-slider').style.background =
+      `linear-gradient(90deg, #1A3A5C ${pct}%, #DDE3EA ${pct}%)`;
+  }
+
+  function adjustMoney(id, delta, max) {
+    const slider = document.getElementById(id + '-slider');
+    const step   = parseInt(slider.step);
+    syncMoney(id, Math.min(max, Math.max(0, parseInt(slider.value) + delta)), max);
+  }
+
+  function confirmMonthly() {
+    answers.monthlyCash   = parseInt(document.getElementById('monthly-cash-slider').value);
+    answers.monthlyInvest = parseInt(document.getElementById('monthly-invest-slider').value);
+    showScreen('screen-q3');
+    updateProgress(3, 4);
+  }
+
+  function confirmAssets() {
+    answers.currentCash   = parseInt(document.getElementById('cash-slider').value);
+    answers.currentInvest = parseInt(document.getElementById('invest-slider').value);
+    showScreen('screen-q4');
+    updateProgress(4, 4);
+  }
+
+  function answer(key, value) {
+    answers[key] = value;
+    if (key === 'monthly') calcResult();
+  }
+
+  // ===== Navigation =====
+  function updateProgress(step, total) {
+    const pct = Math.round((step / total) * 100);
+    document.getElementById('progress-text').textContent = `STEP ${step} / ${total}`;
+    document.getElementById('progress-pct').textContent = `${pct}%`;
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+
+  function showScreen(id) {
+    screens.forEach(s => document.getElementById(s).classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ===== Calculation =====
+  function futureValue(pv, pmt, annualRate, months) {
+    if (months === 0) return pv;
+    if (annualRate === 0) return pv + pmt * months;
+    const r = annualRate / 12;
+    return pv * Math.pow(1 + r, months) + pmt * ((Math.pow(1 + r, months) - 1) / r);
+  }
+
+  function calcResult() {
+    const age             = answers.age;
+    const months          = Math.max(0, (65 - age) * 12);
+    const monthlyCash     = answers.monthlyCash;
+    const monthlyInvest   = answers.monthlyInvest;
+    const currentCash     = answers.currentCash;
+    const currentInvest   = answers.currentInvest;
+    const monthlyNeed     = answers.monthly;
+
+    const pension         = 150000;
+    const monthsRetired   = 25 * 12;
+
+    const selfFundNeeded  = Math.max(0, (monthlyNeed - pension) * monthsRetired);
+
+    const cashAtRetire    = currentCash + monthlyCash * months;
+    const investAtRetire  = futureValue(currentInvest, monthlyInvest, 0.05, months);
+    const savingsAtRetire = cashAtRetire + investAtRetire;
+
+    const gap  = selfFundNeeded - savingsAtRetire;
+    const rate = selfFundNeeded > 0 ? Math.min(savingsAtRetire / selfFundNeeded, 1) : 1;
+
+    let type;
+    if (gap <= 0)            type = 'a';
+    else if (gap < 3000000)  type = 'b';
+    else if (gap < 8000000)  type = 'c';
+    else                     type = 'd';
+
+    renderResult(type, selfFundNeeded, savingsAtRetire, gap, rate, cashAtRetire, investAtRetire);
+  }
+
+  function fmt(n) {
+    if (n >= 100000000) return (n / 100000000).toFixed(1) + '億円';
+    if (n >= 10000)     return Math.round(n / 10000) + '万円';
+    return n.toLocaleString() + '円';
+  }
+
+  const typeData = {
+    a: {
+      badge: '安心タイプ',
+      icon: '🌟',
+      name: '老後の準備は十分！',
+      message: '素晴らしい！今のペースを続ければ、老後資金は十分に準備できる見通しです。あとはインフレ対策として投資を続けることが大切です。',
+      gapLabel: '余裕額',
+      advices: [
+        'NISAの非課税枠を最大限に活用する',
+        '余剰資金はオルカンやS&P500で長期運用',
+        '生活防衛資金（生活費6ヶ月分）は現金で保持',
+      ]
+    },
+    b: {
+      badge: '注意タイプ',
+      icon: '⚠️',
+      name: '少し不安が残ります',
+      message: '今のペースでは老後に少し不足する可能性があります。月の積立額を少し増やすか、投資で効率よく増やす工夫が必要です。',
+      gapLabel: '不足見込み',
+      advices: [
+        'NISAで毎月の積立投資を始める（または増やす）',
+        '積立対象はオルカンかS&P500の投資信託1本',
+        '固定費を見直して積立額を月1〜2万増やす',
+      ]
+    },
+    c: {
+      badge: '危険タイプ',
+      icon: '🚨',
+      name: '今すぐ行動が必要です',
+      message: '今のままでは老後に大きな不足が生じます。ただし今から動けば十分に取り戻せます。まず第一歩を踏み出すことが最重要です。',
+      gapLabel: '不足見込み',
+      advices: [
+        '今日中にNISA口座を開設（SBI・楽天どちらでもOK）',
+        '毎月の積立額を可能な限り増やす（まず1万円から）',
+        'お金の知識をつけて「正しい投資」を学ぶ',
+      ]
+    },
+    d: {
+      badge: '緊急タイプ',
+      icon: '🆘',
+      name: '今が動きどきです！',
+      message: '大きな不足が見込まれますが、あきらめる必要はありません。正しい方法で今から動けば、人生を変えることができます。',
+      gapLabel: '不足見込み',
+      advices: [
+        'まず固定費の見直しで投資の原資を作る',
+        'NISAで少額（月5,000円〜）からでもすぐ始める',
+        '投資と節約の両輪で資産を増やす仕組みを作る',
+      ]
+    },
+  };
+
+  function renderResult(type, selfFundNeeded, savingsAtRetire, gap, rate, cashAtRetire, investAtRetire) {
+    const d = typeData[type];
+    const card = document.getElementById('result-card');
+
+    ['type-a','type-b','type-c','type-d'].forEach(c => card.classList.remove(c));
+    card.classList.add('type-' + type);
+
+    document.getElementById('r-badge').textContent     = d.badge;
+    document.getElementById('r-icon').textContent      = d.icon;
+    document.getElementById('r-type-name').textContent = d.name;
+    document.getElementById('r-message').textContent   = d.message;
+
+    document.getElementById('r-need').textContent      = fmt(selfFundNeeded);
+    document.getElementById('r-projected').textContent = fmt(savingsAtRetire);
+    document.getElementById('r-projected-sub').textContent =
+      `貯蓄 ${fmt(cashAtRetire)}（0%）＋ 投資 ${fmt(investAtRetire)}（年利5%）`;
+    document.getElementById('r-gap-label').textContent = d.gapLabel;
+
+    const gapRow = document.getElementById('r-gap-row');
+    gapRow.classList.remove('highlight','safe');
+    if (type === 'a') {
+      document.getElementById('r-gap').textContent = '+' + fmt(Math.abs(gap));
+      gapRow.classList.add('safe');
+    } else {
+      document.getElementById('r-gap').textContent = fmt(gap);
+      gapRow.classList.add('highlight');
+    }
+
+    const pct = Math.round(rate * 100);
+    setTimeout(() => {
+      document.getElementById('r-bar').style.width = pct + '%';
+      document.getElementById('r-bar-label').textContent = pct + '%';
+    }, 300);
+
+    const adviceEl = document.getElementById('r-advice');
+    adviceEl.innerHTML = d.advices.map((a, i) =>
+      `<li><span class="num">${i+1}</span><span>${a}</span></li>`
+    ).join('');
+
+    document.getElementById('progress-wrap').style.display = 'none';
+    showScreen('screen-result');
+  }
+
+  function initSliders() {
+    syncAge(35);
+    syncMoney('monthly-cash',   5000,  200000);
+    syncMoney('monthly-invest', 10000, 200000);
+    syncMoney('cash',    1000000, 5000000);
+    syncMoney('invest',   500000, 10000000);
+  }
+
+  function restart() {
+    Object.keys(answers).forEach(k => delete answers[k]);
+    initSliders();
+    document.getElementById('progress-wrap').style.display = 'block';
+    document.getElementById('r-bar').style.width = '0%';
+    showScreen('screen-q1');
+    updateProgress(1, 4);
+  }
+
+  window.addEventListener('DOMContentLoaded', initSliders);
+</script>
+</body>
+</html>
