@@ -1,0 +1,717 @@
+<title>遺族給付ナビ 2026 — 配偶者を亡くしたときにもらえるお金</title>
+<style>
+  :root{
+    --paper:#F2F4F7;
+    --card:#FFFFFF;
+    --ink:#212B38;
+    --ink-2:#5A6A7D;
+    --ink-3:#8B97A6;
+    --line:#DCE2EA;
+    --pine:#2C63A0;
+    --pine-deep:#1A3B5D;
+    --pine-tint:#E2EBF4;
+    --amber:#A87616;
+    --amber-tint:#F5EDDA;
+    --alert:#A8402C;
+    --alert-tint:#F6E7E2;
+    --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+    --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic",-apple-system,sans-serif;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px 96px}
+
+  /* ── header ── */
+  header.site{
+    background:var(--pine-deep);color:#F3F6FA;
+    padding:34px 20px 28px;
+  }
+  header.site .inner{max-width:680px;margin:0 auto}
+  .brand{
+    font-size:11px;letter-spacing:.22em;color:#9FB6CC;
+    text-transform:uppercase;margin:0 0 10px;
+  }
+  header.site h1{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(22px,5.5vw,30px);line-height:1.45;
+    margin:0 0 10px;text-wrap:balance;letter-spacing:.02em;
+  }
+  header.site p.lede{
+    margin:0;font-size:13.5px;line-height:1.9;color:#C6D3E0;max-width:34em;
+  }
+  .badge-2026{
+    display:inline-block;margin-top:14px;
+    font-size:11.5px;letter-spacing:.08em;
+    border:1px solid #3A5A7D;border-radius:999px;
+    padding:4px 12px;color:#BCD0E2;
+  }
+  .author{
+    display:flex;align-items:center;gap:12px;
+    margin-top:20px;padding-top:16px;border-top:1px solid #2B4A68;
+  }
+  .author img{
+    width:44px;height:44px;border-radius:50%;flex:none;
+    border:2px solid #3A5A7D;display:block;
+  }
+  .author .a-label{font-size:10.5px;letter-spacing:.14em;color:#9FB6CC;line-height:1.5}
+  .author .a-name{font-size:14px;font-weight:600;color:#F3F6FA;line-height:1.5}
+
+  /* ── tabs ── */
+  nav.tabs{
+    position:sticky;top:0;z-index:20;
+    background:rgba(242,244,247,.94);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.tabs .inner{
+    max-width:680px;margin:0 auto;display:flex;gap:2px;
+    overflow-x:auto;padding:0 12px;
+  }
+  nav.tabs button{
+    appearance:none;background:none;border:none;cursor:pointer;
+    font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--ink-2);
+    padding:14px 12px 11px;border-bottom:3px solid transparent;
+    white-space:nowrap;
+  }
+  nav.tabs button[aria-selected="true"]{color:var(--pine);border-bottom-color:var(--pine)}
+  nav.tabs button:focus-visible{outline:2px solid var(--pine);outline-offset:-2px;border-radius:6px}
+
+  main section.panel{display:none;padding-top:28px}
+  main section.panel.active{display:block}
+
+  h2.sec{
+    font-family:var(--serif);font-weight:600;font-size:21px;
+    letter-spacing:.03em;margin:0 0 6px;text-wrap:balance;
+  }
+  p.sec-note{margin:0 0 22px;font-size:13px;color:var(--ink-2)}
+
+  /* ── wizard ── */
+  .wizard{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:26px 24px 28px;
+    box-shadow:0 1px 2px rgba(32,48,43,.05);
+  }
+  .progress{display:flex;gap:6px;margin-bottom:22px}
+  .progress span{flex:1;height:4px;border-radius:2px;background:var(--line)}
+  .progress span.done{background:var(--pine)}
+  .q-label{font-size:11.5px;letter-spacing:.14em;color:var(--pine);font-weight:700;margin:0 0 6px}
+  .q-title{
+    font-family:var(--serif);font-size:19px;font-weight:600;
+    margin:0 0 4px;line-height:1.5;text-wrap:balance;
+  }
+  .q-help{font-size:12.5px;color:var(--ink-2);margin:0 0 18px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opts button{
+    appearance:none;text-align:left;cursor:pointer;
+    background:var(--paper);border:1.5px solid var(--line);
+    border-radius:11px;padding:13px 16px;
+    font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--ink);
+    transition:border-color .15s,background .15s;
+  }
+  .opts button small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);margin-top:1px}
+  .opts button:hover{border-color:var(--pine);background:var(--pine-tint)}
+  .opts button:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+  .back-link{
+    appearance:none;background:none;border:none;cursor:pointer;
+    font-size:13px;color:var(--ink-2);padding:0;margin-top:18px;
+    text-decoration:underline;text-underline-offset:3px;font-family:var(--sans);
+  }
+
+  /* ── result ── */
+  .hero-amount{
+    background:var(--pine-deep);color:#F3F6FA;
+    border-radius:var(--radius);padding:28px 24px 24px;margin-bottom:14px;
+  }
+  .hero-amount .cap{font-size:12px;letter-spacing:.12em;color:#9FB6CC;margin:0 0 4px}
+  .hero-amount .num{
+    font-family:var(--serif);font-size:clamp(34px,9vw,46px);font-weight:600;
+    font-variant-numeric:tabular-nums;line-height:1.2;letter-spacing:.01em;
+  }
+  .hero-amount .num em{font-style:normal;font-size:.45em;margin-left:6px;color:#C6D3E0}
+  .hero-amount .sub{margin:8px 0 0;font-size:12.5px;color:#C6D3E0;line-height:1.8}
+
+  .stackbar{display:flex;gap:2px;height:26px;margin:18px 0 10px}
+  .stackbar div{border-radius:4px;min-width:8px;transition:opacity .15s}
+  .stackbar div.dim{opacity:.35}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#C6D3E0}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;
+  }
+  .card h3{
+    font-family:var(--serif);font-size:16.5px;font-weight:600;margin:0 0 12px;
+    letter-spacing:.02em;
+  }
+  .row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+    padding:11px 0;border-bottom:1px solid var(--line);
+  }
+  .row:last-child{border-bottom:none;padding-bottom:2px}
+  .row:first-of-type{padding-top:2px}
+  .row .name{font-size:14px;font-weight:600;display:flex;align-items:baseline;gap:8px;min-width:0}
+  .row .name i{width:10px;height:10px;border-radius:3px;flex:none;position:relative;top:.5px}
+  .row .name small{display:block;font-weight:400;font-size:11.5px;color:var(--ink-2);line-height:1.6}
+  .row .amt{
+    font-variant-numeric:tabular-nums;font-weight:700;font-size:15.5px;
+    white-space:nowrap;
+  }
+  .row .amt small{font-weight:400;font-size:11px;color:var(--ink-2);margin-left:2px}
+
+  .flag{
+    border-radius:11px;padding:13px 16px;margin-bottom:10px;
+    font-size:13px;line-height:1.8;
+  }
+  .flag b{display:block;font-size:13px;margin-bottom:2px}
+  .flag.warn{background:var(--alert-tint);color:#6E2C1D}
+  .flag.warn b{color:var(--alert)}
+  .flag.info{background:var(--pine-tint);color:#1E3A55}
+  .flag.info b{color:var(--pine)}
+  .flag.gold{background:var(--amber-tint);color:#6B4E14}
+  .flag.gold b{color:var(--amber)}
+
+  .btn{
+    appearance:none;cursor:pointer;border:none;border-radius:999px;
+    font-family:var(--sans);font-size:14px;font-weight:700;
+    padding:13px 26px;
+  }
+  .btn.primary{background:var(--pine);color:#fff}
+  .btn.primary:hover{background:#234F80}
+  .btn.ghost{background:none;border:1.5px solid var(--line);color:var(--ink-2)}
+  .btn.ghost:hover{border-color:var(--ink-3)}
+  .btn:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+  /* ── catalog ── */
+  .cat-card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;
+  }
+  .cat-card .kind{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.1em;
+    border-radius:999px;padding:3px 10px;margin-bottom:8px;
+  }
+  .kind.nenkin{background:var(--pine-tint);color:var(--pine)}
+  .kind.ichiji{background:var(--amber-tint);color:var(--amber)}
+  .kind.rosai{background:#DFEFE8;color:#1F7A60}
+  .cat-card h3{
+    font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 4px;letter-spacing:.02em;
+  }
+  .cat-card .money{
+    font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;color:var(--amber);
+    margin:0 0 8px;
+  }
+  .cat-card p.desc{margin:0 0 12px;font-size:13.5px;color:var(--ink-2);line-height:1.85}
+  .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink-2)}
+  .meta span b{color:var(--ink);font-weight:600}
+
+  /* ── checklist ── */
+  .dl-group{margin-bottom:22px}
+  .dl-head{
+    display:flex;align-items:baseline;gap:10px;margin-bottom:10px;
+  }
+  .dl-head .due{
+    font-family:var(--serif);font-weight:700;font-size:15px;
+    color:var(--alert);white-space:nowrap;letter-spacing:.02em;
+  }
+  .dl-head .due.soft{color:var(--pine)}
+  .dl-head .rule{flex:1;height:1px;background:var(--line)}
+  label.task{
+    display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+    background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:13px 16px;margin-bottom:8px;
+  }
+  label.task input{
+    appearance:none;flex:none;width:20px;height:20px;margin:2px 0 0;
+    border:2px solid var(--ink-3);border-radius:6px;cursor:pointer;
+    display:grid;place-content:center;background:#fff;
+  }
+  label.task input:checked{background:var(--pine);border-color:var(--pine)}
+  label.task input:checked::before{
+    content:"";width:10px;height:6px;
+    border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;
+    transform:rotate(-45deg) translate(0,-1px);
+  }
+  label.task input:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+  label.task .t-name{font-size:14px;font-weight:600;line-height:1.6}
+  label.task .t-name small{display:block;font-weight:400;font-size:12px;color:var(--ink-2)}
+  label.task:has(input:checked) .t-name{color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:1px}
+
+  /* ── reform ── */
+  .reform-point{
+    display:flex;gap:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 20px;margin-bottom:12px;
+  }
+  .reform-point .mark{
+    flex:none;width:34px;height:34px;border-radius:50%;
+    background:var(--pine-tint);color:var(--pine);
+    font-family:var(--serif);font-weight:700;font-size:15px;
+    display:grid;place-content:center;
+  }
+  .reform-point h3{font-size:14.5px;font-weight:700;margin:4px 0 3px}
+  .reform-point p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.85}
+
+  footer.site{
+    margin-top:40px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--ink-3);line-height:2;
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important}
+  }
+</style>
+
+<header class="site">
+  <div class="inner">
+    <p class="brand">IZOKU KYUFU NAVI</p>
+    <h1>配偶者を亡くしたとき、<br>受け取れるお金がわかる。</h1>
+    <p class="lede">遺族年金・一時金・葬祭費など、日本の公的な遺族向け給付を、かんたんな質問でまとめて試算。手続きの期限も一覧で確認できます。</p>
+    <span class="badge-2026">2026年度（令和8年度）の年金額に対応</span>
+    <div class="author">
+      <img src="data:image/png;base64,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" alt="きょうのアイコン">
+      <div>
+        <div class="a-label">作成者</div>
+        <div class="a-name">きょう（i-money）</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="メニュー">
+  <div class="inner">
+    <button role="tab" aria-selected="true" data-tab="shindan">かんたん診断</button>
+    <button role="tab" aria-selected="false" data-tab="ichiran">給付金一覧</button>
+    <button role="tab" aria-selected="false" data-tab="tetsuzuki">手続きと期限</button>
+    <button role="tab" aria-selected="false" data-tab="kaisei">2028年の改正</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ══ 診断 ══ -->
+  <section class="panel active" id="panel-shindan">
+    <h2 class="sec">かんたん診断</h2>
+    <p class="sec-note">4〜5問に答えると、受け取れる可能性のある給付と年間の目安額を試算します。</p>
+    <div class="wizard" id="wizard"></div>
+    <div id="result" hidden></div>
+  </section>
+
+  <!-- ══ 一覧 ══ -->
+  <section class="panel" id="panel-ichiran">
+    <h2 class="sec">給付金カタログ</h2>
+    <p class="sec-note">配偶者が亡くなったときに関係する主な公的給付。金額は2026年度（令和8年度）の水準です。</p>
+    <div id="catalog"></div>
+  </section>
+
+  <!-- ══ 手続き ══ -->
+  <section class="panel" id="panel-tetsuzuki">
+    <h2 class="sec">手続きチェックリスト</h2>
+    <p class="sec-note">期限の早い順。チェックはこの端末に保存されます。</p>
+    <div id="checklist"></div>
+  </section>
+
+  <!-- ══ 改正 ══ -->
+  <section class="panel" id="panel-kaisei">
+    <h2 class="sec">2028年4月・遺族厚生年金の大改正</h2>
+    <p class="sec-note">2025年6月に成立した年金改正法により、遺族厚生年金は2028年4月から大きく変わります。</p>
+    <div id="reform"></div>
+  </section>
+
+  <footer class="site">
+    <p>本アプリの金額は2026年度（令和8年度）の公表水準にもとづく概算です。実際の受給可否・金額は加入記録や生計維持関係などにより異なります。正確な金額は年金事務所・街角の年金相談センター、または市区町村の窓口でご確認ください。<br>参考: 日本年金機構「令和8年4月分からの年金額等について」／厚生労働省「遺族厚生年金の見直しについて」</p>
+  </footer>
+</main>
+
+<script>
+"use strict";
+
+/* ══════════ 2026年度（令和8年度）の定数 ══════════ */
+const Y = {
+  kiso: 847300,          // 遺族基礎年金 本体（昭和31.4.2以後生まれ）
+  kasan12: 243800,       // 子の加算 第1子・第2子
+  kasan3: 81300,         // 子の加算 第3子以降
+  chukorei: 635500,      // 中高齢寡婦加算
+  maisou: 50000,         // 埋葬料（健康保険）
+  shibouMin: 120000,     // 死亡一時金 下限
+  shibouMax: 320000      // 死亡一時金 上限
+};
+const SEG_COLORS = { kiso:"#5C97CE", kasan:"#BC8620", kousei:"#35A183", chukorei:"#CB7850" };
+const yen = n => "¥" + Math.round(n).toLocaleString("ja-JP");
+
+/* ══════════ タブ ══════════ */
+const tabs = document.querySelectorAll("nav.tabs button");
+tabs.forEach(btn => btn.addEventListener("click", () => {
+  tabs.forEach(b => b.setAttribute("aria-selected", b === btn ? "true" : "false"));
+  document.querySelectorAll("main section.panel").forEach(p =>
+    p.classList.toggle("active", p.id === "panel-" + btn.dataset.tab));
+  window.scrollTo({ top: 0 });
+}));
+function gotoTab(name){ tabs.forEach(b => { if (b.dataset.tab === name) b.click(); }); }
+
+/* ══════════ 診断ウィザード ══════════ */
+const QUESTIONS = [
+  {
+    key: "work", label: "Q1", title: "亡くなった配偶者は、どんな働き方でしたか？",
+    help: "加入していた年金制度によって、受け取れる年金の種類が変わります。",
+    opts: [
+      { v: "kousei", t: "会社員・公務員だった", s: "厚生年金（共済含む）に加入" },
+      { v: "kokumin", t: "自営業・フリーランスだった", s: "国民年金のみに加入" },
+      { v: "sengyo", t: "専業主婦（主夫）・無職だった", s: "第3号被保険者など" }
+    ]
+  },
+  {
+    key: "who", label: "Q2", title: "あなた（遺されたご本人）は？",
+    help: "現行制度では妻と夫で受給の条件が異なります（2028年4月から段階的に統一されます）。",
+    opts: [
+      { v: "wife", t: "妻です" },
+      { v: "husband", t: "夫です" }
+    ]
+  },
+  {
+    key: "age", label: "Q3", title: "あなたの現在の年齢は？",
+    help: "年齢によって受け取れる期間や加算が変わります。",
+    opts: [
+      { v: "u30", t: "30歳未満" },
+      { v: "30s", t: "30〜39歳" },
+      { v: "40_54", t: "40〜54歳" },
+      { v: "55_64", t: "55〜64歳" },
+      { v: "65p", t: "65歳以上" }
+    ]
+  },
+  {
+    key: "kids", label: "Q4", title: "18歳になった年度末までのお子さんは何人いますか？",
+    help: "高校卒業前のお子さん（障害等級1・2級なら20歳未満）が対象です。",
+    opts: [
+      { v: 0, t: "いない" },
+      { v: 1, t: "1人" },
+      { v: 2, t: "2人" },
+      { v: 3, t: "3人以上" }
+    ]
+  },
+  {
+    key: "income", label: "Q5", title: "亡くなった方のおおよその年収は？",
+    help: "遺族厚生年金の概算に使います（在職中の平均的な年収のイメージで構いません）。",
+    onlyIf: a => a.work === "kousei",
+    opts: [
+      { v: 3000000, t: "300万円くらいまで" },
+      { v: 4000000, t: "300〜450万円くらい" },
+      { v: 5000000, t: "450〜550万円くらい" },
+      { v: 6500000, t: "550〜750万円くらい" },
+      { v: 8500000, t: "750万円以上" }
+    ]
+  }
+];
+
+const wizard = document.getElementById("wizard");
+const resultEl = document.getElementById("result");
+let answers = {};
+let stepIdx = 0;
+
+function activeSteps(){ return QUESTIONS.filter(q => !q.onlyIf || q.onlyIf(answers)); }
+
+function renderStep(){
+  const steps = activeSteps();
+  if (stepIdx >= steps.length) { renderResult(); return; }
+  wizard.hidden = false; resultEl.hidden = true;
+  const q = steps[stepIdx];
+  wizard.innerHTML = `
+    <div class="progress">${steps.map((_, i) =>
+      `<span class="${i < stepIdx ? "done" : ""}"></span>`).join("")}</div>
+    <p class="q-label">${q.label} / ${steps.length}問</p>
+    <p class="q-title">${q.title}</p>
+    <p class="q-help">${q.help}</p>
+    <div class="opts">${q.opts.map((o, i) =>
+      `<button data-i="${i}">${o.t}${o.s ? `<small>${o.s}</small>` : ""}</button>`).join("")}</div>
+    ${stepIdx > 0 ? `<button class="back-link" id="backBtn">← ひとつ前に戻る</button>` : ""}
+  `;
+  wizard.querySelectorAll(".opts button").forEach(b =>
+    b.addEventListener("click", () => {
+      answers[q.key] = q.opts[+b.dataset.i].v;
+      stepIdx++;
+      renderStep();
+    }));
+  const back = document.getElementById("backBtn");
+  if (back) back.addEventListener("click", () => { stepIdx--; renderStep(); });
+}
+
+/* ══════════ 試算ロジック ══════════ */
+function calc(a){
+  const kids = a.kids;
+  const isWife = a.who === "wife";
+  const segments = [];   // {id,name,note,amount}
+  const flags = [];      // {tone,title,body}
+  const lump = [];       // {name,amount,note}
+
+  // 遺族基礎年金（子のある配偶者）
+  if (kids > 0) {
+    const kasan = Y.kasan12 * Math.min(kids, 2) + Y.kasan3 * Math.max(kids - 2, 0);
+    segments.push({ id:"kiso", name:"遺族基礎年金", note:"末子が18歳の年度末まで", amount: Y.kiso });
+    segments.push({ id:"kasan", name:"子の加算", note:`お子さん${kids >= 3 ? "3人以上" : kids + "人"}分`, amount: kasan });
+  }
+
+  // 遺族厚生年金
+  if (a.work === "kousei") {
+    const est = (a.income / 12) * 5.481 / 1000 * 300 * 0.75; // 300月の最低保障で概算
+    if (!isWife && a.age !== "55_64" && a.age !== "65p") {
+      if (kids > 0) {
+        segments.push({ id:"kousei", name:"遺族厚生年金", note:"現行制度では55歳未満の夫に受給権はなく、お子さんが受給します", amount: est });
+      } else {
+        flags.push({ tone:"warn", title:"現行制度では、遺族厚生年金の対象外です",
+          body:"子のいない55歳未満の夫は、現行制度では遺族厚生年金を受け取れません。2028年4月の改正で男女差が解消され、60歳未満なら原則5年の有期給付（加算つき）の対象になります。" });
+      }
+    } else {
+      segments.push({ id:"kousei", name:"遺族厚生年金", note:"亡くなった方の報酬比例部分の3/4（加入300月で概算）", amount: est });
+    }
+
+    // 中高齢寡婦加算
+    if (isWife && (a.age === "40_54" || a.age === "55_64")) {
+      if (kids === 0) {
+        segments.push({ id:"chukorei", name:"中高齢寡婦加算", note:"40〜64歳の妻に65歳まで上乗せ", amount: Y.chukorei });
+      } else {
+        flags.push({ tone:"gold", title:"遺族基礎年金の終了後は「中高齢寡婦加算」に切り替わります",
+          body:`末子が18歳の年度末を迎えて遺族基礎年金が終わると、65歳になるまで年${yen(Y.chukorei)}の中高齢寡婦加算が遺族厚生年金に上乗せされます。` });
+      }
+    }
+
+    if (isWife && kids === 0 && a.age === "u30") {
+      flags.push({ tone:"warn", title:"受給は5年間の有期です",
+        body:"子のいない30歳未満の妻の遺族厚生年金は、現行制度でも5年間で終了します。" });
+    }
+  }
+
+  // 国民年金のみ（自営業・専業主婦等）で子がいない場合
+  if (a.work !== "kousei" && kids === 0) {
+    flags.push({ tone:"warn", title:"継続的な遺族年金の対象外の可能性が高いです",
+      body:"国民年金のみの加入で18歳年度末までのお子さんがいない場合、遺族基礎年金・遺族厚生年金のどちらも受け取れません。かわりに下の一時金・寡婦年金を確認してください。" });
+    if (a.work === "kokumin") {
+      lump.push({ name:"死亡一時金", amount:`${yen(Y.shibouMin)}〜${yen(Y.shibouMax)}`,
+        note:"国民年金の保険料を36か月以上納めていた場合。寡婦年金とどちらか一方を選択します。" });
+      if (isWife && (a.age === "55_64" || a.age === "40_54")) {
+        flags.push({ tone:"info", title:"寡婦年金という選択肢もあります",
+          body:"婚姻10年以上などの要件を満たす妻は、60〜65歳の間、夫の老齢基礎年金額の3/4を「寡婦年金」として受け取れます。死亡一時金とどちらか有利な方を選びます。" });
+      }
+    }
+  }
+
+  // 埋葬料・葬祭費（ほぼ全員）
+  lump.unshift({
+    name: a.work === "kousei" ? "埋葬料（健康保険）" : "葬祭費（国民健康保険）",
+    amount: a.work === "kousei" ? yen(Y.maisou) : "¥30,000〜¥70,000",
+    note: a.work === "kousei" ? "勤務先の健康保険から。申請期限は2年です。" : "自治体によって金額が異なります（東京23区は7万円）。申請期限は2年です。"
+  });
+
+  // 65歳以上の併給調整
+  if (a.age === "65p") {
+    flags.push({ tone:"info", title:"ご自身の老齢年金との調整があります",
+      body:"65歳以降は、まずご自身の老齢年金を受け取り、遺族厚生年金は差額分のみの支給になります。試算額から目減りする場合があります。" });
+  }
+
+  // 2028年改正の影響
+  if (kids === 0 && a.age !== "55_64" && a.age !== "65p") {
+    flags.push({ tone:"info", title:"2028年4月以降に死別した場合はルールが変わります",
+      body:"子のいない60歳未満の配偶者への遺族厚生年金は、原則5年間の有期給付（額は加算により約1.3倍）になります。男性は2028年4月から、女性は約20年かけて段階的に移行します。詳しくは「2028年の改正」タブへ。" });
+  }
+
+  return { segments, flags, lump, total: segments.reduce((s, x) => s + x.amount, 0) };
+}
+
+/* ══════════ 結果画面 ══════════ */
+function renderResult(){
+  const r = calc(answers);
+  wizard.hidden = true; resultEl.hidden = false;
+
+  const barHtml = r.total > 0 ? `
+    <div class="stackbar" aria-hidden="true">
+      ${r.segments.map(s =>
+        `<div data-seg="${s.id}" style="flex:${s.amount};background:${SEG_COLORS[s.id]}" title="${s.name} ${yen(s.amount)}"></div>`).join("")}
+    </div>
+    <div class="legend">
+      ${r.segments.map(s => `<span><i style="background:${SEG_COLORS[s.id]}"></i>${s.name}</span>`).join("")}
+    </div>` : "";
+
+  resultEl.innerHTML = `
+    <div class="hero-amount">
+      <p class="cap">年金として受け取れる目安（年額）</p>
+      <div class="num">${r.total > 0 ? yen(r.total) + "<em>／年</em>" : "対象なし"}</div>
+      <p class="sub">${r.total > 0
+        ? "月あたり約" + yen(r.total / 12) + "。2026年度（令和8年度）の水準で試算した概算です。"
+        : "継続的な遺族年金の対象にならない場合でも、下の一時金は受け取れる可能性があります。"}</p>
+      ${barHtml}
+    </div>
+
+    ${r.segments.length ? `
+    <div class="card">
+      <h3>内訳</h3>
+      ${r.segments.map(s => `
+        <div class="row" data-row="${s.id}">
+          <span class="name"><i style="background:${SEG_COLORS[s.id]}"></i>
+            <span>${s.name}<small>${s.note}</small></span></span>
+          <span class="amt">${yen(s.amount)}<small>／年</small></span>
+        </div>`).join("")}
+    </div>` : ""}
+
+    ${r.lump.length ? `
+    <div class="card">
+      <h3>一時金として受け取れるもの</h3>
+      ${r.lump.map(l => `
+        <div class="row">
+          <span class="name"><span>${l.name}<small>${l.note}</small></span></span>
+          <span class="amt">${l.amount}</span>
+        </div>`).join("")}
+    </div>` : ""}
+
+    ${r.flags.map(f => `<div class="flag ${f.tone}"><b>${f.title}</b>${f.body}</div>`).join("")}
+
+    <div class="btn-row">
+      <button class="btn primary" id="toChecklist">手続きの期限を確認する</button>
+      <button class="btn ghost" id="redo">条件を変えて再診断</button>
+    </div>
+  `;
+
+  resultEl.querySelectorAll(".stackbar div").forEach(seg => {
+    seg.addEventListener("mouseenter", () => {
+      resultEl.querySelectorAll(".stackbar div").forEach(d =>
+        d.classList.toggle("dim", d !== seg));
+    });
+    seg.addEventListener("mouseleave", () => {
+      resultEl.querySelectorAll(".stackbar div").forEach(d => d.classList.remove("dim"));
+    });
+  });
+  document.getElementById("redo").addEventListener("click", () => {
+    answers = {}; stepIdx = 0; renderStep();
+  });
+  document.getElementById("toChecklist").addEventListener("click", () => gotoTab("tetsuzuki"));
+}
+
+renderStep();
+
+/* ══════════ 給付金カタログ ══════════ */
+const CATALOG = [
+  { kind:"nenkin", kindLabel:"年 金", name:"遺族基礎年金",
+    money:`年 ${yen(Y.kiso)} ＋ 子の加算`,
+    desc:"18歳の年度末までの子がいる配偶者（または子）に支給。子の加算は第1子・第2子が各" + yen(Y.kasan12) + "、第3子以降が各" + yen(Y.kasan3) + "。子2人なら合計で年約133.5万円。",
+    who:"子のある配偶者・子", limit:"時効5年", where:"市区町村・年金事務所" },
+  { kind:"nenkin", kindLabel:"年 金", name:"遺族厚生年金",
+    money:"亡くなった方の報酬比例部分の 3/4",
+    desc:"会社員・公務員だった方が亡くなったときに支給。加入期間が300月未満でも300月として計算する最低保障あり。年収500万円・加入25年未満なら年50万円前後が目安。",
+    who:"配偶者・子など（現行は夫に年齢要件あり）", limit:"時効5年", where:"年金事務所" },
+  { kind:"nenkin", kindLabel:"年 金", name:"中高齢寡婦加算",
+    money:`年 ${yen(Y.chukorei)}`,
+    desc:"夫を亡くした40〜64歳の妻の遺族厚生年金に、65歳になるまで上乗せされる加算。遺族基礎年金を受け取っている間は支給されず、終了後に切り替わる。2028年改正で段階的に縮小・廃止予定。",
+    who:"40〜64歳の妻", limit:"—（遺族厚生年金に自動加算）", where:"年金事務所" },
+  { kind:"nenkin", kindLabel:"年 金", name:"寡婦年金",
+    money:"夫の老齢基礎年金額の 3/4（60〜65歳の間）",
+    desc:"国民年金の第1号被保険者として10年以上納付した夫を亡くした、婚姻10年以上の妻に支給。死亡一時金とはどちらか一方を選択。",
+    who:"60〜65歳の妻", limit:"時効5年", where:"市区町村・年金事務所" },
+  { kind:"ichiji", kindLabel:"一時金", name:"死亡一時金",
+    money:`${yen(Y.shibouMin)}〜${yen(Y.shibouMax)}`,
+    desc:"国民年金の保険料を36か月以上納めた方が、年金を受け取らずに亡くなったときの一時金。納付月数に応じて6段階。付加保険料を36か月以上納めていれば8,500円加算。",
+    who:"生計を同じくしていた遺族", limit:"時効2年", where:"市区町村" },
+  { kind:"ichiji", kindLabel:"一時金", name:"埋葬料・埋葬費",
+    money:`${yen(Y.maisou)}`,
+    desc:"健康保険（協会けんぽ・健保組合）の加入者が亡くなったとき、埋葬を行った家族に支給。家族以外が埋葬した場合は実費（上限5万円）の埋葬費。",
+    who:"埋葬を行った家族など", limit:"時効2年", where:"勤務先の健康保険" },
+  { kind:"ichiji", kindLabel:"一時金", name:"葬祭費",
+    money:"¥30,000〜¥70,000（自治体による）",
+    desc:"国民健康保険・後期高齢者医療制度の加入者が亡くなったとき、葬儀を行った方（喪主）に支給。東京23区は7万円、多くの自治体で5万円前後。",
+    who:"喪主（葬儀を行った方）", limit:"時効2年", where:"市区町村" },
+  { kind:"ichiji", kindLabel:"一時金", name:"未支給年金",
+    money:"亡くなった月の分までの未払い年金",
+    desc:"年金は後払いのため、受給者が亡くなると必ず未払い分が残る。生計を同じくしていた遺族が請求して受け取れる。",
+    who:"生計を同じくしていた遺族", limit:"時効5年", where:"年金事務所" },
+  { kind:"rosai", kindLabel:"労 災", name:"遺族（補償）等年金・一時金",
+    money:"給付基礎日額の153日分〜 ＋ 特別支給金300万円",
+    desc:"仕事や通勤が原因で亡くなった場合は、遺族年金とは別に労災保険から支給。葬祭料（葬祭給付）もある。",
+    who:"生計を維持されていた遺族", limit:"時効5年", where:"労働基準監督署" }
+];
+document.getElementById("catalog").innerHTML = CATALOG.map(c => `
+  <div class="cat-card">
+    <span class="kind ${c.kind}">${c.kindLabel}</span>
+    <h3>${c.name}</h3>
+    <p class="money">${c.money}</p>
+    <p class="desc">${c.desc}</p>
+    <div class="meta">
+      <span><b>対象</b>　${c.who}</span>
+      <span><b>期限</b>　${c.limit}</span>
+      <span><b>窓口</b>　${c.where}</span>
+    </div>
+  </div>`).join("");
+
+/* ══════════ 手続きチェックリスト ══════════ */
+const CHECKLIST = [
+  { due:"7日以内", soft:false, items:[
+    { id:"shibou", name:"死亡届の提出", note:"市区町村へ。火葬許可証もあわせて受け取ります。" }
+  ]},
+  { due:"10〜14日以内", soft:false, items:[
+    { id:"nenkin-stop", name:"年金の受給停止（受給者だった場合）", note:"厚生年金は10日・国民年金は14日以内。年金事務所へ。" },
+    { id:"kenpo", name:"健康保険の資格喪失手続き", note:"国保は市区町村、会社の健保は勤務先経由で14日以内。" },
+    { id:"setai", name:"世帯主の変更届", note:"亡くなった方が世帯主だった場合、14日以内に市区町村へ。" }
+  ]},
+  { due:"すみやかに", soft:true, items:[
+    { id:"mishikyu", name:"未支給年金の請求", note:"受給停止と同時に手続きするとスムーズ。時効は5年。" },
+    { id:"izoku-seikyu", name:"遺族年金の請求", note:"年金事務所または市区町村へ。時効は5年ですが、早いほど生活が安定します。" }
+  ]},
+  { due:"2年以内", soft:true, items:[
+    { id:"sosai", name:"葬祭費・埋葬料の申請", note:"国保は市区町村、健保は勤務先の健康保険へ。" },
+    { id:"kogaku", name:"高額療養費の払い戻し確認", note:"亡くなる前の医療費が高額だった場合、払い戻しの対象になることがあります。" },
+    { id:"shibou-ichiji", name:"死亡一時金の請求（該当する場合）", note:"国民年金のみ加入で遺族年金の対象外だった場合。時効2年に注意。" }
+  ]},
+  { due:"3〜5年以内", soft:true, items:[
+    { id:"seiho", name:"生命保険金の請求", note:"民間保険の請求時効は一般に3年。" },
+    { id:"rosai", name:"労災の遺族給付（該当する場合）", note:"仕事・通勤が原因の場合。労働基準監督署へ。時効5年。" }
+  ]}
+];
+const clRoot = document.getElementById("checklist");
+const CL_KEY = "izoku-navi-checks";
+let checks = {};
+try { checks = JSON.parse(localStorage.getItem(CL_KEY) || "{}"); } catch (e) { checks = {}; }
+clRoot.innerHTML = CHECKLIST.map(g => `
+  <div class="dl-group">
+    <div class="dl-head"><span class="due ${g.soft ? "soft" : ""}">${g.due}</span><span class="rule"></span></div>
+    ${g.items.map(it => `
+      <label class="task">
+        <input type="checkbox" data-id="${it.id}" ${checks[it.id] ? "checked" : ""}>
+        <span class="t-name">${it.name}<small>${it.note}</small></span>
+      </label>`).join("")}
+  </div>`).join("");
+clRoot.querySelectorAll("input[type=checkbox]").forEach(cb =>
+  cb.addEventListener("change", () => {
+    checks[cb.dataset.id] = cb.checked;
+    try { localStorage.setItem(CL_KEY, JSON.stringify(checks)); } catch (e) {}
+  }));
+
+/* ══════════ 2028年改正 ══════════ */
+const REFORM = [
+  { t:"子のいない60歳未満の配偶者は「原則5年」の有期給付に",
+    p:"これまで妻は生涯受給できた遺族厚生年金が、2028年4月以降に死別した場合、子のいない60歳未満の配偶者については原則5年間の有期給付になります。" },
+  { t:"そのかわり、5年間の額は約1.3倍に",
+    p:"有期給付には「有期給付加算」が上乗せされ、受給額は従来の約1.3倍になります。生活再建に集中的に充てる設計です。" },
+  { t:"男女差の解消 — 夫も受け取れるように",
+    p:"現行制度では夫は「55歳以上」でないと受給権がありませんでしたが、改正後は妻・夫とも同じ条件になります。男性は2028年4月から一斉に新制度が適用されます。" },
+  { t:"女性は約20年かけて段階的に移行",
+    p:"女性への5年有期化は、2028年度に「40歳未満」から始まり、対象年齢を毎年度1歳ずつ引き上げて約20年かけて段階的に導入されます。施行時に40歳以上の女性は従来どおり終身受給です。" },
+  { t:"収入や障害の状況によっては5年を超えて継続",
+    p:"収入が一定以下の場合や障害がある場合など、配慮が必要なときは5年経過後も最長65歳まで「継続給付」を受けられる措置があります。" },
+  { t:"中高齢寡婦加算は段階的に廃止へ",
+    p:"40〜64歳の妻への中高齢寡婦加算（2026年度は年635,500円）は、有期給付加算の導入にあわせて段階的に縮小・廃止されます。" },
+  { t:"「死亡時分割」の新設",
+    p:"亡くなった配偶者の厚生年金記録の一部を遺族自身の記録として分割し、遺族自身の老齢厚生年金を増やせる仕組みが新たに導入されます。" }
+];
+document.getElementById("reform").innerHTML =
+  REFORM.map((r, i) => `
+    <div class="reform-point">
+      <span class="mark">${i + 1}</span>
+      <div><h3>${r.t}</h3><p>${r.p}</p></div>
+    </div>`).join("") + `
+  <div class="flag info" style="margin-top:16px">
+    <b>すでに受給中・2028年3月までに死別した方は対象外</b>
+    改正が適用されるのは2028年4月以降に亡くなった場合です。施行前に受給を始めた遺族厚生年金は、従来どおりのルールで支給が続きます。
+  </div>`;
+</script>
