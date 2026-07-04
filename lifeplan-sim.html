@@ -1,0 +1,1164 @@
+<title>ライフプラン・シミュレーター 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --page:#f2f4f7; --surface:#ffffff; --surface-2:#e9edf2; --well:#f6f8fa;
+  --ink:#161b22; --ink-2:#48515d; --muted:#87909d;
+  --line:#dfe4ea; --hairline:rgba(22,27,34,.09);
+  --accent:#1c5cab; --accent-soft:rgba(28,92,171,.09); --on-accent:#ffffff;
+  --cash:#2a78d6; --cash-fill:rgba(42,120,214,.30);
+  --invest:#1baf7a; --invest-fill:rgba(27,175,122,.30);
+  --neg:#d03b3b; --neg-fill:rgba(208,59,59,.22);
+  --good:#0ca30c; --warn:#b97a00; --crit:#d03b3b;
+  --grid:#e5e8ee; --axis:#c2c8d1;
+  --shadow:0 1px 2px rgba(22,27,34,.05), 0 8px 24px -12px rgba(22,27,34,.12);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --page:#0f1319; --surface:#171c24; --surface-2:#1f2630; --well:#131820;
+    --ink:#eef2f7; --ink-2:#aeb8c4; --muted:#77818d;
+    --line:#2a323d; --hairline:rgba(255,255,255,.09);
+    --accent:#5598e7; --accent-soft:rgba(85,152,231,.14); --on-accent:#0d1420;
+    --cash:#3987e5; --cash-fill:rgba(57,135,229,.32);
+    --invest:#199e70; --invest-fill:rgba(25,158,112,.32);
+    --neg:#e66767; --neg-fill:rgba(230,103,103,.24);
+    --good:#0ca30c; --warn:#fab219; --crit:#e66767;
+    --grid:#262d37; --axis:#3c4550;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="light"]{
+  --page:#f2f4f7; --surface:#ffffff; --surface-2:#e9edf2; --well:#f6f8fa;
+  --ink:#161b22; --ink-2:#48515d; --muted:#87909d;
+  --line:#dfe4ea; --hairline:rgba(22,27,34,.09);
+  --accent:#1c5cab; --accent-soft:rgba(28,92,171,.09); --on-accent:#ffffff;
+  --cash:#2a78d6; --cash-fill:rgba(42,120,214,.30);
+  --invest:#1baf7a; --invest-fill:rgba(27,175,122,.30);
+  --neg:#d03b3b; --neg-fill:rgba(208,59,59,.22);
+  --good:#0ca30c; --warn:#b97a00; --crit:#d03b3b;
+  --grid:#e5e8ee; --axis:#c2c8d1;
+  --shadow:0 1px 2px rgba(22,27,34,.05), 0 8px 24px -12px rgba(22,27,34,.12);
+}
+:root[data-theme="dark"]{
+  --page:#0f1319; --surface:#171c24; --surface-2:#1f2630; --well:#131820;
+  --ink:#eef2f7; --ink-2:#aeb8c4; --muted:#77818d;
+  --line:#2a323d; --hairline:rgba(255,255,255,.09);
+  --accent:#5598e7; --accent-soft:rgba(85,152,231,.14); --on-accent:#0d1420;
+  --cash:#3987e5; --cash-fill:rgba(57,135,229,.32);
+  --invest:#199e70; --invest-fill:rgba(25,158,112,.32);
+  --neg:#e66767; --neg-fill:rgba(230,103,103,.24);
+  --good:#0ca30c; --warn:#fab219; --crit:#e66767;
+  --grid:#262d37; --axis:#3c4550;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--page); color:var(--ink);
+  font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","BIZ UDPGothic","Yu Gothic UI","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,system-ui,sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 20px 64px}
+
+/* ---------- header ---------- */
+header.site{padding:36px 0 0}
+.eyebrow{font-size:11px; font-weight:700; letter-spacing:.22em; color:var(--accent); text-transform:uppercase}
+h1{font-size:clamp(26px,4.2vw,38px); font-weight:800; letter-spacing:.01em; margin:6px 0 8px; line-height:1.3; text-wrap:balance}
+.lead{color:var(--ink-2); max-width:42em; margin:0}
+.credit{
+  display:flex; align-items:center; gap:12px;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  margin-top:22px; padding:12px 2px;
+}
+.credit img{width:54px; height:54px; border-radius:50%; background:#fff; object-fit:cover; border:1px solid var(--hairline)}
+.credit .who small{display:block; font-size:11px; color:var(--muted); letter-spacing:.08em}
+.credit .who b{font-size:15px}
+.credit .asof{margin-left:auto; font-size:12px; color:var(--muted); text-align:right}
+
+/* ---------- layout ---------- */
+main{display:grid; grid-template-columns:400px 1fr; gap:24px; margin-top:26px; align-items:start}
+@media (max-width:920px){ main{grid-template-columns:1fr} }
+
+/* ---------- input panel ---------- */
+.panel{display:flex; flex-direction:column; gap:12px}
+details.sec{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+details.sec>summary{
+  list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px;
+  padding:13px 16px; font-weight:700; font-size:14px; user-select:none;
+}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary .n{
+  width:24px; height:24px; border-radius:8px; background:var(--accent-soft); color:var(--accent);
+  display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex:none;
+}
+details.sec>summary .chev{margin-left:auto; color:var(--muted); transition:transform .18s; font-size:12px}
+details.sec[open]>summary .chev{transform:rotate(90deg)}
+details.sec>.body{padding:4px 16px 16px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:12px}
+.field{display:flex; flex-direction:column; gap:4px}
+.field>label{font-size:12px; font-weight:600; color:var(--ink-2)}
+.hint{font-size:11px; color:var(--muted); line-height:1.5}
+.ctrl{display:flex; align-items:center; gap:8px}
+input[type=number], select, input[type=text]{
+  width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:9px;
+  background:var(--well); color:var(--ink); font:inherit; font-size:14px;
+}
+input[type=number]{font-variant-numeric:tabular-nums; text-align:right}
+input:focus-visible, select:focus-visible, button:focus-visible, summary:focus-visible{
+  outline:2px solid var(--accent); outline-offset:1px;
+}
+.unit{flex:none; font-size:12px; color:var(--muted); min-width:2.5em}
+.row2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+.check{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--ink-2); cursor:pointer}
+.check input{width:16px; height:16px; accent-color:var(--accent)}
+.subcard{background:var(--well); border:1px solid var(--line); border-radius:10px; padding:12px; display:flex; flex-direction:column; gap:10px}
+.subcard .sub-head{display:flex; align-items:center; font-size:12px; font-weight:700; color:var(--ink-2)}
+.subcard .sub-head button{margin-left:auto}
+button.ghost{
+  background:none; border:1px solid var(--line); color:var(--ink-2); border-radius:8px;
+  padding:5px 10px; font:inherit; font-size:12px; font-weight:600; cursor:pointer;
+}
+button.ghost:hover{border-color:var(--accent); color:var(--accent)}
+button.add{
+  background:var(--accent-soft); color:var(--accent); border:none; border-radius:9px;
+  padding:8px 12px; font:inherit; font-size:13px; font-weight:700; cursor:pointer;
+}
+.hidden{display:none !important}
+
+/* ---------- results ---------- */
+.results{display:flex; flex-direction:column; gap:16px; min-width:0}
+.verdict{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:20px 22px; display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+  border-left:5px solid var(--good);
+}
+.verdict .mark{font-size:40px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums}
+.verdict .msg{flex:1 1 16em; min-width:0}
+.verdict .msg b{font-size:17px; display:block; margin-bottom:2px; text-wrap:balance}
+.verdict .msg span{font-size:13px; color:var(--ink-2)}
+.kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+@media (max-width:1060px){ .kpis{grid-template-columns:repeat(2,1fr)} }
+.kpi{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:14px 16px}
+.kpi small{display:block; font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.04em; margin-bottom:2px}
+.kpi .v{font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; line-height:1.3; white-space:nowrap}
+.kpi .v em{font-style:normal; font-size:12px; font-weight:600; color:var(--muted); margin-left:2px}
+.kpi .note{font-size:11px; color:var(--muted); margin-top:2px}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; min-width:0}
+.card h2{font-size:15px; font-weight:700; margin:0 0 2px}
+.card .sub{font-size:12px; color:var(--muted); margin:0 0 10px}
+.legend{display:flex; gap:16px; font-size:12px; color:var(--ink-2); margin-bottom:8px; flex-wrap:wrap}
+.legend i{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:baseline}
+.chart-wrap{position:relative}
+canvas{display:block; width:100%; height:280px; touch-action:pan-y}
+#balChart{height:200px}
+.tip{
+  position:absolute; pointer-events:none; z-index:5; background:var(--surface);
+  border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+  padding:8px 12px; font-size:12px; line-height:1.6; white-space:nowrap; display:none;
+}
+.tip b{font-variant-numeric:tabular-nums}
+.tip .t-head{font-weight:700; margin-bottom:2px}
+.tip i{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:5px}
+
+/* ---------- cashflow table ---------- */
+.cf-controls{display:flex; align-items:center; gap:14px; margin-bottom:10px; flex-wrap:wrap}
+.tbl{overflow:auto; max-height:520px; border:1px solid var(--line); border-radius:10px}
+table{border-collapse:separate; border-spacing:0; width:100%; font-size:12.5px; font-variant-numeric:tabular-nums}
+thead th{
+  position:sticky; top:0; z-index:2; background:var(--surface-2); color:var(--ink-2);
+  font-size:11px; font-weight:700; text-align:right; padding:8px 10px; white-space:nowrap;
+  border-bottom:1px solid var(--line);
+}
+thead th:first-child, tbody td:first-child{position:sticky; left:0; text-align:left; background:var(--surface-2); z-index:1}
+thead th:first-child{z-index:3}
+tbody td{padding:6px 10px; text-align:right; white-space:nowrap; border-bottom:1px solid var(--hairline); color:var(--ink-2)}
+tbody td:first-child{font-weight:700; color:var(--ink)}
+tbody tr.milestone td{background:var(--accent-soft)}
+tbody tr.milestone td:first-child{background:var(--surface-2)}
+td.neg{color:var(--neg); font-weight:600}
+td.total{font-weight:700; color:var(--ink)}
+
+/* ---------- assumptions ---------- */
+.assump{font-size:13px; color:var(--ink-2)}
+.assump ul{margin:8px 0 0; padding-left:1.3em; display:flex; flex-direction:column; gap:4px}
+.assump li::marker{color:var(--accent)}
+footer.site{margin-top:36px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); line-height:1.8}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important} }
+</style>
+
+<div class="wrap">
+<header class="site">
+  <div class="eyebrow">Life Plan Simulator</div>
+  <h1>ライフプラン・シミュレーター 2026</h1>
+  <p class="lead">家族・収入・住まい・教育・老後——人生100年の家計を1年きざみで計算。入力するそばから、資産の推移とキャッシュフロー表が更新されます。</p>
+  <div class="credit">
+    <img src="data:image/png;base64,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" alt="きょうのアイコン">
+    <div class="who"><small>作成者</small><b>きょう（i-money）</b></div>
+    <div class="asof">2026年度（令和8年度）の<br>税・社会保障制度で計算</div>
+  </div>
+</header>
+
+<main>
+<!-- ================= 入力 ================= -->
+<form class="panel" id="form" onsubmit="return false">
+
+<details class="sec" open>
+  <summary><span class="n">1</span>家族構成<span class="chev">▶</span></summary>
+  <div class="body">
+    <div class="row2">
+      <div class="field"><label for="myAge">あなたの年齢</label>
+        <div class="ctrl"><input type="number" id="myAge" value="35" min="18" max="80"><span class="unit">歳</span></div></div>
+      <div class="field"><label for="joinAge">働き始めた年齢</label>
+        <div class="ctrl"><input type="number" id="joinAge" value="23" min="15" max="40"><span class="unit">歳</span></div></div>
+    </div>
+    <label class="check"><input type="checkbox" id="spouseOn" checked>配偶者がいる（予定を含む）</label>
+    <div id="spouseAgeWrap" class="field"><label for="spouseAge">配偶者の年齢</label>
+      <div class="ctrl"><input type="number" id="spouseAge" value="33" min="18" max="80"><span class="unit">歳</span></div></div>
+    <div class="subcard">
+      <div class="sub-head">子ども<button type="button" class="ghost" id="addChild">＋ 追加</button></div>
+      <div id="children" style="display:flex;flex-direction:column;gap:10px"></div>
+      <p class="hint">これから生まれる予定の子は年齢をマイナスで入力（例: 2年後の誕生 → −2）。児童手当（2026年制度・所得制限なし）は自動で収入に計上します。</p>
+    </div>
+  </div>
+</details>
+
+<details class="sec" open>
+  <summary><span class="n">2</span>収入と働き方<span class="chev">▶</span></summary>
+  <div class="body">
+    <div class="field"><label for="myWork">あなたの働き方</label>
+      <select id="myWork">
+        <option value="emp">会社員・公務員（厚生年金）</option>
+        <option value="self">自営業・フリーランス（国民年金）</option>
+      </select></div>
+    <div class="row2">
+      <div class="field"><label for="myIncome">額面年収</label>
+        <div class="ctrl"><input type="number" id="myIncome" value="600" min="0" step="10"><span class="unit">万円</span></div></div>
+      <div class="field"><label for="myRaise">昇給率（年）</label>
+        <div class="ctrl"><input type="number" id="myRaise" value="2.0" min="-5" max="10" step="0.1"><span class="unit">%</span></div></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="retireAge">定年（給与のピーク終了）</label>
+        <div class="ctrl"><input type="number" id="retireAge" value="60" min="45" max="75"><span class="unit">歳</span></div></div>
+      <div class="field"><label for="taishoku">退職金（額面）</label>
+        <div class="ctrl"><input type="number" id="taishoku" value="1500" min="0" step="50"><span class="unit">万円</span></div></div>
+    </div>
+    <label class="check"><input type="checkbox" id="reEmpOn" checked>定年後も再雇用などで働く</label>
+    <div class="row2" id="reEmpWrap">
+      <div class="field"><label for="reIncome">再雇用時の年収</label>
+        <div class="ctrl"><input type="number" id="reIncome" value="350" min="0" step="10"><span class="unit">万円</span></div></div>
+      <div class="field"><label for="fullRetire">完全リタイア年齢</label>
+        <div class="ctrl"><input type="number" id="fullRetire" value="65" min="50" max="80"><span class="unit">歳</span></div></div>
+    </div>
+    <div id="spouseIncomeWrap" style="display:flex;flex-direction:column;gap:12px">
+      <div class="field"><label for="spWork">配偶者の働き方</label>
+        <select id="spWork">
+          <option value="emp">会社員・公務員（厚生年金）</option>
+          <option value="part" selected>パート（年収130万円以内・第3号）</option>
+          <option value="none">専業主婦・主夫</option>
+          <option value="self">自営業・フリーランス</option>
+        </select></div>
+      <div class="row2" id="spIncomeRow">
+        <div class="field"><label for="spIncome">配偶者の額面年収</label>
+          <div class="ctrl"><input type="number" id="spIncome" value="100" min="0" step="10"><span class="unit">万円</span></div></div>
+        <div class="field"><label for="spRetire">配偶者のリタイア年齢</label>
+          <div class="ctrl"><input type="number" id="spRetire" value="60" min="40" max="80"><span class="unit">歳</span></div></div>
+      </div>
+      <div class="field" id="spTaishokuWrap"><label for="spTaishoku">配偶者の退職金（額面）</label>
+        <div class="ctrl"><input type="number" id="spTaishoku" value="0" min="0" step="50"><span class="unit">万円</span></div></div>
+    </div>
+    <p class="hint">手取りは2026年分の制度（給与所得控除・基礎控除の改正後ラダー・社会保険料率）で自動計算します。</p>
+  </div>
+</details>
+
+<details class="sec">
+  <summary><span class="n">3</span>公的年金<span class="chev">▶</span></summary>
+  <div class="body">
+    <div class="field"><label for="pensionStart">受給開始年齢（繰上げ・繰下げ）</label>
+      <select id="pensionStart">
+        <option value="60">60歳（−24%）</option>
+        <option value="62">62歳（−14.4%）</option>
+        <option value="65" selected>65歳（標準）</option>
+        <option value="67">67歳（＋16.8%）</option>
+        <option value="70">70歳（＋42%）</option>
+        <option value="75">75歳（＋84%）</option>
+      </select></div>
+    <p class="hint">令和8年度の年金額（基礎年金満額 月70,608円・報酬比例乗率5.481/1000）をベースに、あなたと配偶者それぞれの働き方・年収履歴から見込額を自動計算。将来の年金額はマクロ経済スライドを想定し、物価上昇率の6割で改定される前提です。</p>
+  </div>
+</details>
+
+<details class="sec" open>
+  <summary><span class="n">4</span>暮らしの支出<span class="chev">▶</span></summary>
+  <div class="body">
+    <div class="row2">
+      <div class="field"><label for="living">基本生活費（月額）</label>
+        <div class="ctrl"><input type="number" id="living" value="22" min="0" step="1"><span class="unit">万円</span></div></div>
+      <div class="field"><label for="oldRate">老後の生活費（現役比）</label>
+        <div class="ctrl"><input type="number" id="oldRate" value="80" min="40" max="150" step="5"><span class="unit">%</span></div></div>
+    </div>
+    <div class="field"><label for="infl">物価上昇率（インフレ）</label>
+      <div class="ctrl"><input type="number" id="infl" value="1.5" min="0" max="5" step="0.1"><span class="unit">%</span></div></div>
+    <p class="hint">生活費には食費・日用品・水道光熱・通信・小遣い・レジャーなどを含めます。住居費・教育費・保険・クルマは別のセクションで入力してください。</p>
+  </div>
+</details>
+
+<details class="sec">
+  <summary><span class="n">5</span>住まい<span class="chev">▶</span></summary>
+  <div class="body">
+    <div class="field"><label for="houseMode">住まいの状況</label>
+      <select id="houseMode">
+        <option value="rent" selected>賃貸に住み続ける</option>
+        <option value="buy">これからマイホームを購入する</option>
+        <option value="loan">持ち家（ローン返済中）</option>
+        <option value="own">持ち家（ローン完済）</option>
+      </select></div>
+    <div id="hRent" class="field"><label for="rent">家賃（月額・共益費込み）</label>
+      <div class="ctrl"><input type="number" id="rent" value="10" min="0" step="0.5"><span class="unit">万円</span></div>
+      <p class="hint">2年ごとの更新料（家賃1か月分）を自動計上します。</p></div>
+    <div id="hBuy" class="hidden" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row2">
+        <div class="field"><label for="buyAge">購入する年齢</label>
+          <div class="ctrl"><input type="number" id="buyAge" value="38" min="20" max="70"><span class="unit">歳</span></div></div>
+        <div class="field"><label for="housePrice">物件価格</label>
+          <div class="ctrl"><input type="number" id="housePrice" value="4500" min="0" step="100"><span class="unit">万円</span></div></div>
+      </div>
+      <div class="row3">
+        <div class="field"><label for="downPay">頭金＋諸費用</label>
+          <div class="ctrl"><input type="number" id="downPay" value="500" min="0" step="50"><span class="unit">万円</span></div></div>
+        <div class="field"><label for="loanRate">ローン金利</label>
+          <div class="ctrl"><input type="number" id="loanRate" value="1.8" min="0" max="6" step="0.05"><span class="unit">%</span></div></div>
+        <div class="field"><label for="loanYears">返済期間</label>
+          <div class="ctrl"><input type="number" id="loanYears" value="35" min="5" max="50"><span class="unit">年</span></div></div>
+      </div>
+    </div>
+    <div id="hLoan" class="hidden">
+      <div class="row2">
+        <div class="field"><label for="loanPay">ローン返済額（月額）</label>
+          <div class="ctrl"><input type="number" id="loanPay" value="11" min="0" step="0.5"><span class="unit">万円</span></div></div>
+        <div class="field"><label for="loanLeft">残りの返済年数</label>
+          <div class="ctrl"><input type="number" id="loanLeft" value="25" min="0" max="50"><span class="unit">年</span></div></div>
+      </div>
+    </div>
+    <div id="hMaint" class="field hidden"><label for="maint">維持費（年額: 固定資産税・修繕・管理費）</label>
+      <div class="ctrl"><input type="number" id="maint" value="40" min="0" step="5"><span class="unit">万円</span></div></div>
+  </div>
+</details>
+
+<details class="sec">
+  <summary><span class="n">6</span>クルマ・保険<span class="chev">▶</span></summary>
+  <div class="body">
+    <label class="check"><input type="checkbox" id="carOn" checked>クルマを保有する</label>
+    <div id="carWrap" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row3">
+        <div class="field"><label for="carPrice">1台の購入価格</label>
+          <div class="ctrl"><input type="number" id="carPrice" value="250" min="0" step="10"><span class="unit">万円</span></div></div>
+        <div class="field"><label for="carCycle">買い替え周期</label>
+          <div class="ctrl"><input type="number" id="carCycle" value="9" min="3" max="20"><span class="unit">年</span></div></div>
+        <div class="field"><label for="carEnd">手放す年齢</label>
+          <div class="ctrl"><input type="number" id="carEnd" value="75" min="40" max="100"><span class="unit">歳</span></div></div>
+      </div>
+      <div class="field"><label for="carCost">維持費（年額: 保険・税・車検・燃料・駐車場）</label>
+        <div class="ctrl"><input type="number" id="carCost" value="35" min="0" step="5"><span class="unit">万円</span></div></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="insPay">民間保険の保険料（月額・世帯）</label>
+        <div class="ctrl"><input type="number" id="insPay" value="1.5" min="0" step="0.5"><span class="unit">万円</span></div></div>
+      <div class="field"><label for="insEnd">払込終了年齢</label>
+        <div class="ctrl"><input type="number" id="insEnd" value="65" min="30" max="100"><span class="unit">歳</span></div></div>
+    </div>
+  </div>
+</details>
+
+<details class="sec" open>
+  <summary><span class="n">7</span>貯蓄と資産運用<span class="chev">▶</span></summary>
+  <div class="body">
+    <div class="row2">
+      <div class="field"><label for="cash0">いまの現預金</label>
+        <div class="ctrl"><input type="number" id="cash0" value="400" min="0" step="10"><span class="unit">万円</span></div></div>
+      <div class="field"><label for="inv0">いまの運用資産（NISA・iDeCoなど）</label>
+        <div class="ctrl"><input type="number" id="inv0" value="300" min="0" step="10"><span class="unit">万円</span></div></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label for="tsumitate">毎月の積立</label>
+        <div class="ctrl"><input type="number" id="tsumitate" value="5" min="0" step="0.5"><span class="unit">万円</span></div></div>
+      <div class="field"><label for="tsumiEnd">積立終了年齢</label>
+        <div class="ctrl"><input type="number" id="tsumiEnd" value="65" min="20" max="100"><span class="unit">歳</span></div></div>
+      <div class="field"><label for="yield">想定利回り（年）</label>
+        <div class="ctrl"><input type="number" id="yield" value="4.0" min="-5" max="15" step="0.5"><span class="unit">%</span></div></div>
+    </div>
+    <p class="hint">家計が赤字の年は現預金から取り崩し、現預金が尽きたら運用資産を自動で売却します。NISA前提で運用益は非課税として扱います。</p>
+  </div>
+</details>
+
+<details class="sec">
+  <summary><span class="n">8</span>ライフイベント<span class="chev">▶</span></summary>
+  <div class="body">
+    <div id="events" style="display:flex;flex-direction:column;gap:10px"></div>
+    <button type="button" class="add" id="addEvent">＋ イベントを追加（結婚・リフォーム・親の介護・相続など）</button>
+    <p class="hint">「あなたが何歳のとき」「いくら（支出/収入）」で自由に追加できます。</p>
+  </div>
+</details>
+
+</form>
+
+<!-- ================= 結果 ================= -->
+<section class="results">
+  <div class="verdict" id="verdict">
+    <div class="mark" id="vMark">—</div>
+    <div class="msg"><b id="vTitle">計算中…</b><span id="vBody"></span></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><small>資産寿命</small><div class="v" id="kLife">—</div><div class="note" id="kLifeNote"></div></div>
+    <div class="kpi"><small>65歳時点の総資産</small><div class="v" id="k65">—</div><div class="note">現預金＋運用資産</div></div>
+    <div class="kpi"><small>世帯の年金（月額・額面）</small><div class="v" id="kPension">—</div><div class="note" id="kPensionNote">—</div></div>
+    <div class="kpi"><small>ピーク時の総資産</small><div class="v" id="kPeak">—</div><div class="note" id="kPeakNote"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>資産の推移</h2>
+    <p class="sub">現預金と運用資産の積み上げ。100歳までの見通し</p>
+    <div class="legend">
+      <span><i style="background:var(--cash)"></i>現預金</span>
+      <span><i style="background:var(--invest)"></i>運用資産</span>
+      <span><i style="background:var(--neg)"></i>資金不足</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="assetChart" aria-label="資産推移グラフ" role="img"></canvas>
+      <div class="tip" id="assetTip"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>年間の収支</h2>
+    <p class="sub">その年の収入 −（支出＋積立）。赤いバーは取り崩しの年</p>
+    <div class="chart-wrap">
+      <canvas id="balChart" aria-label="年間収支グラフ" role="img"></canvas>
+      <div class="tip" id="balTip"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>キャッシュフロー表</h2>
+    <p class="sub">計算ロジックはすべてこの表で確認できます（単位: 万円）</p>
+    <div class="cf-controls">
+      <label class="check"><input type="checkbox" id="everyYear">毎年表示（オフ: 5年ごと＋節目の年）</label>
+    </div>
+    <div class="tbl"><table id="cfTable">
+      <thead><tr>
+        <th>年齢</th><th>西暦</th><th>給与手取り</th><th>年金</th><th>その他収入</th>
+        <th>生活費</th><th>住居</th><th>教育</th><th>保険・車</th><th>イベント</th>
+        <th>年間収支</th><th>現預金</th><th>運用資産</th><th>総資産</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </div>
+
+  <div class="card assump">
+    <h2>計算の前提（2026年度）</h2>
+    <ul>
+      <li><b>手取り計算</b>: 2025年税制改正後の給与所得控除（最低65万円）・基礎控除（所得により58〜95万円）、所得税の累進税率＋復興特別所得税、住民税10%、社会保険料（健康保険・介護保険・厚生年金9.15%・雇用保険。標準報酬の上限を考慮）で概算。</li>
+      <li><b>公的年金</b>: 令和8年度の基礎年金満額 月70,608円。厚生年金は平均年収 × 5.481/1000 × 加入月数で概算（上限あり）。繰上げは月−0.4%、繰下げは月＋0.7%。年金の手取りは公的年金等控除・税・社会保険料を差し引いて計算。</li>
+      <li><b>退職金</b>: 退職所得控除（勤続20年まで年40万円、超過分は年70万円）と1/2課税を適用した手取りで計上。</li>
+      <li><b>児童手当</b>: 0〜2歳 月1.5万円、3歳〜高校生年代 月1万円、第3子以降 月3万円（所得制限なし）。</li>
+      <li><b>教育費</b>: 文部科学省「子供の学習費調査」等をもとにした年額を使用。幼児教育・保育の無償化、高校授業料の実質無償化（2026年度からの私立加算 45.7万円）を反映。</li>
+      <li><b>インフレ</b>: 生活費・家賃・教育費・維持費に適用。年金はマクロ経済スライドを想定し物価上昇率の6割で改定。ローン返済額と保険料は固定。</li>
+      <li>介護費用・大きな医療費は含みません。必要ならライフイベントで追加してください。</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  本シミュレーターは2026年度の制度をもとにした概算です。実際の税額・年金額・教育費は個々の状況により変わります。資産運用の利回りは保証されるものではありません。ライフプランの詳細な設計は、最新の制度と専門家の助言のもとでご確認ください。<br>
+  © 2026 きょう（i-money）
+</footer>
+</div>
+
+<script>
+"use strict";
+/* ================= ユーティリティ ================= */
+const $ = id => document.getElementById(id);
+const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
+function num(id, def=0){ const v=parseFloat($(id).value); return isFinite(v)?v:def; }
+const fmtMan = v => {
+  const r = Math.round(v);
+  if (Math.abs(r) >= 10000) {
+    const oku = r/10000;
+    return (oku>=10||oku<=-10 ? oku.toFixed(1) : oku.toFixed(2)).replace(/\.?0+$/,'') + '億円';
+  }
+  return r.toLocaleString('ja-JP') + '万円';
+};
+const fmtManShort = v => {
+  const r = Math.round(v);
+  if (Math.abs(r) >= 10000) return (r/10000).toFixed(1).replace(/\.0$/,'') + '億';
+  return r.toLocaleString('ja-JP');
+};
+
+/* ================= 税・社会保険（2026年分） ================= */
+function progressiveTax(x){ // 課税所得(円) → 所得税(円)
+  if (x<=0) return 0;
+  const b=[[1949000,.05,0],[3299000,.10,97500],[6949000,.20,427500],[8999000,.23,636000],
+           [17999000,.33,1536000],[39999000,.40,2796000],[Infinity,.45,4796000]];
+  for (const [lim,r,d] of b) if (x<=lim) return Math.max(0, x*r-d);
+  return 0;
+}
+function kisoKojo(income){ // 合計所得(円) → 所得税の基礎控除(円) 2026年分
+  if (income<=1320000) return 950000;
+  if (income<=3360000) return 880000;
+  if (income<=4890000) return 680000;
+  if (income<=6550000) return 630000;
+  if (income<=23500000) return 580000;
+  if (income<=24000000) return 480000;
+  if (income<=24500000) return 320000;
+  if (income<=25000000) return 160000;
+  return 0;
+}
+function salaryDeduction(g){ // 給与収入(円) → 給与所得控除(円) 2026年分
+  if (g<=1900000) return 650000;
+  if (g<=3600000) return g*0.30+80000;
+  if (g<=6600000) return g*0.20+440000;
+  if (g<=8500000) return g*0.10+1100000;
+  return 1950000;
+}
+// 会社員の手取り(万円)。spouseDed: 配偶者控除を適用するか
+function netSalary(grossMan, spouseDed){
+  if (grossMan<=0) return 0;
+  const g = grossMan*10000;
+  const si = Math.min(g,16560000)*0.0575   // 健保+介護(本人負担)
+           + Math.min(g,7930000)*0.0915    // 厚生年金(上限考慮)
+           + g*0.0055;                     // 雇用保険
+  const inc = Math.max(0, g - salaryDeduction(g));
+  const spD = spouseDed ? 380000 : 0;
+  const taxable = Math.max(0, inc - si - kisoKojo(inc) - spD);
+  const tax = progressiveTax(taxable)*1.021;
+  const juTaxable = Math.max(0, inc - si - 430000 - (spouseDed?330000:0));
+  const jumin = juTaxable>0 ? juTaxable*0.10+5000 : 0;
+  return (g - si - tax - jumin)/10000;
+}
+// 自営業の手取り(万円)。国保+国民年金、青色申告特別控除65万を想定
+function netSelf(grossMan, spouseDed){
+  if (grossMan<=0) return 0;
+  const g = grossMan*10000;
+  const inc = Math.max(0, g - 650000);
+  const kokuho = Math.min(inc*0.115, 1090000);
+  const nenkin = 215040; // 月17,920円(令和8年度)
+  const si = kokuho + nenkin;
+  const spD = spouseDed ? 380000 : 0;
+  const taxable = Math.max(0, inc - si - kisoKojo(inc) - spD);
+  const tax = progressiveTax(taxable)*1.021;
+  const juTaxable = Math.max(0, inc - si - 430000 - (spouseDed?330000:0));
+  const jumin = juTaxable>0 ? juTaxable*0.10+5000 : 0;
+  return (g - si - tax - jumin)/10000;
+}
+// 年金の手取り(万円/年)。65歳以上の公的年金等控除+国保・介護・後期高齢者保険料の概算
+function netPension(grossMan){
+  if (grossMan<=0) return 0;
+  const g = grossMan*10000;
+  let kojo;
+  if (g<=3300000) kojo = 1100000;
+  else if (g<=4100000) kojo = g*0.25+275000;
+  else if (g<=7700000) kojo = g*0.15+685000;
+  else kojo = g*0.05+1455000;
+  const inc = Math.max(0, g-kojo);
+  const si = g*0.075;
+  const taxable = Math.max(0, inc - si - kisoKojo(inc));
+  const tax = progressiveTax(taxable)*1.021;
+  const juT = Math.max(0, inc - si - 430000);
+  const jumin = juT>0 ? juT*0.10+5000 : 0;
+  return (g - si - tax - jumin)/10000;
+}
+// 退職金の手取り(万円)
+function netTaishoku(man, years){
+  if (man<=0) return 0;
+  const g = man*10000;
+  const ded = years<=20 ? 400000*years : 8000000+700000*(years-20);
+  const taxable = Math.max(0,(g-ded)/2);
+  const tax = progressiveTax(taxable)*1.021 + taxable*0.10;
+  return (g-tax)/10000;
+}
+
+/* ================= 年金見込み額（令和8年度） ================= */
+const KISO_FULL = 84.73; // 万円/年 (月70,608円)
+function pensionFactor(start){ return start<65 ? 1-0.004*12*(65-start) : 1+0.007*12*(start-65); }
+// 厚生年金の報酬比例部分(万円/年): 平均年収(万円)と加入年数から
+function koseiNenkin(avgAnnualMan, years){
+  const avgStd = Math.min(avgAnnualMan,850)/12*10000; // 平均標準報酬額(円)
+  return avgStd*0.005481*years*12/10000;
+}
+
+/* ================= 教育費テーブル（年額・万円・2026年度水準） ================= */
+const EDU_STAGE = {
+  yochien:{pub:14, pri:28}, sho:{pub:34, pri:183},
+  chu:{pub:54, pri:156}, koko:{pub:46, pri:63},
+  univ:{koku:130, shibun:170, shiri:195}, entrance:25, boarding:110
+};
+const PLANS = {
+  p1:{label:'オール公立 → 国公立大', sho:'pub', chu:'pub', koko:'pub', univ:'koku'},
+  p2:{label:'公立中心 → 私立文系大', sho:'pub', chu:'pub', koko:'pub', univ:'shibun'},
+  p3:{label:'公立中心 → 私立理系大', sho:'pub', chu:'pub', koko:'pub', univ:'shiri'},
+  p4:{label:'高校から私立 → 私立文系大', sho:'pub', chu:'pub', koko:'pri', univ:'shibun'},
+  p5:{label:'中学から私立 → 私立理系大', sho:'pub', chu:'pri', koko:'pri', univ:'shiri'},
+  p6:{label:'小学校から私立 → 私立理系大', sho:'pri', chu:'pri', koko:'pri', univ:'shiri'},
+  p0:{label:'高校まで（大学進学なし）', sho:'pub', chu:'pub', koko:'pub', univ:null},
+};
+function eduCost(childAge, planKey, boarding){
+  const p = PLANS[planKey]; if(!p) return 0;
+  let c = 0;
+  if (childAge>=3 && childAge<=5) c = EDU_STAGE.yochien.pub; // 無償化後の実費
+  else if (childAge>=6 && childAge<=11) c = EDU_STAGE.sho[p.sho];
+  else if (childAge>=12 && childAge<=14) c = EDU_STAGE.chu[p.chu];
+  else if (childAge>=15 && childAge<=17) c = EDU_STAGE.koko[p.koko];
+  else if (p.univ && childAge>=18 && childAge<=21){
+    c = EDU_STAGE.univ[p.univ] + (childAge===18 ? EDU_STAGE.entrance : 0) + (boarding ? EDU_STAGE.boarding : 0);
+  }
+  return c;
+}
+function jidoTeate(childAge, birthOrder){ // 万円/年 2026年制度
+  if (childAge<0 || childAge>18) return 0;
+  if (birthOrder>=3) return 36;
+  return childAge<=2 ? 18 : 12;
+}
+
+/* ================= 入力の収集 ================= */
+function collectParams(){
+  const children = [...document.querySelectorAll('#children .child-row')].map(r=>({
+    age: parseFloat(r.querySelector('.c-age').value)||0,
+    plan: r.querySelector('.c-plan').value,
+    boarding: r.querySelector('.c-board').checked,
+  }));
+  const events = [...document.querySelectorAll('#events .ev-row')].map(r=>({
+    name: r.querySelector('.e-name').value || 'イベント',
+    age: parseFloat(r.querySelector('.e-age').value)||0,
+    amount: parseFloat(r.querySelector('.e-amt').value)||0,
+    kind: r.querySelector('.e-kind').value,
+  })).filter(e=>e.amount>0);
+  return {
+    myAge: clamp(num('myAge',35),18,80), joinAge: clamp(num('joinAge',23),15,40),
+    spouseOn: $('spouseOn').checked, spouseAge: clamp(num('spouseAge',33),18,80),
+    children, events,
+    myWork: $('myWork').value, myIncome: num('myIncome',600), myRaise: num('myRaise',1)/100,
+    retireAge: num('retireAge',60), taishoku: num('taishoku',0),
+    reEmpOn: $('reEmpOn').checked, reIncome: num('reIncome',0), fullRetire: num('fullRetire',65),
+    spWork: $('spWork').value, spIncome: num('spIncome',0), spRetire: num('spRetire',60), spTaishoku: num('spTaishoku',0),
+    pensionStart: parseInt($('pensionStart').value,10),
+    living: num('living',24), oldRate: num('oldRate',80)/100, infl: num('infl',1.5)/100,
+    houseMode: $('houseMode').value, rent: num('rent',10),
+    buyAge: num('buyAge',38), housePrice: num('housePrice',4500), downPay: num('downPay',500),
+    loanRate: num('loanRate',1.8)/100, loanYears: num('loanYears',35),
+    loanPay: num('loanPay',11), loanLeft: num('loanLeft',25), maint: num('maint',40),
+    carOn: $('carOn').checked, carPrice: num('carPrice',250), carCycle: Math.max(3,num('carCycle',9)),
+    carEnd: num('carEnd',75), carCost: num('carCost',35),
+    insPay: num('insPay',1.5), insEnd: num('insEnd',65),
+    cash0: num('cash0',400), inv0: num('inv0',300),
+    tsumitate: num('tsumitate',5), tsumiEnd: num('tsumiEnd',65), yield: num('yield',4)/100,
+  };
+}
+
+/* ================= シミュレーション本体 ================= */
+function simulate(p){
+  const BASE_YEAR = 2026;
+  const endAge = 100;
+  const spOffset = p.spouseAge - p.myAge; // 配偶者年齢 = 本人年齢 + spOffset
+
+  // ---- 給与(額面)を年齢ごとに返す ----
+  const grossAt = (age)=>{ // 本人
+    if (age < p.retireAge) return p.myIncome * Math.pow(1+p.myRaise, age - p.myAge);
+    if (p.reEmpOn && age < p.fullRetire) return p.reIncome;
+    return 0;
+  };
+  const salaryEndAge = p.reEmpOn ? Math.max(p.retireAge, p.fullRetire) : p.retireAge;
+
+  // ---- 厚生年金用: 生涯平均年収(過去は昇給率で逆算) ----
+  function careerAvg(income, raise, fromAge, nowAge, toAge, reOn, reInc, reEnd){
+    let sum=0, n=0;
+    for (let a=fromAge; a<toAge; a++){ sum += Math.min(income*Math.pow(1+raise, a-nowAge), 850); n++; }
+    if (reOn) for (let a=toAge; a<reEnd; a++){ sum += Math.min(reInc,850); n++; }
+    return n>0 ? sum/n : 0;
+  }
+  // 本人の年金(65歳・標準)
+  const myKoseiYears = p.myWork==='emp' ? Math.max(0, Math.min(salaryEndAge,70) - p.joinAge) : 0;
+  const myAvg = careerAvg(p.myIncome, p.myRaise, p.joinAge, p.myAge, p.retireAge, p.reEmpOn, p.reIncome, p.fullRetire);
+  const myPension65 = KISO_FULL + (p.myWork==='emp' ? koseiNenkin(myAvg, myKoseiYears) : 0);
+  // 配偶者の年金
+  let spPension65 = 0;
+  if (p.spouseOn){
+    spPension65 = KISO_FULL;
+    if (p.spWork==='emp'){
+      const spYears = Math.max(0, Math.min(p.spRetire,70) - 23);
+      const spAvg = careerAvg(p.spIncome, 0, 23, p.spouseAge, p.spRetire, false, 0, 0);
+      spPension65 += koseiNenkin(spAvg, spYears);
+    }
+  }
+  const pf = pensionFactor(p.pensionStart);
+
+  // ---- 住宅ローン(これから購入)の年間返済額 ----
+  let buyAnnualPay = 0;
+  if (p.houseMode==='buy'){
+    const principal = Math.max(0, p.housePrice - p.downPay)*10000;
+    const r = p.loanRate/12, n = p.loanYears*12;
+    const mp = r>0 ? principal*r/(1-Math.pow(1+r,-n)) : principal/n;
+    buyAnnualPay = mp*12/10000;
+  }
+
+  // ---- 年次ループ ----
+  let cash = p.cash0, inv = p.inv0;
+  const rows = [];
+  let depletionAge = null;
+
+  for (let age=p.myAge; age<=endAge; age++){
+    const t = age - p.myAge;
+    const year = BASE_YEAR + t;
+    const infl = Math.pow(1+p.infl, t);
+    const spAge = age + spOffset;
+
+    /* ---- 収入 ---- */
+    // 本人給与
+    const myGross = grossAt(age);
+    let salaryNet = 0;
+    const spouseDed = p.spouseOn && (p.spWork==='none' || (p.spWork==='part' && p.spIncome<=123) ) && spAge < 65;
+    if (myGross>0) salaryNet += (p.myWork==='self' ? netSelf(myGross, spouseDed) : netSalary(myGross, spouseDed));
+    // 配偶者給与
+    if (p.spouseOn && spAge < p.spRetire && p.spIncome>0){
+      if (p.spWork==='emp') salaryNet += netSalary(p.spIncome,false);
+      else if (p.spWork==='self') salaryNet += netSelf(p.spIncome,false);
+      else if (p.spWork==='part') salaryNet += p.spIncome;
+    }
+    // 年金（マクロ経済スライド: 物価の6割で改定）
+    const slide = Math.pow(1+p.infl*0.6, t);
+    let pensionGrossMy=0, pensionGrossSp=0;
+    if (age >= p.pensionStart) pensionGrossMy = myPension65*pf*slide;
+    if (p.spouseOn && spAge >= p.pensionStart) pensionGrossSp = spPension65*pf*slide;
+    const pensionNet = netPension(pensionGrossMy) + netPension(pensionGrossSp);
+    // 退職金（定年時）・配偶者退職金
+    let other = 0; const otherNotes=[];
+    if (age === p.retireAge && p.taishoku>0){
+      const net = netTaishoku(p.taishoku, p.retireAge-p.joinAge);
+      other += net; otherNotes.push('退職金');
+    }
+    if (p.spouseOn && p.spWork==='emp' && spAge === p.spRetire && p.spTaishoku>0){
+      other += netTaishoku(p.spTaishoku, Math.max(1,p.spRetire-23)); otherNotes.push('配偶者退職金');
+    }
+    // 児童手当
+    const sorted = [...p.children].sort((a,b)=>b.age-a.age);
+    sorted.forEach((c,i)=>{ other += jidoTeate(c.age+t, i+1); });
+    // イベント収入
+    let evIncome=0, evExpense=0; const evNames=[];
+    for (const e of p.events){
+      if (e.age===age){ if(e.kind==='in'){evIncome+=e.amount} else {evExpense+=e.amount}; evNames.push(e.name); }
+    }
+    other += evIncome;
+    const income = salaryNet + pensionNet + other;
+
+    /* ---- 支出 ---- */
+    const retired = age >= salaryEndAge;
+    const livingCost = p.living*12 * (retired ? p.oldRate : 1) * infl;
+    // 住居
+    let housing = 0;
+    if (p.houseMode==='rent'){
+      housing = p.rent*12*infl + (t>0 && t%2===0 ? p.rent*infl : 0);
+    } else if (p.houseMode==='own'){
+      housing = p.maint*infl;
+    } else if (p.houseMode==='loan'){
+      housing = (t < p.loanLeft ? p.loanPay*12 : 0) + p.maint*infl;
+    } else if (p.houseMode==='buy'){
+      if (age < p.buyAge) housing = p.rent*12*infl + (t>0 && t%2===0 ? p.rent*infl : 0);
+      else {
+        if (age === p.buyAge){ evExpense += p.downPay; evNames.push('住宅購入 頭金'); }
+        housing = (age < p.buyAge + p.loanYears ? buyAnnualPay : 0) + p.maint*infl;
+      }
+    }
+    // 教育
+    let edu = 0;
+    for (const c of p.children) edu += eduCost(c.age+t, c.plan, c.boarding)*infl;
+    // 保険・車
+    let insCar = (age < p.insEnd ? p.insPay*12 : 0);
+    if (p.carOn && age < p.carEnd){
+      insCar += p.carCost*infl;
+      if (t>0 && t % p.carCycle === 0) { insCar += p.carPrice*infl; }
+    }
+    const expense = livingCost + housing + edu + insCar + evExpense;
+
+    /* ---- 積立と資産 ---- */
+    const contribution = (age < p.tsumiEnd) ? Math.min(p.tsumitate*12, Math.max(0, income - expense + cash)) : 0;
+    inv = inv*(1+p.yield) + contribution;
+    const balance = income - expense - contribution;
+    cash += balance;
+    if (cash < 0 && inv > 0){ const sell = Math.min(inv, -cash); inv -= sell; cash += sell; }
+    const total = cash + inv;
+    if (total < 0 && depletionAge===null) depletionAge = age;
+
+    rows.push({
+      age, spAge: p.spouseOn?spAge:null, year,
+      salaryNet, pensionNet, other, evNames,
+      livingCost, housing, edu, insCar, evExpense,
+      cf: income - expense, contribution,
+      cash, inv, total,
+    });
+  }
+
+  return {
+    rows, depletionAge, salaryEndAge,
+    pensionMonthly: (myPension65 + spPension65)*pf/12,
+    pensionStart: p.pensionStart,
+    endAge,
+  };
+}
+
+/* ================= 結果の描画 ================= */
+let lastResult = null;
+function recalc(){
+  const p = collectParams();
+  const res = simulate(p);
+  lastResult = res;
+  renderKPIs(res, p);
+  drawAssetChart(res, p);
+  drawBalChart(res, p);
+  renderTable(res, p);
+}
+
+function renderKPIs(res, p){
+  const rows = res.rows;
+  const r65 = rows.find(r=>r.age===65) || rows[rows.length-1];
+  const last = rows[rows.length-1];
+  const peak = rows.reduce((m,r)=>r.total>m.total?r:m, rows[0]);
+  const dep = res.depletionAge;
+
+  // 判定
+  const v = $('verdict'), mark=$('vMark'), title=$('vTitle'), body=$('vBody');
+  let color;
+  if (dep===null && last.total >= 500){
+    mark.textContent='◎'; color='var(--good)';
+    title.textContent='100歳まで資産が持ちます';
+    body.textContent=`100歳時点でも ${fmtMan(last.total)} が残る見通し。ゆとりを持って使う・贈与するなどの選択肢も考えられます。`;
+  } else if (dep===null){
+    mark.textContent='○'; color='var(--good)';
+    title.textContent='100歳まで資産が持ちます（残額わずか）';
+    body.textContent=`100歳時点の残額は ${fmtMan(Math.max(0,last.total))}。想定外の支出に備え、もう少し余裕をつくれると安心です。`;
+  } else if (dep>=85){
+    mark.textContent='△'; color='var(--warn)';
+    title.textContent=`${dep}歳で資産が尽きる見通しです`;
+    body.textContent='晩年に不足が出ます。積立額・利回り・老後の生活費・年金の繰下げのどれかを少し見直すと解消できる水準です。';
+  } else {
+    mark.textContent='×'; color='var(--crit)';
+    title.textContent=`${dep}歳で資産が尽きる見通しです`;
+    body.textContent='早めの対策が必要です。固定費（住居・保険・車）の見直し、積立の増額、働く期間の延長、年金の繰下げを組み合わせて再計算してみてください。';
+  }
+  v.style.borderLeftColor = color;
+  mark.style.color = color;
+
+  $('kLife').innerHTML = dep===null ? '100歳<em>以上</em>' : `${dep}<em>歳</em>`;
+  $('kLifeNote').textContent = dep===null ? '資産が尽きない見通し' : '総資産がゼロになる年齢';
+  $('k65').textContent = fmtMan(r65.total);
+  $('kPension').textContent = res.pensionMonthly<=0 ? '—' : `${(Math.round(res.pensionMonthly*10)/10).toLocaleString('ja-JP')}万円`;
+  $('kPensionNote').textContent = `${res.pensionStart}歳受給開始・世帯合計（2026年度水準）`;
+  $('kPeak').textContent = fmtMan(peak.total);
+  $('kPeakNote').textContent = `${peak.age}歳（${peak.year}年）`;
+}
+
+/* ================= チャート共通 ================= */
+function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function setupCanvas(cv){
+  const dpr = window.devicePixelRatio||1;
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w*dpr) || cv.height !== Math.round(h*dpr)){
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  }
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return {ctx, w, h};
+}
+function niceStep(range, target){
+  const raw = range/target;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw||1)));
+  for (const m of [1,2,2.5,5,10]) if (raw <= m*mag) return m*mag;
+  return 10*mag;
+}
+
+/* ================= 資産推移チャート ================= */
+let assetHover = -1;
+function drawAssetChart(res){
+  const cv = $('assetChart');
+  const {ctx,w,h} = setupCanvas(cv);
+  const rows = res.rows;
+  ctx.clearRect(0,0,w,h);
+  const padL=54, padR=14, padT=14, padB=26;
+  const iw=w-padL-padR, ih=h-padT-padB;
+
+  let maxV = Math.max(100, ...rows.map(r=>Math.max(r.total, Math.max(0,r.cash)+Math.max(0,r.inv))));
+  let minV = Math.min(0, ...rows.map(r=>r.total));
+  minV = Math.max(minV, -0.35*maxV); // 枯渇後の累積不足でスケールが崩れないよう下側をクランプ
+  const step = niceStep(maxV-minV, 5);
+  maxV = Math.ceil(maxV/step)*step; minV = Math.floor(minV/step)*step;
+  const clip = v => Math.max(v, minV);
+  const x = i => padL + iw*(i/(rows.length-1));
+  const y = v => padT + ih*(1-(v-minV)/(maxV-minV));
+
+  // grid + y labels
+  ctx.strokeStyle = cssVar('--grid'); ctx.lineWidth=1;
+  ctx.fillStyle = cssVar('--muted');
+  ctx.font='11px system-ui,sans-serif'; ctx.textAlign='right'; ctx.textBaseline='middle';
+  for (let v=minV; v<=maxV; v+=step){
+    ctx.beginPath(); ctx.moveTo(padL, y(v)+.5); ctx.lineTo(w-padR, y(v)+.5); ctx.stroke();
+    ctx.fillText(fmtManShort(v), padL-8, y(v));
+  }
+  // x labels (ages every 10)
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  rows.forEach((r,i)=>{ if (r.age%10===0) ctx.fillText(r.age+'歳', x(i), h-padB+6); });
+
+  // stacked areas: cash (bottom, blue) + inv (top, aqua); negative total in red
+  const cashCol = cssVar('--cash'), invCol = cssVar('--invest'), negCol = cssVar('--neg');
+  // cash area
+  ctx.beginPath();
+  rows.forEach((r,i)=>{ const v=Math.max(0,r.cash); i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(0),y(v)); });
+  ctx.lineTo(x(rows.length-1), y(0)); ctx.lineTo(x(0), y(0)); ctx.closePath();
+  ctx.fillStyle = cssVar('--cash-fill'); ctx.fill();
+  // inv stacked on cash
+  ctx.beginPath();
+  rows.forEach((r,i)=>{ const v=Math.max(0,r.cash)+Math.max(0,r.inv); i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(0),y(v)); });
+  for (let i=rows.length-1;i>=0;i--) ctx.lineTo(x(i), y(Math.max(0,rows[i].cash)));
+  ctx.closePath(); ctx.fillStyle = cssVar('--invest-fill'); ctx.fill();
+  // negative (shortfall) area
+  ctx.beginPath(); let hasNeg=false;
+  rows.forEach((r,i)=>{ const v=clip(Math.min(0,r.total)); if(v<0)hasNeg=true; i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(0),y(v)); });
+  if (hasNeg){
+    ctx.lineTo(x(rows.length-1), y(0)); ctx.lineTo(x(0), y(0)); ctx.closePath();
+    ctx.fillStyle = cssVar('--neg-fill'); ctx.fill();
+  }
+  // outlines (2px)
+  ctx.lineWidth=2; ctx.lineJoin='round';
+  ctx.strokeStyle=cashCol; ctx.beginPath();
+  rows.forEach((r,i)=>{ const v=Math.max(0,r.cash); i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(0),y(v)); }); ctx.stroke();
+  ctx.strokeStyle=invCol; ctx.beginPath();
+  rows.forEach((r,i)=>{ const v=Math.max(0,r.cash)+Math.max(0,r.inv); i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(0),y(v)); }); ctx.stroke();
+  if (hasNeg){ ctx.strokeStyle=negCol; ctx.beginPath();
+    rows.forEach((r,i)=>{ const v=clip(Math.min(0,r.total)); i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(0),y(v)); }); ctx.stroke();
+    const lastR=rows[rows.length-1];
+    if (lastR.total<0){
+      ctx.fillStyle=negCol; ctx.font='bold 11px system-ui,sans-serif';
+      ctx.textAlign='right'; ctx.textBaseline='bottom';
+      ctx.fillText(`100歳までの累計不足 ${fmtMan(-lastR.total)}`, w-padR-4, h-padB-6);
+    }
+  }
+
+  // zero baseline
+  ctx.strokeStyle = cssVar('--axis'); ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(padL, y(0)+.5); ctx.lineTo(w-padR, y(0)+.5); ctx.stroke();
+
+  // markers: 完全リタイア・年金開始・枯渇
+  ctx.font='10px system-ui,sans-serif'; ctx.textAlign='left'; ctx.textBaseline='top';
+  function vline(age, label, color){
+    const i = rows.findIndex(r=>r.age===age); if(i<0) return;
+    ctx.save(); ctx.strokeStyle=color; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x(i)+.5,padT); ctx.lineTo(x(i)+.5,h-padB); ctx.stroke(); ctx.restore();
+    ctx.fillStyle=color; ctx.fillText(label, x(i)+4, padT);
+  }
+  if (res.salaryEndAge === res.pensionStart){
+    vline(res.pensionStart, 'リタイア・年金開始', cssVar('--accent'));
+  } else {
+    vline(res.salaryEndAge, 'リタイア', cssVar('--muted'));
+    vline(res.pensionStart, '年金開始', cssVar('--accent'));
+  }
+  if (res.depletionAge!==null) vline(res.depletionAge, '資産枯渇', negCol);
+
+  // hover crosshair
+  if (assetHover>=0 && assetHover<rows.length){
+    const i=assetHover, r=rows[i];
+    ctx.strokeStyle = cssVar('--ink-2'); ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x(i)+.5,padT); ctx.lineTo(x(i)+.5,h-padB); ctx.stroke();
+    const surface = cssVar('--surface');
+    const pts=[[Math.max(0,r.cash),cashCol],[Math.max(0,r.cash)+Math.max(0,r.inv),invCol]];
+    if (r.total<0) pts.push([r.total,negCol]);
+    for (const [v,c] of pts){
+      ctx.beginPath(); ctx.arc(x(i),y(v),4.5,0,7); ctx.fillStyle=c; ctx.fill();
+      ctx.lineWidth=2; ctx.strokeStyle=surface; ctx.stroke();
+    }
+  }
+  cv._geom = {padL, padR, n:rows.length, w};
+}
+
+/* ================= 年間収支チャート ================= */
+let balHover = -1;
+function drawBalChart(res){
+  const cv = $('balChart');
+  const {ctx,w,h} = setupCanvas(cv);
+  const rows = res.rows;
+  ctx.clearRect(0,0,w,h);
+  const padL=54, padR=14, padT=10, padB=26;
+  const iw=w-padL-padR, ih=h-padT-padB;
+  let maxV=Math.max(50, ...rows.map(r=>r.cf)), minV=Math.min(0, ...rows.map(r=>r.cf));
+  const step=niceStep(maxV-minV,4);
+  maxV=Math.ceil(maxV/step)*step; minV=Math.floor(minV/step)*step;
+  const x=i=>padL+iw*(i/rows.length);
+  const y=v=>padT+ih*(1-(v-minV)/(maxV-minV));
+  const bw=Math.max(2,iw/rows.length-2);
+
+  ctx.strokeStyle=cssVar('--grid'); ctx.lineWidth=1;
+  ctx.fillStyle=cssVar('--muted'); ctx.font='11px system-ui,sans-serif';
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  for(let v=minV;v<=maxV;v+=step){
+    ctx.beginPath(); ctx.moveTo(padL,y(v)+.5); ctx.lineTo(w-padR,y(v)+.5); ctx.stroke();
+    ctx.fillText(fmtManShort(v), padL-8, y(v));
+  }
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  rows.forEach((r,i)=>{ if(r.age%10===0) ctx.fillText(r.age+'歳', x(i)+bw/2, h-padB+6); });
+
+  const pos=cssVar('--cash'), neg=cssVar('--neg');
+  rows.forEach((r,i)=>{
+    const v=r.cf;
+    ctx.fillStyle = v>=0?pos:neg;
+    ctx.globalAlpha = (balHover===i)?1:0.85;
+    const y0=y(0), y1=y(v);
+    const top=Math.min(y0,y1), hh=Math.max(1.5,Math.abs(y1-y0));
+    roundedBar(ctx, x(i)+1, top, bw, hh, 3, v>=0);
+    ctx.globalAlpha=1;
+  });
+  ctx.strokeStyle=cssVar('--axis'); ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(padL,y(0)+.5); ctx.lineTo(w-padR,y(0)+.5); ctx.stroke();
+  cv._geom={padL,padR,n:rows.length,w,bar:true};
+}
+function roundedBar(ctx,x,y,w,h,r,roundTop){
+  r=Math.min(r,w/2,h);
+  ctx.beginPath();
+  if (roundTop){
+    ctx.moveTo(x,y+h); ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+    ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r); ctx.lineTo(x+w,y+h);
+  } else {
+    ctx.moveTo(x,y); ctx.lineTo(x,y+h-r); ctx.arcTo(x,y+h,x+r,y+h,r);
+    ctx.lineTo(x+w-r,y+h); ctx.arcTo(x+w,y+h,x+w,y+h-r,r); ctx.lineTo(x+w,y);
+  }
+  ctx.closePath(); ctx.fill();
+}
+
+/* ================= ホバー・ツールチップ ================= */
+function attachHover(cvId, tipId, onIndex, buildHTML){
+  const cv=$(cvId), tip=$(tipId);
+  function handle(ev){
+    if (!lastResult || !cv._geom) return;
+    const rect=cv.getBoundingClientRect();
+    const mx=(ev.touches?ev.touches[0].clientX:ev.clientX)-rect.left;
+    const g=cv._geom;
+    const frac=(mx-g.padL)/(rect.width-g.padL-g.padR);
+    const i=clamp(Math.round(frac*(g.n-(g.bar?0:1))), 0, g.n-1);
+    onIndex(i);
+    const r=lastResult.rows[i];
+    tip.innerHTML=buildHTML(r);
+    tip.style.display='block';
+    const tw=tip.offsetWidth;
+    let left=mx+14; if (left+tw>rect.width-4) left=mx-tw-14;
+    tip.style.left=Math.max(4,left)+'px';
+    tip.style.top='12px';
+  }
+  function leave(){ onIndex(-1); tip.style.display='none'; }
+  cv.addEventListener('mousemove',handle);
+  cv.addEventListener('touchstart',handle,{passive:true});
+  cv.addEventListener('touchmove',handle,{passive:true});
+  cv.addEventListener('mouseleave',leave);
+  cv.addEventListener('touchend',leave);
+}
+attachHover('assetChart','assetTip',
+  i=>{ assetHover=i; if(lastResult) drawAssetChart(lastResult); },
+  r=>`<div class="t-head">${r.age}歳（${r.year}年）</div>
+      <i style="background:var(--cash)"></i>現預金 <b>${fmtMan(Math.max(0,r.cash))}</b><br>
+      <i style="background:var(--invest)"></i>運用資産 <b>${fmtMan(Math.max(0,r.inv))}</b><br>
+      総資産 <b>${fmtMan(r.total)}</b>`);
+attachHover('balChart','balTip',
+  i=>{ balHover=i; if(lastResult) drawBalChart(lastResult); },
+  r=>`<div class="t-head">${r.age}歳（${r.year}年）</div>
+      収支 <b style="color:${r.cf>=0?'inherit':'var(--neg)'}">${r.cf>=0?'+':''}${fmtMan(r.cf)}</b><br>
+      <span style="color:var(--muted)">うち積立 ${fmtMan(r.contribution)}</span>`);
+
+/* ================= キャッシュフロー表 ================= */
+function renderTable(res, p){
+  const tb = document.querySelector('#cfTable tbody');
+  const every = $('everyYear').checked;
+  const dep = res.depletionAge;
+  const marks = new Set([res.salaryEndAge, res.pensionStart, 65, dep].filter(v=>v!==null));
+  const cell = (v,cls='')=>{
+    const c = v<0 ? (cls+' neg').trim() : cls;
+    const s = Math.round(v).toLocaleString('ja-JP');
+    return `<td class="${c}">${v===0?'—':(v<0?'▲'+Math.abs(Math.round(v)).toLocaleString('ja-JP'):s)}</td>`;
+  };
+  let html='';
+  for (const r of res.rows){
+    const show = every || r.age%5===0 || marks.has(r.age) || r.age===p.myAge;
+    if (!show) continue;
+    const cls = marks.has(r.age) ? ' class="milestone"' : '';
+    html += `<tr${cls}><td>${r.age}歳${r.spAge!==null?`<span style="color:var(--muted);font-weight:400">／${r.spAge}</span>`:''}</td><td>${r.year}</td>`
+      + cell(r.salaryNet) + cell(r.pensionNet) + cell(r.other)
+      + cell(-r.livingCost) + cell(-r.housing) + cell(-r.edu) + cell(-r.insCar) + cell(-r.evExpense)
+      + cell(r.cf) + cell(r.cash) + cell(r.inv) + cell(r.total,'total') + '</tr>';
+  }
+  tb.innerHTML = html;
+}
+
+/* ================= 動的な行（子ども・イベント） ================= */
+let childSeq=0;
+function addChildRow(age=5, plan='p2'){
+  const id=++childSeq;
+  const div=document.createElement('div');
+  div.className='child-row';
+  div.innerHTML=`
+    <div class="row2" style="margin-bottom:6px">
+      <div class="field"><label>第${$('children').children.length+1}子の年齢</label>
+        <div class="ctrl"><input type="number" class="c-age" value="${age}" min="-10" max="30"><span class="unit">歳</span></div></div>
+      <div class="field"><label>進路プラン</label>
+        <select class="c-plan">${Object.entries(PLANS).map(([k,v])=>`<option value="${k}"${k===plan?' selected':''}>${v.label}</option>`).join('')}</select></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <label class="check"><input type="checkbox" class="c-board">大学は下宿（＋110万円/年）</label>
+      <button type="button" class="ghost" style="margin-left:auto">削除</button>
+    </div>`;
+  div.querySelector('button').addEventListener('click',()=>{ div.remove(); recalc(); });
+  $('children').appendChild(div);
+}
+function addEventRow(name='', age='', amount='', kind='out'){
+  const div=document.createElement('div');
+  div.className='ev-row subcard';
+  div.innerHTML=`
+    <div class="field"><label>イベント名</label><input type="text" class="e-name" value="${name}" placeholder="例: 家族旅行・リフォーム・親の介護"></div>
+    <div class="row3">
+      <div class="field"><label>あなたの年齢</label><div class="ctrl"><input type="number" class="e-age" value="${age}" min="18" max="100"><span class="unit">歳</span></div></div>
+      <div class="field"><label>金額</label><div class="ctrl"><input type="number" class="e-amt" value="${amount}" min="0" step="10"><span class="unit">万円</span></div></div>
+      <div class="field"><label>種類</label><select class="e-kind">
+        <option value="out"${kind==='out'?' selected':''}>支出</option>
+        <option value="in"${kind==='in'?' selected':''}>収入</option></select></div>
+    </div>
+    <button type="button" class="ghost" style="align-self:flex-end">削除</button>`;
+  div.querySelector('button.ghost').addEventListener('click',()=>{ div.remove(); recalc(); });
+  $('events').appendChild(div);
+}
+$('addChild').addEventListener('click',()=>{ addChildRow(); recalc(); });
+$('addEvent').addEventListener('click',()=>{ addEventRow(); });
+
+/* ================= 表示の出し分け ================= */
+function syncVisibility(){
+  const sp=$('spouseOn').checked;
+  $('spouseAgeWrap').classList.toggle('hidden',!sp);
+  $('spouseIncomeWrap').classList.toggle('hidden',!sp);
+  const w=$('spWork').value;
+  $('spIncomeRow').classList.toggle('hidden', w==='none');
+  $('spTaishokuWrap').classList.toggle('hidden', w!=='emp');
+  $('reEmpWrap').classList.toggle('hidden', !$('reEmpOn').checked);
+  const m=$('houseMode').value;
+  $('hRent').classList.toggle('hidden', m!=='rent');
+  $('hBuy').classList.toggle('hidden', m!=='buy');
+  $('hLoan').classList.toggle('hidden', m!=='loan');
+  $('hMaint').classList.toggle('hidden', m==='rent');
+  $('carWrap').classList.toggle('hidden', !$('carOn').checked);
+}
+
+/* ================= 起動 ================= */
+addChildRow(5,'p2');
+syncVisibility();
+let debTimer=null;
+$('form').addEventListener('input',()=>{ syncVisibility(); clearTimeout(debTimer); debTimer=setTimeout(recalc,120); });
+$('form').addEventListener('change',()=>{ syncVisibility(); recalc(); });
+$('everyYear').addEventListener('change',()=>{ if(lastResult) renderTable(lastResult, collectParams()); });
+window.addEventListener('resize',()=>{ if(lastResult){ drawAssetChart(lastResult); drawBalChart(lastResult); } });
+const mo=new MutationObserver(()=>{ if(lastResult){ drawAssetChart(lastResult); drawBalChart(lastResult); } });
+mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{ if(lastResult){ drawAssetChart(lastResult); drawBalChart(lastResult); } });
+recalc();
+</script>
