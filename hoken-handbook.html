@@ -108,8 +108,12 @@
   }
   .titlebar{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
   h1.site-title{
-    margin:0;font-size:clamp(30px,5.6vw,46px);line-height:1.2;
-    font-weight:600;letter-spacing:.06em;text-wrap:balance;
+    margin:0;font-size:clamp(20px,6.6vw,46px);line-height:1.2;
+    font-weight:600;letter-spacing:.06em;
+  }
+  .title-line{white-space:nowrap}
+  @media (max-width:420px){
+    h1.site-title{letter-spacing:.02em}
   }
   h1 .site-sub{
     display:block;font-size:clamp(13px,2vw,15px);letter-spacing:.02em;
@@ -326,7 +330,7 @@
   <header class="site">
     <p class="eyebrow">Japan Public Insurance Handbook</p>
     <div class="titlebar">
-      <h1 class="site-title mincho">公的保険ハンドブック
+      <h1 class="site-title mincho"><span class="title-line">公的保険ハンドブック</span>
         <span class="site-sub">日本人なら、ほぼ全員がすでに入っている「国の保険」全33種。<br>民間保険を考える前に、まずこのハンドブックを開いてください。</span>
       </h1>
       <div class="seal mincho" aria-label="2026年度版">令和八年度版</div>
