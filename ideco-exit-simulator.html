@@ -1,0 +1,543 @@
+<title>iDeCo出口戦略シミュレーター 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --paper:#F3F5F8; --surface:#FFFFFF; --ink:#17242F; --sub:#55687A;
+  --line:#DBE2E9; --line-strong:#C2CEDA;
+  --navy:#1A3B5D; --navy-soft:#E6EDF4; --navy-deep:#122C47; --on-navy:#FFFFFF;
+  --hero1:#122C47; --hero2:#224970;
+  --gold:#A9823A; --gold-soft:#F5EDDA;
+  --warn:#B54A26; --warn-soft:#F8E9E1;
+  --ok:#2E6B4F; --ok-soft:#E4F0E9;
+  --chart-net:#2E64AC; --chart-cost:#C08519;
+  --shadow:0 1px 2px rgba(23,36,47,.06),0 8px 24px rgba(23,36,47,.08);
+  --radius:14px;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho",serif;
+  --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0D141C; --surface:#152029; --ink:#E4EAF1; --sub:#90A2B5;
+    --line:#24313F; --line-strong:#344556;
+    --navy:#7FA9D3; --navy-soft:#182A3D; --navy-deep:#A9C6E4; --on-navy:#0D1B2A;
+    --hero1:#0F2137; --hero2:#1D4066;
+    --gold:#D4B06A; --gold-soft:#2A2312;
+    --warn:#E08B52; --warn-soft:#2E2016;
+    --ok:#7FBE9C; --ok-soft:#16281F;
+    --chart-net:#4585CE; --chart-cost:#C08A1E;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="light"]{
+  --paper:#F3F5F8; --surface:#FFFFFF; --ink:#17242F; --sub:#55687A;
+  --line:#DBE2E9; --line-strong:#C2CEDA;
+  --navy:#1A3B5D; --navy-soft:#E6EDF4; --navy-deep:#122C47; --on-navy:#FFFFFF;
+  --hero1:#122C47; --hero2:#224970;
+  --gold:#A9823A; --gold-soft:#F5EDDA;
+  --warn:#B54A26; --warn-soft:#F8E9E1;
+  --ok:#2E6B4F; --ok-soft:#E4F0E9;
+  --chart-net:#2E64AC; --chart-cost:#C08519;
+  --shadow:0 1px 2px rgba(23,36,47,.06),0 8px 24px rgba(23,36,47,.08);
+}
+:root[data-theme="dark"]{
+  --paper:#0D141C; --surface:#152029; --ink:#E4EAF1; --sub:#90A2B5;
+  --line:#24313F; --line-strong:#344556;
+  --navy:#7FA9D3; --navy-soft:#182A3D; --navy-deep:#A9C6E4; --on-navy:#0D1B2A;
+  --hero1:#0F2137; --hero2:#1D4066;
+  --gold:#D4B06A; --gold-soft:#2A2312;
+  --warn:#E08B52; --warn-soft:#2E2016;
+  --ok:#7FBE9C; --ok-soft:#16281F;
+  --chart-net:#4585CE; --chart-cost:#C08A1E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:680px;margin:0 auto;padding:0 18px 96px}
+
+/* ── hero header ── */
+.hero-head{background:#1A3B5D;color:#fff}
+.hero-inner{max-width:680px;margin:0 auto;padding:46px 18px 28px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.3em;color:#8FA3BC;margin:0 0 16px}
+.hero-head h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,6.5vw,36px);line-height:1.55;letter-spacing:.05em;margin:0 0 18px;text-wrap:balance;color:#fff}
+.hero-desc{color:#C3CFDE;font-size:14.5px;line-height:2;margin:0 0 24px;max-width:36em}
+.hero-pill{display:inline-block;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 16px;font-size:13px;color:#DCE4EE;margin-bottom:28px}
+.hero-rule{border:0;border-top:1px solid rgba(255,255,255,.16);margin:0 0 22px}
+.author{display:flex;align-items:center;gap:14px}
+.author .avatar{width:56px;height:56px;border-radius:50%;background:#F4EFE6;border:2px solid rgba(255,255,255,.55);flex:none;object-fit:cover;display:block}
+.author small{display:block;font-size:11px;letter-spacing:.24em;color:#8FA3BC;margin-bottom:3px}
+.author b{font-size:15px;letter-spacing:.04em}
+
+/* ── cards & form ── */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 20px;margin-top:16px}
+.card h2{font-family:var(--serif);font-size:19px;font-weight:600;margin:0 0 4px;letter-spacing:.03em}
+.card .lede{color:var(--sub);font-size:12.5px;margin:0 0 16px}
+.sec-label{font-size:11.5px;font-weight:600;letter-spacing:.22em;color:var(--gold);margin:34px 0 0}
+.field{margin-bottom:18px}
+.field:last-child{margin-bottom:4px}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--sub);margin-bottom:7px;letter-spacing:.02em}
+.field .val{float:right;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--navy);height:28px;margin:0}
+.seg{display:grid;gap:6px}
+.seg.cols4{grid-template-columns:repeat(4,1fr)}
+.seg.cols5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:460px){.seg.cols5{grid-template-columns:repeat(3,1fr)}}
+.seg button{appearance:none;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--sub);border-radius:10px;padding:9px 4px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.seg button:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.seg button[aria-pressed="true"]{border-color:var(--navy);background:var(--navy-soft);color:var(--navy-deep)}
+.check{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1.5px solid var(--line-strong);border-radius:10px;cursor:pointer;margin:2px 0 0;transition:all .15s;font-size:13px;font-weight:600;color:var(--sub)}
+.check input{accent-color:var(--navy);width:18px;height:18px;margin:0;flex:none}
+.check.on{border-color:var(--navy);background:var(--navy-soft);color:var(--navy-deep)}
+.fieldset-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+@media (max-width:460px){.fieldset-cols{grid-template-columns:1fr}}
+
+/* ── verdict (10年ルール判定) ── */
+.verdict{border-radius:10px;padding:13px 15px;font-size:13.5px;font-weight:600;display:flex;gap:10px;align-items:flex-start;margin-bottom:16px}
+.verdict.hit{background:var(--warn-soft);color:var(--warn)}
+.verdict.safe{background:var(--ok-soft);color:var(--ok)}
+.verdict .mark{flex:none;font-size:16px;line-height:1.5}
+.verdict small{display:block;font-weight:500;font-size:12px;opacity:.9;margin-top:2px}
+
+/* timeline */
+.tl{margin:6px 2px 8px;padding-top:34px;position:relative}
+.tl-track{position:relative;height:6px;border-radius:3px;background:var(--line)}
+.tl-window{position:absolute;top:0;height:6px;border-radius:3px;background:var(--gold-soft);border:1px solid var(--gold)}
+.tl-dot{position:absolute;top:-6px;width:16px;height:16px;border-radius:50%;border:2.5px solid var(--surface);transform:translateX(-50%);box-shadow:0 0 0 1px var(--line-strong)}
+.tl-dot.ideco{background:var(--chart-net)}
+.tl-dot.sev{background:var(--chart-cost)}
+.tl-dotlabel{position:absolute;top:-32px;transform:translateX(-50%);font-size:10.5px;font-weight:700;color:var(--sub);white-space:nowrap;letter-spacing:.02em}
+.tl-axis{display:flex;justify-content:space-between;font-size:10.5px;color:var(--sub);margin-top:10px;font-variant-numeric:tabular-nums}
+.tl-cap{font-size:11.5px;color:var(--sub);margin:10px 0 0}
+
+/* ── result hero ── */
+.result{background:linear-gradient(160deg,var(--hero1),var(--hero2));border-radius:var(--radius);padding:26px 22px 22px;margin-top:16px;color:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.result::after{content:"¥";position:absolute;right:-14px;top:-38px;font-family:var(--serif);font-size:170px;opacity:.08;pointer-events:none}
+.result .r-label{font-size:11.5px;letter-spacing:.22em;opacity:.85;margin:0}
+.result .r-best{font-family:var(--serif);font-size:clamp(21px,5.6vw,26px);font-weight:600;margin:6px 0 2px;letter-spacing:.02em}
+.result .r-total{font-family:var(--serif);font-size:clamp(36px,10vw,50px);font-weight:600;line-height:1.15;margin:2px 0;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.result .r-total small{font-size:.45em;letter-spacing:.1em;margin-left:2px}
+.result .r-note{font-size:12.5px;opacity:.88;margin:6px 0 0}
+
+/* ── chart ── */
+.chart{margin-top:18px}
+.legend{display:flex;gap:18px;font-size:12px;color:var(--sub);margin-bottom:12px;flex-wrap:wrap}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.crow{margin-bottom:14px}
+.crow:last-child{margin-bottom:2px}
+.crow .cname{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:600;margin-bottom:5px;gap:8px}
+.crow .cnet{font-variant-numeric:tabular-nums;font-weight:700}
+.cbar{display:flex;height:26px;border-radius:5px;overflow:hidden;cursor:default;position:relative}
+.cbar .seg-net{background:var(--chart-net);border-radius:4px 0 0 4px}
+.cbar .seg-cost{background:var(--chart-cost);border-radius:0 4px 4px 0;margin-left:2px}
+.cbar:hover{filter:brightness(1.06)}
+.badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:var(--navy-deep);background:var(--gold-soft);border:1px solid var(--gold);border-radius:6px;padding:1px 8px;vertical-align:1px;margin-left:6px}
+#tip{position:fixed;z-index:50;background:var(--ink);color:var(--paper);border-radius:8px;padding:9px 12px;font-size:12px;line-height:1.7;pointer-events:none;opacity:0;transition:opacity .12s;max-width:250px;box-shadow:var(--shadow)}
+#tip b{font-variant-numeric:tabular-nums}
+
+/* pattern detail */
+.pat{border:1.5px solid var(--line);border-radius:12px;padding:15px 16px;margin-top:12px}
+.pat.best{border-color:var(--gold)}
+.pat .p-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pat .p-name{font-weight:700;font-size:14.5px}
+.pat .p-net{font-family:var(--serif);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.pat .p-sub{font-size:12px;color:var(--sub);margin:2px 0 0}
+.pat details{margin-top:8px}
+.pat summary{font-size:12px;font-weight:600;color:var(--navy);cursor:pointer}
+.pat summary:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.bd{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px}
+.bd td{padding:5px 2px;border-top:1px solid var(--line)}
+.bd td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.bd tr.tt td{font-weight:700;border-top:1.5px solid var(--line-strong)}
+
+/* info blocks */
+.law{display:flex;gap:13px;padding:14px 2px;border-top:1px solid var(--line)}
+.law:first-of-type{border-top:0;padding-top:4px}
+.law .when{flex:none;width:96px;font-size:11.5px;font-weight:700;color:var(--gold);letter-spacing:.04em;padding-top:2px}
+.law b{display:block;font-size:13.5px}
+.law p{margin:2px 0 0;font-size:12.5px;color:var(--sub)}
+.notes{margin:0;padding-left:1.3em;font-size:12px;color:var(--sub)}
+.notes li{margin-bottom:6px}
+footer{margin-top:36px;font-size:11.5px;color:var(--sub);line-height:2}
+footer a{color:var(--navy)}
+.panel-fade{animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.panel-fade{animation:none}.seg button,.check,.cbar{transition:none}}
+</style>
+
+<header class="hero-head">
+  <div class="hero-inner">
+    <p class="eyebrow">iDeCo EXIT STRATEGY</p>
+    <h1>iDeCo出口戦略<br>シミュレーター 2026</h1>
+    <p class="hero-desc">iDeCoは「いつ・どう受け取るか」で手取りが数十万円変わります。2026年1月施行の退職所得控除「10年ルール」に対応。一時金・年金・併用の3パターンの税負担を、あなたの条件でまとめて比較できます。</p>
+    <span class="hero-pill">2026年（令和8年）施行の税制・年金制度改正に対応</span>
+    <hr class="hero-rule">
+    <div class="author">
+      <img class="avatar" src="data:image/png;base64,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" alt="きょうのアイコン">
+      <div><small>作成者</small><b>きょう（i-money）</b></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <p class="sec-label">STEP 1 ─ 条件を入力</p>
+  <section class="card" aria-label="条件入力">
+    <h2>あなたの受け取り条件</h2>
+    <p class="lede">スライダーを動かすと、下の結果がすぐに更新されます。</p>
+
+    <div class="field">
+      <label for="asset">iDeCo資産額（受け取り時点の想定）<span class="val" id="assetV"></span></label>
+      <input type="range" id="asset" min="100" max="3000" step="10" value="800">
+    </div>
+    <div class="fieldset-cols">
+      <div class="field">
+        <label for="yi">iDeCo加入年数<span class="val" id="yiV"></span></label>
+        <input type="range" id="yi" min="2" max="40" step="1" value="20">
+      </div>
+      <div class="field">
+        <label for="lumpAge">一時金を受け取る年齢<span class="val" id="lumpAgeV"></span></label>
+        <input type="range" id="lumpAge" min="60" max="75" step="1" value="60">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="sev">会社の退職金（0円＝なし）<span class="val" id="sevV"></span></label>
+      <input type="range" id="sev" min="0" max="5000" step="50" value="1500">
+    </div>
+    <div class="fieldset-cols" id="sevFields">
+      <div class="field">
+        <label for="yr">勤続年数<span class="val" id="yrV"></span></label>
+        <input type="range" id="yr" min="1" max="45" step="1" value="38">
+      </div>
+      <div class="field">
+        <label for="sevAge">退職金を受け取る年齢<span class="val" id="sevAgeV"></span></label>
+        <input type="range" id="sevAge" min="55" max="70" step="1" value="60">
+      </div>
+    </div>
+
+    <div class="field">
+      <label id="annYearsL">年金で受け取る場合の受取期間</label>
+      <div class="seg cols4" role="group" aria-labelledby="annYearsL" id="annYears">
+        <button data-v="5">5年</button><button data-v="10" aria-pressed="true">10年</button><button data-v="15">15年</button><button data-v="20">20年</button>
+      </div>
+    </div>
+    <div class="fieldset-cols">
+      <div class="field">
+        <label for="annStart">年金受取の開始年齢<span class="val" id="annStartV"></span></label>
+        <input type="range" id="annStart" min="60" max="74" step="1" value="60">
+      </div>
+      <div class="field">
+        <label id="perYearL">年間の受取回数</label>
+        <div class="seg cols5" role="group" aria-labelledby="perYearL" id="perYear">
+          <button data-v="1">年1</button><button data-v="2">年2</button><button data-v="4">年4</button><button data-v="6" aria-pressed="true">年6</button><button data-v="12">年12</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="pub">公的年金の見込み額（65歳から・年額）<span class="val" id="pubV"></span></label>
+      <input type="range" id="pub" min="0" max="350" step="5" value="190">
+    </div>
+
+    <label class="check on" id="socialWrap"><input type="checkbox" id="social" checked>国民健康保険料・介護保険料の増加を概算で含める（雑所得の約12%・自治体により大きく異なります）</label>
+  </section>
+
+  <p class="sec-label">STEP 2 ─ 10年ルール判定</p>
+  <section class="card" aria-label="10年ルール判定">
+    <h2>退職所得控除の重複チェック</h2>
+    <p class="lede">2026年1月から、iDeCo一時金→退職金の順は「9年以内」、退職金→iDeCo一時金の順は「19年以内」だと控除が調整（減額）されます。</p>
+    <div id="verdict"></div>
+    <div id="timeline"></div>
+  </section>
+
+  <p class="sec-label">STEP 3 ─ 結果</p>
+  <div class="result" role="status" aria-live="polite">
+    <p class="r-label">最も手取りが多い受け取り方</p>
+    <p class="r-best" id="bestName"></p>
+    <p class="r-total"><span id="bestNet"></span><small>万円</small></p>
+    <p class="r-note" id="bestNote"></p>
+  </div>
+
+  <section class="card" aria-label="3パターン比較">
+    <h2>3パターン比較</h2>
+    <p class="lede">iDeCo資産＋退職金の総額のうち、手元に残る額と税・保険料・手数料の内訳。バーにカーソルを合わせると詳細が見られます。</p>
+    <div class="chart">
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--chart-net)"></i>手取り</span>
+        <span><i style="background:var(--chart-cost)"></i>税・社会保険料・手数料</span>
+      </div>
+      <div id="chart"></div>
+    </div>
+    <div id="patterns"></div>
+  </section>
+
+  <p class="sec-label">2026年の制度改正</p>
+  <section class="card" aria-label="2026年の制度改正まとめ">
+    <h2>出口戦略に効く、2026年の変更点</h2>
+    <p class="lede">今年の改正は「出口」と「入口」の両方が動く、iDeCoの節目の年です。</p>
+    <div class="law"><span class="when">2026年1月〜</span><div><b>退職所得控除の「5年ルール」が「10年ルール」に</b><p>iDeCo一時金を先に受け取り、あとから退職金を受け取る場合、間隔が「前年以前9年以内」だと退職所得控除が調整されるようになりました（旧・4年以内）。実質的に10年以上あける必要があります。</p></div></div>
+    <div class="law"><span class="when">2026年12月〜</span><div><b>加入可能年齢が70歳未満に拡大</b><p>これまで原則65歳未満だった加入可能年齢が70歳未満に。60代の「もうひと伸ばし」戦略が可能になります（2025年6月成立の年金制度改正法）。</p></div></div>
+    <div class="law"><span class="when">2026年12月〜</span><div><b>拠出限度額の引き上げ</b><p>会社員（企業年金なし）は月2.3万円→6.2万円、自営業者等は月6.8万円→7.5万円へ。実際の掛金への適用は2027年1月引き落とし分からです。</p></div></div>
+    <div class="law"><span class="when">受取共通</span><div><b>受給開始は60〜75歳の間で選べる</b><p>一時金は退職所得控除、年金受取は公的年金等控除（65歳未満は最低60万円／65歳以上は最低110万円）が使えます。公的年金が始まる前の60〜64歳は控除の「空き枠」を使いやすい時期です。</p></div></div>
+  </section>
+
+  <p class="sec-label">前提と注意</p>
+  <section class="card" aria-label="計算の前提">
+    <h2>この試算の前提</h2>
+    <ul class="notes">
+      <li>税額は2026年施行の制度（10年ルール・基礎控除の見直し）に基づく概算です。所得税には復興特別所得税2.1%を含み、住民税は所得割10%＋均等割で計算しています。</li>
+      <li>iDeCoの加入期間は勤続期間と重なっている前提（在職中に加入）で重複年数を計算しています。先に受け取る一時金が控除額に満たない場合の「みなし勤続期間」も反映しています。</li>
+      <li>年金受取時の所得控除は基礎控除のみを考慮しています（配偶者控除・社会保険料控除などは未反映のため、実際の税額はこれより少なくなることがあります）。</li>
+      <li>国保・介護保険料の増加は雑所得の約12%という粗い概算です。自治体・所得水準・75歳以降（後期高齢者医療）で大きく変わります。</li>
+      <li>年金受取中の運用益、iDeCoの口座管理手数料の運営管理機関ごとの違いは考慮していません。給付手数料は1回440円＋事務委託手数料66円/月で計算しています。</li>
+      <li>通算加入者等期間が10年未満の場合、受給開始可能年齢は61〜65歳に繰り下がります。</li>
+      <li>本シミュレーターは情報提供を目的とした簡易試算です。実際の受け取りにあたっては税理士・金融機関にご確認ください。</li>
+    </ul>
+  </section>
+
+  <footer>
+    参考：<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1420.htm" target="_blank" rel="noopener">国税庁 退職金と税</a> ／ <a href="https://www.freee.co.jp/kb/kb-payroll/retirement-income/" target="_blank" rel="noopener">freee 退職所得控除の見直し解説</a> ／ <a href="https://dc.rakuten-sec.co.jp/about/revised/202505/" target="_blank" rel="noopener">楽天証券 2026年12月iDeCo制度改正</a><br>
+    ※2026年7月時点の制度に基づく。制作：きょう（i-money）
+  </footer>
+</div>
+
+<div id="tip" role="presentation"></div>
+
+<script>
+"use strict";
+/* ───────── 税計算エンジン（単位：円） ───────── */
+const MAN = 10000;
+function kojoTaishoku(y){ if(y<=0) return 0; return y<=20 ? Math.max(400000*y, 800000) : 8000000+700000*(y-20); }
+function kojoOverlap(y){ if(y<=0) return 0; return y<=20 ? 400000*y : 8000000+700000*(y-20); }
+function minashiYears(income){ return income<=8000000 ? Math.ceil(income/400000) : 20+Math.ceil((income-8000000)/700000); }
+function incomeTaxR(tx){ /* 所得税＋復興税 */
+  tx = Math.floor(tx/1000)*1000; if(tx<=0) return 0;
+  let base;
+  if(tx<=1949000) base = tx*0.05;
+  else if(tx<=3299000) base = tx*0.10-97500;
+  else if(tx<=6949000) base = tx*0.20-427500;
+  else if(tx<=8999000) base = tx*0.23-636000;
+  else if(tx<=17999000) base = tx*0.33-1536000;
+  else if(tx<=39999000) base = tx*0.40-2796000;
+  else base = tx*0.45-4796000;
+  return Math.floor(base*1.021);
+}
+function taishokuTax(income, kojo){
+  const kazei = Math.max(0, Math.floor((income-kojo)/2/1000)*1000);
+  return incomeTaxR(kazei) + Math.floor(kazei*0.10);
+}
+/* 退職金の控除（先にiDeCo一時金がある場合の9年以内調整） */
+function sevDeduction(inp, idecoLump){
+  const {yr, yi, sevAge, lumpAge} = inp;
+  const full = kojoTaishoku(yr);
+  if(idecoLump<=0 || lumpAge>=sevAge) return full;
+  if(sevAge - lumpAge > 9) return full;
+  const effYi = idecoLump < kojoTaishoku(yi) ? Math.min(minashiYears(idecoLump), yi) : yi;
+  return Math.max(full - kojoOverlap(Math.min(effYi, yr)), 0);
+}
+/* iDeCo一時金の控除（先に退職金がある場合の19年以内調整） */
+function idecoDeduction(inp){
+  const {yi, yr, sev, sevAge, lumpAge} = inp;
+  const full = kojoTaishoku(yi);
+  if(sev<=0 || sevAge>=lumpAge) return full;
+  if(lumpAge - sevAge > 19) return full;
+  const effYr = sev < kojoTaishoku(yr) ? Math.min(minashiYears(sev), yr) : yr;
+  return Math.max(full - kojoOverlap(Math.min(yi, effYr)), 0);
+}
+/* 一時金（iDeCo lump円＋退職金）の税額合計。同年受取は合算・通算期間で計算 */
+function lumpTaxes(inp, idecoLump){
+  const {sev, sevAge, lumpAge, yi, yr} = inp;
+  if(idecoLump>0 && sev>0 && lumpAge===sevAge){
+    return {ideco:0, sevT:0, combined: taishokuTax(idecoLump+sev, kojoTaishoku(Math.max(yi,yr))), same:true};
+  }
+  const idecoT = idecoLump>0 ? taishokuTax(idecoLump, idecoDeduction(inp)) : 0;
+  const sevT = sev>0 ? taishokuTax(sev, sevDeduction(inp, idecoLump)) : 0;
+  return {ideco:idecoT, sevT:sevT, combined:idecoT+sevT, same:false};
+}
+/* 一時金の非課税枠（併用パターン用） */
+function taxFreeLumpCap(inp){
+  const {sev, sevAge, lumpAge, yi, yr} = inp;
+  if(sev>0 && lumpAge===sevAge) return Math.max(kojoTaishoku(Math.max(yi,yr)) - sev, 0);
+  if(sev>0 && sevAge<lumpAge) return idecoDeduction(inp);
+  /* iDeCoが先 or 退職金なし：iDeCo側はフル控除（後の退職金側が調整を受ける） */
+  return kojoTaishoku(yi);
+}
+/* 年金受取：公的年金だけの場合との差額（増分課税） */
+function pensionKojo(income, age){
+  if(income<=0) return 0;
+  if(age>=65 && income<=3300000) return Math.min(income,1100000);
+  if(age<65 && income<=1300000) return Math.min(income,600000);
+  if(income<=4100000) return income*0.25+275000;
+  if(income<=7700000) return income*0.15+685000;
+  if(income<=10000000) return income*0.05+1455000;
+  return 1955000;
+}
+function yearlyTax(pIncome, age){
+  if(pIncome<=0) return {tax:0, zatsu:0};
+  const zatsu = Math.max(0, pIncome - pensionKojo(pIncome, age));
+  const basic = zatsu<=1320000 ? 950000 : 580000;
+  const sTax = incomeTaxR(Math.max(0, zatsu-basic));
+  const jTax = Math.floor(Math.max(0, zatsu-430000)*0.10) + (zatsu>450000 ? 5000 : 0);
+  return {tax:sTax+jTax, zatsu};
+}
+function annuityCost(inp, portion){
+  if(portion<=0) return {tax:0, soc:0, fees:0};
+  let tax=0, soc=0;
+  const annual = portion/inp.annYears;
+  for(let t=0;t<inp.annYears;t++){
+    const age = inp.annStart+t;
+    const pub = age>=65 ? inp.pub : 0;
+    const w = yearlyTax(annual+pub, age), wo = yearlyTax(pub, age);
+    tax += w.tax - wo.tax;
+    if(inp.social) soc += Math.max(0, w.zatsu-wo.zatsu)*0.12;
+  }
+  return {tax:Math.round(tax), soc:Math.round(soc), fees:(440*inp.perYear+66*12)*inp.annYears};
+}
+/* ───────── 3パターン集計 ───────── */
+function calcPatterns(inp){
+  const gross = inp.asset + inp.sev;
+  const mk = (name, sub, rows) => {
+    const cost = rows.reduce((s,r)=>s+r[1],0);
+    return {name, sub, rows:rows.filter(r=>r[1]>0||r[2]), cost, net:gross-cost};
+  };
+  /* P1 全額一時金 */
+  const t1 = lumpTaxes(inp, inp.asset);
+  const p1 = mk("全額を一時金で受け取る", `iDeCo${inp.lumpAge}歳${inp.sev>0?`・退職金${inp.sevAge}歳`:""}で受取`, t1.same
+    ? [["退職所得の税金（iDeCo＋退職金 合算）", t1.combined, true],["給付手数料", 440, false]]
+    : [["iDeCo一時金の税金", t1.ideco, true],["退職金の税金", t1.sevT, inp.sev>0],["給付手数料", 440, false]]);
+  /* P2 全額年金 */
+  const sevOnly = inp.sev>0 ? taishokuTax(inp.sev, kojoTaishoku(inp.yr)) : 0;
+  const a2 = annuityCost(inp, inp.asset);
+  const p2 = mk("全額を年金で受け取る", `${inp.annStart}歳から${inp.annYears}年・年${inp.perYear}回`, [
+    ["退職金の税金（控除フル活用）", sevOnly, inp.sev>0],
+    ["年金受取分の所得税・住民税（増分）", a2.tax, true],
+    ["国保・介護保険料の増加（概算）", a2.soc, inp.social],
+    ["給付手数料", a2.fees, true]]);
+  /* P3 併用 */
+  const cap = taxFreeLumpCap(inp);
+  const lump3 = Math.min(inp.asset, cap);
+  const rest3 = inp.asset - lump3;
+  const t3 = lumpTaxes(inp, lump3);
+  const a3 = annuityCost(inp, rest3);
+  const p3 = mk("併用（控除内は一時金＋残りを年金）",
+    lump3<=0 ? "非課税枠なし（全額年金と同じ）" : `一時金${fmtMan(lump3)}＋年金${fmtMan(rest3)}`, [
+    ["一時金分の税金", t3.same? t3.combined - (inp.sev>0? taishokuTax(inp.sev,kojoTaishoku(Math.max(inp.yi,inp.yr))):0) : t3.ideco, false],
+    ["退職金の税金", t3.same? (inp.sev>0? taishokuTax(inp.sev,kojoTaishoku(Math.max(inp.yi,inp.yr))):0) : t3.sevT, inp.sev>0],
+    ["年金受取分の所得税・住民税（増分）", a3.tax, rest3>0],
+    ["国保・介護保険料の増加（概算）", a3.soc, inp.social&&rest3>0],
+    ["給付手数料", (lump3>0?440:0)+a3.fees, true]]);
+  return {gross, list:[p1,p2,p3]};
+}
+/* ───────── 判定・表示 ───────── */
+function fmtMan(yen){ return Math.round(yen/MAN).toLocaleString("ja-JP")+"万円"; }
+const $ = id => document.getElementById(id);
+const state = { annYears:10, perYear:6 };
+function readInputs(){
+  return {
+    asset:+$("asset").value*MAN, yi:+$("yi").value, lumpAge:+$("lumpAge").value,
+    sev:+$("sev").value*MAN, yr:+$("yr").value, sevAge:+$("sevAge").value,
+    annYears:state.annYears, annStart:+$("annStart").value, perYear:state.perYear,
+    pub:+$("pub").value*MAN, social:$("social").checked
+  };
+}
+function renderVerdict(inp){
+  const v = $("verdict"), tl = $("timeline");
+  if(inp.sev<=0){
+    v.innerHTML = `<div class="verdict safe"><span class="mark">✓</span><div>退職金なし：控除の重複調整はありません<small>iDeCoの一時金は退職所得控除（${fmtMan(kojoTaishoku(inp.yi))}）をそのまま使えます。</small></div></div>`;
+    tl.innerHTML = ""; return;
+  }
+  const idecoFirst = inp.lumpAge < inp.sevAge;
+  const same = inp.lumpAge === inp.sevAge;
+  const later = Math.max(inp.lumpAge, inp.sevAge);
+  const winLen = (later===inp.sevAge && !same) ? 9 : 19;
+  const gap = Math.abs(inp.lumpAge - inp.sevAge);
+  const hit = same || gap <= winLen;
+  const ruleName = same ? "同年受取" : idecoFirst ? "10年ルール（9年以内）" : "19年ルール";
+  if(same){
+    v.innerHTML = `<div class="verdict hit"><span class="mark">！</span><div>同じ年の受取：控除は合算・通算で計算されます<small>iDeCoと退職金を合算し、長い方の期間で退職所得控除を計算します。</small></div></div>`;
+  } else if(hit){
+    const noAdj = lumpTaxes({...inp, lumpAge: idecoFirst? inp.sevAge-10 : inp.sevAge+20}, inp.asset).combined;
+    const now = lumpTaxes(inp, inp.asset).combined;
+    const saving = now - noAdj;
+    v.innerHTML = `<div class="verdict hit"><span class="mark">！</span><div>${ruleName}に該当：あとから受け取る方の控除が減額されます<small>受取間隔は${gap}年。${idecoFirst?"iDeCo一時金→退職金の順で10年以上":"退職金→iDeCo一時金の順で20年以上"}あけられれば、全額一時金の税額は約${fmtMan(Math.max(saving,0))}軽くなります。</small></div></div>`;
+  } else {
+    v.innerHTML = `<div class="verdict safe"><span class="mark">✓</span><div>調整なし：両方の退職所得控除をフルに使えます<small>受取間隔${gap}年は${ruleName}の対象外です。</small></div></div>`;
+  }
+  /* タイムライン（55〜76歳） */
+  const A=55, B=76, pct = a => ((a-A)/(B-A)*100).toFixed(1)+"%";
+  const wS = Math.max(later-winLen, A), wE = later;
+  tl.innerHTML = `<div class="tl">
+    <div class="tl-track">
+      <div class="tl-window" style="left:${pct(wS)};width:calc(${pct(wE)} - ${pct(wS)})"></div>
+      <span class="tl-dotlabel" style="left:${pct(inp.lumpAge)};top:${same?"-46px":"-32px"}">iDeCo ${inp.lumpAge}歳</span>
+      <span class="tl-dotlabel" style="left:${pct(inp.sevAge)}">退職金 ${inp.sevAge}歳</span>
+      <div class="tl-dot ideco" style="left:${pct(inp.lumpAge)}" title="iDeCo一時金 ${inp.lumpAge}歳"></div>
+      <div class="tl-dot sev" style="left:${pct(inp.sevAge)}" title="退職金 ${inp.sevAge}歳"></div>
+    </div>
+    <div class="tl-axis"><span>55歳</span><span>60歳</span><span>65歳</span><span>70歳</span><span>76歳</span></div>
+    <p class="tl-cap">網掛け＝あとの受け取り（${later}歳）から見て控除調整の対象になる${winLen}年間。この中にもう一方の受け取りがあると調整されます。</p>
+  </div>`;
+}
+let tipData = [];
+function render(){
+  const inp = readInputs();
+  $("sevFields").style.opacity = inp.sev>0 ? 1 : .35;
+  renderVerdict(inp);
+  const {gross, list} = calcPatterns(inp);
+  const bestNet = Math.max(...list.map(p=>p.net));
+  const worstNet = Math.min(...list.map(p=>p.net));
+  const best = list.find(p=>p.net===bestNet);
+  $("bestName").textContent = best.name;
+  $("bestNet").textContent = Math.round(best.net/MAN).toLocaleString("ja-JP");
+  $("bestNote").textContent = `税・保険料・手数料 ${fmtMan(best.cost)}（総額${fmtMan(gross)}）・最も不利な受け取り方との差 ${fmtMan(bestNet-worstNet)}`;
+  /* chart */
+  tipData = list;
+  $("chart").innerHTML = list.map((p,i)=>{
+    const nw = Math.max(p.net/gross*100,0).toFixed(2), cw = Math.max(p.cost/gross*100,0).toFixed(2);
+    return `<div class="crow">
+      <div class="cname"><span>${p.name}${p.net===bestNet?'<span class="badge">最有利</span>':''}</span><span class="cnet">${fmtMan(p.net)}</span></div>
+      <div class="cbar" data-i="${i}" tabindex="0" aria-label="${p.name}：手取り${fmtMan(p.net)}、負担${fmtMan(p.cost)}">
+        <div class="seg-net" style="width:${nw}%"></div><div class="seg-cost" style="width:${cw}%"></div>
+      </div></div>`;
+  }).join("");
+  /* pattern cards */
+  $("patterns").innerHTML = list.map(p=>`
+    <div class="pat${p.net===bestNet?" best":""}">
+      <div class="p-head"><span class="p-name">${p.name}${p.net===bestNet?'<span class="badge">最有利</span>':''}</span><span class="p-net">${fmtMan(p.net)}</span></div>
+      <p class="p-sub">${p.sub}　実効負担率 ${(p.cost/gross*100).toFixed(1)}%</p>
+      <details><summary>内訳を見る</summary><table class="bd">
+        ${p.rows.map(r=>`<tr><td>${r[0]}</td><td>${fmtMan(r[1])}</td></tr>`).join("")}
+        <tr class="tt"><td>負担合計</td><td>${fmtMan(p.cost)}</td></tr>
+        <tr class="tt"><td>手取り</td><td>${fmtMan(p.net)}</td></tr>
+      </table></details>
+    </div>`).join("");
+}
+/* tooltip */
+const tip = $("tip");
+document.addEventListener("mousemove", e=>{
+  const bar = e.target.closest?.(".cbar");
+  if(!bar){ tip.style.opacity=0; return; }
+  const p = tipData[+bar.dataset.i]; if(!p) return;
+  tip.innerHTML = `<b>${p.name}</b><br>${p.rows.map(r=>`${r[0]}：<b>${fmtMan(r[1])}</b>`).join("<br>")}<br>手取り：<b>${fmtMan(p.net)}</b>`;
+  tip.style.opacity = 1;
+  const w = tip.offsetWidth, x = Math.min(e.clientX+14, innerWidth-w-8);
+  tip.style.left = x+"px"; tip.style.top = Math.max(e.clientY-tip.offsetHeight-12, 8)+"px";
+});
+/* inputs */
+const fmtLabel = {asset:v=>v.toLocaleString("ja-JP")+"万円", yi:v=>v+"年", lumpAge:v=>v+"歳", sev:v=>v>0?(+v).toLocaleString("ja-JP")+"万円":"なし", yr:v=>v+"年", sevAge:v=>v+"歳", annStart:v=>v+"歳", pub:v=>v>0?(+v).toLocaleString("ja-JP")+"万円":"なし"};
+for(const id of Object.keys(fmtLabel)){
+  const el = $(id);
+  const sync = ()=>{ $(id+"V").textContent = fmtLabel[id](+el.value); };
+  el.addEventListener("input", ()=>{ sync(); render(); });
+  sync();
+}
+for(const gid of ["annYears","perYear"]){
+  $(gid).addEventListener("click", e=>{
+    const b = e.target.closest("button"); if(!b) return;
+    $(gid).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+    state[gid==="annYears"?"annYears":"perYear"] = +b.dataset.v;
+    render();
+  });
+}
+$("social").addEventListener("change", ()=>{ $("socialWrap").classList.toggle("on", $("social").checked); render(); });
+render();
+</script>
