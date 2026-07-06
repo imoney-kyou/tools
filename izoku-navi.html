@@ -422,8 +422,8 @@ const QUESTIONS = [
     ]
   },
   {
-    key: "kids", label: "Q4", title: "18歳になった年度末までのお子さんは何人いますか？",
-    help: "高校卒業前のお子さん（障害等級1・2級なら20歳未満）が対象です。",
+    key: "kids", label: "Q4", title: "高校卒業前（18歳以下）のお子さんは何人いますか？",
+    help: "遺族基礎年金の対象は「18歳になって最初の3月31日を過ぎていないお子さん」＝おおむね高校卒業前までのお子さんです。障害等級1・2級のお子さんは20歳未満まで対象です。",
     opts: [
       { v: 0, t: "いない" },
       { v: 1, t: "1人" },
@@ -488,7 +488,7 @@ function calc(a){
   // 遺族基礎年金（子のある配偶者）
   if (kids > 0) {
     const kasan = Y.kasan12 * Math.min(kids, 2) + Y.kasan3 * Math.max(kids - 2, 0);
-    segments.push({ id:"kiso", name:"遺族基礎年金", note:"末子が18歳の年度末まで", amount: Y.kiso });
+    segments.push({ id:"kiso", name:"遺族基礎年金", note:"末のお子さんが高校を卒業する年の3月末まで", amount: Y.kiso });
     segments.push({ id:"kasan", name:"子の加算", note:`お子さん${kids >= 3 ? "3人以上" : kids + "人"}分`, amount: kasan });
   }
 
@@ -512,7 +512,7 @@ function calc(a){
         segments.push({ id:"chukorei", name:"中高齢寡婦加算", note:"40〜64歳の妻に65歳まで上乗せ", amount: Y.chukorei });
       } else {
         flags.push({ tone:"gold", title:"遺族基礎年金の終了後は「中高齢寡婦加算」に切り替わります",
-          body:`末子が18歳の年度末を迎えて遺族基礎年金が終わると、65歳になるまで年${yen(Y.chukorei)}の中高齢寡婦加算が遺族厚生年金に上乗せされます。` });
+          body:`末のお子さんが高校を卒業して遺族基礎年金が終わると、65歳になるまで年${yen(Y.chukorei)}の中高齢寡婦加算が遺族厚生年金に上乗せされます。` });
       }
     }
 
@@ -525,7 +525,7 @@ function calc(a){
   // 国民年金のみ（自営業・専業主婦等）で子がいない場合
   if (a.work !== "kousei" && kids === 0) {
     flags.push({ tone:"warn", title:"継続的な遺族年金の対象外の可能性が高いです",
-      body:"国民年金のみの加入で18歳年度末までのお子さんがいない場合、遺族基礎年金・遺族厚生年金のどちらも受け取れません。かわりに下の一時金・寡婦年金を確認してください。" });
+      body:"国民年金のみの加入で高校卒業前のお子さんがいない場合、遺族基礎年金・遺族厚生年金のどちらも受け取れません。かわりに下の一時金・寡婦年金を確認してください。" });
     if (a.work === "kokumin") {
       lump.push({ name:"死亡一時金", amount:`${yen(Y.shibouMin)}〜${yen(Y.shibouMax)}`,
         note:"国民年金の保険料を36か月以上納めていた場合。寡婦年金とどちらか一方を選択します。" });
@@ -632,7 +632,7 @@ renderStep();
 const CATALOG = [
   { kind:"nenkin", kindLabel:"年 金", name:"遺族基礎年金",
     money:`年 ${yen(Y.kiso)} ＋ 子の加算`,
-    desc:"18歳の年度末までの子がいる配偶者（または子）に支給。子の加算は第1子・第2子が各" + yen(Y.kasan12) + "、第3子以降が各" + yen(Y.kasan3) + "。子2人なら合計で年約133.5万円。",
+    desc:"高校卒業前（18歳の年度末まで）の子がいる配偶者（または子）に支給。子の加算は第1子・第2子が各" + yen(Y.kasan12) + "、第3子以降が各" + yen(Y.kasan3) + "。子2人なら合計で年約133.5万円。",
     who:"子のある配偶者・子", limit:"時効5年", where:"市区町村・年金事務所" },
   { kind:"nenkin", kindLabel:"年 金", name:"遺族厚生年金",
     money:"亡くなった方の報酬比例部分の 3/4",
