@@ -1,0 +1,1042 @@
+<title>格安SIM乗り換えガイド 2026 — スマホ代を年6万円下げる</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+    --paper:#F4F6F4;
+    --card:#FFFFFF;
+    --card-2:#FAFBFA;
+    --ink:#1C2422;
+    --ink-2:#5C6B66;
+    --ink-3:#8B9994;
+    --line:#DEE4E1;
+    --line-2:#EAEEEC;
+
+    --teal:#0E6E5C;
+    --teal-deep:#0A4F42;
+    --teal-tint:#E0EDE9;
+    --teal-ink:#0A4F42;
+
+    --rust:#A6432E;
+    --rust-tint:#F5E6E1;
+    --rust-ink:#8A3624;
+
+    --brass:#8F6A16;
+    --brass-tint:#F3EBD8;
+
+    --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Roboto Mono","Courier New",monospace;
+
+    --r:12px;
+    --shadow:0 1px 2px rgba(28,36,34,.05);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0F1513;
+      --card:#18201D;
+      --card-2:#1D2622;
+      --ink:#E7EDEA;
+      --ink-2:#A0AEA9;
+      --ink-3:#75837E;
+      --line:#2B3733;
+      --line-2:#232D29;
+
+      --teal:#48BFA2;
+      --teal-deep:#8FD9C6;
+      --teal-tint:#15302A;
+      --teal-ink:#8FD9C6;
+
+      --rust:#E08A72;
+      --rust-tint:#33201B;
+      --rust-ink:#EFA894;
+
+      --brass:#D8AC44;
+      --brass-tint:#2E2716;
+
+      --shadow:0 1px 2px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0F1513;
+    --card:#18201D;
+    --card-2:#1D2622;
+    --ink:#E7EDEA;
+    --ink-2:#A0AEA9;
+    --ink-3:#75837E;
+    --line:#2B3733;
+    --line-2:#232D29;
+    --teal:#48BFA2;
+    --teal-deep:#8FD9C6;
+    --teal-tint:#15302A;
+    --teal-ink:#8FD9C6;
+    --rust:#E08A72;
+    --rust-tint:#33201B;
+    --rust-ink:#EFA894;
+    --brass:#D8AC44;
+    --brass-tint:#2E2716;
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+  :root[data-theme="light"]{
+    --paper:#F4F6F4;
+    --card:#FFFFFF;
+    --card-2:#FAFBFA;
+    --ink:#1C2422;
+    --ink-2:#5C6B66;
+    --ink-3:#8B9994;
+    --line:#DEE4E1;
+    --line-2:#EAEEEC;
+    --teal:#0E6E5C;
+    --teal-deep:#0A4F42;
+    --teal-tint:#E0EDE9;
+    --teal-ink:#0A4F42;
+    --rust:#A6432E;
+    --rust-tint:#F5E6E1;
+    --rust-ink:#8A3624;
+    --brass:#8F6A16;
+    --brass-tint:#F3EBD8;
+    --shadow:0 1px 2px rgba(28,36,34,.05);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px 40px}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+  /* ── header ── */
+  header.site{
+    background:var(--teal-deep);color:#EAF3F0;
+    padding:36px 20px 26px;
+    border-bottom:3px solid var(--brass);
+  }
+  :root[data-theme="dark"] header.site,
+  header.site{background:var(--teal-deep)}
+  @media (prefers-color-scheme:dark){
+    header.site{background:#0C1A17}
+  }
+  :root[data-theme="dark"] header.site{background:#0C1A17}
+  :root[data-theme="light"] header.site{background:#0A4F42}
+
+  header.site .inner{max-width:640px;margin:0 auto}
+  .eyebrow{
+    font-size:10.5px;letter-spacing:.24em;font-weight:700;
+    color:#8FC4B5;margin:0 0 12px;
+  }
+  header.site h1{
+    font-weight:800;font-size:clamp(23px,6.2vw,31px);line-height:1.4;
+    margin:0 0 12px;text-wrap:balance;letter-spacing:.005em;
+  }
+  header.site h1 em{font-style:normal;color:#F0C866;}
+  header.site p.lede{margin:0;font-size:13.5px;line-height:1.9;color:#B3CDC5;max-width:32em}
+  .badge{
+    display:inline-block;margin-top:15px;font-size:11px;letter-spacing:.06em;
+    border:1px solid #2F5F53;border-radius:999px;padding:4px 12px;color:#A8C8BD;
+  }
+  .author{
+    display:flex;align-items:center;gap:12px;
+    margin-top:20px;padding-top:16px;border-top:1px solid #235045;
+  }
+  .author img{width:44px;height:44px;border-radius:50%;flex:none;border:2px solid #2F5F53;display:block;background:#fff}
+  .author .a-label{font-size:10px;letter-spacing:.16em;color:#8FC4B5;line-height:1.5}
+  .author .a-name{font-size:14px;font-weight:700;color:#EAF3F0;line-height:1.5}
+
+  /* ── tabs ── */
+  nav.tabs{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+  nav.tabs .inner{max-width:640px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+  nav.tabs .inner::-webkit-scrollbar{display:none}
+  nav.tabs button{
+    appearance:none;background:none;border:none;cursor:pointer;
+    font-family:var(--sans);font-size:13px;font-weight:700;color:var(--ink-2);
+    padding:14px 11px 11px;border-bottom:3px solid transparent;white-space:nowrap;
+  }
+  nav.tabs button[aria-selected="true"]{color:var(--teal);border-bottom-color:var(--teal)}
+  nav.tabs button:focus-visible{outline:2px solid var(--teal);outline-offset:-3px;border-radius:6px}
+
+  main section.panel{display:none;padding-top:30px}
+  main section.panel.active{display:block}
+
+  h2.sec{font-weight:800;font-size:20px;letter-spacing:.01em;margin:0 0 6px;text-wrap:balance;line-height:1.5}
+  p.sec-note{margin:0 0 24px;font-size:13px;color:var(--ink-2);line-height:1.85}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+
+  /* ── quiz ── */
+  .quiz{padding:26px 22px 28px}
+  .progress{display:flex;gap:5px;margin-bottom:22px}
+  .progress span{flex:1;height:3px;border-radius:2px;background:var(--line)}
+  .progress span.done{background:var(--teal)}
+  .q-count{font-size:10.5px;letter-spacing:.16em;color:var(--teal);font-weight:800;margin:0 0 7px}
+  .q-title{font-size:18px;font-weight:800;margin:0 0 4px;line-height:1.55;text-wrap:balance}
+  .q-help{font-size:12.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.8}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opts button{
+    appearance:none;text-align:left;cursor:pointer;width:100%;
+    background:var(--card-2);border:1.5px solid var(--line);border-radius:10px;padding:13px 15px;
+    font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.6;
+    transition:border-color .15s,background .15s;
+  }
+  .opts button small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);margin-top:2px;line-height:1.7}
+  .opts button:hover{border-color:var(--teal);background:var(--teal-tint)}
+  .opts button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  .backlink{
+    margin-top:16px;background:none;border:none;cursor:pointer;padding:4px 0;
+    font-family:var(--sans);font-size:12.5px;color:var(--ink-3);font-weight:600;
+  }
+  .backlink:hover{color:var(--teal)}
+
+  /* ── result ── */
+  .result-head{padding:24px 22px 20px;border-bottom:1px dashed var(--line)}
+  .r-label{font-size:10.5px;letter-spacing:.16em;color:var(--ink-3);font-weight:800;margin:0 0 6px}
+  .r-name{font-size:25px;font-weight:800;margin:0;letter-spacing:.01em;color:var(--teal)}
+  .r-why{margin:10px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.85}
+
+  /* 明細レール */
+  .ledger{padding:22px}
+  .ledger-title{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--ink-3);margin:0 0 14px}
+  .row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:11px 0}
+  .row + .row{border-top:1px solid var(--line-2)}
+  .row .k{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .row .k .dot{width:8px;height:8px;border-radius:2px;flex:none}
+  .row .k .sub{display:block;font-weight:400;font-size:11.5px;color:var(--ink-3);margin-top:-2px}
+  .row.before .dot{background:var(--rust)}
+  .row.after .dot{background:var(--teal)}
+  .row .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:17px;font-weight:600;white-space:nowrap}
+  .row.before .v{color:var(--rust-ink);text-decoration:line-through;text-decoration-thickness:1.5px;opacity:.85}
+  .row.after .v{color:var(--teal-ink)}
+
+  .delta{
+    margin-top:16px;background:var(--teal-tint);border-radius:10px;padding:18px 18px 16px;
+    border:1px solid transparent;
+  }
+  .delta .d-label{font-size:11.5px;font-weight:700;color:var(--teal-ink);margin:0 0 2px}
+  .delta .d-big{
+    font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-size:clamp(30px,8vw,40px);font-weight:700;line-height:1.15;color:var(--teal-ink);letter-spacing:-.01em;
+  }
+  .delta .d-big .yen{font-size:.6em;margin-right:2px}
+  .delta .d-sub{margin:6px 0 0;font-size:12.5px;color:var(--teal-ink);opacity:.9;line-height:1.75}
+  .delta .d-sub b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  .fld{margin-bottom:18px}
+  .fld label{display:block;font-size:12.5px;font-weight:700;color:var(--ink-2);margin-bottom:7px}
+  .fld select,.fld input[type=number]{
+    width:100%;appearance:none;background:var(--card-2);color:var(--ink);
+    border:1.5px solid var(--line);border-radius:9px;padding:11px 13px;
+    font-family:var(--mono);font-size:15px;font-variant-numeric:tabular-nums;
+  }
+  .fld select{font-family:var(--sans);font-weight:600}
+  .fld select:focus-visible,.fld input:focus-visible{outline:2px solid var(--teal);outline-offset:1px;border-color:var(--teal)}
+
+  .btn{
+    appearance:none;cursor:pointer;border:none;border-radius:999px;
+    font-family:var(--sans);font-weight:700;font-size:14px;
+    padding:13px 26px;background:var(--teal);color:#fff;
+  }
+  :root[data-theme="dark"] .btn,
+  @media (prefers-color-scheme:dark){}
+  .btn:hover{opacity:.9}
+  .btn:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+  .btn.ghost{background:none;color:var(--teal);border:1.5px solid var(--line);padding:12px 22px}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+
+  /* ── comparison ── */
+  .simcard{margin-bottom:20px;overflow:hidden}
+  .sc-head{display:flex;align-items:flex-start;gap:13px;padding:20px 20px 16px}
+  .rank{
+    flex:none;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;
+    font-family:var(--mono);font-size:14px;font-weight:700;
+    background:var(--brass-tint);color:var(--brass);border:1px solid var(--brass);
+  }
+  .sc-head h3{margin:0;font-size:18px;font-weight:800;line-height:1.4}
+  .sc-head .line{margin:5px 0 0;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;font-weight:600}
+  /* 各社ブランドカラーのワードマーク（公式ロゴの複製ではなくブランド色の文字バッジ） */
+  .brandlogo{display:inline-block;padding:5px 13px;border-radius:7px;font-size:16px;font-weight:800;
+    letter-spacing:.01em;color:#fff;line-height:1.25;white-space:nowrap}
+  .bl-povo{background:#FFE600;color:#111112;text-transform:lowercase;letter-spacing:.02em;
+    box-shadow:0 0 0 1px rgba(0,0,0,.16) inset}
+  .bl-povo .v{font-size:.62em;vertical-align:super;font-weight:700;opacity:.68;margin-left:2px}
+  .bl-nihon{background:#10316F}
+  .bl-rakuten{background:#ff008c;letter-spacing:.005em}
+  .bl-rakuten .jp{font-size:.82em;margin-left:3px;opacity:.95}
+  .sc-catch{
+    margin:0;padding:0 20px 18px;font-size:14px;line-height:1.85;color:var(--ink);
+  }
+  .sc-catch b{color:var(--teal-ink);font-weight:700}
+
+  table.price{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tablewrap{overflow-x:auto;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  table.price th,table.price td{padding:10px 20px;text-align:left;white-space:nowrap}
+  table.price thead th{
+    font-size:10.5px;letter-spacing:.12em;color:var(--ink-3);font-weight:800;
+    background:var(--card-2);border-bottom:1px solid var(--line-2);
+  }
+  table.price tbody tr + tr td{border-top:1px solid var(--line-2)}
+  table.price td.p{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+  table.price th.pr{text-align:right}
+
+  .pros{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line-2)}
+  .pros > div{padding:16px 20px 18px}
+  .pros > div + div{border-left:1px solid var(--line-2)}
+  .pros h4{margin:0 0 8px;font-size:11px;letter-spacing:.12em;font-weight:800}
+  .pros .good h4{color:var(--teal)}
+  .pros .bad h4{color:var(--rust)}
+  .pros ul{margin:0;padding-left:1.05em;font-size:12.5px;line-height:1.85;color:var(--ink-2)}
+  .pros li + li{margin-top:5px}
+
+  .sc-foot{padding:14px 20px;background:var(--card-2);font-size:12px;color:var(--ink-2);line-height:1.8;border-top:1px solid var(--line-2)}
+  .sc-foot b{color:var(--ink);font-weight:700}
+
+  /* ── steps ── */
+  ol.steps{list-style:none;margin:0;padding:0;position:relative}
+  ol.steps::before{content:"";position:absolute;left:16px;top:14px;bottom:38px;width:2px;background:var(--line)}
+  ol.steps > li{position:relative;padding:0 0 22px 48px}
+  .st-num{
+    position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;
+    display:grid;place-items:center;font-family:var(--mono);font-size:13px;font-weight:700;
+    background:var(--teal);color:#fff;z-index:1;
+  }
+  .st-body{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
+  .st-img{
+    display:block;width:100%;height:auto;border-radius:9px;margin:0 0 14px;
+    background:var(--card-2);border:1px solid var(--line-2);
+  }
+  .st-body h3{margin:0 0 6px;font-size:15.5px;font-weight:800;line-height:1.5}
+  .st-body p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.85}
+  .st-body p + p{margin-top:9px}
+  .st-time{
+    display:inline-block;margin-top:10px;font-family:var(--mono);font-size:11px;
+    color:var(--ink-3);border:1px solid var(--line);border-radius:5px;padding:2px 7px;
+  }
+
+  .note{
+    border-left:3px solid var(--brass);background:var(--brass-tint);
+    border-radius:0 8px 8px 0;padding:13px 15px;margin:10px 0 0;
+    font-size:12.5px;line-height:1.85;color:var(--ink);
+  }
+  .note b{color:var(--brass);font-weight:800}
+
+  /* ── checklist ── */
+  .checks{padding:20px}
+  .checks h3{margin:0 0 4px;font-size:15px;font-weight:800}
+  .checks .hint{margin:0 0 16px;font-size:12.5px;color:var(--ink-2)}
+  label.task{
+    display:flex;gap:11px;align-items:flex-start;padding:12px 13px;
+    background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;cursor:pointer;
+    font-size:13.5px;line-height:1.75;
+  }
+  label.task + label.task{margin-top:8px}
+  label.task input{margin:5px 0 0;accent-color:var(--teal);flex:none;width:16px;height:16px}
+  label.task span small{display:block;font-size:11.5px;color:var(--ink-3);margin-top:1px;line-height:1.7}
+  label.task:has(input:checked){background:var(--teal-tint);border-color:transparent}
+  label.task:has(input:checked) span{opacity:.65;text-decoration:line-through;text-decoration-color:var(--ink-3)}
+  label.task:has(input:focus-visible){outline:2px solid var(--teal);outline-offset:2px}
+
+  /* ── faq ── */
+  details.faq{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    margin-bottom:9px;box-shadow:var(--shadow);
+  }
+  details.faq summary{
+    cursor:pointer;list-style:none;padding:15px 17px;
+    font-size:14px;font-weight:700;line-height:1.65;
+    display:flex;gap:11px;align-items:flex-start;
+  }
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::before{
+    content:"Q";font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);
+    border:1.5px solid var(--teal);border-radius:5px;width:21px;height:21px;
+    display:grid;place-items:center;flex:none;margin-top:1px;
+  }
+  details.faq summary:focus-visible{outline:2px solid var(--teal);outline-offset:-2px;border-radius:var(--r)}
+  details.faq[open] summary{padding-bottom:6px}
+  .faq-a{padding:0 17px 17px 49px;font-size:13.5px;line-height:1.9;color:var(--ink-2)}
+  .faq-a b{color:var(--ink);font-weight:700}
+  .faq-a p{margin:0}
+  .faq-a p + p{margin-top:10px}
+
+  /* ── cta ── */
+  .cta{
+    margin-top:36px;background:var(--teal-deep);border-radius:16px;padding:30px 24px;
+    color:#EAF3F0;text-align:center;
+  }
+  @media (prefers-color-scheme:dark){.cta{background:#0C1A17;border:1px solid var(--line)}}
+  :root[data-theme="dark"] .cta{background:#0C1A17;border:1px solid var(--line)}
+  :root[data-theme="light"] .cta{background:#0A4F42;border:none}
+  .cta .eyebrow{color:#8FC4B5;margin-bottom:10px}
+  .cta h2{margin:0 0 10px;font-size:20px;font-weight:800;line-height:1.55;text-wrap:balance;color:#fff}
+  .cta p{margin:0;font-size:13px;line-height:1.9;color:#B3CDC5}
+
+  footer.site{
+    margin-top:32px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:11.5px;line-height:1.9;color:var(--ink-3);
+  }
+  footer.site p{margin:0 0 6px}
+
+  @media (max-width:480px){
+    .pros{grid-template-columns:1fr}
+    .pros > div + div{border-left:none;border-top:1px solid var(--line-2)}
+    table.price th,table.price td{padding:9px 14px}
+    .btn-row .btn{width:100%;text-align:center}
+  }
+  @media (max-width:360px){
+    nav.tabs button{font-size:11.5px;padding:14px 8px 11px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
+  }
+</style>
+
+<header class="site">
+  <div class="inner">
+    <p class="eyebrow">KAKUYASU SIM GUIDE 2026</p>
+    <h1>スマホ代、<em>月8,000円</em>のままで<br>いいですか？</h1>
+    <p class="lede">格安SIMを7個つかってきたボクが、乗り換えの手順と、おすすめの3社だけをまとめました。迷わず乗り換えできます！</p>
+    <span class="badge">2026年7月時点・料金はすべて税込</span>
+    <div class="author">
+      <img src="data:image/png;base64,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" alt="きょうのアイコン">
+      <div>
+        <div class="a-label">作成者</div>
+        <div class="a-name">きょう（i-money）</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="メニュー">
+  <div class="inner">
+    <button role="tab" aria-selected="true" aria-controls="panel-shindan" id="tab-shindan" data-tab="shindan">どれを選ぶ？</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-hikaku" id="tab-hikaku" data-tab="hikaku">3社くらべる</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-tejun" id="tab-tejun" data-tab="tejun">乗り換え5ステップ</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-faq" id="tab-faq" data-tab="faq">つまずきQ&amp;A</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ══════════ 診断 ══════════ -->
+  <section class="panel active" id="panel-shindan" role="tabpanel" aria-labelledby="tab-shindan">
+    <h2 class="sec">4つの質問で、あなたに合う1社がわかる</h2>
+    <p class="sec-note">「安さ」だけで選ぶと、たいてい後悔します。使い方によって正解がちがうからです。答えると、年間いくら浮くかも出ます。</p>
+
+    <div class="card quiz" id="quiz"></div>
+
+    <div id="result" hidden></div>
+  </section>
+
+  <!-- ══════════ 比較 ══════════ -->
+  <section class="panel" id="panel-hikaku" role="tabpanel" aria-labelledby="tab-hikaku">
+    <h2 class="sec">ボクが7個ためして残った3社</h2>
+    <p class="sec-note">独断と偏見のTOP3です。どれも「安かろう悪かろう」ではありません。ただ、得意なことがちがいます。弱点も正直に書きました。</p>
+
+    <!-- povo -->
+    <article class="card simcard">
+      <div class="sc-head">
+        <div class="rank">1</div>
+        <div>
+          <h3 class="brandlogo bl-povo">povo<span class="v">2.0</span></h3>
+          <p class="line">au回線／基本料 0円＋トッピング制</p>
+        </div>
+      </div>
+      <p class="sc-catch">安い・つながる・速い。この<b>3つをバランスよく</b>ほしい人はpovo。トータル90点以上で、ボクのメイン回線です。</p>
+      <div class="tablewrap">
+        <table class="price">
+          <thead>
+            <tr><th>トッピング</th><th class="pr">価格</th><th class="pr">月あたり</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>基本料（何も買わない）</td><td class="p">0円</td><td class="p">0円</td></tr>
+            <tr><td>1GB／7日間</td><td class="p">390円</td><td class="p">—</td></tr>
+            <tr><td>3GB／30日間</td><td class="p">990円</td><td class="p">990円</td></tr>
+            <tr><td>60GB／90日間</td><td class="p">6,490円</td><td class="p">約2,163円</td></tr>
+            <tr><td>150GB／180日間</td><td class="p">12,980円</td><td class="p">約2,163円</td></tr>
+            <tr><td>5分以内かけ放題</td><td class="p">550円/月</td><td class="p">550円</td></tr>
+            <tr><td>通話かけ放題</td><td class="p">1,650円/月</td><td class="p">1,650円</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pros">
+        <div class="good">
+          <h4>いいところ</h4>
+          <ul>
+            <li>au回線そのままなので、お昼どきも速度が落ちにくい</li>
+            <li>使う月だけギガを買える。余った月は0円運用もできる</li>
+            <li>大容量トッピングは月あたり2,163円ほど。ギガをたくさん使う人ほど強い</li>
+            <li>eSIMなら申し込んだその日に開通できる</li>
+          </ul>
+        </div>
+        <div class="bad">
+          <h4>気をつけたいところ</h4>
+          <ul>
+            <li>自分でトッピングを買う手間がある（自動チャージも選べます）</li>
+            <li>180日間ひとつも有料トッピングを買わないと、利用停止→解約の対象になることがある</li>
+            <li>店舗サポートがない。手続きはぜんぶオンライン</li>
+            <li>キャリアメールは引き継ぎ不可（持ち運びサービスは利用可）</li>
+          </ul>
+        </div>
+      </div>
+      <p class="sc-foot"><b>こんな人に。</b>速度もギガも妥協したくない人。月によってギガの使う量がバラバラな人。</p>
+    </article>
+
+    <!-- 日本通信 -->
+    <article class="card simcard">
+      <div class="sc-head">
+        <div class="rank">2</div>
+        <div>
+          <h3 class="brandlogo bl-nihon">日本通信SIM</h3>
+          <p class="line">ドコモ回線／月額290円〜</p>
+        </div>
+      </div>
+      <p class="sc-catch">とにかく安くて、電話もよくかけるならこれ。<b>これ以上、家計の味方になってくれる格安SIMはない</b>とすら感じます。</p>
+      <div class="tablewrap">
+        <table class="price">
+          <thead>
+            <tr><th>プラン</th><th class="pr">データ</th><th class="pr">月額</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>合理的シンプル290プラン</td><td class="p">1GB</td><td class="p">290円</td></tr>
+            <tr><td>合理的みんなのプラン</td><td class="p">20GB</td><td class="p">1,390円</td></tr>
+            <tr><td>合理的50GBプラン</td><td class="p">50GB</td><td class="p">2,178円</td></tr>
+            <tr><td>データ追加</td><td class="p">1GBごと</td><td class="p">220円</td></tr>
+            <tr><td>5分かけ放題／70分無料通話</td><td class="p">—</td><td class="p">＋390円</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pros">
+        <div class="good">
+          <h4>いいところ</h4>
+          <ul>
+            <li>1GBで月290円。サブ回線や、子どもの見守り用にも最適</li>
+            <li>「みんなのプラン」は20GB＋通話オプション込みで1,390円。通話する人の最安クラス</li>
+            <li>通話オプションが390円と、業界でもかなり安い</li>
+            <li>ドコモ回線なので、山間部や地方でもつながりやすい</li>
+          </ul>
+        </div>
+        <div class="bad">
+          <h4>気をつけたいところ</h4>
+          <ul>
+            <li>お昼の12時台などは、どうしてもつながりにくくなる時間がある</li>
+            <li>初期費用が3,300円かかる</li>
+            <li>通話オプションを付けない場合、通話料は30秒11円</li>
+            <li>店舗サポートはなく、手続きはオンライン中心</li>
+          </ul>
+        </div>
+      </div>
+      <p class="sc-foot"><b>こんな人に。</b>とにかく固定費を下げたい人。電話をよくかける人。お昼はWi-Fiがある職場・自宅にいる人。</p>
+    </article>
+
+    <!-- 楽天 -->
+    <article class="card simcard">
+      <div class="sc-head">
+        <div class="rank">3</div>
+        <div>
+          <h3 class="brandlogo bl-rakuten">Rakuten<span class="jp">モバイル</span></h3>
+          <p class="line">楽天回線／Rakuten最強プラン</p>
+        </div>
+      </div>
+      <p class="sc-catch">楽天経済圏で生活しているなら相性◎。何より、<b>楽天市場でのお買い物ポイントが＋4倍</b>になります。</p>
+      <div class="tablewrap">
+        <table class="price">
+          <thead>
+            <tr><th>月のデータ量</th><th class="pr">月額</th><th class="pr">通話</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>〜3GB</td><td class="p">1,078円</td><td class="p">アプリで無料</td></tr>
+            <tr><td>〜20GB</td><td class="p">2,178円</td><td class="p">アプリで無料</td></tr>
+            <tr><td>20GB超〜無制限</td><td class="p">3,278円</td><td class="p">アプリで無料</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pros">
+        <div class="good">
+          <h4>いいところ</h4>
+          <ul>
+            <li>Rakuten Linkアプリを使えば、国内通話が時間無制限で無料</li>
+            <li>使った分だけの料金。ギガを気にしなくていい</li>
+            <li>楽天市場でのお買い物が＋4倍。スマホ代を下げながらポイントも貯まる</li>
+            <li>プラチナバンドが入り、年々つながりやすくなっている</li>
+          </ul>
+        </div>
+        <div class="bad">
+          <h4>気をつけたいところ</h4>
+          <ul>
+            <li>建物の奥や地下では、まだ電波が弱く感じる場所がある</li>
+            <li>ポイント＋4倍は初回エントリーが必要。獲得の上限は月2,000ポイント</li>
+            <li>ギガを使わない月でも1,078円かかる（povoの0円運用のようなことはできない）</li>
+            <li>Rakuten Linkを使わずに電話すると、30秒22円の通話料がかかる</li>
+          </ul>
+        </div>
+      </div>
+      <p class="sc-foot"><b>こんな人に。</b>楽天市場をよく使う人。長電話をする人。動画やテザリングでギガを大量に使う人。</p>
+    </article>
+
+    <div class="note">
+      <b>ひとこと。</b>ここに載せた3社は、どれも申し込みがオンライン中心です。「お店で相談しながら決めたい」という人は、ワイモバイルやUQモバイルのように店舗がある会社も選択肢になります。ただ、その分だけ月額は高くなります。
+    </div>
+  </section>
+
+  <!-- ══════════ 手順 ══════════ -->
+  <section class="panel" id="panel-tejun" role="tabpanel" aria-labelledby="tab-tejun">
+    <h2 class="sec">乗り換えは、実質5ステップで終わります</h2>
+    <p class="sec-note">「むずかしそう…」と思われがちですが、いまは<b>MNPワンストップ</b>という制度ができて、昔より一気にラクになりました。電話番号はそのまま、スマホもそのまま使えます。</p>
+
+    <div class="card checks" style="margin-bottom:26px">
+      <h3>その前に。3つだけ確認</h3>
+      <p class="hint">ここでつまずく人がいちばん多いです。チェックは自動で保存されます。</p>
+      <label class="task"><input type="checkbox" data-check="c1"><span>いま使っているスマホが、乗り換え先の回線に対応しているか<small>各社の公式サイトに「動作確認済み端末」のページがあります。機種名で検索するだけ</small></span></label>
+      <label class="task"><input type="checkbox" data-check="c2"><span>SIMロックがかかっていないか<small>2021年10月以降に買った端末は、原則ロックなし。それより前ならマイページから解除できます</small></span></label>
+      <label class="task"><input type="checkbox" data-check="c3"><span>いまの会社のID・パスワード・ネットワーク暗証番号<small>申し込みの途中で必ず聞かれます。先にメモしておくと5分で終わります</small></span></label>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <div class="st-num">1</div>
+        <div class="st-body">
+          <svg class="st-img" viewBox="0 0 320 118" role="img" aria-label="スマホの公式サイトから申し込むイラスト">
+            <rect x="126" y="12" width="88" height="94" rx="13" fill="var(--card)" stroke="var(--teal)" stroke-width="2.4"/>
+            <line x1="158" y1="22" x2="182" y2="22" stroke="var(--line)" stroke-width="3" stroke-linecap="round"/>
+            <rect x="138" y="36" width="64" height="7" rx="3.5" fill="var(--teal-tint)"/>
+            <rect x="138" y="50" width="44" height="7" rx="3.5" fill="var(--teal-tint)"/>
+            <rect x="138" y="72" width="64" height="19" rx="9.5" fill="var(--teal)"/>
+            <text x="170" y="85" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="sans-serif">申込</text>
+            <path d="M196 82 l0 22 l6 -7 l4 8 l5 -2 l-4 -8 l9 0 z" fill="var(--brass)"/>
+          </svg>
+          <h3>乗り換え先の公式サイトから申し込む</h3>
+          <p>お店に行く必要はありません。乗り換え元と乗り換え先の両方がMNPワンストップに対応していれば、<b>いまの会社に解約の連絡をする必要も、MNP予約番号をとる必要もありません</b>。申し込みの途中で、いまの会社のマイページにログインする画面が出てくるだけです。</p>
+          <div class="note"><b>注意。</b>MNPワンストップが使えるのは、オンラインで申し込んだときだけ。お店で申し込む場合は、これまでどおりMNP予約番号が必要です。</div>
+          <span class="st-time">目安 10分</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-num">2</div>
+        <div class="st-body">
+          <svg class="st-img" viewBox="0 0 320 120" role="img" aria-label="免許証をカメラで撮って本人確認するイラスト">
+            <rect x="96" y="24" width="128" height="72" rx="9" fill="var(--card)" stroke="var(--teal)" stroke-width="2.4"/>
+            <circle cx="123" cy="52" r="13" fill="var(--teal-tint)"/>
+            <circle cx="123" cy="48" r="5" fill="var(--teal)"/>
+            <path d="M113 64 a10 8 0 0 1 20 0" fill="var(--teal)"/>
+            <rect x="147" y="42" width="60" height="6" rx="3" fill="var(--teal-tint)"/>
+            <rect x="147" y="56" width="46" height="6" rx="3" fill="var(--teal-tint)"/>
+            <rect x="147" y="70" width="54" height="6" rx="3" fill="var(--teal-tint)"/>
+            <g stroke="var(--brass)" stroke-width="3" stroke-linecap="round" fill="none">
+              <path d="M78 27 l0 -9 l9 0"/>
+              <path d="M242 27 l0 -9 l-9 0"/>
+              <path d="M78 93 l0 9 l9 0"/>
+              <path d="M242 93 l0 9 l-9 0"/>
+            </g>
+          </svg>
+          <h3>本人確認と、支払い方法の登録</h3>
+          <p>運転免許証やマイナンバーカードをスマホのカメラで撮って送ります（eKYC）。郵送を待たなくていいので、ここも数分です。あわせてクレジットカードなどの支払い方法を登録します。</p>
+          <span class="st-time">目安 5分</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-num">3</div>
+        <div class="st-body">
+          <svg class="st-img" viewBox="0 0 320 118" role="img" aria-label="SIMカードとeSIMのQRコードを受け取るイラスト">
+            <path d="M96 28 h40 l16 16 v48 a6 6 0 0 1 -6 6 h-50 a6 6 0 0 1 -6 -6 v-58 a6 6 0 0 1 6 -6 z" fill="var(--card)" stroke="var(--teal)" stroke-width="2.4"/>
+            <rect x="102" y="52" width="36" height="28" rx="4" fill="var(--brass-tint)" stroke="var(--brass)" stroke-width="2"/>
+            <line x1="120" y1="52" x2="120" y2="80" stroke="var(--brass)" stroke-width="1.6"/>
+            <line x1="102" y1="66" x2="138" y2="66" stroke="var(--brass)" stroke-width="1.6"/>
+            <rect x="182" y="30" width="62" height="62" rx="7" fill="var(--card)" stroke="var(--teal)" stroke-width="2.4"/>
+            <g fill="var(--teal)">
+              <rect x="191" y="39" width="14" height="14" rx="2"/>
+              <rect x="221" y="39" width="14" height="14" rx="2"/>
+              <rect x="191" y="69" width="14" height="14" rx="2"/>
+              <rect x="211" y="60" width="7" height="7"/>
+              <rect x="221" y="69" width="7" height="7"/>
+              <rect x="230" y="60" width="6" height="6"/>
+              <rect x="228" y="78" width="8" height="7"/>
+              <rect x="211" y="76" width="7" height="8"/>
+            </g>
+          </svg>
+          <h3>SIMを受け取る（eSIMなら即日）</h3>
+          <p>物理SIMを選ぶと、数日でカードが郵送されてきます。<b>eSIM（カードのないSIM）を選べば、その日のうちに使いはじめられます。</b>いまのスマホがeSIMに対応しているなら、こちらがおすすめです。</p>
+          <span class="st-time">即日〜3日ほど</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-num">4</div>
+        <div class="st-body">
+          <svg class="st-img" viewBox="0 0 320 118" role="img" aria-label="スイッチをオンにして回線を切り替え、電波が立つイラスト">
+            <path d="M100 44 q40 -20 72 -3" stroke="var(--brass)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <rect x="94" y="50" width="74" height="36" rx="18" fill="var(--teal)"/>
+            <text x="120" y="73" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="sans-serif">ON</text>
+            <circle cx="150" cy="68" r="13" fill="#fff"/>
+            <g fill="var(--teal)">
+              <rect x="204" y="72" width="13" height="16" rx="2"/>
+              <rect x="223" y="60" width="13" height="28" rx="2"/>
+              <rect x="242" y="46" width="13" height="42" rx="2"/>
+            </g>
+          </svg>
+          <h3>開通手続き（回線の切り替え）</h3>
+          <p>マイページのボタンを押すか、専用の番号に電話するだけ。これを押した瞬間に、いまの会社は自動で解約されます。<b>スマホがつながらない時間は、長くても数十分ほど。</b>寝る前ではなく、日中にやるのがおすすめです。</p>
+          <span class="st-time">目安 5分＋切替待ち</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-num">5</div>
+        <div class="st-body">
+          <svg class="st-img" viewBox="0 0 320 118" role="img" aria-label="APN設定をして通話とネットの疎通を確認するイラスト">
+            <rect x="104" y="12" width="86" height="94" rx="13" fill="var(--card)" stroke="var(--teal)" stroke-width="2.4"/>
+            <g fill="var(--teal)">
+              <rect x="120" y="40" width="9" height="12" rx="1.5"/>
+              <rect x="133" y="33" width="9" height="19" rx="1.5"/>
+              <rect x="146" y="26" width="9" height="26" rx="1.5"/>
+            </g>
+            <circle cx="147" cy="78" r="16" fill="var(--teal)"/>
+            <path d="M139 78 l6 6 l10 -13" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <g transform="translate(240 60)" fill="var(--brass)">
+              <rect x="-25" y="-6" width="50" height="12" rx="4"/>
+              <rect x="-6" y="-25" width="12" height="50" rx="4"/>
+              <g transform="rotate(45)">
+                <rect x="-25" y="-6" width="50" height="12" rx="4"/>
+                <rect x="-6" y="-25" width="12" height="50" rx="4"/>
+              </g>
+              <circle r="17"/>
+              <circle r="6.5" fill="var(--card-2)"/>
+            </g>
+          </svg>
+          <h3>APN設定をして、通話とネットをためす</h3>
+          <p>APN設定は「スマホにどの回線を使うか教えてあげる作業」です。iPhoneなら自動で終わることがほとんど。Androidは設定画面から数タップです。最後に、自分の家族に電話をかけて声が届くか、Wi-Fiを切ってネットが見られるかを確認したら完了です。</p>
+          <p>ここまでで、だいたい<b>合計30分ほど</b>。この30分で、年間5〜7万円が浮きます。</p>
+          <span class="st-time">目安 10分</span>
+        </div>
+      </li>
+    </ol>
+
+    <div class="note" style="margin-top:4px">
+      <b>いちばん多い失敗。</b>「あとでやろう」と思って、そのまま1年たつことです。ボクの周りでも、これがダントツで多い。今日じゃなくていいので、<b>今週末の30分</b>だけカレンダーに入れておいてください。
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="panel" id="panel-faq" role="tabpanel" aria-labelledby="tab-faq">
+    <h2 class="sec">みんながつまずくところ、先に答えます</h2>
+    <p class="sec-note">DMでよくもらう質問を、上から多い順に並べました。</p>
+
+    <details class="faq">
+      <summary>電話番号は変わりますか？</summary>
+      <div class="faq-a"><p>変わりません。MNP（携帯電話番号ポータビリティ）という仕組みで、<b>いまの番号をそのまま持っていけます</b>。家族や職場に連絡する必要もありません。</p></div>
+    </details>
+
+    <details class="faq">
+      <summary>スマホは買い替えないとダメですか？</summary>
+      <div class="faq-a"><p>ほとんどの場合、いま使っているスマホをそのまま使えます。確認するのは2つだけ。<b>①乗り換え先の「動作確認済み端末」に自分の機種があるか。②SIMロックがかかっていないか。</b>2021年10月以降に買った端末は、原則ロックがかかっていません。</p></div>
+    </details>
+
+    <details class="faq">
+      <summary>キャリアメール（@docomo.ne.jpなど）が使えなくなりませんか？</summary>
+      <div class="faq-a">
+        <p>そのままでは使えなくなりますが、大手3社には<b>月330円でメールアドレスを持ち運べるサービス</b>があります。</p>
+        <p>ただ、ボクは持ち運ばずにGmailへ移行するのをおすすめしています。年間3,960円を払い続けることになりますし、いま届いているメールのほとんどは、Gmailで受け取れるものだからです。乗り換え前に、キャリアメールを登録しているサービスだけメモしておきましょう。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>解約金（違約金）はかかりますか？</summary>
+      <div class="faq-a"><p>いまはほとんどの会社で、解約金はかかりません。ただし<b>端末の分割払いが残っている場合、その支払いは乗り換え後も続きます</b>（残債を一括で払うこともできます）。ここだけ、乗り換え前にマイページで確認しておいてください。</p></div>
+    </details>
+
+    <details class="faq">
+      <summary>家族割や光回線のセット割がなくなって、逆に損しませんか？</summary>
+      <div class="faq-a">
+        <p>ここは、いちばん正直に計算してほしいところです。<b>家族全員ぶんの合計金額で比べてください。</b></p>
+        <p>たとえば「家族割で1人1,100円引き」でも、大手のまま4人で月28,000円払っているなら、格安SIM4人ぶんの月8,000円には遠く及びません。割引額より、そもそもの基本料金の差のほうがずっと大きいからです。</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>LINEのアカウントは消えませんか？</summary>
+      <div class="faq-a"><p>電話番号もスマホも変わらないなら、<b>なにもしなくて大丈夫です</b>。トーク履歴も友だちもそのまま残ります。念のため、乗り換え前にLINEの「アカウント引き継ぎ設定」をオンにして、バックアップを取っておくと安心です。</p></div>
+    </details>
+
+    <details class="faq">
+      <summary>つながらない時間（不通期間）はどれくらい？</summary>
+      <div class="faq-a"><p>むかしは数日かかりましたが、いまは<b>切替ボタンを押してから、長くても数十分</b>です。eSIMなら数分で終わることもあります。仕事の電話が来ない、平日の夜や休日の日中にやるのが無難です。</p></div>
+    </details>
+
+    <details class="faq">
+      <summary>結局、いちばん失敗しない選び方は？</summary>
+      <div class="faq-a">
+        <p>迷ったら、この順番で考えてみてください。</p>
+        <p><b>①お昼の速度が仕事に直結するなら → povo。②とにかく安く、電話もするなら → 日本通信SIM。③楽天市場をよく使う、または長電話するなら → 楽天モバイル。</b></p>
+        <p>そして、どれを選んでも大手キャリアより安くなります。<b>「どれにするか」で3ヶ月悩むより、今週どれかに決めるほうが、確実にお金は増えます。</b></p>
+      </div>
+    </details>
+
+    <div class="note" style="margin-top:18px">
+      <b>最後に。</b>格安SIMは、一度やれば毎月ずっと効いてくる節約です。ボクは夫婦で月8,000円→2,000円になり、<b>年間14.4万円</b>が浮きました。この浮いたお金をNISAでコツコツ積み立てたら、どうなるか。そこまで含めて、公式LINEでお話ししています。
+    </div>
+  </section>
+
+  <div class="cta">
+    <p class="eyebrow">NEXT STEP</p>
+    <h2>浮いたお金を、どう増やすか。</h2>
+    <p>節約はゴールではなく、スタートです。<br>公式LINEでは、家計の見直しからNISA・高配当株まで、<br>ボクが実際にやってきたことをそのまま発信しています。</p>
+  </div>
+
+  <footer class="site">
+    <p>※ 本ガイドの料金・制度は2026年7月時点の情報です。金額はすべて税込。キャンペーンや料金改定により変わることがあるため、申し込み前に必ず各社の公式サイトをご確認ください。</p>
+    <p>※ 通信速度やつながりやすさは、お住まいの地域・建物・時間帯によって変わります。本ガイドの評価は、発信者個人の使用実感にもとづくものです。</p>
+    <p>※ 特定の事業者との間に、広告契約その他の利害関係はありません。</p>
+    <p style="margin-top:12px">きょう（i-money）／ 格安SIM乗り換えガイド 2026</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── tabs ── */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('nav.tabs button'));
+  var panels = {};
+  tabs.forEach(function(b){ panels[b.dataset.tab] = document.getElementById('panel-' + b.dataset.tab); });
+
+  function selectTab(name){
+    tabs.forEach(function(b){
+      var on = b.dataset.tab === name;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      panels[b.dataset.tab].classList.toggle('active', on);
+    });
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ selectTab(b.dataset.tab); }); });
+
+  /* ── checklist (localStorage) ── */
+  var CK = 'kyou.simguide.checks.v1';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(CK) || '{}'); } catch(e){ saved = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('input[data-check]'));
+  boxes.forEach(function(b){
+    b.checked = !!saved[b.dataset.check];
+    b.addEventListener('change', function(){
+      saved[b.dataset.check] = b.checked;
+      try { localStorage.setItem(CK, JSON.stringify(saved)); } catch(e){}
+    });
+  });
+
+  /* ── plans ── */
+  var PLANS = {
+    povo: {
+      name: 'povo2.0',
+      why: 'au回線で速度が安定していて、使うギガに合わせて料金を調整できます。速さも安さもゆずれないあなたに、いちばん合っています。',
+      lines: function(gb, call){
+        var out = [];
+        if (gb === 'S') out.push(['データ 3GB／30日', 990]);
+        else if (gb === 'M') out.push(['データ 60GB／90日（月あたり）', 2163]);
+        else out.push(['データ 150GB／180日（月あたり）', 2163]);
+        if (call === 'MID') out.push(['5分以内かけ放題', 550]);
+        if (call === 'LONG') out.push(['通話かけ放題', 1650]);
+        return out;
+      }
+    },
+    nihon: {
+      name: '日本通信SIM',
+      why: '通話オプション込みでこの値段になる会社は、他にありません。固定費をいちばん深く削れる選択です。お昼の速度だけ、目をつぶってください。',
+      lines: function(gb, call){
+        var out = [];
+        if (gb === 'S') {
+          if (call === 'NONE') out.push(['合理的シンプル290プラン（1GB）', 290]);
+          else out.push(['合理的みんなのプラン（20GB・通話込み）', 1390]);
+        } else if (gb === 'M') {
+          out.push(['合理的みんなのプラン（20GB・通話込み）', 1390]);
+        } else {
+          out.push(['合理的50GBプラン（通話込み）', 2178]);
+        }
+        if (call === 'LONG' && gb !== 'S') out.push(['通話かけ放題オプション', 1600]);
+        else if (call === 'LONG') out.push(['通話かけ放題オプション', 1600]);
+        return out;
+      }
+    },
+    rakuten: {
+      name: '楽天モバイル',
+      why: 'Rakuten Linkアプリで国内通話が無料。さらに楽天市場のポイントが＋4倍になるので、スマホ代を下げながらポイントも貯まります。',
+      lines: function(gb){
+        var out = [];
+        if (gb === 'S') out.push(['Rakuten最強プラン（〜3GB）', 1078]);
+        else if (gb === 'M') out.push(['Rakuten最強プラン（〜20GB）', 2178]);
+        else out.push(['Rakuten最強プラン（無制限）', 3278]);
+        out.push(['通話（Rakuten Linkアプリ）', 0]);
+        return out;
+      }
+    }
+  };
+
+  /* ── quiz ── */
+  var QS = [
+    {
+      key:'gb',
+      title:'ひと月に、どれくらいギガを使いますか？',
+      help:'わからなければ「あまり使わない」でOK。あとから変えられます。',
+      opts:[
+        {v:'S', label:'あまり使わない（〜3GB）', sub:'家や職場はWi-Fi。外ではLINEと調べもの中心'},
+        {v:'M', label:'ふつう（〜20GB）', sub:'外でも動画やSNSをそこそこ見る'},
+        {v:'L', label:'たくさん使う（20GB以上）', sub:'外で動画を見る。テザリングもよく使う'}
+      ]
+    },
+    {
+      key:'call',
+      title:'電話は、どれくらいかけますか？',
+      help:'LINE通話は「電話」に含めません。',
+      opts:[
+        {v:'NONE', label:'ほとんどかけない', sub:'連絡はLINEで済んでいる'},
+        {v:'MID', label:'短い電話をよくかける', sub:'保育園、病院、お店の予約など。1回5分以内'},
+        {v:'LONG', label:'長電話もする', sub:'仕事の電話や、実家との長話がある'}
+      ]
+    },
+    {
+      key:'rakuten',
+      title:'楽天市場で、お買い物をしますか？',
+      help:'楽天モバイルを契約すると、楽天市場のポイントが＋4倍になります。',
+      opts:[
+        {v:'YES', label:'よく使う（月1万円以上）', sub:'日用品やふるさと納税も楽天でまとめている'},
+        {v:'SOME', label:'たまに使う', sub:'年に数回、必要なときだけ'},
+        {v:'NO', label:'ほとんど使わない', sub:'Amazonや実店舗が中心'}
+      ]
+    },
+    {
+      key:'speed',
+      title:'お昼の12時台、スマホが遅くなったら困りますか？',
+      help:'安い会社ほど、混雑する時間に速度が落ちやすくなります。',
+      opts:[
+        {v:'YES', label:'困る', sub:'昼休みに調べものや動画を見る。外回りの仕事がある'},
+        {v:'NO', label:'そこまで気にしない', sub:'お昼はWi-Fiのある場所にいることが多い'}
+      ]
+    }
+  ];
+
+  var answers = {};
+  var step = 0;
+  var quiz = document.getElementById('quiz');
+  var result = document.getElementById('result');
+
+  function yen(n){ return n.toLocaleString('ja-JP'); }
+
+  function renderQuiz(){
+    result.hidden = true;
+    result.innerHTML = '';
+    quiz.hidden = false;
+
+    var q = QS[step];
+    var h = '<div class="progress">';
+    for (var i = 0; i < QS.length; i++) h += '<span class="' + (i <= step ? 'done' : '') + '"></span>';
+    h += '</div>';
+    h += '<p class="q-count">QUESTION ' + (step + 1) + ' / ' + QS.length + '</p>';
+    h += '<h3 class="q-title">' + q.title + '</h3>';
+    h += '<p class="q-help">' + q.help + '</p>';
+    h += '<div class="opts">';
+    q.opts.forEach(function(o){
+      h += '<button type="button" data-v="' + o.v + '">' + o.label + '<small>' + o.sub + '</small></button>';
+    });
+    h += '</div>';
+    if (step > 0) h += '<button type="button" class="backlink" id="back">← ひとつ戻る</button>';
+    quiz.innerHTML = h;
+
+    Array.prototype.slice.call(quiz.querySelectorAll('.opts button')).forEach(function(b){
+      b.addEventListener('click', function(){
+        answers[q.key] = b.dataset.v;
+        if (step < QS.length - 1){ step++; renderQuiz(); }
+        else { renderResult(); }
+      });
+    });
+    var back = document.getElementById('back');
+    if (back) back.addEventListener('click', function(){ step--; renderQuiz(); });
+  }
+
+  function decide(a){
+    var s = {povo:0, nihon:0, rakuten:0};
+
+    // ギガ
+    if (a.gb === 'S'){ s.nihon += 2; s.povo += 1; s.rakuten += 1; }
+    if (a.gb === 'M'){ s.nihon += 2; s.povo += 2; s.rakuten += 1; }
+    if (a.gb === 'L'){ s.rakuten += 3; s.povo += 2; }
+
+    // 通話
+    if (a.call === 'NONE'){ s.povo += 2; s.nihon += 1; }
+    if (a.call === 'MID'){ s.nihon += 3; s.povo += 1; }
+    if (a.call === 'LONG'){ s.rakuten += 3; s.nihon += 1; }
+
+    // 楽天経済圏
+    if (a.rakuten === 'YES') s.rakuten += 3;
+    if (a.rakuten === 'SOME') s.rakuten += 1;
+
+    // 昼の速度
+    if (a.speed === 'YES'){ s.povo += 3; s.nihon -= 2; }
+    if (a.speed === 'NO'){ s.nihon += 2; }
+
+    var best = 'povo', bv = -99;
+    ['povo','nihon','rakuten'].forEach(function(k){ if (s[k] > bv){ bv = s[k]; best = k; } });
+    return best;
+  }
+
+  function renderResult(){
+    quiz.hidden = true;
+    var key = decide(answers);
+    var plan = PLANS[key];
+    var lines = plan.lines(answers.gb, answers.call);
+    var after = lines.reduce(function(t, l){ return t + l[1]; }, 0);
+
+    var h = '';
+    h += '<div class="card" style="overflow:hidden">';
+    h += '  <div class="result-head">';
+    h += '    <p class="r-label">あなたに合うのは</p>';
+    h += '    <p class="r-name">' + plan.name + '</p>';
+    h += '    <p class="r-why">' + plan.why + '</p>';
+    h += '  </div>';
+    h += '  <div class="ledger">';
+    h += '    <p class="ledger-title">いくら安くなる？</p>';
+    h += '    <div class="fld"><label for="now">いまのスマホ代（1人あたり・月額）</label>';
+    h += '      <select id="now">';
+    [4000, 5000, 6000, 7000, 8000, 9000, 10000, 12000].forEach(function(v){
+      h += '<option value="' + v + '"' + (v === 8000 ? ' selected' : '') + '>' + yen(v) + '円</option>';
+    });
+    h += '      </select></div>';
+    h += '    <div id="rows"></div>';
+    h += '    <div class="delta">';
+    h += '      <p class="d-label">年間で浮くお金</p>';
+    h += '      <p class="d-big"><span class="yen">¥</span><span id="year">0</span></p>';
+    h += '      <p class="d-sub">ご夫婦ふたりなら年間 <b id="couple">0</b>円。<br>10年つづければ、ひとりでも <b id="ten">0</b>円になります。</p>';
+    h += '    </div>';
+    h += '    <div class="btn-row">';
+    h += '      <button type="button" class="btn" id="to-hikaku">' + plan.name + 'の詳細を見る</button>';
+    h += '      <button type="button" class="btn ghost" id="again">もう一度診断する</button>';
+    h += '    </div>';
+    h += '  </div>';
+    h += '</div>';
+
+    result.innerHTML = h;
+    result.hidden = false;
+
+    function paint(){
+      var now = parseInt(document.getElementById('now').value, 10);
+      var rows = '<div class="row before"><div class="k"><span class="dot"></span><div>いまの料金<span class="sub">大手キャリアなど</span></div></div><div class="v">' + yen(now) + '円</div></div>';
+      lines.forEach(function(l){
+        rows += '<div class="row after"><div class="k"><span class="dot"></span><div>' + l[0] + '</div></div><div class="v">' + yen(l[1]) + '円</div></div>';
+      });
+      if (lines.length > 1){
+        rows += '<div class="row after"><div class="k"><span class="dot"></span><div><b>乗り換え後の合計</b></div></div><div class="v"><b>' + yen(after) + '円</b></div></div>';
+      }
+      document.getElementById('rows').innerHTML = rows;
+
+      var diff = Math.max(0, now - after);
+      document.getElementById('year').textContent = yen(diff * 12);
+      document.getElementById('couple').textContent = yen(diff * 24);
+      document.getElementById('ten').textContent = yen(diff * 120);
+    }
+
+    document.getElementById('now').addEventListener('change', paint);
+    document.getElementById('again').addEventListener('click', function(){
+      answers = {}; step = 0; renderQuiz();
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+    document.getElementById('to-hikaku').addEventListener('click', function(){ selectTab('hikaku'); });
+    paint();
+  }
+
+  renderQuiz();
+})();
+</script>
