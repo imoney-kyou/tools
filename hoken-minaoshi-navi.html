@@ -1,0 +1,840 @@
+<title>保険の残す・削る診断 2026 — 本当に必要な保険だけ残そう</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+    --paper:#F4F2EC;
+    --card:#FFFFFF;
+    --card-2:#FAF8F2;
+    --ink:#23211B;
+    --ink-2:#6B6559;
+    --ink-3:#9A9184;
+    --line:#E4DFD3;
+    --line-2:#EEEAE0;
+
+    --keep:#2F6B4F;
+    --keep-deep:#204C38;
+    --keep-tint:#E4EFE8;
+    --keep-ink:#204C38;
+
+    --cut:#B04A2E;
+    --cut-deep:#8A3A24;
+    --cut-tint:#F6E8E1;
+    --cut-ink:#8A3A24;
+
+    --maybe:#9A7B22;
+    --maybe-tint:#F3ECD8;
+    --maybe-ink:#7C6219;
+
+    --brass:#9A7B22;
+    --header:#1E2A23;
+    --header-ink:#EDF1EC;
+    --header-sub:#A9BEB2;
+    --header-line:#33463B;
+
+    --sans:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,"Roboto Mono","Courier New",monospace;
+    --r:12px;
+    --shadow:0 1px 2px rgba(35,33,27,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#111310;--card:#191B15;--card-2:#1E211A;
+      --ink:#E9E7DE;--ink-2:#ABA495;--ink-3:#7C7566;
+      --line:#2D2F26;--line-2:#24261E;
+      --keep:#5FBF92;--keep-deep:#8FD9B4;--keep-tint:#152820;--keep-ink:#8FD9B4;
+      --cut:#E0805F;--cut-deep:#EDA184;--cut-tint:#2C1B14;--cut-ink:#EDA184;
+      --maybe:#D4B24C;--maybe-tint:#2A2312;--maybe-ink:#E4C868;
+      --brass:#D4B24C;
+      --header:#0F1611;--header-ink:#EDF1EC;--header-sub:#8FA79A;--header-line:#25352D;
+      --shadow:0 1px 2px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#111310;--card:#191B15;--card-2:#1E211A;
+    --ink:#E9E7DE;--ink-2:#ABA495;--ink-3:#7C7566;
+    --line:#2D2F26;--line-2:#24261E;
+    --keep:#5FBF92;--keep-deep:#8FD9B4;--keep-tint:#152820;--keep-ink:#8FD9B4;
+    --cut:#E0805F;--cut-deep:#EDA184;--cut-tint:#2C1B14;--cut-ink:#EDA184;
+    --maybe:#D4B24C;--maybe-tint:#2A2312;--maybe-ink:#E4C868;
+    --brass:#D4B24C;
+    --header:#0F1611;--header-ink:#EDF1EC;--header-sub:#8FA79A;--header-line:#25352D;
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+  :root[data-theme="light"]{
+    --paper:#F4F2EC;--card:#FFFFFF;--card-2:#FAF8F2;
+    --ink:#23211B;--ink-2:#6B6559;--ink-3:#9A9184;
+    --line:#E4DFD3;--line-2:#EEEAE0;
+    --keep:#2F6B4F;--keep-deep:#204C38;--keep-tint:#E4EFE8;--keep-ink:#204C38;
+    --cut:#B04A2E;--cut-deep:#8A3A24;--cut-tint:#F6E8E1;--cut-ink:#8A3A24;
+    --maybe:#9A7B22;--maybe-tint:#F3ECD8;--maybe-ink:#7C6219;
+    --brass:#9A7B22;
+    --header:#1E2A23;--header-ink:#EDF1EC;--header-sub:#A9BEB2;--header-line:#33463B;
+    --shadow:0 1px 2px rgba(35,33,27,.05);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px 40px}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+  /* header */
+  header.site{background:var(--header);color:var(--header-ink);padding:36px 20px 26px;border-bottom:3px solid var(--brass)}
+  header.site .inner{max-width:640px;margin:0 auto}
+  .eyebrow{font-size:10.5px;letter-spacing:.24em;font-weight:700;color:var(--header-sub);margin:0 0 12px}
+  header.site h1{font-weight:800;font-size:clamp(23px,6.1vw,31px);line-height:1.42;margin:0 0 12px;text-wrap:balance;letter-spacing:.005em}
+  header.site h1 em{font-style:normal;color:#E7B84E}
+  header.site p.lede{margin:0;font-size:13.5px;line-height:1.9;color:var(--header-sub);max-width:32em}
+  .badge{display:inline-block;margin-top:15px;font-size:11px;letter-spacing:.05em;border:1px solid var(--header-line);border-radius:999px;padding:4px 12px;color:var(--header-sub)}
+  .author{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--header-line)}
+  .author img{width:44px;height:44px;border-radius:50%;flex:none;border:2px solid var(--header-line);display:block;background:#fff}
+  .author .a-label{font-size:10px;letter-spacing:.16em;color:var(--header-sub);line-height:1.5}
+  .author .a-name{font-size:14px;font-weight:700;color:var(--header-ink);line-height:1.5}
+
+  /* tabs */
+  nav.tabs{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+  nav.tabs .inner{max-width:640px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+  nav.tabs .inner::-webkit-scrollbar{display:none}
+  nav.tabs button{appearance:none;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:13px;font-weight:700;color:var(--ink-2);padding:14px 11px 11px;border-bottom:3px solid transparent;white-space:nowrap}
+  nav.tabs button[aria-selected="true"]{color:var(--keep);border-bottom-color:var(--keep)}
+  nav.tabs button:focus-visible{outline:2px solid var(--keep);outline-offset:-3px;border-radius:6px}
+
+  main section.panel{display:none;padding-top:30px}
+  main section.panel.active{display:block}
+
+  h2.sec{font-weight:800;font-size:20px;letter-spacing:.01em;margin:0 0 6px;text-wrap:balance;line-height:1.5}
+  p.sec-note{margin:0 0 24px;font-size:13px;color:var(--ink-2);line-height:1.85}
+  .grp-label{display:flex;align-items:center;gap:9px;margin:28px 0 12px;font-size:12px;font-weight:800;letter-spacing:.06em}
+  .grp-label::after{content:"";flex:1;height:1px;background:var(--line)}
+  .grp-label .c{width:11px;height:11px;border-radius:3px;flex:none}
+  .grp-label.k{color:var(--keep)} .grp-label.k .c{background:var(--keep)}
+  .grp-label.m{color:var(--maybe-ink)} .grp-label.m .c{background:var(--maybe)}
+  .grp-label.x{color:var(--cut)} .grp-label.x .c{background:var(--cut)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+
+  /* verdict card */
+  .ins{margin-bottom:11px;overflow:hidden;border-left:4px solid var(--line)}
+  .ins.keep{border-left-color:var(--keep)}
+  .ins.maybe{border-left-color:var(--maybe)}
+  .ins.cut{border-left-color:var(--cut)}
+  .ins-head{display:flex;align-items:center;gap:11px;padding:15px 17px 12px}
+  .ins-ic{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center}
+  .ins-ic svg{width:23px;height:23px;display:block}
+  .ins-ic.keep{background:var(--keep-tint);color:var(--keep)}
+  .ins-ic.maybe{background:var(--maybe-tint);color:var(--maybe)}
+  .ins-ic.cut{background:var(--cut-tint);color:var(--cut)}
+  .ins-head h3{margin:0;font-size:15.5px;font-weight:800;line-height:1.45;flex:1}
+  .chip{flex:none;font-size:11.5px;font-weight:800;letter-spacing:.03em;padding:4px 11px;border-radius:999px;white-space:nowrap}
+  .chip.keep{background:var(--keep-tint);color:var(--keep-ink)}
+  .chip.maybe{background:var(--maybe-tint);color:var(--maybe-ink)}
+  .chip.cut{background:var(--cut-tint);color:var(--cut-ink)}
+  .ins-body{padding:0 17px 15px;font-size:13.5px;line-height:1.85;color:var(--ink-2)}
+  .ins-body b{color:var(--ink);font-weight:700}
+  .ins-note{margin:10px 0 0;padding:9px 12px;background:var(--card-2);border-radius:8px;font-size:12px;line-height:1.75;color:var(--ink-2)}
+  .ins-note .t{font-weight:800;color:var(--brass);font-size:10.5px;letter-spacing:.08em;display:block;margin-bottom:2px}
+
+  /* quiz */
+  .quiz{padding:26px 22px 28px}
+  .progress{display:flex;gap:5px;margin-bottom:22px}
+  .progress span{flex:1;height:3px;border-radius:2px;background:var(--line)}
+  .progress span.done{background:var(--keep)}
+  .q-count{font-size:10.5px;letter-spacing:.16em;color:var(--keep);font-weight:800;margin:0 0 7px}
+  .q-title{font-size:18px;font-weight:800;margin:0 0 4px;line-height:1.55;text-wrap:balance}
+  .q-help{font-size:12.5px;color:var(--ink-2);margin:0 0 18px;line-height:1.8}
+  .opts{display:flex;flex-direction:column;gap:9px}
+  .opts button{appearance:none;text-align:left;cursor:pointer;width:100%;background:var(--card-2);border:1.5px solid var(--line);border-radius:10px;padding:13px 15px;font-family:var(--sans);font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.6;transition:border-color .15s,background .15s}
+  .opts button small{display:block;font-weight:400;font-size:12px;color:var(--ink-2);margin-top:2px;line-height:1.7}
+  .opts button:hover{border-color:var(--keep);background:var(--keep-tint)}
+  .opts button:focus-visible{outline:2px solid var(--keep);outline-offset:2px}
+  .backlink{margin-top:16px;background:none;border:none;cursor:pointer;padding:4px 0;font-family:var(--sans);font-size:12.5px;color:var(--ink-3);font-weight:600}
+  .backlink:hover{color:var(--keep)}
+
+  /* result head + tally */
+  .result-head{padding:24px 22px 20px;border-bottom:1px dashed var(--line)}
+  .r-label{font-size:10.5px;letter-spacing:.16em;color:var(--ink-3);font-weight:800;margin:0 0 8px}
+  .r-lead{margin:0;font-size:15px;font-weight:700;line-height:1.7}
+  .r-lead b{color:var(--cut-ink)}
+  .tally{display:flex;gap:8px;margin-top:16px}
+  .tally div{flex:1;text-align:center;border-radius:10px;padding:12px 6px}
+  .tally .n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:24px;font-weight:700;line-height:1.1}
+  .tally .l{font-size:11px;font-weight:700;margin-top:3px}
+  .tally .k{background:var(--keep-tint)} .tally .k .n,.tally .k .l{color:var(--keep-ink)}
+  .tally .m{background:var(--maybe-tint)} .tally .m .n,.tally .m .l{color:var(--maybe-ink)}
+  .tally .x{background:var(--cut-tint)} .tally .x .n,.tally .x .l{color:var(--cut-ink)}
+
+  /* savings */
+  .saver{padding:22px}
+  .saver-title{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--ink-3);margin:0 0 14px}
+  .fld{margin-bottom:16px}
+  .fld label{display:block;font-size:12.5px;font-weight:700;color:var(--ink-2);margin-bottom:7px}
+  .fld select{width:100%;appearance:none;background:var(--card-2);color:var(--ink);border:1.5px solid var(--line);border-radius:9px;padding:11px 13px;font-family:var(--sans);font-size:15px;font-weight:600}
+  .fld select:focus-visible{outline:2px solid var(--keep);outline-offset:1px;border-color:var(--keep)}
+  .delta{background:var(--keep-tint);border-radius:10px;padding:18px 18px 16px}
+  .delta .d-label{font-size:11.5px;font-weight:700;color:var(--keep-ink);margin:0 0 2px}
+  .delta .d-big{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(29px,7.8vw,39px);font-weight:700;line-height:1.15;color:var(--keep-ink);letter-spacing:-.01em}
+  .delta .d-big .yen{font-size:.6em;margin-right:2px}
+  .delta .d-sub{margin:8px 0 0;font-size:12.5px;color:var(--keep-ink);opacity:.92;line-height:1.75}
+  .delta .d-sub b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  .invest{margin-top:12px;border-top:1px solid rgba(0,0,0,.06);padding-top:12px}
+  :root[data-theme="dark"] .invest{border-top-color:rgba(255,255,255,.08)}
+  .invest .i-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .invest .i-k{font-size:12px;color:var(--keep-ink);font-weight:600;line-height:1.5}
+  .invest .i-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:19px;font-weight:700;color:var(--keep-ink);white-space:nowrap}
+  .tiny{font-size:11px;color:var(--ink-3);line-height:1.7;margin:8px 0 0}
+
+  /* per-insurance premium input */
+  .prem{display:flex;align-items:center;gap:9px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line-2);flex-wrap:wrap}
+  .prem label{font-size:11.5px;font-weight:700;color:var(--ink-2)}
+  .pin{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink-2)}
+  .pin input{width:92px;appearance:none;background:var(--card-2);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:14px;text-align:right}
+  .pin input::-webkit-outer-spin-button,.pin input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .pin input[type=number]{-moz-appearance:textfield}
+  .pin input:focus-visible{outline:2px solid var(--keep);outline-offset:1px;border-color:var(--keep)}
+  .prem-tag{font-size:10px;font-weight:800;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+  .prem-tag.cut{background:var(--cut-tint);color:var(--cut-ink)}
+  .prem-tag.maybe{background:var(--maybe-tint);color:var(--maybe-ink)}
+  .prem-tag.keep{background:var(--keep-tint);color:var(--keep-ink)}
+
+  .breakdown{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12px;color:var(--ink-2);line-height:1.6}
+  .breakdown b{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700}
+  .breakdown .cut b{color:var(--cut-ink)} .breakdown .keep b{color:var(--keep-ink)} .breakdown .maybe b{color:var(--maybe-ink)}
+  .maybe-line{color:var(--maybe-ink);font-weight:600}
+  .exbtns{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+  .exbtn{appearance:none;cursor:pointer;background:var(--card-2);border:1.5px solid var(--line);border-radius:999px;padding:8px 15px;font-family:var(--sans);font-size:12px;font-weight:700;color:var(--ink-2)}
+  .exbtn:hover{border-color:var(--keep);color:var(--keep)}
+  .exbtn:focus-visible{outline:2px solid var(--keep);outline-offset:2px}
+
+  .btn{appearance:none;cursor:pointer;border:none;border-radius:999px;font-family:var(--sans);font-weight:700;font-size:14px;padding:13px 26px;background:var(--keep);color:#fff}
+  .btn:hover{opacity:.9}
+  .btn:focus-visible{outline:2px solid var(--keep);outline-offset:3px}
+  .btn.ghost{background:none;color:var(--keep);border:1.5px solid var(--line);padding:12px 22px}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+
+  /* public safety net cards */
+  .pub{margin-bottom:14px;padding:20px 20px 18px}
+  .pub h3{margin:0 0 3px;font-size:16px;font-weight:800;line-height:1.5}
+  .pub .who{margin:0 0 12px;font-size:11.5px;font-weight:700;color:var(--keep);letter-spacing:.03em}
+  .pub p{margin:0;font-size:13.5px;line-height:1.9;color:var(--ink-2)}
+  .pub p + p{margin-top:9px}
+  .pub b{color:var(--ink);font-weight:700}
+  .figure{display:flex;align-items:baseline;gap:8px;margin:12px 0;padding:13px 15px;background:var(--keep-tint);border-radius:10px}
+  .figure .big{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:700;color:var(--keep-ink);line-height:1.2}
+  .figure .cap{font-size:12px;color:var(--keep-ink);line-height:1.5;font-weight:600}
+  .warn{border-left:3px solid var(--cut);background:var(--cut-tint);border-radius:0 8px 8px 0;padding:11px 14px;margin:12px 0 0;font-size:12.5px;line-height:1.8;color:var(--ink)}
+  .warn b{color:var(--cut-ink);font-weight:800}
+
+  .note{border-left:3px solid var(--brass);background:var(--maybe-tint);border-radius:0 8px 8px 0;padding:13px 15px;margin:10px 0 0;font-size:12.5px;line-height:1.85;color:var(--ink)}
+  .note b{color:var(--brass);font-weight:800}
+
+  /* 確率×損失マトリクス */
+  .matrix{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px;margin:16px 0 6px}
+  .mx-cell{border-radius:9px;padding:11px 6px;text-align:center;line-height:1.45;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px}
+  .mx-corner{min-height:0;background:transparent}
+  .mx-head{font-size:11.5px;font-weight:700;color:var(--ink-2);background:var(--card-2)}
+  .mx-head b{display:inline-block;font-size:14px;font-weight:800;color:var(--ink);margin-top:1px}
+  .mx-head.hi b,.mx-head.lg b{color:var(--cut-ink)}
+  .mx-axis{writing-mode:horizontal-tb}
+  .mx-body{font-size:12.5px;font-weight:700;background:var(--card-2);color:var(--ink-2)}
+  .mx-ins{background:var(--keep-tint);color:var(--keep-ink);border:2px solid var(--keep);font-weight:800}
+  .mx-ins small{display:block;font-size:9.5px;font-weight:800;margin-top:3px;letter-spacing:.04em}
+  .mx-danger{background:var(--cut-tint);color:var(--cut-ink);font-weight:800}
+
+  table.mini{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0 0}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line-2);border-radius:9px}
+  table.mini th,table.mini td{padding:9px 13px;text-align:left;white-space:nowrap}
+  table.mini thead th{font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);font-weight:800;background:var(--card-2);border-bottom:1px solid var(--line-2)}
+  table.mini tbody tr + tr td{border-top:1px solid var(--line-2)}
+  table.mini td.p{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+  table.mini td.hi{color:var(--cut-ink);font-weight:700}
+
+  /* checklist */
+  .checks{padding:20px}
+  .checks h3{margin:0 0 4px;font-size:15px;font-weight:800}
+  .checks .hint{margin:0 0 16px;font-size:12.5px;color:var(--ink-2)}
+  label.task{display:flex;gap:11px;align-items:flex-start;padding:12px 13px;background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;cursor:pointer;font-size:13.5px;line-height:1.75}
+  label.task + label.task{margin-top:8px}
+  label.task input{margin:5px 0 0;accent-color:var(--keep);flex:none;width:16px;height:16px}
+  label.task span small{display:block;font-size:11.5px;color:var(--ink-3);margin-top:1px;line-height:1.7}
+  label.task:has(input:checked){background:var(--keep-tint);border-color:transparent}
+  label.task:has(input:checked) span{opacity:.62;text-decoration:line-through;text-decoration-color:var(--ink-3)}
+  label.task:has(input:focus-visible){outline:2px solid var(--keep);outline-offset:2px}
+
+  details.faq{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-bottom:9px;box-shadow:var(--shadow)}
+  details.faq summary{cursor:pointer;list-style:none;padding:15px 17px;font-size:14px;font-weight:700;line-height:1.65;display:flex;gap:11px;align-items:flex-start}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::before{content:"Q";font-family:var(--mono);font-size:12px;font-weight:700;color:var(--keep);border:1.5px solid var(--keep);border-radius:5px;width:21px;height:21px;display:grid;place-items:center;flex:none;margin-top:1px}
+  details.faq summary:focus-visible{outline:2px solid var(--keep);outline-offset:-2px;border-radius:var(--r)}
+  details.faq[open] summary{padding-bottom:6px}
+  .faq-a{padding:0 17px 17px 49px;font-size:13.5px;line-height:1.9;color:var(--ink-2)}
+  .faq-a b{color:var(--ink);font-weight:700}
+  .faq-a p{margin:0}.faq-a p + p{margin-top:10px}
+
+  .cta{margin-top:36px;background:var(--header);border-radius:16px;padding:30px 24px;color:var(--header-ink);text-align:center;border:1px solid var(--header-line)}
+  .cta .eyebrow{color:var(--header-sub);margin-bottom:10px}
+  .cta h2{margin:0 0 10px;font-size:20px;font-weight:800;line-height:1.55;text-wrap:balance;color:#fff}
+  .cta p{margin:0;font-size:13px;line-height:1.9;color:var(--header-sub)}
+
+  footer.site{margin-top:32px;padding-top:20px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.9;color:var(--ink-3)}
+  footer.site p{margin:0 0 6px}
+
+  @media (max-width:480px){
+    .btn-row .btn{width:100%;text-align:center}
+    .tally .n{font-size:21px}
+  }
+  @media (max-width:360px){nav.tabs button{font-size:11.5px;padding:14px 8px 11px}}
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important;scroll-behavior:auto !important}}
+</style>
+
+<header class="site">
+  <div class="inner">
+    <p class="eyebrow">HOKEN MINAOSHI NAVI 2026</p>
+    <h1>その保険、<em>残す？削る？</em><br>払いすぎ、そのままでいいですか？</h1>
+    <p class="lede">日本の公的保険は、じつはかなり手厚い。不要な保険を見直すだけで、家計はぐっとラクになります。7つの質問で、あなたに要る保険・要らない保険がわかります。</p>
+    <span class="badge">2026年度の制度に対応（高額療養費の2026年8月改定を反映）</span>
+    <div class="author">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAABwCAYAAADG4PRLAAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAHCgAwAEAAAAAQAAAHAAAAAA7Q1lhgAAAAlwSFlzAAALEwAACxMBAJqcGAAAAWZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIj4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5DZWxzeXMgU3R1ZGlvIFRvb2w8L3htcDpDcmVhdG9yVG9vbD4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+Ch5i5yoAACr5SURBVHgB7V0HeBVVFj4zr+Wl95AeElooIfQuVbCBIlIFVMRFcXUR1LV3Bdfuoq4CYkdWxUJVQIEgS5EmoYSQQAIhCek9r83d/0x48EiBBJK8+H1cHd5k5s6dO+fcc+5p91yiq+UqBK5C4CoErkLgKgSuQuAqBK5C4CoErkLgKgQaBAGpQbX/WpWN6G4bHJ1wtNNoNGFardZPkiQ3HAZZljUKbghFseAosypKoc1myyRFOYHLx3Ak40jHwdVabPnLIzAoKMgtOzu77CyE+XsGyFrteA83t2H+fr4xwa2CjEGBAeTj7U1ubm6k1WoIyCOuKIQgm6KQ1WqlsrJyKioupty8fDpzJodycvMKi4pLk3DvVxcX/Xfl5eW7WyIW/6oI9JVl3VSjUT8O1KSUlpaOAnCHGQyGeVGREUO6x8dp27dtQ95eXkCSQpUmE1VWmsiEX0aWzaaoyGOEyLJEskYDxGrJoNcT2iCdTksWi5VOZ2bRkaSj9GfiocrSsrKlQOI8PFLBz7WUom0pHalvP7Raw0i9XvN2546xsbl5eZSRlf2jRqP7KLp1xPRrhw2R2raJBqLMoKQ8FQFms/kcsuzvANLtp+ovU6JjYQp1NRoJ1Kv+Hj2W6lJSWtrNy8vLpaioqEUh8MIvcfyKFniu0ehv8/Hx/HT82NGunh4etPiTLxRQV+mwwYM8+/fpRaASOpOTS4w0Loyo6siq72cxYI4kH6P9Bw6WgGqfDTeZ3sfEaKrv881V7y9DgTqdLt7d3W3RHbdPdPX28qSE37eTxWqVxo650TM8LJSOpR5X2SMjjCmoMQoPBJ1WK5kslkAgzxttZjdGu43ZhqYxG2uEtgwQNCZiHvq7oigjgAw/V1fXMxaLpUyr1X1803XXdgkBWzuRflKlsg7t2kr+vr6UB8GDy5VQXG19ZxYaFRGudzW6DCwuKb0NlJgLdnugtrrOutaiWCiQFQwsbHczGiO6dumkssO0k6dOQUjZ2CooaMKEcTcbCwsLGVXnkAXR/7LZZH2AzoPCaHQBey6nLVu3UXrG6Y9sFssjeLa4Ps83dZ0WRYGgtFLoaz9ipPcMCQmOuGHUCAoNDfYsL6+I9/f30/n6eEFNOy9wsPDBAG7qYjZbyMWgp65dOuP9So+c3NwBYOmb0E8eTU4tTf/1l/F5np6evkDa1vi4zrHdu3ZRdbWmprRLdZMHC8+tfr4+dOjIUfo14fckq9k8CYNu36Webcr7jTPbN2IPoY8Nraio+MDL06OVVqMRVrBIjPpmobSLfQZTOiMRCj61axtDY64b2d7FxWU1+jvwYs819b0WQ4FGzHtms/Xl4ODAST27x2sD/f1UhZuR19IK98nXx5vyC4vo+59Wn4GCfyvY6e/O6GeLQCBG8QhInouuGdAvauTwIVRWXkHHUo6D6pwBkvq9k5EY4O9PeQUF9M2KH09D5bgOR7NLqE4XYoC4MR7u7sunThofNGrEUNWk5eriQhWVlVRRUVk/aDqhFrPUMhgOQoJbUUCAv0dS8rFB+JYVrPI0Z3ecikC9Xh8H1eGHO6ZO8mrXJgbzSy4BmapC7gVlHdZk2CQtTp//6kIII7GkpJTaou8aWQ5MTkmNAWV+h/rNxvedikCM2PdxdC8uLqFCzCdsw2SAnM7MhEcgVzU+1wU8+/XGsrrY22voLyOxuKSE4lS9NSc2NzevBMLOtoa2c7n1nYpAUGBRZWWlh9li7tA2JpqgA6psCQKBSoUX+ygGHB8FBYUCHgWJvQn8N7fBvywxVi98nRFe21G9bkP+5vmQPR1xnTpS0tFj/cosll8gOmc2pI3LretUBII9nnIxGh+GMboV1IZz6gIDmo+6Ct/DswKGZmEymyQIEyoCGYgn0tLp+Il0gUEgsTuJ6zJSuZSVl6v+vqzsM5SZdUZkw++Xl1+gGsGhskgGKOuXU/gdbDeFWsHzoeFoUnJ76K1foS3b5bTXkGecikBQwn1dOsbOiG3fVvXX1YU0vm6/x7+sG+78Y4+Ae0dqHRkpYf6hjNNZtGd/IpR+GwUGBEjumEtljcwed4I5jpKSk0VWVjYAbZG0Gi0DmxGmNgsuoCJSr9NJUGcaAr9zdbmhcpjbQkOCqaioOApekQxwgSZ3Atc9zM91rclOPGBx2Tlx3C0dmN2xpcWxMEDYbMbOWKuV7Z3sfJXJ6GIAog6Ql7uRBvaJJ09PN/pp3RYVAaNHDaYeXTtQgJ83WfHsZ8tX04bNO1lnExFhoRIQDsTBYQt2qwVyuTCjZSAoZ/ugYpRvXGZhVs4N/ve7H9PgO+yFZnIus6l6PeZMd9JYeM07+Hh7EbMyRo69aABcViHM5krq1DacYttFCnd3V5GbX0IbE/ZIPePaSC8+dT+1CgmhPXsO0cmMbHpw9h3Uvk0UwZ1OpNVRcmISMRXOuW8qRYUFQUokys3Np7QMsM8zhZRfZlK9726u5ynuSpHH/WepGZI14dsi9+zbPwus/CX7dzXFr7MoUIePTLhz6uQ+3AGemxh4fLAAkwwlPisrizq0i6RbbhxOd0y5lQwe7ur352fnqiEPHohxAYlSdnYO+Xp7ko4RgTAIVXhBOyaEULjAiwBy4+AXPIvDhnCKijK4n3LoeFoG7dx7lHYfSAWrBUUiVoYpngWSKy38HbDO0LoNv52E96QH2msyKnQWBV4TGRHeKxRKMHSnc8hjQSAjM5uiQn1o/hMzqVfvXuTq7qEiSpgsKlx9YUzmIjDSuQQF+qsIEvAYnCtAGLNKnv8Iqsn5AoHG4EGBEV6UX2Kh4qIdkBqTRHZusRQY4CcQBIX5kwPXMHeqSD//ZEPO+Fl3BFAFBwWFQ9kfD6p8vyHPN6SuU4QYSIVPXTt8SHcPUBUmfJV9sssGfj+6e/JI8fjcWVJ0x46k0+iqkOD4RQxYR+A6njvWq/McLig8k3Yqm/RGV+oZ316KDA2g/IIC6VBSKhUUFkk8SNS5rM42Ln2DpwQQItj7aR9wlc/wxJWTdi2vdQYFekN4Gc56H4fwMbthtgUAUmSINyWlnJJST+VSu3YeNZFXywdcziWmkB49u1APCEFqETaqyDtDv23eLi1d/jMjEdQTeEVUyN8ElQJClkcPILATqHD/5fT1Us+clxwuVbPx7ndpFRgQjvgWdZ7gkcqBSIeOJMH+WUEjhg+mmOgIgh+p8d5YS0uC50vMk+phspLR059uuPlGeuvlf1C71iGqB57nRR5gl1N4kLggRNHfz8+A54deThv1ecYZCIwLDQ2RmWXyKC0tLaPDScnigRm3iKUf/ov69O1OzuiUOl8KmbQuXlRpNos/ExNhKDgk2DMCJf+yEMmoD8C8ikE6oD7IuJw6zT4H4mMm9erRrR9TYD6sINmgvptH9Zcee2Q2Bru+ySnvokAC1bBaMWLoAOnGUYPB201gq9tEVk4+gqeq5sUGCTegXpaqYUhQwEI/xrsbna00+2CHABPIQbMVGNmI9KJAP09EfrWCUAFJ+zLZ1UWR0sCbzDKNMKm1bdOa/vnEQ9Kqr9+h+A5htt+2/C5gdwU1nbcK1adplmghEAXDwhNQn/oNrdPsCAQFevC8VwLWyVYWBaavhB1/UmBQQJMJLQ0FClMZjKkkyispPLqtvPjfz2seuW88pRw/oVp82ObKhZFddVz4Bvt1VupZNUKovgcoMejCWo3zlzOkUJnXJiDuBXOdBLPYYXrvjafJ1cNNFSga57MarxUWdmSDJ1t6JA8PT1r24xbVSoSoNFVI0el15+ZIRhwXntvZvsqhiDwY9Dq9HoPWt/F6db6lZkcgPsR6GlaWYympwqA3SNFRIWLY4H4wnTgq3Oc7qAIFFAuoXJFYf77Fhp+pFKlxo1JQZH5+PvkgmFgCdRWDutjwWZ2t8oIaturYKZHvo40qU1LDX3/RJ5qdhWIOrPzfjl0El44tOydHjB45UNJBoGEgVS8S5iJmV6mpaVA5KkjC6qHLKSog0RbcDwS/E0mw0kignHoX9I09G/3791G9HYexYskE5PFUwETHfWeqsx/2T6m6X0WVeFeTCIxN0ujFAAMPvB8+OF0ISeh1mvDn/nkv5r9WKoU5PsfI++GHdfTMy+/AgL2Tvv52FXlAQmzfoU2Nuo7P1TgHhNnT8ePK9fTv9z5RvvzvT9bNkCw9YHCOjInkmzUeqfUCKCokKowMMKjsPZAs2H0FL4dk9zU6PsOIyzidqYYgcojIGRjRMWV8in4kO9ZrjPNmZ6ElJSUfccddXIzLvT3d+rWC8MLs0bEIKNAL/72UNm3dQS89Nw9G7RhKPHCY/tibSKK+AD/bIFPc629+RAePHKOpk2+WAwL85JTUdPHiv94TtxxOFvfdO02CV9jx9XWfW2w0ZEAPWrtxh3T4aCqln8ygNjGta3APpjlQo5KWfsqMEBEXs8VihiR60i781P2Cht9pdgTau2i1KjvB2ibAE8C88xyfYXZXWlQC60weLVn4MnkjPhSiHMXFdaS4+M4k1HnH3sqlf4XVQlMnjoGjNUhlnUxx3XvFSzzvTr7zH9QGVp9rr70G7ToYw2tr9iwlf/3DBtqfeIi8vX2wordIwOugOoEdpwD+IISLYN2o/AviZdJBkaNg1OZl241emp2F2r8A6oPJ08P9zpnTb9O4ubvzLG+/hY/X0bBhA1Qpj8V5tTCVNpD67A16wd3EI0Rti9uBZOnq6U7xHdur0mLr1uE1uID9Wcdfngfbt42mPfsO0hFQYHFpKTi9QcDeCfv4+f7zIGR/Zk5e/uGK8vI7gMyNUCeaJEam2YUYB4DkWKy28kqTFcqUw9Wzp6oeVo211qxVvyvCYUm1/Qlmm13iYmno0AFwTZ0dJPabdfxyO4Ghrejh+6eBrbehqPBwnl9r6T2PB8ytQqgNw8tyqI4mr/iy01goem4xW2zWSvOF898Vf1EDGjhH3Q14htWdHj3iqHOHKPoTRAcNQZU+HZtgjJpUWy+ddrzeFOfOpEBE31nMbI1RZfGm+LomaJNZpQZ+xEF94+Hgh5LPOmq1wsyUPfKSJBKr3Wr0P51BgTzvdsbhjSXSWONubp5Ffo0JOqgUbTEX8lxdW8F3sZfFbJPlJo9Ka1YE+vj4eEEa+ww+sutkWUj5hSX4fpl5aJ3ClMQ8StZUCSC1QcsZ1zC/BQUEqJ6LUhgYEFd8rhdMkRypDc5yzFJefvjcjSY6qUn/TfQibhZhdn/v0b3bmITfftJ/u+RlnY+Xh9bVzXiBBOr4egnAqID56mjSMcg554HkWMcp5wiC2nvgCExrYJPV+sW9ZI8+hJvNOG3ylCTNiUADFKOJcx6YRdHtoxGXorCuJPx8/TimogYeWBS3QG2YNedZ6jH4Vvrs6x9UU1iNipe4wO2w2Uw1ocFA0CgF7RxOSoGlJR/hihcOLGaf8HPCP6ysbJR3XaKR5kSgr7uba3Dn2HbQ58po07Y9FBwcIgcE+sOcVROBHA6YiFH+/ar10KlMtPTLFWRDCAQjpN4Fdc0IzXj6uTdo4vQH6cTxk0Bk4yCR3WE2Dvtw6A+zzwIkYUCY5GFYXbbUu59XULE558AKk8lSXlBYQNYiD/rqu19o0pSppHHRkihlua0aYuAIzYMDlUMvOEKMnb9WixlhgRxiUr/Cxu9ffv6ZXnnjQ1IQE+rt5UEfvj+fEJtfvwbqqgVJNDevAPHDAJ+DAs/G7NMIi0TiPDYXNss6weZEYGFFRfmudT9viNi/212UVCrSXdMnYJbg76yGPAYcWFFHGK7DQoMo9Xg6Vv60J72bqwp8ZofMdtU4Fq5bVwF727Z9r2qr1OsNWB9xHD5HM7Fg5Gg5qevxOq/DlXTqdJbAQlTwZ/SdVQvEzXCEeWFR0XGDTve5Cf7O5ijNiUAOZf9o8afLxsKhK7/39r8oKMQP1IdMHaA2tfBoPsuS2GgdEhpMXy56gzb/vpOm3HaTyj5hGKbkw8lqtohWYfBicHSZAxVUB5orPBgCUiPGA3KfBarzoT0ouHrd+vzNglV+bgG88ychaaIvqcdhD7AqWGAjlVdW8oe8VlxcXJV5qD4NXmGdWob+FbZ48cchcUsrhg255uZf1iwn2VysAl+BdcNSiHOwNp6jtPDOazhUHkX12zHFsQMVRu7ZEGpysEYCcKR+vbvRI3PuJpdqrMzeBW7rOKj3bw8+DcoooQ/efI569oo/F9Vtr9eQX2bL27ftoiE3ThfdYIq7ffIttrbRkeLkqdPyV1+vkBN27E/A4plpcB+lN6Tdy63brBSITmIRkKDRN11Hsh5szMRsUJAJ6x2EGSRydjjZSstJ6+1Bej+fKi8B5kF2wq5Z9ytp9Eb6ec2HVJx7BuxxN1VAmDD6clrJmiDgAdE6KoLWfrtYXXRiZMcxBkKthd9dSxvV67L5rR0Cnn5c9r40sF8PcvP31apGdrDQ28cMojlP/OuaJcvWLsFzN+Fo8uR4Z3lX9W422d8eiM7q0iO+CyiKExjwFILj7AJMlX2qLBTheEWlVcq7nUcAuG5YrFKUn0v5p46Sh1GmkUN6I5ErR3DXDXlmxRyga3R1qWkMcGDXaqAvqzNnr9UJAdTxxYAZdf0wJJB1JQSOVgUHQ6E3wMT24iN3UlzHmBGwTYyus41GvNHcCPRDWL0fCybqpMQfAl5oCPInDdb58fzCBSs2Sevlrupu56gCVDhyeH+KDvelWybdT6PH/42ee+l1NAOh5BJAZ6qvDcnW4lKqxNK0ypNZVIGDf81n8lC3FrVG7VnVP9yWgA23ej1MhZibveiGYb1R0TbK4ZEmO21uFuoD35mrl6enKkWqXwXgSpjDGIl2KmBE8jVHvsiBQgaDK7254BlKOZZC8ENRREQEQvZAWbXxz4uBDAhX4BhmZKnFTolguVbMlfxumIkueP/FmrPfg28FNkFemQRpmWQ3fKT9VpP9NjcC9RC3NczSLphwziKAhQ6kK6gCnANSVMoEVTKCJVlPMbFsC0epjypRVfPCf9E28mqTxt2VeL51HCjMEWQePPUu4PEYADZzBdlMpaToNLQ38RieVg7Vu4krqNiQnl7Ba849imUHZhuUc5mgwNdaHBCn3gdAeWXtqYwsiocfTg2pYJ2ggUUdBOw9ACtWWR+AzlRv86w8H07ByEMwlcz1qvfD/j48x/+BiapjUCgWsprKyFyWj4huHYKUD9CGrXvKYCZcwUG9TV2aew7MRnLWwtOZZ7AMug4EVvtint9KICj847GX6VgyFoNCvbjUnGdvghV21Q6KZ1iNeG/hUoQopp8XmlCR1RUtQi7UA2EWjMC6C9byV5aQpaKATCU5VFGYQeX5J8lankeuLjr6Y/9R+vtTC5FDrWQ+kNcsFNg4hsG6v7j6nXJ82HWxse1b9xnQC9RQJYlWr3TB36AEnwBf8sS88uTzb1Irf1+oBmGkwd8S3EwqkpgqwGIleAlUhOkQAwrksd64B5Fsi5cso1cRmcZUc8P1QwFsmOPqorALXu7wB96hWLA1wZk0Ki0uFHpZkbQyx4MKJF7PpY++WE3zXvhQSU3PWkCK9UU8Wbdo7NDslZ7ahfQrbacBz2vu6BrX8ZNNv3xL3m6Y12ozZNfSGuuB2xAf+s5/PiUzLCBdu3SgeCjSkWHBhOAoqGKKajtNSz+NZOWpyKGdhmxPeRD1jdQXyvstN11L7Tu2rbLcXELKrPl6sEywysqiDLpn7mvKH38elWOiQsgTc2gefJpHktMsGdl5O2TSvGqzmVbVfL7prjgBgYTMA9L6eXNmD3z9X0/AFgp9r55jVbXKAFGHYErbtmMPFoUeQ/hhvholzSDidfFBAX4U0zqCOsBl1S4mCuGEMLcxW2ST22XMneirSrmyOZ8+++pHmvnoW0UWs3Uu1AQWNSFOUwFE4T9gKdiD8yu0kqOFBhZnIJD9gHFwvWx489XnA+6bfTsHkACJ9cOi2mGeP+2SIoQShU1wuKGqHva5lSkbHghVUq1f0zVBh0ZZ4JEtRbTtfztp4n0vYT1j4RyLxfROzcrOudLcc6D6lfBWZ+Pkz183bxvt6ebh0hurchkBDOx6Fa7H1MQHEF+1uASnjDT7dVhg6k3aNV7Ko4HnPBNpkBZ7x649dNfc17GG8cxCm9X8XI3qTrzgFATy98J3lgLlfPf6X7cOz87M8ejdvQO5IQuuxGaxelJj48PtLOJsUDXMJaRU5NO3K3+lWf98h46fzPqPYrPMwTubnU1e7DudhkDuFJCYivDzNdt37o1dvzEh2s9VS21bhxICZVRdi4mS56CmLVVI4/coViw4NSHtibmIjiYn05OvLqWX3/mqOL+o+Ak4hJ9GP1oU8hguTQ2d+sIecr18L5LPzR3Qq1PE9PHXYZ16fwpF5DPpIfMo6Ca4Y9VUdqUUygg7++m8jo+pDYjTCBO0mlKWKOnrnzbRlys2IsdLzlqdzvCUxVLOAkqLLC0FgSpwsGtLq7KyiumyVjM5MjQwblDvzvK1g3tRnx6dKSI8lAxuEPq0wLWaxwJdZ4xWYVWVFGuDMFtNuFRZTvCvwoINXEo4JJuJbPCKZMKdtQUWlO/X/o7fPy05eUUJGlmz0GYz/6A+qrbQMv9pUQh0ABHITguTvvUmWasb0crfp0Ns2whjr67tqEtsDMVAkedlaV5IlOfm5iGwglniBHeql5cbAWWp8yjPpUjiw9KoAKVZzNiGrryMikpKxanTOdLBo2n0+65E2rrrIJ04mZVstVhX6XSarxExvotbcehPiz1tqQh0BBgwo+8As00/XOyPPZQ6ubq6hHl7uiNM2N3g5+Npc3czyjjgBTAq8BmeM5YjTSXWsEABrzRL5YhsK4T7KLegWOQXlIi8wmL8WZ4ibNYdCGhZB0tAAtpvEdvpOH78pc7/Cgis7RvgqqFgHECm2yd3TRzpjWStVFBUiugMi8y5WdheyoFGeuiLRqMBUdQu5A8Xkbenq3jp3a9ERnbuzUBas1pNavuQK71WP4vylb6lkZ6HAaATbKmD0VwMDAEWvd7FV7HZ3CfdPJQG9usKr4BFrm4QUPVLzIP8ywjNOpNPL7z9heyi0w2otNk2oi1MilRHnEUjdbwJm/lLIBApPbpiXnoKQs71ffv0cGuDhSVpJ05C1D9OsbEdRUraadGnWwcJC2UAqtqZCiv7nO136ddrlYCgULDU4/MwyY1TbEqF1WrJAeI5Gd06HJtxNL0fCC9pjNLiEQhKmwXKW3D77ZO9Z987Den9O5DB1Zvmv7JA0RvcrTPuvlu3Y/NKoXP3k8zWPOiWVdYZO3CYlRqQjJy3M3j2taW208Vacdu4cfI33yzT3T97RlvOfsH7DyYnpw7f9ce+uSdOnNoOt+B8WIt+srdx9fcyIYCI7GdCQ8PEN//9UghbHhwC2cJUfgoCZba46caR1hkzZpRhx2nbmJtGWU15h4VSeERY8xKFJWe/sObuF6L4iBBFR8Ta7z6yXT9yiPnlV+Zbjx5NVqKjo8XD82YrVkuWqCw7KSyVp4XNnClOpe0X8195WgQHt4IYK7/Tpk0b1lmulsuBAJD3ZHh4uPh960Zwt3IAOUMFNiOwpPC40rFje8usWbPKcFNMmjTJmrDuKyHMyF5SeQK/J4U5/7DYsPIz29RJYy2TJk227N2334btym033nijNSYmxvrzmv/ahC1HHRDcph2RQuSJvbs3i549e7Ia8WVLR2KLZKHYEmAm5r0XsUDEumD+a/LwEQPFhPE3y62CAiWwNnWzD+zyImERpRpRMGPG3ZoPFi8UoRFhUtLhZGXLtl3K/sSjio9/sDTtrnvlUSNHalJSUhjRtgkTJmhh8bHGx3eRLQh5AP7PjS9u2wbPSHx8R/r2m0/F2FunTtm7d28GKjx6rlILO2nukIr6fP5Ab2/vt6ZMmUwzxk8jnVUvn9qdSY88+LwN+7kLrcGLM/2Kzp3jBNZaaJD6SuTl5Spbt++j3oNuoVfe/pTadu4rvfv+Iu0XX3yhY+Rt3LhRmTZtmvWJJ57Q+Pj4CmxZLgUGB0i8GKW2YkKes8jIIOmjDxci627gQ+AGo2qr1xKuOdWYXR0A2CYgALGV37/22oKQ2NhoSyu3IOWeO2Zqt2xLUEZ1Hyo9/eZ8S0lpES1fvsJ6LCVNysnJsa74/nvN559/pmCLVsHJ5XgnlxHDh0mtsIExKEpatGiR+Pzzz8Vbb72l6d27t/TYY4/ZHn347xo/H486Ecj9siG/TERUa/hphbxhw4aOuPQFjhanbtQuc/MXOKcsAZub8dVXn9DaNd/Z9m5JssR1iTc88+pz1vDQCNG+TTuKDo2UwqAGIMBU9jC6IceuJNuQ0yO3IA+xohWiqKRIOpF5io6fTldOnE6T9/65T5oz5yFpxl13ScuXLxclJUXi+efnakwwqV2q8Hq/0nKZhg2/nvbt28eupBbjyLX3vSUhcFRkZNTqTb/9oolq3Yq2bvlNmXL7/Zabrx+jnTHhDrlL6/aS1ggDDE9ZxVhygLRXqr0TNtCdu7fS0pXLoKhrOfGACPD1p3HXjsHqp1BKyUgVG3ZsEVv3bBO79++lFd9+runTt6tkwlx36SJUlWXZslU0ffqdGS4u+u7I+YKQupZTWgoCeROjTe+883a/Bx6YTXv+2CQee3y+be7MhzTXDRgFRx2QpcF8xb214LcACLQCk/w3qITNLBzvUmGqpKz8M+JgyhHRJqy1FNu2U5UJxgVZD61l9MOWtcqHXy+yzbxnsmbK5NtknusuVViPFLInjRw5mrZs2fw46i+41DPNeb+lIHBsXFzXFQkJG7H2Lk38bdYj1pfmvaDtHdsbQaGlSEiCoCRs1EGV7Fk4iziGksGF8nOyxP/+3IVoCps0uHt/ycsHudV4vSGHVHBMDBemWiACBlFKO5Mm7nthjvXWiaM0M2dOk02X3CWUqdCPPvnkG7r77hkHIfggHrLpkxdwt+tTWoIUyn2YPXPmDMBXR4898ZLtgamztb07AnkGIEADwGdhtWsZzjnc4uyQg4OIvln7Lc1d+CwdKky3bUnaJSY/OUsx88pYLMU+hzyGgvoMnsVStEjvEOmz5z/QLv98pbJ+/W+KgWNEL1o4bL6YRo0cRmFhYfCKUPeLVm/mmy0BgV2wSGXglMnj6OOPFymRAdHS6GtGS5RbhLkOiDCBkricRZx6DrZZUloi3v9uifXJhx6VHnnin7rYmPbyoeNJEDpAsUxttRW+DOT6e/pL8//2pObV+QttvPkICysXK7CVIiFDIPXq1Zul9qEXq9vc9y7e8+bpzdhrR4xwQeim+PGH9baHp90vUyEkRGZ7xWCbjizT3h/obz7+QdKkYbdo9iTupzNHTtIPa1ZStw5xwmhwgdudH75IgWO3Z9feUs/IbvLiJV9YdZekQrQlKTRgQH9utO9FWm72W85GIJyv2lFjx46mn1atVjpGdpQ99Z4QWs4q2HUQkgolUMU13fvRT7+sNj/+0pNKv049KDokgozueP5SCOQGMD/eM3aqZsPaBHEGu3lenArREaWCusV3RfCwC7NRd7UPLeAfZyMwulWr4M7xSOT628at9Nv2BM3c+Y8izbvDApOzUmYNWEFIiQyJkMwlldKYPiNpYHxfy8i+Q7HYsEbN2i9gkMSERVGMX6T066atCmefZyRyNvraCuJBqTUivmHJwepU1ZlcW7Vmv+ZsW2ivuLgu7opiEWUFFfT8PY+QlwuSv7IEyQVzWWFRgXB3dcPSwWpdBZW5uhjpmwVLkPcfQLdZodMDe/Vd0sVUijYHdesnbU3YrkyadJsmPf04JyugQQP7SLxrqGNhO6mfrydMawFumZmnQ3Av2fG+s86dTYF9e/fuRVu3bbPlZucqfbv0EQP6D6+SIOE9P5l1irrePkSs2bZRVRlqAImRwEgDO1XZpp311qhYxwU836VNrJyWekqYsfHWqYxM6d1/L8KOAlUhGY5P8Qpho1FPgYGBTOMcztEiijMRKMHD3uWnn1bSiq9Wi6joNvK4R6cp7336ro0pgxHi7eFF86bMluLbdqpCUm0gYyRebgFSgnxh1Ea2jDPYAsEfS9fS0jPUBaXswa9eNFoJCAzgy+o/1e874+9qfKn5usCsqLCoMDLQ248evvMBrb/RR3L38BbT/znDFuDjq0y4foLs4eZBD975IO/xDaq8kKU1Vk95izgXrYucn19Ifj4+8HBUIl1WlhSCJOm8ZO18AULxvw/C/1F8z1937pnTKBA2RR9Zkn1BQOJ0VqaSkpIsVv26Wnlm5sOa7zausqnmM6YusDb1vCngxC/HoZE0nG0JSRT0yOKlEZnId4a+1fJGWGWqVvBWZSGqpUZzX6qtl83SB2Qy8omMinQ1ertRanIKdY3tStfE95O83D2pqKxEqAnp6lLIG6mHClgo78CCVfvYOsBFTaqH1FxKVhbs1TU5KN4qsKpNZVotxg3nNBYKaBj1OoPuzddfFvMefoTWPfUrDel9jdjwv1/FTQNGIqATqgQU7iYrGBwsrBTCvVRpM9kC/P00oEdsIW7Eyl5kjqpjalWz0YMnNFm/Gtiw0ygQ/dSzZOfv5yUtX7ZIc/c/Jos3Pn/XdveY2+mhqfdpVHtmAz+mQdWBITh/6WhaqvAO8MTGx77IQauQu6urKMTGzOytr0mEVc/gPU04shr0FU7Z7dTeQ2TBUiCfINMSrkyaNE6+fco4TWLy4SrbZFOyT7RdApsp63prfl+vDB0+UMN5Y+AYhoPDIHFuUjXconofgHQOQ0SBobZlFGdSIGKWTEj7woFF0BLwu2D+05rEvCPKy4vfsLLirCrojQ0nIIUN3py2cvuBP5TjJeli8sSxGhaUuB+wxEjlZWUYXDWlXl7KnYstY1HOpnhq7M41vD1nIrAEGewrkVsTnnQZwmYlLVnyJRUWFGmf/nCBfMdz9yvJJ47CrAZ3D5T6Oj0M9f1mII4pDHOemgX4yIlk8cziBWL8hNHarKwcwTloeE9fOHBlswW7yVQr7NjlwZabqyKwxXjlnSnE5JSWlhRmZmYa27ePUsX5sLAQmnXvHZIPEsb9vmcnPfDa48qQbv1o/IhbNDHhUSAPCDZAwrnlYwxkJpvaigP7Y2qqRE4ahOerXvuVW35WFnz2rjAJk2bhex8rb7/zkYQQe7QkRHZ2rhQeFiKOJB2TOnfqAF2wihIZgVB9gMA8KKWUWdsrnXHNmQgsgCqRlnjwUPCQYQOhXxno1ltvAggV+u6bH6l1RIDAzifyG8sW0qrta0TbkA5icI/+1Dm6PUUGh0s+Hl6SVsfUaWciQKS6vp4RbN+Q0YbsIgi1gC7JoRb/O7BbfL3uO9L66sTSL97VRIaFgsARzQH6rkDyvKysbIFMTuLkyQx5+fIfyICU0LzBByc3Z0N3DthnXn4Bz39ZzkBWbe90JgIx5KWEH39a13fSxLFqsh4rKIRHvIeHB1krYBnxM9CG598GsvQ04b4X6VDKURGFUPuC4gIAVEOtg8NtUaGRFI4oNV9PX8nLzQOZRrQYA9ifvrJCyszNVlIz0sSxUylUVFqMdrzllIx08dFLr0mDBw/GaiYObMJOlMA9U1jrqHC5/4A+KrtWeF0hFsuomelRi1c2nUg7ib0vihl5LWYOdKpCqtO55mRlZd4JwGl9sU87KFKdn+BekgrLzNLe/Uekudhnws/Pmzq3C5f2/JkE7inLyempIqpzW6nP8IG0aPmn8sqEdba0nIPSnmN/KJv2bRYJBxPoQNpeqpDPSLuTdkmbdu6R20XEUH5pgRg0oo+4Y/pEDRZ2qpImW2LsB0vFvB+SDfohS6GO9lAtLDCrV6+nNWvW7wACv8TRIoozKRBzUtk+RdF8vvjjL+9hVoVcogAK533R0Ihhg2jL5t9FWYVJMgC5fQcNpS86xUn7DybRYy9+IL35+hswe2k1H7z/H+rdrZP2y/88K2uwMgn7acEWrlU35dj+RyINH9xfPP7KR2LM9JEUgy1Xu8d31TDCVDWhISgAez6AXURRDjXksaau61QE8sdh6djz+/YlDvjbvQ93jIzAnAQLDOta2CQZUmGhgE4m+cJLICAYegWHk+uJbAoNi6DQ0FAsC8vDkSuemnsXuQZGYt/3cjKwFwHO2Ree/o/YtG03hSOX2qiRQ8Vtt45m7z90v4tnua8N4Dz/FUO537vvAN/eW1sdZ12zSwDOej+zzQwA9TvOcxYeHmpzd3ezwvOtTJpwC3Xq2F6s+WUz7FtIMYmQQAVz5FvvLRVjx45T+8tbvPn7eotB/XtiG3Ps6sLqBpy7ry5YaFv182ZC3KcUFhosDRzYR5N09BhSTZ4AwpEqUl0IyiGlyA967uAQ0qqDWafjdZ6XtyRsp5SUE2UQtnY7DVi1vNjpFMh9AgKjAGR6dN79GjYug4ZYOqTBQ/pLTz+9QDlw6KgmtmM72rBhC9kkFzFhwnh14FUiMJejodQUzsj2W1pcQs+88LZtT2KStPTjt6XExCO0bNkKmjFzjmAqvOGGERIvbOFt49jDz4OGKV6HdfQspDACuTCLZaSxrZT3N6wAR/jk06+prKx8i81mPa5WaiH/tAgEgnKCfJAyxM/PV80wzwBkYIaHhcrfLF9C365YSQmggKKyCnH99deqXgOGHyvWR1OOSz+sWi8BweL+Oc8qe/88JH35+ftSGLIUcqbCoUMG0M+/bJIWvPquBIlXINUlAnSngrrbIUwU0W9qqQrgPvuH+oMuoAj1XYsXfyFWrf5FAOFvlpUhs3kLKv8H7kv4h9yin54AAAAASUVORK5CYII=" alt="きょうのアイコン">
+      <div>
+        <div class="a-label">作成者</div>
+        <div class="a-name">きょう（i-money）</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="メニュー">
+  <div class="inner">
+    <button role="tab" aria-selected="true" aria-controls="panel-shindan" id="tab-shindan" data-tab="shindan">あなたの診断</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-list" id="tab-list" data-tab="list">残す・削る一覧</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-pub" id="tab-pub" data-tab="pub">公的保障の早見</button>
+    <button role="tab" aria-selected="false" aria-controls="panel-check" id="tab-check" data-tab="check">見直しチェック</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ═══ 診断 ═══ -->
+  <section class="panel active" id="panel-shindan" role="tabpanel" aria-labelledby="tab-shindan">
+    <h2 class="sec">7つの質問で、あなたの「保険の仕分け」</h2>
+    <p class="sec-note">保険の正解は、人によってちがいます。あなたの家族構成や働き方から、残すべき保険と、見直せる保険を仕分けします。最後に<b>今の保険料を入れると、公的保険でカバーされるぶんを差し引いて「いくら削れるか」を試算</b>します。</p>
+    <div class="card quiz" id="quiz"></div>
+    <div id="result" hidden></div>
+  </section>
+
+  <!-- ═══ 一覧 ═══ -->
+  <section class="panel" id="panel-list" role="tabpanel" aria-labelledby="tab-list">
+    <h2 class="sec">保険ぜんぶ、残す・削るの考え方</h2>
+    <p class="sec-note">ボクの基本スタンスは、<b>公的保険で賄えない分だけ民間保険に加入する</b>という考え方。まずは「公的保険でなんとかなるか」を先に考えることが最優先で、いちばん重要です。そのうえで、<b>貯蓄で賄える状態をつくる（＝貯蓄もしっかり確保する）</b>。そこまでできて、はじめて民間保険の出番はぐっと少なくなります。</p>
+
+    <article class="card" style="padding:20px 20px 18px;margin-bottom:8px">
+      <h3 style="margin:0 0 6px;font-size:16px;font-weight:800;line-height:1.5">大前提：保険は「確率 × 損失」で考える</h3>
+      <p style="margin:0;font-size:13.5px;line-height:1.85;color:var(--ink-2)">保険は<b>「起きる確率は低いけれど、起きたら貯金では立て直せない」</b>—つまり<b>損失が大きく、確率が低い</b>ことにだけ使う道具です。それ以外は、保険ではなく<b>貯金で備える</b>のが正解。</p>
+      <div class="matrix" role="img" aria-label="確率×損失のマトリクス。損失が大きく確率が低いときだけ保険で備える。損失が小さければ貯金で備える。損失が大きく確率も高いことには近づかない。">
+        <div class="mx-cell mx-corner"></div>
+        <div class="mx-cell mx-head"><span>確率</span><b>低い</b></div>
+        <div class="mx-cell mx-head hi"><span>確率</span><b>高い</b></div>
+        <div class="mx-cell mx-head"><span>損失</span><b>小さい</b></div>
+        <div class="mx-cell mx-body">貯金で備える</div>
+        <div class="mx-cell mx-body">貯金で備える</div>
+        <div class="mx-cell mx-head lg"><span>損失</span><b>大きい</b></div>
+        <div class="mx-cell mx-body mx-ins">保険で備える<small>ここだけ！</small></div>
+        <div class="mx-cell mx-body mx-danger">近づかない</div>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;line-height:1.85;color:var(--ink-2)">医療費やがんの治療費も、<b>公的保険＋どこかにある程度の貯金があれば、賄えることがほとんど</b>です。大切なのは、CMや「もしも」の不安に流されず、<b>数字で判断すること</b>。「いくらかかるのか → 公的保険でいくら戻るのか → 残りは貯金でまかなえるか」を順に確かめれば、本当に必要な保険はぐっと絞られます。</p>
+    </article>
+
+    <div class="grp-label k"><span class="c"></span>残そう（ここは必要）</div>
+
+    <article class="card ins keep" data-ic="kasai">
+      <div class="ins-head"><h3>火災保険</h3><span class="chip keep">残す</span></div>
+      <div class="ins-body">火事・水漏れ・台風などの被害は、自己負担が数百万円になることも。<b>賃貸でも「借家人賠償責任」で実質必須</b>です。ここは削ってはいけない保険。持ち家なら補償内容と保険料を数年に一度見直すのがおすすめ。</div>
+    </article>
+
+    <article class="card ins keep" data-ic="jidosha">
+      <div class="ins-head"><h3>自動車保険（対人・対物）</h3><span class="chip keep">残す</span></div>
+      <div class="ins-body">車に乗るなら絶対に必要。事故の賠償は<b>数千万〜億単位</b>になり得ます。<b>対人・対物は「無制限」</b>で。ここをケチると、一度の事故で人生が傾きます。</div>
+    </article>
+
+    <article class="card ins keep" data-ic="shibou">
+      <div class="ins-head"><h3>掛け捨ての死亡保険（定期）</h3><span class="chip keep">残す※</span></div>
+      <div class="ins-body"><b>扶養する子どもや家族がいる大黒柱なら残す。</b>ただし、遺族年金＋貯蓄で足りない“差額だけ”を、掛け捨ての定期保険でカバーするのが正解。独身・共働きで子どもがいない人は、基本的に不要です。
+        <div class="ins-note"><span class="t">POINT</span>貯蓄型（終身）ではなく、必ず掛け捨てで。保障は子どもが独立するまでの期間限定でOK。</div>
+      </div>
+    </article>
+
+    <div class="grp-label m"><span class="c"></span>場合による（人によって答えが変わる）</div>
+
+    <article class="card ins maybe" data-ic="shugyou">
+      <div class="ins-head"><h3>就業不能保険・所得補償</h3><span class="chip maybe">場合による</span></div>
+      <div class="ins-body"><b>会社員・公務員は、まず不要。</b>働けなくなっても健康保険から<b>傷病手当金（給料の約2/3が最長1年6か月）</b>が出ます。<b>自営業・フリーランスは傷病手当金が“ない”</b>ため、長期に働けないリスクへの備えとして検討する価値があります。ここだけは、働き方で答えが割れる保険です。</div>
+    </article>
+
+    <div class="grp-label x"><span class="c"></span>削れるかも（多くの人は見直しの余地あり）</div>
+
+    <article class="card ins cut" data-ic="iryo">
+      <div class="ins-head"><h3>医療保険</h3><span class="chip cut">削る候補</span></div>
+      <div class="ins-body">日本は窓口3割負担＋<b>高額療養費制度</b>で、月の自己負担に上限があります。<b>1か月100万円の治療でも、自己負担は約9万円まで</b>（一般所得）。数十万円の貯蓄があれば、月々の保険料を払い続ける必要性は低いです。
+        <div class="ins-note"><span class="t">2026年8月〜</span>高額療養費の上限が段階的に引き上げ（一般所得で月約8.6万円＋α）。それでも「貯蓄で備える」考え方は変わりません。</div>
+      </div>
+    </article>
+
+    <article class="card ins cut" data-ic="gan">
+      <div class="ins-head"><h3>がん保険</h3><span class="chip cut">削る候補</span></div>
+      <div class="ins-body">がんの治療費も高額療養費の対象です。実際、高額療養費を使えば<b>入院1回の自己負担は平均6〜8万円ほど</b>。抗がん剤などで<b>1年間治療が続いても、自己負担は年60万円前後</b>（4か月目以降は多数回該当で月44,400円）に収まります。<b>ある程度の貯金があればまかなえる金額</b>なので、貯蓄がある人ほど優先度は下がります。
+        <div class="ins-note"><span class="t">備えるなら最小限で</span>心配なのは高額療養費の対象外（差額ベッド代・先進医療・自由診療）。不安なら、入院給付より<b>「診断一時金がまとまって出る」安いタイプ</b>を薄く持つのが合理的です。</div>
+      </div>
+    </article>
+
+    <article class="card ins cut" data-ic="chochiku">
+      <div class="ins-head"><h3>終身・貯蓄型・外貨建ての生命保険</h3><span class="chip cut">削る候補</span></div>
+      <div class="ins-body"><b>「保険」と「貯蓄・投資」は分けるのが鉄則。</b>貯蓄型は手数料が高く、返戻率も物足りないものが多い。とくに<b>外貨建て保険は、為替リスクと手数料が重く、金融庁も注意を促しているほど</b>。「保険・貯蓄・投資」がぜんぶ中途半端になりがちです。保障は掛け捨てで用意し、貯めるお金は<b>投資（NISA）</b>へ回した方が効率的です。</div>
+    </article>
+
+    <article class="card ins cut" data-ic="kojin">
+      <div class="ins-head"><h3>個人年金保険</h3><span class="chip cut">削る候補</span></div>
+      <div class="ins-body">老後資金づくりなら、<b>NISAやiDeCoの方が有利</b>なケースがほとんど。個人年金は<b>返戻率がおおむね110%前後</b>＝数十年かけても増えるのは1割ほど。利回りが低く、途中解約すると元本割れも。ボク自身も解約しました（その損は勉強代と割り切っています）。
+        <div class="ins-note"><span class="t">数字で比べると（月1万円×30年・元本360万円の一例）</span>個人年金（返戻率110%想定）→ 受取 <b>約396万円</b>（＋36万円）／同じ額を投資（年5%想定）→ <b>約832万円</b>（＋472万円）。同じ積立額でも<b>差は約400万円</b>に。※一定の利回りを仮定した試算。個人年金保険料控除（節税）分を足しても、差は残りやすいです。</div>
+      </div>
+    </article>
+
+    <article class="card ins cut" data-ic="gakushi">
+      <div class="ins-head"><h3>学資保険</h3><span class="chip cut">削る候補</span></div>
+      <div class="ins-body">低金利のいまは<b>返戻率が低く、ほとんど増えません</b>。教育費を用意するだけなら、NISA（つみたて投資枠）で積み立てる方が増えやすい。<br>「親に万一のとき、その後の保険料が免除されて満期金が出る」のが売りですが、その<b>死亡保障が目的なら、親が掛け捨ての生命保険に入る方が、はるかに安く大きな保障</b>を持てます。貯蓄と保障を1つの商品に混ぜるほど、割高になります。
+        <div class="ins-note"><span class="t">唯一のメリットも代替できる</span>「強制的に取り分けられる」点だけは長所ですが、それはNISAや口座の自動積立でも同じことができます。</div>
+      </div>
+    </article>
+
+    <article class="card ins cut" data-ic="sharyo">
+      <div class="ins-head"><h3>車両保険</h3><span class="chip cut">削る候補</span></div>
+      <div class="ins-body">車両保険は<b>「自分の車の修理代」</b>をカバーする保険で、他人への賠償（対人・対物）とはまったくの別もの。賠償は必須ですが、自分の車の修理は貯蓄でまかなえる範囲のことが多い。しかも全社共通の<b>「等級制度」</b>があり、車両保険を使うと翌年から等級が下がって保険料が上がるため、少額の修理では<b>「使わない方が得」</b>になりがち。“かけているのに、結局使えない保険”になりやすいのが実際です。
+        <div class="ins-note"><span class="t">つけてもいい例外</span>新車・ローン残債あり・リセール価値の高い車など、全損したときの再購入の負担が大きいケースだけ。価値の下がった車なら、削って修理代は貯蓄から、が合理的です。</div>
+      </div>
+    </article>
+
+    <article class="card ins cut" data-ic="jishin">
+      <div class="ins-head"><h3>地震保険</h3><span class="chip cut">削る候補※</span></div>
+      <div class="ins-body">地震保険は「地震保険に関する法律」にもとづく<b>官民共同の保険</b>で、どの会社で入っても中身は同じ。知っておきたいのは、<b>保険金額を火災保険の30〜50%までしか設定できない</b>こと（財務省のルール。上限は建物5,000万・家財1,000万）。だから全損（倒壊）でも、出るのは地震保険金額の100%＝<b>火災保険金額の最大でも半分まで</b>で、建物の再建費用が満額もらえるわけではありません。制度の目的も「建物の再建」ではなく<b>「被災後の生活再建資金」</b>とされています（政府広報・財務省）。
+        <div class="ins-note"><span class="t">残す価値がある例外</span>持ち家で住宅ローンが多く残り、貯蓄が薄い世帯。全壊すると「住む家がないのにローンだけ残る」ため、生活再建の頭金として意味があります（公的な被災者生活再建支援金は最大300万円で、住宅再建には足りません）。賃貸なら建物は大家の保険で、必要なのは家財だけ。地震保険料控除という税優遇もあります。</div>
+      </div>
+    </article>
+
+    <div class="note"><b>まとめ。</b>「起きる確率は低いが、起きたら貯金では立て直せない」ことにだけ保険を使う。逆に、貯金でまかなえる範囲のことに保険で備えると、ずっと払い続けるぶんだけ損をします。不安ではなく、数字で決めましょう。</div>
+  </section>
+
+  <!-- ═══ 公的保障 ═══ -->
+  <section class="panel" id="panel-pub" role="tabpanel" aria-labelledby="tab-pub">
+    <h2 class="sec">あなたは、もうこれだけ守られている</h2>
+    <p class="sec-note">民間保険を考える前に、まず「公的保険で何がどこまで保障されるか」を知るのが先です。ここを知らずに保険に入ると、だいたい払いすぎます。</p>
+
+    <article class="card pub">
+      <h3>① 公的医療保険（高額療養費制度）</h3>
+      <p class="who">対象：すべての人</p>
+      <p>病院の窓口負担は原則3割。さらに、1か月の自己負担が上限を超えた分は戻ってくる<b>高額療養費制度</b>があります。だから、どんなに高額な治療でも青天井にはなりません。</p>
+      <div class="figure"><span class="big num">約9万円</span><span class="cap">一般所得の人が、1か月100万円の<br>医療費を使ったときの自己負担の目安</span></div>
+      <div class="tablewrap">
+        <table class="mini">
+          <thead><tr><th>年収の目安（69歳以下）</th><th style="text-align:right">月の自己負担上限</th></tr></thead>
+          <tbody>
+            <tr><td>〜約370万円</td><td class="p">57,600円</td></tr>
+            <tr><td>約370〜770万円</td><td class="p">80,100円＋α</td></tr>
+            <tr><td>約770〜1,160万円</td><td class="p">167,400円＋α</td></tr>
+            <tr><td>多数回該当（4回目〜）</td><td class="p">44,400円</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="warn"><b>2026年8月の改定。</b>上限額が段階的に引き上げられます（一般所得は月80,100円→約85,800円＋α）。一方で<b>年間の自己負担上限53万円が新設</b>され、長く治療が続く人はむしろ軽くなる場合も。<b>多数回該当の44,400円は据え置き</b>です。</div>
+    </article>
+
+    <article class="card pub">
+      <h3>② 傷病手当金</h3>
+      <p class="who">対象：会社員・公務員（健康保険の加入者）</p>
+      <p>病気やケガで働けず給料が出ないとき、<b>給料の約2/3が、支給開始から通算1年6か月まで</b>支給されます。まずはこれと貯蓄でしのげるので、就業不能保険の必要性は下がります。</p>
+      <div class="warn"><b>要注意。</b>この制度は<b>自営業・フリーランス（国民健康保険）にはありません</b>。働けない期間の収入減がそのまま家計を直撃するため、自営業の人は貯蓄を厚めに、または就業不能保険を検討する意味があります。</div>
+    </article>
+
+    <article class="card pub">
+      <h3>③ 遺族年金</h3>
+      <p class="who">対象：亡くなった人に生計を維持されていた家族</p>
+      <p>大黒柱に万一のことがあっても、残された家族には年金が出ます。<b>18歳までのお子さんがいる家庭</b>には遺族基礎年金、会社員だった場合はさらに遺族厚生年金が上乗せされます。</p>
+      <div class="figure"><span class="big num">約84.7万円<span style="font-size:.6em">/年</span></span><span class="cap">遺族基礎年金（2026年度）。<br>これに子の加算 第1・2子 各約24.4万円/年</span></div>
+      <div class="warn"><b>2028年4月の改正。</b>子どものいない現役世代（60歳未満）の遺族厚生年金は、生涯受給から<b>原則5年間の有期給付</b>へ。そのぶん給付額は約1.3倍に増額されます。子育て世帯の遺族基礎年金は、これまでどおり続きます。</div>
+    </article>
+
+    <article class="card pub">
+      <h3>④ 障害年金</h3>
+      <p class="who">対象：すべての公的年金の加入者</p>
+      <p>病気やケガで一定の障害が残り、生活や仕事に支障が出たときに受け取れる年金です。会社員なら障害厚生年金が上乗せされます。「働けなくなったら終わり」ではない、という安心材料です。</p>
+    </article>
+
+    <article class="card pub">
+      <h3>⑤ その他の公的サポート</h3>
+      <p class="who">対象：制度により異なる</p>
+      <p>出産すれば<b>出産育児一時金（原則50万円）</b>、介護が必要になれば<b>公的介護保険</b>、失業すれば<b>雇用保険</b>。日本には、いざというときの公的サポートがひととおり用意されています。まずは「使える制度」を知ることが、いちばんの節約です。</p>
+    </article>
+
+    <p class="tiny">※金額は2026年度（令和8年度）の目安です。所得区分や加入状況、家族構成により異なります。実際の受給額・上限額は日本年金機構や協会けんぽ、お住まいの自治体の窓口でご確認ください。</p>
+  </section>
+
+  <!-- ═══ チェック ═══ -->
+  <section class="panel" id="panel-check" role="tabpanel" aria-labelledby="tab-check">
+    <h2 class="sec">保険を見直す前の、5つのチェック</h2>
+    <p class="sec-note">いきなり解約する前に、この順番で確認すると失敗しません。チェックは自動で保存されます。</p>
+
+    <div class="card checks" style="margin-bottom:26px">
+      <label class="task"><input type="checkbox" data-check="h1"><span>いま入っている保険を、ぜんぶ書き出した<small>保険証券やアプリを見て「種類・毎月の保険料・保障内容」を一覧に。だぶりが一目でわかります</small></span></label>
+      <label class="task"><input type="checkbox" data-check="h2"><span>生活防衛資金（生活費の半年分）が貯まっているか確認した<small>ここがあると、医療保険などを手放しても不安が小さくなります。まずは貯蓄が先</small></span></label>
+      <label class="task"><input type="checkbox" data-check="h3"><span>公的保障でどこまでカバーされるか確認した<small>「公的保障の早見」タブを参照。高額療養費・傷病手当金・遺族年金を知ってから判断</small></span></label>
+      <label class="task"><input type="checkbox" data-check="h4"><span>解約する前に、次の保険の契約や見直しの段取りを決めた<small>掛け捨てへの切り替えなどは、新しい保障が有効になってから旧契約を解約すると安全</small></span></label>
+      <label class="task"><input type="checkbox" data-check="h5"><span>貯蓄型の解約は、返戻金と払込総額を確認した<small>元本割れの有無をチェック。損が出ても、払い続ける総額と比べて判断すればOK</small></span></label>
+    </div>
+
+    <h2 class="sec" style="margin-top:8px">よくある質問</h2>
+    <p class="sec-note">見直しでつまずきやすいところに、先に答えます。</p>
+
+    <details class="faq"><summary>医療保険を解約して、本当に大丈夫ですか？</summary>
+      <div class="faq-a"><p>ポイントは<b>「貯蓄でまかなえるか」</b>です。高額療養費のおかげで、入院・手術をしても1か月の自己負担は数万円〜9万円ほど。<b>生活防衛資金が貯まっている人</b>なら、保険料を払い続けるより貯蓄で備える方が、長い目で見て得なケースが多いです。逆に貯蓄が少ないうちは、安い掛け捨ての医療保険を“つなぎ”で持つのもアリです。</p></div>
+    </details>
+    <details class="faq"><summary>先進医療やがんが心配です。それでも削っていい？</summary>
+      <div class="faq-a"><p>不安な気持ちはとても自然です。ただ、<b>「起きる確率」と「起きたときに貯蓄で立て直せるか」</b>で考えるのがコツ。がんも高額療養費の対象ですし、先進医療が必要になる確率は高くありません。どうしても備えたいなら、保険料の安い「がん診断一時金だけ」のタイプや、先進医療特約だけを最小限、という選び方が合理的です。</p></div>
+    </details>
+    <details class="faq"><summary>貯蓄型保険、解約すると損しませんか？</summary>
+      <div class="faq-a"><p>途中解約で元本割れすることはあります。ただ判断すべきは<b>「これから払い続ける総額」と「今解約した場合の差」</b>。たとえば返戻率の低い保険をあと20年払い続けるより、今の損を確定させてNISAに回した方が、トータルで増えることも多いです。まずは保険会社に「解約返戻金」を確認しましょう。</p></div>
+    </details>
+    <details class="faq"><summary>独身なら、死亡保険はいらない？</summary>
+      <div class="faq-a"><p>基本的に<b>不要</b>です。死亡保険は「自分が亡くなったら生活に困る人」がいる場合の備え。独身で扶養する家族がいないなら、必要なのは自分の葬儀代くらいで、それも貯蓄でまかなえます。共働きで子どもがいない場合も、優先度は低いです。</p></div>
+    </details>
+    <details class="faq"><summary>結局、何から手をつければいい？</summary>
+      <div class="faq-a"><p>おすすめの順番は、<b>①今の保険をぜんぶ書き出す → ②生活防衛資金を確認 → ③公的保障でどこまで守られているか知る → ④貯蓄型・だぶっている保険から見直す</b>。この4ステップだけで、多くの人が月に数千〜1万円以上ラクになります。浮いたお金をどう活かすかまで、公式LINEでお話ししています。</p></div>
+    </details>
+  </section>
+
+  <div class="cta">
+    <p class="eyebrow">NEXT STEP</p>
+    <h2>浮いた保険料を、どう活かすか。</h2>
+    <p>保険の見直しは、家計改善のいちばん効く一歩です。<br>公式LINEでは、家計の見直しからNISA・高配当株まで、<br>ボクが実際にやってきたことをそのまま発信しています。</p>
+  </div>
+
+  <footer class="site">
+    <p>※ 本ツールの制度・金額は2026年度（令和8年度）時点の情報にもとづく一般的な目安です。高額療養費は2026年8月からの改定を反映しています。所得区分・加入状況・家族構成により実際の金額は異なります。</p>
+    <p>※ 本ツールは特定の保険商品の推奨・勧誘や、加入・解約の助言を目的とするものではありません。最終的な判断は、ご自身で各制度の公式情報をご確認のうえ行ってください。</p>
+    <p>※ 投資に関する試算は年利を仮定した参考値であり、将来の運用成果を保証するものではありません。投資は元本割れの可能性があります。</p>
+    <p style="margin-top:12px">きょう（i-money）／ 保険の残す・削る診断 2026</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('nav.tabs button'));
+  var panels = {};
+  tabs.forEach(function(b){ panels[b.dataset.tab] = document.getElementById('panel-' + b.dataset.tab); });
+  function selectTab(name){
+    tabs.forEach(function(b){
+      var on = b.dataset.tab === name;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      panels[b.dataset.tab].classList.toggle('active', on);
+    });
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+  tabs.forEach(function(b){ b.addEventListener('click', function(){ selectTab(b.dataset.tab); }); });
+
+  /* checklist */
+  var CK = 'kyou.hoken.checks.v1', saved = {};
+  try { saved = JSON.parse(localStorage.getItem(CK) || '{}'); } catch(e){ saved = {}; }
+  Array.prototype.slice.call(document.querySelectorAll('input[data-check]')).forEach(function(b){
+    b.checked = !!saved[b.dataset.check];
+    b.addEventListener('change', function(){
+      saved[b.dataset.check] = b.checked;
+      try { localStorage.setItem(CK, JSON.stringify(saved)); } catch(e){}
+    });
+  });
+
+  /* quiz */
+  var QS = [
+    {key:'job', title:'あなたの働き方は？', help:'公的保障の手厚さが変わる、いちばん大事な質問です。',
+     opts:[
+      {v:'emp', label:'会社員・公務員', sub:'健康保険に加入。傷病手当金や遺族厚生年金の対象'},
+      {v:'self', label:'自営業・フリーランス', sub:'国民健康保険。傷病手当金が“ない”のがポイント'},
+      {v:'home', label:'専業主婦（主夫）・扶養内パート', sub:'配偶者に生計を維持されている'}
+     ]},
+    {key:'kids', title:'扶養しているお子さんはいますか？', help:'死亡保険が要るかどうかの分かれ道です。',
+     opts:[
+      {v:'yes', label:'いる（これから予定も含む）', sub:'あなたに万一のとき、生活に困る家族がいる'},
+      {v:'no', label:'いない', sub:'独身、または夫婦のみ'}
+     ]},
+    {key:'bread', title:'あなたは家計の主な稼ぎ手ですか？', help:'あなたの収入が途切れると、家計が傾くかどうか。',
+     opts:[
+      {v:'main', label:'主な稼ぎ手', sub:'ひとり、または自分の収入が家計の中心'},
+      {v:'dual', label:'共働きで、どちらか一方でも生活できる', sub:'収入が2本ある'},
+      {v:'dep', label:'配偶者に養われている', sub:'自分の収入は家計の補助的な位置づけ'}
+     ]},
+    {key:'savings', title:'生活防衛資金（生活費の半年分）はありますか？', help:'これがあるほど、保険を手放しても不安が小さくなります。',
+     opts:[
+      {v:'ok', label:'ある（半年分以上の貯蓄）', sub:'いざというとき、貯蓄で立て直せる'},
+      {v:'thin', label:'まだ不安（貯蓄が少なめ）', sub:'まとまった出費がくると厳しい'}
+     ]},
+    {key:'car', title:'車を持っていますか？', help:'自動車保険まわりの判定に使います。',
+     opts:[
+      {v:'yes', label:'持っている', sub:'マイカーがある'},
+      {v:'no', label:'持っていない', sub:'車なし、またはカーシェアなど'}
+     ]},
+    {key:'home', title:'お住まいは？', help:'火災・地震保険の考え方が変わります。',
+     opts:[
+      {v:'own', label:'持ち家', sub:'マンション・戸建てを所有'},
+      {v:'rent', label:'賃貸', sub:'アパート・マンションを賃借'}
+     ]},
+    {key:'kessan', title:'いま、貯蓄型の保険（終身・外貨建て・個人年金・学資など）に入っていますか？', help:'見直し余地の大きい保険です。外貨建て保険も貯蓄型に含みます。',
+     opts:[
+      {v:'yes', label:'入っている', sub:'貯蓄目的の保険（外貨建て含む）にお金を払っている'},
+      {v:'no', label:'入っていない・わからない', sub:'掛け捨て中心、または未確認'}
+     ]}
+  ];
+
+  var INS = {
+    kasai:  {name:'火災保険'},
+    jidosha:{name:'自動車保険（対人・対物）'},
+    sharyo: {name:'車両保険'},
+    jishin: {name:'地震保険'},
+    shibou: {name:'死亡保険（掛け捨て・定期）'},
+    shugyou:{name:'就業不能保険・所得補償'},
+    iryo:   {name:'医療保険'},
+    gan:    {name:'がん保険'},
+    chochiku:{name:'終身・貯蓄型の生命保険'},
+    kojin:  {name:'個人年金保険'},
+    gakushi:{name:'学資保険'}
+  };
+
+  // 各保険のアイコン（内容がわかるラインイラスト）。親svgが stroke=currentColor/fill=none
+  var ICON = {
+    kasai:'<path d="M3.5 11.5 L12 4.5 L20.5 11.5"/><path d="M5.5 10 v9 h13 v-9"/><path d="M10 19 v-5 h4 v5"/>',
+    jidosha:'<path d="M4 13.5 l1.3-4.2 A2 2 0 0 1 7.2 8 h9.6 a2 2 0 0 1 1.9 1.3 L20 13.5"/><rect x="3.5" y="13.5" width="17" height="3.4" rx="1.2"/><circle cx="7.5" cy="17" r="1.6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="17" r="1.6" fill="currentColor" stroke="none"/>',
+    shibou:'<path d="M12 3.2 l7 2.4 v5.2 c0 4.4-3 6.9-7 8.4 c-4-1.5-7-4-7-8.4 V5.6 z"/><path d="M12 15.3 c-1.9-1.3-3-2.4-3-3.7 a1.5 1.5 0 0 1 3-.5 a1.5 1.5 0 0 1 3 .5 c0 1.3-1.1 2.4-3 3.7 z" fill="currentColor" stroke="none"/>',
+    shugyou:'<path d="M3.5 8.5 v10"/><path d="M3.5 12.5 h12.5 a4 4 0 0 1 4 4 v2"/><path d="M20 15.5 v3"/><path d="M3.5 15.5 h16.5"/><circle cx="7.5" cy="10.5" r="1.6" fill="currentColor" stroke="none"/>',
+    iryo:'<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M12 8.5 v7 M8.5 12 h7"/>',
+    gan:'<path d="M9.2 10.5 C8 8 8.3 5.2 10.4 4.2 a3 3 0 0 1 3.2 0 C15.7 5.2 16 8 14.8 10.5"/><path d="M14.8 10.5 L17 19.5 L14 17.8"/><path d="M9.2 10.5 L7 19.5 L10 17.8 L12 21 L14.2 16"/>',
+    chochiku:'<ellipse cx="11.5" cy="13" rx="7" ry="5.3"/><path d="M8.5 8.8 a5 5 0 0 1 5 0"/><path d="M4.8 11 H3.4 a1.1 1.1 0 0 1 0-2.2 h1.8"/><path d="M7.5 18 v1.5 M15 18 v1.5"/><path d="M10.5 9.6 h2.5"/><circle cx="15.2" cy="12" r="0.8" fill="currentColor" stroke="none"/>',
+    kojin:'<ellipse cx="8.5" cy="8" rx="5" ry="2.2"/><path d="M3.5 8 v6.5 c0 1.2 2.2 2.2 5 2.2"/><path d="M13.5 8 v2.5"/><path d="M3.5 11.2 c0 1.2 2.2 2.2 5 2.2"/><circle cx="16.5" cy="15" r="4.2"/><path d="M16.5 13 v2 l1.4 1"/>',
+    gakushi:'<path d="M12 5 L2.5 9 L12 13 L21.5 9 z"/><path d="M6.5 11 v4 c0 1.1 2.5 2.4 5.5 2.4 s5.5-1.3 5.5-2.4 v-4"/><path d="M21.5 9 v4.5"/><circle cx="21.5" cy="14.5" r="0.8" fill="currentColor" stroke="none"/>',
+    sharyo:'<path d="M2.5 13.5 l1-3.3 A1.8 1.8 0 0 1 5.2 9 h6.3 a1.8 1.8 0 0 1 1.7 1.2 L14.5 13.5"/><rect x="2" y="13.5" width="13" height="3" rx="1"/><circle cx="5.5" cy="16.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="11.5" cy="16.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="9" r="3.4"/><path d="M18 7.2 v3.6 M16.4 8.4 h3.2 M16.6 9.5 h2.8"/>',
+    jishin:'<path d="M3.5 11.5 L12 4.5 L20.5 11.5"/><path d="M5.5 10 v9 h13 v-9"/><path d="M12 10 l-1.7 3 l2.2 1.4 l-1.7 3.6"/>'
+  };
+  function iconCat(el){ return el.classList.contains('keep')?'keep':(el.classList.contains('maybe')?'maybe':'cut'); }
+  function injectIcons(root){
+    var nodes = (root||document).querySelectorAll('article.ins[data-ic]');
+    Array.prototype.slice.call(nodes).forEach(function(a){
+      var head = a.querySelector('.ins-head');
+      if(!head || head.querySelector('.ins-ic')) return;
+      var svg = ICON[a.getAttribute('data-ic')];
+      if(!svg) return;
+      var span = document.createElement('span');
+      span.className = 'ins-ic ' + iconCat(a);
+      span.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + svg + '</svg>';
+      head.insertBefore(span, head.firstChild);
+    });
+  }
+
+  function verdicts(p){
+    var out = [];
+    // 火災（残す）
+    out.push({id:'kasai', v:'keep', reason: p.home==='own'
+      ? '持ち家の火事・水漏れ・自然災害は自己負担が大きい。<b>ここは必ず残す</b>保険です。補償内容は数年ごとに見直しを。'
+      : '賃貸でも「借家人賠償責任」で<b>実質必須</b>。ここは残しましょう。'});
+    // 自動車（残す）＋車両（削る）
+    if(p.car==='yes'){
+      out.push({id:'jidosha', v:'keep', reason:'事故の賠償は数千万〜億単位になり得ます。<b>対人・対物は「無制限」で残す</b>。絶対に削らない保険です。'});
+      out.push({id:'sharyo', v:'cut', reason:'車両保険は「自分の車の修理代」で、賠償とは別もの。全社共通の<b>等級制度で、使うと翌年から保険料が上がる</b>ため、少額の修理では使わない方が得になりがち。<b>新車・ローン中・リセール価値の高い車だけ</b>残す価値があり、価値の下がった車なら修理代は貯蓄から、が合理的です。'});
+    }
+    // 地震（削る／持ち家ローン世帯は例外注記）
+    out.push({id:'jishin', v:'cut', reason: p.home==='own'
+      ? '<b>地震保険は火災保険の最大50%までしか設定できず</b>（財務省ルール）、全損でも再建費用の満額は出ません。目的も「生活再建資金」。基本は優先度低めですが、<b>ローンが多く残り貯蓄が薄い持ち家</b>は「住む家がないのにローンだけ残る」事態への備えとして残す価値があります（公的支援は最大300万円で住宅再建には不足）。'
+      : '賃貸なら建物は大家の保険。<b>必要なのは「家財」の地震保険だけ</b>で、優先度は高くありません。'});
+    // 死亡保険
+    if(p.kids==='yes' && (p.bread==='main' || p.bread==='dual')){
+      out.push({id:'shibou', v:'keep', reason:'扶養するお子さんがいる稼ぎ手は、<b>残そう</b>。ただし遺族年金＋貯蓄で足りない“差額だけ”を、<b>掛け捨ての定期</b>で。子どもの独立までの期間限定でOK。'});
+    } else if(p.kids==='yes' && p.bread==='dep'){
+      out.push({id:'shibou', v:'cut', reason:'あなたが亡くなっても世帯収入は保たれるため、大きな死亡保障の優先度は低め。遺されたパートナーの家事・育児負担が心配なら、<b>少額の掛け捨て</b>で十分です。'});
+    } else {
+      out.push({id:'shibou', v:'cut', reason:'あなたに万一があっても、経済的に困る人がいないなら<b>基本は不要</b>。独身・共働きで子なしは、優先度が低い保険です。'});
+    }
+    // 就業不能（唯一の「場合による」）
+    if(p.job==='self'){
+      out.push({id:'shugyou', v:'maybe', reason:'<b>自営業・フリーランスは傷病手当金がありません。</b>長く働けなくなると収入が直接ゼロに。掛け捨ての就業不能保険を検討する価値があります（まずは厚めの貯蓄が土台）。'});
+    } else if(p.job==='emp'){
+      out.push({id:'shugyou', v:'cut', reason:'会社員・公務員は、働けなくても<b>傷病手当金（給料の約2/3が最長1年6か月）</b>が出ます。まずはこれ＋貯蓄で十分なことが多く、優先度は低いです。'});
+    } else {
+      out.push({id:'shugyou', v:'cut', reason:'給与収入がない立場では対象になりにくく、基本的に不要です。'});
+    }
+    // 医療（削る／貯蓄薄はつなぎ注記）
+    out.push({id:'iryo', v:'cut', reason: p.savings==='thin'
+      ? '高額療養費で1か月の自己負担は約9万円まで（一般所得）。基本は貯蓄で備えられます。<b>ただし貯蓄が少ないうちは、安い掛け捨ての医療保険を“つなぎ”</b>で最小限だけ持ち、貯蓄が貯まったら卒業を。'
+      : '高額療養費のおかげで、入院・手術でも自己負担は月数万円〜9万円ほど。<b>貯蓄で備えられるなら、優先度は低い</b>保険です。'});
+    // がん（削る）
+    out.push({id:'gan', v:'cut', reason: p.savings==='thin'
+      ? 'がんも高額療養費の対象。貯蓄が少ないうちに備えるなら、<b>「診断一時金だけ」の安いタイプ</b>を最小限に絞るのが合理的です。'
+      : 'がん治療費も高額療養費でカバー。<b>貯蓄があれば優先度は高くありません。</b>'});
+    // 終身・個人年金（削る）
+    out.push({id:'chochiku', v:'cut', reason:'<b>「保険」と「貯蓄・投資」は分ける</b>のが鉄則。貯蓄型は手数料が高く返戻率も物足りないことが多い。保障は掛け捨て、貯めるお金はNISAへ。'});
+    out.push({id:'kojin', v:'cut', reason:'老後資金は<b>NISAやiDeCoの方が有利</b>なケースがほとんど。利回りが低く途中解約で元本割れも。まず返戻金を確認して見直しを。'});
+    // 学資（削る）
+    if(p.kids==='yes'){
+      out.push({id:'gakushi', v:'cut', reason:'低金利のいまは<b>返戻率が低くほとんど増えません</b>。教育費はNISAで積み立てる方が増えやすい。親の死亡保障が目的なら、<b>親が掛け捨ての生命保険</b>に入る方が安く大きな保障を持てます。'});
+    }
+    return out;
+  }
+
+  // 月額保険料の一般的な目安（「例で試す」用のプレフィル値）
+  var TYP = {kasai:1500,jidosha:5000,sharyo:5000,jishin:1000,shibou:2500,shugyou:3000,iryo:2500,gan:2000,chochiku:15000,kojin:12000,gakushi:10000};
+  // 公的保険で「代替できる根拠」を1行で
+  var PUB = {
+    iryo:'高額療養費で月の自己負担に上限（一般所得で約9万円）',
+    gan:'がんも高額療養費の対象',
+    chochiku:'保障は掛け捨て＋貯蓄はNISAで代替できる',
+    kojin:'老後資金はNISA・iDeCoが有利',
+    gakushi:'教育費もNISAで積み立て可能',
+    shugyou:'会社員は傷病手当金（給料の約2/3・最長1年6か月）',
+    sharyo:'賠償とは別物。使うと等級が下がり翌年の保険料が上がる',
+    jishin:'火災保険の最大50%まで＝再建費用の満額は出ない（目的は生活再建）',
+    shibou:'遺族年金＋貯蓄でカバー'
+  };
+
+  var ORDER = {cut:0, maybe:1, keep:2};
+  var answers = {}, step = 0;
+  var quiz = document.getElementById('quiz');
+  var result = document.getElementById('result');
+  function yen(n){ return Math.round(n).toLocaleString('ja-JP'); }
+
+  function renderQuiz(){
+    result.hidden = true; result.innerHTML = ''; quiz.hidden = false;
+    var q = QS[step], h = '<div class="progress">';
+    for (var i=0;i<QS.length;i++) h += '<span class="'+(i<=step?'done':'')+'"></span>';
+    h += '</div><p class="q-count">QUESTION '+(step+1)+' / '+QS.length+'</p>';
+    h += '<h3 class="q-title">'+q.title+'</h3><p class="q-help">'+q.help+'</p><div class="opts">';
+    q.opts.forEach(function(o){ h += '<button type="button" data-v="'+o.v+'">'+o.label+'<small>'+o.sub+'</small></button>'; });
+    h += '</div>';
+    if (step>0) h += '<button type="button" class="backlink" id="back">← ひとつ戻る</button>';
+    quiz.innerHTML = h;
+    Array.prototype.slice.call(quiz.querySelectorAll('.opts button')).forEach(function(b){
+      b.addEventListener('click', function(){
+        answers[q.key] = b.dataset.v;
+        if (step < QS.length-1){ step++; renderQuiz(); } else { renderResult(); }
+      });
+    });
+    var back = document.getElementById('back');
+    if (back) back.addEventListener('click', function(){ step--; renderQuiz(); });
+  }
+
+  function fv(monthly, years, annual){
+    var r = annual/12, m = years*12;
+    return monthly * (Math.pow(1+r, m) - 1) / r;
+  }
+
+  function renderResult(){
+    quiz.hidden = true;
+    var list = verdicts(answers);
+    list.sort(function(a,b){ return ORDER[a.v]-ORDER[b.v]; });
+    var cnt = {keep:0, maybe:0, cut:0};
+    list.forEach(function(x){ cnt[x.v]++; });
+
+    var h = '<div class="card" style="overflow:hidden">';
+    h += '<div class="result-head">';
+    h += '  <p class="r-label">あなたの仕分け結果</p>';
+    h += '  <p class="r-lead">見直せそうな保険が <b>'+ (cnt.cut+cnt.maybe) +'つ</b> 見つかりました。<br>下で今の保険料を入れると、削減額を試算します。</p>';
+    h += '  <div class="tally">';
+    h += '    <div class="x"><div class="n num">'+cnt.cut+'</div><div class="l">削る候補</div></div>';
+    h += '    <div class="m"><div class="n num">'+cnt.maybe+'</div><div class="l">場合による</div></div>';
+    h += '    <div class="k"><div class="n num">'+cnt.keep+'</div><div class="l">残そう</div></div>';
+    h += '  </div>';
+    h += '</div>';
+
+    // ── itemized cards with premium inputs ──
+    h += '<div style="padding:18px 18px 4px">';
+    h += '  <p style="margin:0 0 4px;font-size:13.5px;font-weight:700;line-height:1.6">入っている保険の、月の保険料を入れてみてください</p>';
+    h += '  <p style="margin:0 0 12px;font-size:12px;color:var(--ink-2);line-height:1.7">入っていない保険は空欄のままでOK。入力すると、ページ下の「削減シミュレーション」に結果が出ます。</p>';
+    h += '  <div class="exbtns"><button type="button" class="exbtn" id="ex-fill">一般的な目安を入れて試す</button><button type="button" class="exbtn" id="ex-clear">すべてクリア</button></div>';
+
+    var groups = [['cut','削れるかも','x','削る候補'],['maybe','場合による','m','場合による'],['keep','残そう','k','残す']];
+    groups.forEach(function(g){
+      var items = list.filter(function(x){ return x.v===g[0]; });
+      if(!items.length) return;
+      h += '<div class="grp-label '+g[2]+'" style="margin-top:16px"><span class="c"></span>'+g[1]+'</div>';
+      items.forEach(function(x){
+        var pub = PUB[x.id] ? '<div class="ins-note"><span class="t">公的保険でカバー</span>'+PUB[x.id]+'</div>' : '';
+        var tag = g[0]==='keep' ? '<span class="prem-tag keep">必要な保障</span>'
+                : g[0]==='maybe' ? '<span class="prem-tag maybe">見直し対象</span>'
+                : '<span class="prem-tag cut">削減できるかも</span>';
+        h += '<article class="card ins '+g[0]+'" data-ic="'+x.id+'">'
+          +  '<div class="ins-head"><h3>'+INS[x.id].name+'</h3><span class="chip '+g[0]+'">'+g[3]+'</span></div>'
+          +  '<div class="ins-body">'+x.reason+pub
+          +    '<div class="prem"><label for="p-'+x.id+'">月の保険料</label>'
+          +      '<span class="pin"><input type="number" inputmode="numeric" min="0" step="500" id="p-'+x.id+'" data-v="'+x.v+'" placeholder="'+yen(TYP[x.id]||0)+'"> 円</span>'
+          +      tag
+          +    '</div>'
+          +  '</div></article>';
+      });
+    });
+    h += '</div>';
+
+    // ── simulation summary (live, placed at the bottom) ──
+    h += '<div class="saver" style="border-top:1px dashed var(--line);margin-top:8px">';
+    h += '  <p class="saver-title">削減シミュレーション</p>';
+    h += '  <div class="delta">';
+    h += '    <p class="d-label">公的保険があるから、削れる保険料</p>';
+    h += '    <p class="d-big"><span class="yen">¥</span><span id="cut-m">0</span><span style="font-size:.42em;font-weight:600"> /月</span></p>';
+    h += '    <p class="d-sub">年間 <b id="year">0</b>円 ／ 10年で <b id="ten">0</b>円。<br><span class="maybe-line" id="maybe-line"></span></p>';
+    h += '    <div class="breakdown">';
+    h += '      <div>今の保険料 <b id="bd-total">0</b>円/月</div>';
+    h += '      <div class="keep">残す <b id="bd-keep">0</b></div>';
+    h += '      <div class="cut">削る候補 <b id="bd-cut">0</b></div>';
+    h += '      <div class="maybe">場合による <b id="bd-maybe">0</b></div>';
+    h += '    </div>';
+    h += '    <div class="invest"><div class="i-row"><span class="i-k">削れる保険料を、つみたて投資に回したら<br>（年5%で20年運用したと仮定）</span><span class="i-v num" id="inv">0</span></div></div>';
+    h += '  </div>';
+    h += '  <p class="tiny">※投資の試算は年利を仮定した参考値です。将来の成果を保証するものではなく、元本割れの可能性があります。</p>';
+    h += '  <div class="btn-row"><button type="button" class="btn" id="to-pub">公的保障の早見を見る</button><button type="button" class="btn ghost" id="again">もう一度診断する</button></div>';
+    h += '</div>';
+    h += '</div>';
+
+    result.innerHTML = h;
+    result.hidden = false;
+    injectIcons(result);
+
+    var inputs = Array.prototype.slice.call(result.querySelectorAll('.prem input'));
+
+    function val(el){ var n = parseFloat(el.value); return (isNaN(n) || n < 0) ? 0 : n; }
+    function paint(){
+      var sum = {cut:0, maybe:0, keep:0}, total = 0;
+      inputs.forEach(function(el){ var v = val(el); total += v; sum[el.dataset.v] += v; });
+      var cutM = sum.cut;
+      document.getElementById('cut-m').textContent = yen(cutM);
+      document.getElementById('year').textContent = yen(cutM*12);
+      document.getElementById('ten').textContent = yen(cutM*120);
+      document.getElementById('inv').textContent = cutM>0 ? '約'+yen(fv(cutM,20,0.05))+'円' : '0円';
+      document.getElementById('bd-total').textContent = yen(total);
+      document.getElementById('bd-keep').textContent = yen(sum.keep);
+      document.getElementById('bd-cut').textContent = yen(sum.cut);
+      document.getElementById('bd-maybe').textContent = yen(sum.maybe);
+      var ml = document.getElementById('maybe-line');
+      ml.textContent = sum.maybe>0 ? '「場合による」も見直せれば、さらに年 '+yen(sum.maybe*12)+'円。' : '';
+    }
+    inputs.forEach(function(el){ el.addEventListener('input', paint); });
+
+    document.getElementById('ex-fill').addEventListener('click', function(){
+      inputs.forEach(function(el){ var id = el.id.slice(2); el.value = TYP[id] || 0; });
+      paint();
+    });
+    document.getElementById('ex-clear').addEventListener('click', function(){
+      inputs.forEach(function(el){ el.value = ''; });
+      paint();
+    });
+    document.getElementById('to-pub').addEventListener('click', function(){ selectTab('pub'); });
+    document.getElementById('again').addEventListener('click', function(){
+      answers = {}; step = 0; renderQuiz(); window.scrollTo({top:0, behavior:'smooth'});
+    });
+    paint();
+  }
+
+  injectIcons();
+  renderQuiz();
+})();
+</script>
