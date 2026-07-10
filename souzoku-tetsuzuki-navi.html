@@ -112,8 +112,16 @@ input[type="date"], input[type="number"], select{
   font:inherit; font-size:16px; font-variant-numeric:tabular-nums;
   padding:10px 12px; border:1px solid var(--line); border-radius:2px;
   background:var(--paper); color:var(--ink);
+  max-width:100%;
 }
-.field input[type="date"], .field select{min-width:172px}
+/* iOS Safari は date/number のネイティブ外観のせいで親幅を突き破る */
+input[type="date"], input[type="number"]{
+  -webkit-appearance:none; appearance:none;
+  display:block; width:100%; min-width:0; min-height:44px;
+}
+input[type="date"]::-webkit-date-and-time-value{text-align:left; min-height:1.4em}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.5}
+.field input[type="date"], .field select{width:auto; min-width:172px}
 .calc input[type="number"]{background:var(--card)}
 .datebar .hint{font-size:12.5px; color:var(--ink-3); flex:1 1 220px; line-height:1.7}
 .btn{
@@ -302,8 +310,8 @@ footer b{color:var(--ink-2)}
   .credit img{width:46px; height:46px}
 
   .datebar{margin-top:22px; padding:18px 16px; flex-direction:column; align-items:stretch; gap:14px}
-  .field, .field input, .field select{width:100%}
-  .field input[type="date"], .field select{min-width:0}
+  .field{width:100%; min-width:0}
+  .field input[type="date"], .field select{width:100%; min-width:0}
   .datebar .hint{flex:none; font-size:12px}
   .btn{width:100%; padding:13px 16px}
 
@@ -370,7 +378,7 @@ footer b{color:var(--ink-2)}
 
     <div class="datebar">
       <div class="field">
-        <label for="dod">亡くなった日</label>
+        <label for="dod">亡くなった日（タップして選択）</label>
         <input type="date" id="dod">
       </div>
       <div class="field">
