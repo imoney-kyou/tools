@@ -1,0 +1,776 @@
+<title>親が亡くなったあとの手続きナビ 2026</title>
+
+<style>
+:root{
+  --ink:#1B2430;
+  --ink-2:#3A4553;
+  --ink-3:#6B7686;
+  --paper:#F1F3F1;
+  --card:#FFFFFF;
+  --line:#D8DDD9;
+  --line-soft:#E6EAE6;
+  --accent:#2E6E6B;
+  --accent-soft:#E2ECEA;
+  --accent-ink:#1F4F4D;
+  --urgent:#A8452F;
+  --urgent-bg:#F7E7E2;
+  --soon:#8A6A1B;
+  --soon-bg:#F6EEDC;
+  --calm:#3E7A5A;
+  --calm-bg:#E4EFE7;
+  --gold:#8C6B2F;
+  --shadow:0 1px 2px rgba(27,36,48,.05), 0 8px 24px -12px rgba(27,36,48,.18);
+  --mincho:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+  --gothic:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  --maxw:960px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ink:#E8ECE9; --ink-2:#B9C2BE; --ink-3:#8B958F;
+    --paper:#171C1D; --card:#1F2526; --line:#333B3B; --line-soft:#2A3131;
+    --accent:#79B7B0; --accent-soft:#22302F; --accent-ink:#A8D3CD;
+    --urgent:#E08A72; --urgent-bg:#33231F;
+    --soon:#D6B25E; --soon-bg:#2E2718;
+    --calm:#7FB894; --calm-bg:#1E2A22;
+    --gold:#C6A160;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#E8ECE9; --ink-2:#B9C2BE; --ink-3:#8B958F;
+  --paper:#171C1D; --card:#1F2526; --line:#333B3B; --line-soft:#2A3131;
+  --accent:#79B7B0; --accent-soft:#22302F; --accent-ink:#A8D3CD;
+  --urgent:#E08A72; --urgent-bg:#33231F;
+  --soon:#D6B25E; --soon-bg:#2E2718;
+  --calm:#7FB894; --calm-bg:#1E2A22;
+  --gold:#C6A160;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+:root[data-theme="light"]{
+  --ink:#1B2430; --ink-2:#3A4553; --ink-3:#6B7686;
+  --paper:#F1F3F1; --card:#FFFFFF; --line:#D8DDD9; --line-soft:#E6EAE6;
+  --accent:#2E6E6B; --accent-soft:#E2ECEA; --accent-ink:#1F4F4D;
+  --urgent:#A8452F; --urgent-bg:#F7E7E2;
+  --soon:#8A6A1B; --soon-bg:#F6EEDC;
+  --calm:#3E7A5A; --calm-bg:#E4EFE7;
+  --gold:#8C6B2F;
+  --shadow:0 1px 2px rgba(27,36,48,.05), 0 8px 24px -12px rgba(27,36,48,.18);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--gothic); font-size:16px; line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+h1,h2,h3{font-family:var(--mincho); font-weight:600; text-wrap:balance; line-height:1.5; margin:0}
+p{margin:0}
+a{color:var(--accent-ink)}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 8px; position:relative}
+.eyebrow{
+  font-size:11px; letter-spacing:.22em; color:var(--ink-3);
+  text-transform:none; margin-bottom:20px;
+}
+.hero h1{font-size:clamp(28px,4.6vw,44px); letter-spacing:.02em}
+.hero .lede{margin-top:18px; color:var(--ink-2); max-width:34em; font-size:15.5px}
+
+/* author credit */
+.credit{
+  display:flex; align-items:center; gap:12px;
+  margin-top:32px; padding-top:20px; border-top:1px solid var(--line);
+}
+.credit img{
+  width:54px; height:54px; border-radius:50%; object-fit:cover;
+  background:#fff; border:1px solid var(--line);
+}
+.credit .lbl{font-size:10.5px; letter-spacing:.18em; color:var(--ink-3); display:block; line-height:1.6}
+.credit .nm{font-weight:700; font-size:14.5px; letter-spacing:.02em}
+
+/* ---------- date input ---------- */
+.datebar{
+  margin:28px 0 0; background:var(--card); border:1px solid var(--line);
+  border-radius:2px; box-shadow:var(--shadow);
+  padding:22px 24px;
+  display:flex; flex-wrap:wrap; align-items:flex-end; gap:18px 24px;
+}
+.field{display:flex; flex-direction:column; gap:7px}
+.field label{font-size:12px; letter-spacing:.08em; color:var(--ink-3)}
+.field input[type="date"], .field select, .field input[type="number"]{
+  font:inherit; font-variant-numeric:tabular-nums;
+  padding:9px 12px; border:1px solid var(--line); border-radius:2px;
+  background:var(--paper); color:var(--ink); min-width:172px;
+}
+.datebar .hint{font-size:12.5px; color:var(--ink-3); flex:1 1 220px; line-height:1.7}
+.btn{
+  border:1px solid var(--accent); background:transparent; color:var(--accent-ink);
+  padding:9px 16px; border-radius:2px; font-size:13.5px; cursor:pointer;
+  letter-spacing:.04em; transition:background .15s ease;
+}
+.btn:hover{background:var(--accent-soft)}
+.btn-ghost{border-color:var(--line); color:var(--ink-3)}
+.btn-ghost:hover{background:var(--line-soft)}
+
+/* ---------- tabs ---------- */
+.tabs{
+  position:sticky; top:0; z-index:20; background:var(--paper);
+  border-bottom:1px solid var(--line); margin-top:40px;
+}
+.tabs-inner{max-width:var(--maxw); margin:0 auto; padding:0 20px; display:flex; gap:4px; overflow-x:auto}
+.tab{
+  border:0; background:none; color:var(--ink-3); cursor:pointer;
+  padding:15px 14px 13px; font-size:14px; white-space:nowrap;
+  border-bottom:2px solid transparent; margin-bottom:-1px; letter-spacing:.03em;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent); font-weight:700}
+.panel{display:none; padding:40px 0 24px}
+.panel[data-active]{display:block; animation:fade .35s ease}
+@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion:reduce){.panel[data-active]{animation:none}}
+
+/* ---------- section head ---------- */
+.sec-head{margin-bottom:24px}
+.sec-head h2{font-size:22px; letter-spacing:.03em}
+.sec-head p{margin-top:8px; color:var(--ink-2); font-size:14.5px; max-width:40em}
+
+/* ---------- progress ---------- */
+.progress{
+  background:var(--card); border:1px solid var(--line); border-radius:2px;
+  padding:16px 20px; margin-bottom:32px; display:flex; align-items:center; gap:16px;
+}
+.progress .bar{flex:1; height:6px; background:var(--line-soft); border-radius:99px; overflow:hidden}
+.progress .bar span{display:block; height:100%; background:var(--accent); width:0; transition:width .4s ease}
+.progress .cnt{font-size:13px; color:var(--ink-3); font-variant-numeric:tabular-nums; white-space:nowrap}
+
+/* ---------- timeline ---------- */
+.tl{position:relative; padding-left:34px}
+.tl::before{
+  content:""; position:absolute; left:9px; top:6px; bottom:6px; width:1px;
+  background:linear-gradient(var(--line), var(--line) 70%, transparent);
+}
+.phase{margin-bottom:38px; position:relative}
+.phase::before{
+  content:""; position:absolute; left:-30px; top:11px;
+  width:11px; height:11px; border-radius:50%;
+  background:var(--paper); border:2px solid var(--accent);
+}
+.phase-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px}
+.phase-head h3{font-size:17px; letter-spacing:.04em}
+.phase-when{
+  font-size:11.5px; letter-spacing:.1em; color:var(--ink-3);
+  border:1px solid var(--line); border-radius:99px; padding:2px 10px;
+}
+.phase-note{font-size:13.5px; color:var(--ink-3); margin-bottom:14px}
+
+.item{
+  background:var(--card); border:1px solid var(--line); border-radius:2px;
+  padding:15px 18px; margin-bottom:10px;
+  display:grid; grid-template-columns:auto 1fr auto; gap:0 14px; align-items:start;
+  box-shadow:var(--shadow);
+}
+.item.done{opacity:.55}
+.item.done .it-title{text-decoration:line-through; text-decoration-color:var(--ink-3)}
+.chk{
+  appearance:none; width:19px; height:19px; margin:4px 0 0;
+  border:1.5px solid var(--line); border-radius:2px; background:var(--card);
+  cursor:pointer; display:grid; place-content:center; flex:none;
+}
+.chk:checked{background:var(--accent); border-color:var(--accent)}
+.chk:checked::after{
+  content:""; width:10px; height:5.5px; border:2px solid var(--paper);
+  border-top:0; border-right:0; transform:rotate(-45deg) translate(1px,-1px);
+}
+.it-title{font-weight:700; font-size:15px; letter-spacing:.02em}
+.it-desc{font-size:13.5px; color:var(--ink-2); margin-top:4px; line-height:1.8}
+.it-where{font-size:12.5px; color:var(--ink-3); margin-top:6px}
+.it-where b{color:var(--ink-2); font-weight:600}
+.due{
+  text-align:right; font-variant-numeric:tabular-nums; min-width:110px; padding-top:2px;
+}
+.due .d{font-size:14px; font-weight:700; letter-spacing:.02em}
+.due .r{font-size:11.5px; margin-top:3px; padding:1px 8px; border-radius:99px; display:inline-block}
+.r.urgent{background:var(--urgent-bg); color:var(--urgent)}
+.r.soon{background:var(--soon-bg); color:var(--soon)}
+.r.calm{background:var(--calm-bg); color:var(--calm)}
+.r.over{background:var(--line-soft); color:var(--ink-3)}
+.due .placeholder{font-size:12px; color:var(--ink-3); font-weight:400}
+@media (max-width:640px){
+  .item{grid-template-columns:auto 1fr; }
+  .due{grid-column:2; text-align:left; margin-top:8px; padding-top:0}
+  .due .d{display:inline; font-size:13px}
+  .due .r{margin-left:8px}
+}
+
+/* ---------- money cards ---------- */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px}
+.mcard{
+  background:var(--card); border:1px solid var(--line); border-radius:2px;
+  padding:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:9px;
+}
+.mcard h3{font-size:16px; letter-spacing:.03em}
+.amt{font-family:var(--mono); font-size:19px; color:var(--gold); font-weight:600; letter-spacing:-.01em}
+.mcard p{font-size:13.5px; color:var(--ink-2); line-height:1.8}
+.meta{margin-top:auto; padding-top:10px; border-top:1px dashed var(--line); font-size:12.5px; color:var(--ink-3); display:flex; flex-direction:column; gap:3px}
+.meta b{color:var(--ink-2); font-weight:600}
+
+/* ---------- tax calc ---------- */
+.calc{
+  background:var(--card); border:1px solid var(--line); border-radius:2px;
+  box-shadow:var(--shadow); padding:24px; display:grid; gap:22px;
+  grid-template-columns:1fr 1fr;
+}
+@media (max-width:720px){.calc{grid-template-columns:1fr}}
+.calc .inputs{display:flex; flex-direction:column; gap:14px}
+.calc .row{display:flex; flex-direction:column; gap:6px}
+.calc .row label{font-size:13px; color:var(--ink-2)}
+.calc .row small{font-size:11.5px; color:var(--ink-3); line-height:1.6}
+.calc input[type="number"]{width:100%}
+.unit{display:flex; align-items:center; gap:8px}
+.unit span{font-size:13px; color:var(--ink-3); flex:none}
+.result{
+  background:var(--paper); border:1px solid var(--line-soft); border-radius:2px;
+  padding:20px; display:flex; flex-direction:column; gap:14px;
+}
+.verdict{font-family:var(--mincho); font-size:20px; line-height:1.5; letter-spacing:.02em}
+.verdict.no{color:var(--calm)}
+.verdict.yes{color:var(--urgent)}
+.bars{display:flex; flex-direction:column; gap:10px; font-size:12.5px}
+.barrow{display:flex; flex-direction:column; gap:4px}
+.barrow .t{display:flex; justify-content:space-between; color:var(--ink-3)}
+.barrow .t b{color:var(--ink); font-variant-numeric:tabular-nums; font-family:var(--mono); font-weight:600}
+.barrow .track{height:8px; background:var(--line-soft); border-radius:99px; overflow:hidden}
+.barrow .fill{height:100%; border-radius:99px; transition:width .4s ease}
+.fill.a{background:var(--accent)}
+.fill.b{background:var(--gold)}
+.note{font-size:12.5px; color:var(--ink-3); line-height:1.75}
+
+/* ---------- faq ---------- */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer; padding:18px 4px; font-weight:700; font-size:15px;
+  list-style:none; display:flex; gap:12px; align-items:baseline; letter-spacing:.02em;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"—"; color:var(--accent); flex:none}
+.faq details[open] summary::before{content:"×"}
+.faq .a{padding:0 4px 20px 28px; color:var(--ink-2); font-size:14px; line-height:1.9}
+.faq .a p + p{margin-top:12px}
+
+.callout{
+  border-left:2px solid var(--accent); background:var(--accent-soft);
+  padding:16px 20px; border-radius:0 2px 2px 0; margin-bottom:28px;
+  font-size:14px; color:var(--ink-2); line-height:1.85;
+}
+.callout b{color:var(--ink)}
+
+footer{
+  border-top:1px solid var(--line); margin-top:56px; padding:32px 0 64px;
+  color:var(--ink-3); font-size:12.5px; line-height:1.9;
+}
+footer .fw{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+footer b{color:var(--ink-2)}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">相続手続きナビ ／ 2026年版</div>
+    <h1>親を見送ったあとに、<br>やることと、その期限。</h1>
+    <p class="lede">悲しみのさなかに、役所も銀行も待ってくれません。しかも「知らないと損するお金」と「過ぎると取り返しのつかない期限」が混ざっています。亡くなった日を入れると、あなたの場合の締切日を計算します。</p>
+
+    <div class="credit">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQCAYAAADnRuK4AAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAJCgAwAEAAAAAQAAAJAAAAAADLA+vwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAWZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIj4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5DZWxzeXMgU3R1ZGlvIFRvb2w8L3htcDpDcmVhdG9yVG9vbD4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+Ch5i5yoAAD3fSURBVHgB7V0HYBTV1j53dlM2vfeE0EIPEDoiHZUOKiKogIi9K9b3oz6f2Cv2iuWJBSkKPAQBQZogvScEAqT33ja7c//vzLIQAgnp7CoXNltm5s4t35x+zyW6XC6PwOURuDwCl0fg8ghcHoHLI3B5BC6PwOURuDwCl0fg8ghcHoHLI3B5BP4JIyD+CZ1soj7qUC+/rGOo4nNFE93LZqu1dt5mG3gJG6YYDIYwVVXbqSq1k9IcIYUIEVJ6AzOugI0Bg+eA9imn22iWRKUkZaEQogC/pSqKkoTXMbyO6/X6U/n5+bmXsD9NcuvLADp3WB0Aml5ms3m0KuVgRweHdvju4+nhLrw8PcnT04Pc3FwJvxMAIfU6vQogSRRhNpl1xooKMhqNVFBYSAUFhZSP96LCIiopLS0zmUzpuNUBnU63HgBbW1JSsgffgTn7Lv84ALm7u7fDlPXHpDsWFRV9hs9mb29vz9LS0skAzgwApmd4aIhDVNvW1CoykgIDA6SbqyvpdAqIjyScQyaTmVTVTGaQJv6NC0BBoDSkw0tY3qXZrFJpWQllZedSYlKyiD+WQKeSkgGugnKcvwUgfKuwsHCZVoGd/vnHAAjAuaLcaHwUEzwCE+eGid/j5+fXLy0tbQqA8Kivt3ennjFdqWdMdxkcFKiNS2FREeXnF1BRUTGVl5dThcmkAYhBYwWO9Z0BxIXf+QVKQw6gVC4GZ/JwdycvL09ycnLS6oo/nkArV6+hjMwsPu92gIiBbJdFb5etrlujHV1cXP7PaKyY3b5tG0NQYCBt3b7dhIlfnZKS8gNY0rgB/frSwAH9QWlcRE5OrjgSe5SKiouoosJ0BiiVAcK3r/q9cpMYVBVgZ/wqLi6mzKxsjTq5urpQYEAAszlZXm5EFYLZWnbla+3t89+dAjk6O7t84uzsOH30NSOod4/utHDJMvnXzl3lmOTSdlFtvCeOGy19vX1ESmoa5eTkEMsxXBggVpA01qRy3Tt27ZEnTp4qAeX5ARRqLgTr441V/6Wo529NgSDPzHV2dpo+/abJEvKM2H/wEB09dgxUhZwHDujnPGLIIJkFirMncT9kGsjDAA3LMU1RmKUlnThJCSdOCUWnJOIe79s7eHic2I5h1yUwMNAVbIJtMOdoNGBbYwCId268fqKIatMK4DkMdlJCcfHHxJCBA9Se3buJU4lJohBakpXaNDbFqTywzNY83D3Ix9tLghL5Q666GRQoAHLRHrC6osrn2tNne2VhOldX1ymY8NtAOcIg3OZB8zmgE2IFfl+VlZVV6OjouK1nTLfe144fQ0eOxJEJ2hMLwSwQt4gIZ02o0VlUbSaeKREDNSs7m7bv3M3y0VEnR8fHIUgvrc31tnaOXVKgyMhIJ6jd8/BUDwwM8PfpFt0lRBGiW0lJ6Q2wuYzFU90Zmtboq4YNUXJz8wTbZnjSePLYjoNrLwl4ePKZEjG79PLyom5dOjHV9E1OTbveQa93h61oI76b+Dx7KXYJoLy8PBMozHIMcgioSnTfXj1o/NhRMrJFOKlmNRBPdS8fH29dm5aRogzqd2XWxBNY+fulmijW0GBWEB3bt6Ow0BDlxKnEKwCs7gD/7/bE0uwSQDzpoCrFGOifIfT6HToS29NYbiQvDw8BGw4F+PvJIKjLmAybZdFWELPVGu2lLp06yOSUtKj8gsLhEP43on+Zlwrcdbmv3QLodCclWNV+PLmjsrKy/UNDggkuCIIALVxcDJrluC6DcSnOZSCxcK/X60SP7l1lTm5uUEZG5mj04S+AKPFStKku97RbAHl6eraCzv00WNabGOwWYSHBIggWZD3kHGZT/LKXwiCCoZNfIqZrtCwrK/dKTkkZ5+zsvA9U9pgt98NmSXx1gxYWFmbIzs5+AFTnEZD+gG5du1BIUJDEdwEhtLrL7OJ3Bj0L+uFhobRuw0b6c/uOXKj6U2CmWGWrHbArCuTm5tYB6u4CUJxZ0LBcr58wFu4HN9hyCgUAZKtjXOt2MSXifrAbBXYqFrINsFWNQn+3gp2dqnVFzXii3QAI4BkKcr6kdauW0TNuniL79Ooh8LSK4pISzeEJ1epMZFczjl+j3+osiIqpb6+elJuXZ0hKThkGwXoVQJTV6DdsYIV2ASCAZ4jRZFoU07VLwG0zbpYBfr6C/UqKIjRPN38uKyuzK7mnpnljEHHYSElpGfXr3UueTEzygpLQF5RoEUBUWtO1zX3M5gEEYbklZJtfenSNDrxtxk2ssYgsOD09PTwwVhhokHx/X1/i0AsEadmEjacxJpFBxCEkMD2K3jHd5MHYuBDIQqEYC7ZY24yGYOsAElDT5+E1oFWrSDUvP19wDA27IVjgZPX35KlEjYVZfmuMqbOdOhhE3EcP2LfatGop9+4/GI2xyAQr/8tWWmnTAIqMjHSG2+FBgMXl2PEE5+MJJ5XIiAgOJ2XZQHux+suDXBetnSeGtR17UPW5rXhwqGWLFsIZAWlH4uL7Q71fBRCl2QKIbBpA7LIAz/+Rnzq8Rg+8op8Cb/aZ0AseXOurtoPJwClCkNfxhBMqLNVnrNVWUPE7O14ZXPCvnVctH+eQj5pe513UCD/kg+p2je5MaenpzmkZmR1Us/k7VGtuhKobVIVNA4h71qZNG5Gbm/tup47twzu2j4JcYHGM1qfXHK98/MRJuWf/AQkbkuCXFTiIeycONT0ce1SmIrjMFdZsjoVmIFnP4Xeo1hrlS03LoOTUVIKGJDkYLS09g2BF1oR52G4EfHWNRuH4vmzjYmrbqUM7uf/AoUj0Pwu/bavPODTmNTYPIAjGN8GDfh8Hf7Gltr6dZ8oTG39MPXrsOPXt2UMJCQ46UxcHu+/eu19ysHxIcLCICA8THH7KEwcvOfvdKDE5hQ4ePiLjjh7TYpmtTlpHR16h4aDVVQpNkEHEwOLCvrn6trfqddwWrh/Kg3BHREHs0fgYaKeLIWhf0qVCNh2RyFbn9PSMBxGuQbCDiLKyvBq1LB5ka7FSDv7O7CYpJZUOHTnK/ibBmltmJnyVOB2/QSgvoo7t24gWYcGYdBewLqLiUlCagmKspkgFeJIlqAqFh4aKLh07EoOL5TDtfqeFL6hFlpvjO5sVmFKyafNsi6wtq/8794OpXfuothIBcgFQIJ5GbbPqX2PDr2zM/jW8NVVqAGiuh1N04a23TJV5efmCbSMXKjyRfKy4pFQLZId9SDrodZCVWNsVQofPGzdvpZFD+9LQK3tSWEgAO1zp7tkvQd6RNOuWiTSgdzRcCEESTzXpHB3EsfiTdNOdT8n4hGTRoV0bYu8+UzEOSmPMODjoIT85EoLBNCBVFci5TVV/u1Db6/ob14lxYTlOLlq6rAzXDwSV3lHXehrrfFumQDrw+HujO3fC0hiDyIT6zk9g5cKTxC/Wwsqw/qpLu3DqE9MBlCIQAHGWJaXltC82kRYsXEW3TR0jnnnyHtI7uxAZXOnH/y6m/n1i6F9P3EMBQQEWy4pZ4oFCwBfqXLXhL7pq+CDxZJf2FODjLp0cwe2lCWaEHDqRmIZXBiWl5VJ6Xj5BK4JB001rnxU01vfK7W2Mz9xfDojDYkdC/JMBmuls1HtjY9RdnzpslgJhUoZgBejqu++YqUOkIfu7LCzjdC+1gYRMgAEkBGORh5uBenbtQBPHXUWTrh0NvoUJ597pFEo7lULeXh7khCdXYrEfL0ZOSkqj0OAAUsCaIPycM3Y8+RwWogerAhkDcEBymJhJ/gwqaDaSsbgAbDCL4o4nyT93xYkDcYkAkI5Y1eZrmwpA1oYyNczKzpG/rVtfhntdCSq003qsOd9tlgJhVeft7Tq11UNTogMIiGfAWIuF6hTT/kOxpBMmmn3n9XTN1cOpZatWZHB2wjxjttXToMAqnaDgQA0IWCpqqQI4CA8PsfxWBTx8AtevhyAkoZmdX9AO4USObv4U6u5HwWERwt/HA5g0ycW/biUsgdaWQRuwoJDlJnaONgWYmGWzScPf38+QlpZ+J9p5x/ltbfpfbBJAoD4tMYnX9O4ZowXB8yRY2RdPbh5Wi7Jd5KaJQ2n6jaMotE0UKAMojiafMKk4t5wBTqWfL/RbpcMa0an8/exnCzVCogXIW2Z658MfaOVvG7AGvgDtKoKZ4JQme2FFqooAN9GubWu2pjcJiDAmEPxDCYrGeMh0z4EKpZxtZ/N8OvtYN8/9anUXGPju9/fzmzf7wXtlwomTggHDjlMGTwGW4ZSXldJdt4yUVw8fKHTOHhaKcwncQ0xZ2H7EAnWFsYzy83LpaPwx2vTnPvp96z7ISank5mqgTu3bQ04CZWRW2IiFxwPsndmYgIp/BwD0aSNWX6uqbNEOBLVJ92943tt07tRRnExM1DrCg8UedwZTl/ZhLMiKjX8dgk2nK7JlXBpCym1igyHLI45OzuTu5U2RrVvRwD5dqF/3NuTk4EipmfmaLYk1p8YGEA8MNEHBtqec/HzFbDKxdbpZi80BCOu62ML372FDB8HcYqD0jEyNfbElNh1C65G4o5pRr3ev7vLO26YKb6RcaYqJqfMsaII2y154KY7kGxBI/Xu0J38vVzoSnwTqicwdAFpjt5VZO/xilJyS6gUw/xefm3WR4rl6cZ1HrfEvgHDYATKQX1hwMNt+tBvwoGdmZdHOPftk/x7taPmCt+jJJ+8Xgf4+YF+QiG2toL2ssOlcfSkKy3Z0iirRdshthZIn3CrPNUazeWywhEkCPP6or3tj1FmXOi4N7a+hhdCT2iIdisILANm/xIPNzs+U1Awa1Lcrffz2HPLwDyNZZqyhFhs5hMktKCqnTh2jBALi5PYdu6Sic6AO7doKLIjUGtnQUFwGkKuLq7YSBT7DHqj0f83Ze5sDEIKbI9hIxvJFuRE5eUCeOUdPyxYh9Ppz9wgPP4AHaVfsobCm17MXcg7178kaojh+9JiY//UP6pffLwfFMCjdu3aGfcpLs6LXtz8MIF4SxHmIsAi3S33rqe91NsfCMCCB7GZgfxLn5+HkB0a8jx3Rh3YdOEbF8FsxuOylMNhhEidkVKBWbVrRf154Wln5/VtQBCLMq9dtkOzc5f7Ut088FGwT4rR7+NgK49KsRMHmhGgImjdHtojoxIFjKfBqFyBUNcDXkwqQnzIrr4RGjh7KI2Yv+Dm3nSyvwfcWCKfs2KE9FAeYJpav3syanHCCmn/GQXvuVTV+Y/NGSUkZqE++mpObJyE/ftmccdPNitYaR+L0QVAgR9ZWyqGys3MUzyYPDqzOKfJ/P30mBLScxrWm1KZVjXkO2g8O7OodTE8+OA0xST40/8d1SG6Va0mJB82TA914geTFqBLLT/mgyCXwBTIIUTzwQhbZ5st6ZnMAgg7MiwQR+1KuBcobMJj7D8XTzTeMpog2kdW4FxpzgpujLvaV4dFw9qFbp4ymvMJSOG+RtBVsOy/PqCkObJx0gB0J8k0lMDHrtvjpWDZkIya/s6KB8xlABrAzt+bogfUeNgcgjIUJKVrowOHDKoK8kByqNUZNlbdMHsuxptZ2/w3eEekIueXw4WyYJw5Qbm4O+fr4aGBgwZjjifilFZaRKvUYh1H4z1nZCeDhHxF0qcAD3HzF5gAEB2Tx0fjjdMRs1gR8GBJlj+go6tChrebrqmloeELY+64Z8/gdguvFfF411Vf1mDZJoAiYZcv8se+tAXYoiQeidVQbats2itb8sUszW7Rt3RrxPs6aE7bq/a3fLVixxGYz2CoVTijRrHParDer1NFqP+IJSmerM4bldwS1D8jOydWPHtFfCLCy6mw/2sQitHTn9j307Y+/wCqbQdGdo2jmLddTcEjQeeEa1d68hgN8/wrIGrGHj8q0tEyTwcWgtG/bUvENDkBmBAC1PkDC5BvgCnnq4dsoFXaudZt2yINHjohOMD5CGL6o1ZqzvyLgDv42Vwug8RcsrFkNZLYIoE8wCLsBnlOQhf5wQnRg3x4wb3AczwUKJ/U2YyLmvvAO/bBoBY26ehANHdqf1q7bTGMn30k/fv0utWoZDhDVn/2x530J6n77g6+07PNIB6yUwZCJwC7TlOtGK48/coeOBd/6UDu+xoAs+KNH9KPjiemIU0pWjxyNVzp37KDJPlUozJkR4IcG7gsJI6to2SKCqRbCkGQ5FBDeZqHZis0B6HTm0uNwPoZjkIoMBkeE2Hix6lVZDLAMEAaxAsB67OkXkW9wPy1a8D61RwQhk687Z0ymn5f9RhAtrU9nvQZVgLKtBxiffXEePXr/TBozcqjwdHfFtgYm+mv3Ad1Tz7wmjxxNkJ9/9LJwYqeuFkZbx1uZVBrQtzst+d9GpKfRiwOHDlMKwIFcjtXmOGIAAbQSa8ZKjiWcgAvRBcRbSYcpILmOd2/Q6Zqc0aAamuhiPN2pICyxLD7CO3/Bu/DvJxJO0bGERPrxq7epfYcoksUw2kH950jC8ROvoYiI0HpRBusN2RDYPboDrfl5Ps24dTL5+Xhp3nVXyCmDh15Byxd9Ko6fSBRzX3kfJry6P49MQbNz8+jpFz6Av+wAwlUKkAQ0jDKzkbP6dG5Ha1uqviMKgedvL14PFxeXYq2AegjuDIsDserJTfTdZgGE/iKbPP2mLfJTtQUO5w0Bh6K2igyjRd+8S2FhIYT072fOYdIvocXUSzY5Uws+oB4vePwDETctYVrg+rS6uX6o0b6ImPzgzWfpSOxxKs1H2C0Me3UpXJ+PrzfNmnEjGeDTAjXBSpAU2EpNbP8C96y+Pp0FsAasmX8bp00GBfq4LvdujHMv/Gg3Rs2NUIei6H30Drobbp06Ufr4+ytMVaoWHmC2lTQYKFUrrvodgLlggQwTjJDZ0ZC9OJy2XgVsL6xluAj1caf4hDRtESHAA6VSD9Xe+4JsjPvN0QqIj0qF0vE5qNVBvGLrdf8GXFR3mtuAm9X1UsTQFPFiv+JyLCis/kG8qLZS1/vW9XwGrysiD7VY7LpebD0fmtxwCP//W7NFs0jz9lJ5BQUXBI/1EtZWUTjdy/lPlvWkJn63ZRYGU7653GRSZWm5WgN8mniEall9g8CDezAIndw9aexV/TX25YGIBOR9rPHhKAfoUFhoroY88uGmLTYOIFEGld4MZyF0MJtuauPMEjTK3j2jke/IU/Ow1yT/YFjo9PLqQ41z8/rVYtOzAptGvhlpKBAwfiElvn49tuGreM2aj58/tULsk6kauxc3n4EF8CCbq7bs6JKsB7MOo83JQDBoBEIdvQGsq7UZFkKwBig/Rt5Kx6YFfuuANuwdnAgO1HBolFt3VE9YGECcWBQyUDZGaHfD7tmwq20KQNg/IhJP1TIYyDq3iAgkbJoCLcOo6nT6WpuRrWSfVW27LLALccL0ixUOcUHZBXtZs68Fq9w2m2JhAM+/sX9p54UL5svtGxfJ1+bMAusSwt3dQ2F7zMUKzLiaExKJugmr+S52us0dZ/CXYrPe7bv2a8FlF2ognwMvveRNffF5Fc65+MBcqKJG+s1mAMTUB/l/xnMizRGjRgh3gw6uASc27UtfX28kUK55nBg8yclpdN0tD9Cg0bfQtu27tXCJxhgnzBnqQjqXaizijXEPrQ4GB8C/Zv0WfL1wfxlAvCoXMhALQL812r3rWZHNAAiJknrCs+w5bszVKlUUwnlqoh37YsnL20tgNxvO31JzFzG5r739GS1dvhp+sX307Nx5VAFLNA94g4p2vaBDB2MpIz1TA1KD6rvIxbzTM1aYWrSwC5zLrDkjM5PtQ3/BAn3wAqc06082AyAMiA+HMPhhjRODpzAnm9Zs3Ekx3boIX39fUZOnm/1JxXkF9MeWv+BgdNZ2St5/KA4UCZnCOC6oAYWpztzXP6L+I6bQsHEzaPeuA41G2c5rFsDKYbwc48zBYkD/OafAVcF70sOBqm2W9yUOXuSpOufyJvnSsNFtxCaBUmTyk5eaho2MnfS0ZsNW2n/4OF0/cSzkGR7IC5N0axM4fyAn5rb4os7mFNQmwnpSHd+ZbR05fJTe+uBLLTfiwdh4euXtTyGOQSmsY121Oh0AyYc/jVekaO6ZKnIfU5+U1HTWvuKgaCyqVZ1NfJLNAAgDsgvCb96vq9fpSnNz5H/e+FJ2REzMxPEjYawHS6tpyjCwHsj/E9U6EuvneX/3CvL388EW276aV77eYwhBnNkhTyoHuTsh4jEuPgHNKbZEJda74mou1CHGJzUdvjCz5IUFzH6Z6vCLvzP1yUaSdXz/oLm97tW0uHnXEFXXCP4dKX1PgoWtWvLzism52Rl0IDaBlvz4DXn5upMsysEZlZ75KgSJn0ykpaOnHrkTyaaSKSMrhx68exp5+mLpM4dE4BhmAEQMVIzXaV1MnqrU0FywRk4YZS0MJJ7Q2miF1mtq/Y56D8XGy9Ne9tPZ90slU1WDs7NIOJnIaf4OIOz361rX2cQn2pSui4F5B/l1xh08HGeYfssUGj3uGoAHyTCt4METqU0+e+Ux2Ge0IkwwL9zr168Hbfz1Wwx8MbaRRCgrWAGr839u3Ulbt+2ioMAAGjSgN4VEcOhHLSI/cZ/ozu20+B8WbnmhY+8e0eTsjvS/Fj9Uo06PLK+gLdt2I1VMBf21cw9YcokZ6YaR6lEVRcUlWK4iFWTjWIygu0uambVyp23KuotwhCSAqIWLq6HHB2+/SsFBXqAY7GwGyQFIKnLyyJiVSyawFBPYiIqwUgEhmdPUaQUT7oxALw/O2IHPSNZMPyxcRrPu/z8qLMHk/LWXPpn/A6ffpS4cuchArKngeDgymXF+aWxHSf36dKeXnnsU6fQ4BvksVaqpitoeY0WgAMLxv19+X9OyRl89WL78/OPqk4/cKWZNvwH5HLtTbnYmHTuR0hOUugTLeS55jmjuWyW+UNuuNu15OgeH77GJ7uQNvy2VOlMh1FVMMigPg6ciOw+fwT6sreZJxDEHH09ygAxUubD8UA4KNPDqqTRt2s107wMzSS3Mp12792PJUCzdNGmMRlmY/dVUNDMAqFgxJpeTRKF9dWKBNdVd9RizysW/rNbkt8ED+3Iq2LMrUSDQl6Qep3/N/UC+/9UvZgdnpwklBQUrqtbR3N9tioWh8y5IktQd+72TzuAgZAFrqRa0nAmKt4KHRwog4VKRk086rE5QkHb3DGXAMdNpzaxtC+RIrECWM9Dbnv1jtJfU9teoGTxctwYwANH1NNWpVn7SmlK5cXw1ykUAajnJ8pe3Vpg0eZzlGrQd3tKzhyG3OTq50POzp4u4hGT96g07XvT399+AfNfNmg/obIMsn2yKhWFrp/AKo3E29gRziInpiOUyp+0haCsLwmZoWGcMiqfBo00QPus93CDvVOoOJs4RoIqPjaWPv1hAga46JGbIx/d4KszOQmrfIExU1eGo4XtNQMD9OXZahf3GDGDyuyYj4Zo6u1R49ciFhHzcw1xRTg4CGqavl1z8v41BYPmbwMria2h1kx+yKQqEAfGHDOQaER4K+eTcFC4KAOSMBOEVkH9UDpzncAc88CxI68G+FCeQ+6qTjHOeeex2ErKC5rzyuWbd9fJwpTmzZ1FnbCkp1caxwzFrNcE3pbWp8pRh0nVIFewY4KOp5JUP1eczU0MWsDu3ayGCYaI4kZzWDfWsrE9djXWNTQEI8oYv7EE6P2wgd946MH6aARZHBKCTt+dZAEH4ZI3sPPBghFiQ9vIPoTdeeYaeTk+lUmhe3t6+5OrpDYrRCOABQFS2O/FCCHy2stTKk2NGehqzi7NGIS/Uxsrn1vgZ1NIMhYKJJmxCsBNx9D5y6V3iYlMAwhNmYBsLb2Bi4S/VyBSYLOEAdmVlQVUpT6VB5VBTIZCzMLilRrF4EhlYjVIY1BBuWfZiIJ0HIm4Xt7WOKzXOaxvqMIOdm43IwgGBPjk1S2Zk5Qks6ok/l06fd2WT/2BTAAIF4hAyLSTj9GxjAC4AIh4WK3guMESa5sQ+MLAwro9fIFkXOLPhPzFVdAryAxUCa4XQa2Wt3G6WyfRuLhobqxf1YaqGYsY2qeUFcPEA+A4OTrT4181KQVFxLnbt2XQ6KrHhHalnDTYFIFCfXOzHJbOyYSfTtakGOTX3lIXWfXsP0uLla+i5fz1A2JrHAqCaL6vVUc1wifo5DcsZKgZwclIHlnN4gs8ASKM8bHJANxjAFyunwaKdxqCHfGY2lZGprBgvuHJgzuB18Ju2H5BffL9S6B30X7P1/mLVNvVx9NB2Cnj7KWN5eeHhI3FI/Fdf9i6JE3R+tWAJffPtEhgGDA1iIUzNWAMUMFDyJnNPPPUi/W/Veot7xDp0GoUDSPhcUB0GGhsGtVIL8DBYjHDXGIuyqCw/jUpzk6gkJ5HK8lLIVAoTBXxkDJ4//twnZz32psjNK9wNVvaC9faX8r2S3nspm2G5N2KCikGFxsNcHzb5ugmnrdB1bBdkHp9AP2rTIoweefolwmZM1K17J9Ij7yI/5LBMVluhBhawPi14DFZsBkMZwit27zlIb8/7nB6f8ypWixbQzTeOpwD/Bjpqra1AoypKcuBayUNqLXjhBbZ1wAt5M7X1YVhYiVzZOXLeF0vE43M/FWmZuTuxgHEyYqKTrFVcyvd6sYmmbDCSKjyB18trVy6W3bq2FhIkHNNe51tih1pagz0sHv+/V7X4oEnXjqIRg/tjKXQ4OUMu0ZyrjCguDCqwH7YzIZ0MJZxMpv0IINu2Yy/t2ntI25CuK1wf06ZOpKuHDSAnTr1iWdRnub6+f3F/FoyNhek077PFpiPHTum6tIukiNBAlVelZsA8sH33Ed3vW/bQyaSMcuye+JVer/xfUZHmIKzvXRv1urrPTKPe/vzKOFM9BMPt48aMDF/43SekQ+J1TQg+/9SL/iKgHeVjEpYsW01L4CJIOJWssYII7EwYhrxBvAUUUx0kAIevC6lVEEqRA5cJ/xaAcJBOSGp1JVL09uvdncKQpEELToMpoL7tObfBMD7C1iVLMmjDlp3q2BnPKEjrl4N7w+GvuMIqrSAvQDlEn2QHB90aJNOcjwB6m/B/Ve6HzQGIGwcQ3Yqgqi9ee/E5+eBDM4Usgg+sHlSI69JkEbAjQoxQKkBy6Eg8tks4roV9cJwP+594S4XQkECNOrVpFUEMMN5KCZt/WahTHUNA+L4XK8xITcWZlJ+TIa+d9bz4c9fhdCdH/QikZymBQdWPo+oVVS0ANT6B1SmQom2z2CSAMFSKs4vL5456hxnzP3lbXnvdVUIWN9zlY9GiIPZVFXArszK2cLMrAcBqHEpTZeJxL3YQV0BgNpcV0APPfCC//HG1dHZymI4Y5/9WOdvmv9qUEF1ptCSSC6xDiGv3VWvWt23bsrXs0LW9QCxnpVPq8ZFlHQYH16O9+HOV72xk5POaogA8qskIypNFqrGInn3zG/WT/65QnJ0cX+QULU1xy6au01YBxCsTjGBlK8H3u674dU1bF2c3tVfPLkJhh+lFlvg09aDVuX6N6khNJZdlOVSMsJKnX54vP/x6mYLNgT8AeJ5AnU2E2jq3tk4X2CyAuBdQ60ux0PAXgChw9ZoNMbFx8RTTKVJ6B/gJwfvj2nqxAgeGQFNJFunVUtpzIF7e9dQ7YhHS2SHD2Ot4UB5FN0AG7bPYNIB4SJkSYRXCLxAmM3fvO9J32cr1LjpTiYyKDBQG7JTMS+ZhvquvjN34swbQsMGJjYMVMAKaS7JJB+Bk5+TJd75YKh9+7iPlUNzJNMg894PyvIYG2CXlsQ6cHTzG1qYSLMxunbFP6fPI2DGhW6fWYvqkq+TYawZRixYtsHUgbDsSK6A1bY27hXnRpqap5+cseDX3QwU7PYtJUZFxHv43GP7k0lWb6ZNvV4hDcadg39EtxMYocwoKCo6e7Zn9frIrAFmHGbv5jDSazA/C0z4kPMTfcXC/aBo9rK/s06MzhYQECR0i92BGBn5AYDmpB1MFa2mogFylLtVcgTALi6ecLck6IREMX4o1bQnqopWblRVr/6TjJ1M5rnojogxehQV5ubUpf4f3SiNrf93x8PDoW15ecQNS7o5ydNC1Cw3ypZ7d2tHgvl1k724dZavIUOGBbbg1QHHojJakygoo7rq1+1DZT3ff8ovl75lftYNwlEJDU9n4Z0KyTbzwB9t9Q3yBWl5aWk4JiWly7aZd9Mtvf4rdBxD5WFSSjwWCv2Ev+S9BcVbjFhX2N8o1t9g6gjWfZeNHERvsBkG7N8I7R1ZUqEOBk/ae7m4ukeGB1DEqgjq1jZBtW4XLiNAA8kOiBgAPFmlXxBg7CR3y8VjsQuz8BFIABosaf/odsgyzJn6pWHJdUWHZw6KgqERmgD0dPZFCuw8cU3bsjaWDcSeQsregAtbknUiQvgjO4aUATryND1+Dmve3AFCVEXCArBRlUtV+5grTFcj0FQ2uEwHDrreLwUnnjmSYXoif9vZ0M3m4u+i8Pd2Fq4uzGZ+x658T1GoEiOECJF2G8dqEpVomZMIwYs06bz9VJrJyC7BwMY+BohYWlYoibLuNlaSZAMshOD7XA4YrIfhz0qcGGq2q9MpGv/4dAVR1qOGId/GHVTkcByKBixZmae6NcIjrOkZF8jpzbGpXgoBCI9iTVHgBIVMi9odxdKQe3nl2bDrBHWIwOJE3wBcW4g+/Wqp5267DhWBRNzHFgUaFiK9/XkF01N++mEAR0gIDAwtAJQ6kpKSUGAyuDwMY178+5w7q2bWdRlk44ymDyQIglrsZQAiKR2wPjH0aiDjhAVMoVwTmP/vyFwqCu3Q4LRb2qn8keBg5f2cA6WDJHoK15NcZjabeGRmZgaAo2A3arQC/tTRWqJQOVgRZBcMgmY2do6xZHyuL0sZ+McsvLEibsQQZK0Q597A7VpE8j9dcVG1EvYWgRJx7rtKCLmtNf8/3vyWAAJIhEKjngDIMDgkJFtHRHakl4oCKikpo8ZLlwf369SOd3kGeTEpjqRlOb2ZbF+fmfIYLgIa8Rer2ffGyX78+cseOHVNx/bUAGLZmkCV6vUMWKNcByFysdf0P1A9Jiv6+5e8GIEfIO89CI5vdrl07x7vunKGOHzuCQkNhG3I00L7du+X3Pyw2T5kyhXe5cdi5ZY2qc/YkYUREIK9DO01lzp9u3lpbD9Dp6NvFa9R/vTrf/PAjT+gAHsrMTKObplznzLYfbD3ghn2/Ao4dO9Hx5KmkG0pKSpPRnq/ADuf9U2Wk88fSRn/x8/NzR9KBH5ydDfL+++9T09LiEeqTDXNNCoIaExFBkSU//fhN1ozKN2/eXLxz5y6J7GcVRal7pZp3WBozdsmylD9ladImWXJqo/YqTdwkjal/Spm3TybuX6XeNmVMBYBp/PXXX02bNm2SYJHynrtnqlkZsTIt+YDMSj8is/E5NemAumHdUvNtM2+S8OVJsLg4d3d3rFm+XGxyBHx8fDzgK1uOd/nJxx+ZgYgzwGHwWACUKe+/73ajoujKd+/eXYKoR9mtW7eKP1YuwF4KJ6SaH3fmJfFZFh2T0pgoC9P2y/feeM7UsUNU+fRbZ1akpaWpSUlJapcu0bzFtnnliu+RfSVLGkuTz7wqypKlNGVIac6QmzeuUAcNGiBBwTi64GGbHMB/cqPCwsIMYBNL8ITLTz8BeGSpNnHlJUkacKwAqsAEjxw53IidkMvBeoogr8gHHnzIdMeMyaosPyVlwVEpi49jz7+TqCJBpsRvVd95dU5F966djMOGDa9Ys2Ytr1mTJ0+eNMfExBhHjhyldo3uYkxO3KcyYKz3qfrOIMrLSZC33jpdBYiYav2tQGTvMpDIycl5BzLGBPAr45tvva37Y8NaddyEa+SYkSN02Ev9zLbYSNAks5G5DEt+lIyMDG3NzV133qG77rpr5Q4k5+zYuT3FHz0ukdJO/e33TerufbEysmUb8ezzL4oxo0cjTllHBw8elJMmTTJfe+21eqQlpp07tmGrpyCBpUjVPsOcttfN1Yk++vB1nKPIr7/++hUA/hiE61+qvciODlxc9bDhzoBtPQz54s0RV42QxdkFJmT20CF5hfBy9zSVOpeJt954Xt+6dSQEZMkZW9VJN96henh46QYOHGieM2eOHqsb5IQJE9TYIwcVbLkNq7NZBgWHygEDBsgJ48fpevTooQGNh2DNmjXq7bffbp4+fboO1yoDBlypPv7YfXLihBE6BsnFCtuQisv0NGHCjfTHHxsSkYmkP8CfdLHrLh9vohFgVR22l+Inn3xSfrvgq4rZdzxQmh2XJodfOURd+e4P8otn5pmHDr7SmJF2WJXmTLnh96VGAMI4d+7csu7du5ctX75c7du3rxrdNVpt1aq1BEVhMEkGVeUCFV3OmzfPHBQUZPzwww8r+NjChQvV3r17VxTmJ8qqrLIqCzv7HWzSnC337tmlBgQEsPz0eRMNzeVqLzYCAE8AwHNk6LBhyMFUArbwXvkdN88sYvHnrxV/mAf06Fe+5qMlpg6tokq6x3QuHTFiUHmHDu2KQ0JCTNHR0cVRbdoao9pGmcLDwsu7du1aFhkZWR4eEVEBNd00cNBA839e+E8FAGbasnWLnDp1qgTgzBs3btRkIKjjslev3qavvvrcJNXsamWfs8CxCPGW7wCRLJPPPPOMivaXQ2678mJ9tfXjdikDYdnLS0FBwe3enfe2dHJSRYC/nz43P898bF+s+uPyJeLIiTjxxMf/MQ8fPkLXKaqjiAyNEMF+AU4eLm7C4IhEdQ6OvHWCFhaLtfhUVFokS8pKZS5ilWNPxMu9h/epb65ah/CME+qJkyeUSTdMQp7ocoXB895775GXl6e8YdJ4vbGspI7zy1nTcumBB+6lRYsWOcbFxf0HFVyFVy0yftbxVs10ut3JQBBARwJAy9599z3lrrtuRe6oHEpKTpNXDhpfrld0YtjgYQ63TZkhurXtjDQxrnCrwzpohPmnFKE4bHHmgHz2S8AweDjuAM394i0cNpKLswuFB4USqBbFdO5ObVu1oaziXPVAQqxcu3W9XLd5A5UZS+XJU4ni5yULlYGDeivlJey1qGuR5OTiT19//aOcNWsW8oA6TgUwv6trLbZyvr0ByBna0IYhQ4f2Xr5sKTkohVou5bvvfbwi9VSWePXfL+t6de4tqAgPNFuWnSEDO+LFIEovPXc1B4KG8grz6MCxw3CQOlBOQR7FJybIXbH7VJOpQr732Ms6Ty9fLFBHAJrBAQk7i2ndzk3y3S8+lNmFWeaXXnhKN3ToQMWIPU+sfrLaTipsUQhD86QRI66hbdv+3AW3ywBciwbaX7ErAMGGcjOEiG+WLVsmhw7tI0oKs+S0GfeZ9apBfPbWx4qb6sx7IRF5YUUpkhNQmRnTAiDBcUrl+Fy5QC1HRBkoEZypTJmwclXzpuKzNGK7qMrnAn/aMcQSmbF12cc/zTe/8uHr6tNPPai7845pSm20sMrVsc/EySWQvv9+sZw2bZqAQD0Roa5Lzz3HPr5hFO2mOEEj+gQGvJDHH38EMkwBPTx7jpqXXiq//fArvQs0eCrAQ+zKgMCMZ8EhXghQYLNDuDnP+kp5VSqAc+JUgvxp5SJ1xbrllJuTTq2CwoSOSQmiDjmU45xi/YqQD6VcpV7d+yu9unYTjz47x+zi4iT69OkpkF32nEtq/oJ1JIifjmzZnpYu/VnALqWHJ39hzdfY5lG7ARDLPmBfj7755hvUpk1L8flnn6vLlq6VCz9d4OBhBiVxR1dcAJ5sAKcEk8kg4om3vnj8AYyislJ686t59Oq370nFzcnsExxAr8+fpySlJpuvGnAV9qavQqkqz5sVSEhwHhHaWvTqFC0efvb/zJ06txNRUa0BohqurVwPPnNstatbgDh+PIE2b97kD+r6DVhZw9dvV7lPU3+1DklT36fB9QM8C2G3uX7d2tWUdOqgHDP+FtP8Nz7V92nbE5QHKWD8DRZqk1eDUQ/xz4++9qR5V8JB+u7D/+qCwsJxTQX1Gdlf1UtFbvpsBQLEMCS1FWoMLvTxdx+r7//ymXntqp/03tjbDJSkln1lNuYHA+UWOXbsGOSAUCbAOv1zLS+2mdPOWFptpkUXaAhkhBaQfYZNmnQ9uI8jvfTKW+ZrBl2j9OnUV1AewANiQxlgXzWBh+tFwPz1Q8cKR0WPHREBOJTlK36m9PR0xc/L91y5Rzt6kT+gZjPHTVXC3UPF6299aNZrwWkXuabSYTPWx3frFo2lSNil2WRiQdruil0ACKM6wtfPz3v8uFHy0IE/1S1b9qiPzbxPoRyApy40FHJKv55XKL6uXmLT9s0yJy2V3vjkHRra60oKCwhGZnKwwtpSH55qnOvg6ExPz3xIt/in5WpcbDw7TGsJAt7TzEi+vj6iY8eOnMO6Jy6sS29qeZ+mPc0uAITIwlHdu3WH0NlSfPHlAnVo/yE6P4MfbDy1ZReVBhEqdP+uvc0/rfjZeNsjd5pH9R2OsFYnNaZdNCTbegwHhO7enWNETKuuyufzF5h5L43aF97NnKhr127YQUFtg+VG3rW/1jbOrMeINW/DYe5HMkLqPWzoEOQrzKWtW3Yik1iS7oopw2RqdrrUNsCoS5MgJHdr20n57ucfKSowUt4/eZZMTEsuG9Z7oAIzcV1qspwL9umAhKBTrpmorF71u8zNyZGQZ7Rj1veaKy3HzkFdEC+k8wcVCq35XNs7avMAguzTFRpYyJChg+Rff21THYWzaBkYfnrJjbYX5tlRZfaBPVNr5ARI0durU4yy9fOVTi/fN0fPbo0v5rzjHBkcXj+KxgIYZKuY9l0VCQUQuwFJpODV2lRUVIwYfBbQqisgP2oZtMpWWDJkcEJfW1R3pq3+bvMAgtuif0hIqOga3YnWrf9DRrfpSG/OfoXWf7RU+Pv4YQJOszEYBo8cOyKXrl6sVmC9usYbLjTqkFvAsqhL+2gt/R1rXQF+gQ0bB64DbWkX0YY2bd6mciY0gIEefew5uWv3Xi2e+kJN4d/MoHoBAX6IU3JnOSisuvNs9feGDVwz9Aq2kR7woFNWdg6tXbfJhHyBMh4OT2e3yvuDWWTPB994miY+Ol3EJx6HJboGYZYFZbY88zsXKwgt3+r1l90hMe26CFAgmHhMGmgSE5OV9dg8WDMNVFOrint7Yp0ZB6hdZmHVDFIDfjZg85X2J04k0FUjRplFhYNIK8xWRtw1Xp392lOm0vKy0zIQA0HQzLFT6YV7nqLIEHACCLfNWZjitI1orSQnpSCdYwnLNOTp6S73Ims+L1isDkR8HcIDBOK5mWqBpNpXqeExvfQdgf0nEBvQhhw9epS+eOND0ad9T0d/d2+KPXlMzvrXPaY75z5s/uK59/V6VmUAmMmjbuDlpDAOwphopS7N1A1E1lOQb4BSXmpUsLsyuWPbzaCgAPnntl2iEDv2eHhg8+ALtIl/c3TUCW8f7CAkJfZLsK9i0ywM4aohqtnsHugfYO7VpYe4++n71azkVApw86XFr36p37hnm9y8czPSup9WnZE5g+Adb27w8JTz4kReP8/JPbDiQ+OpHCablZUt87FdZnUUiK8VyEzvDOEfdWAzVvsqNg0gyAQBYGEityBfbNv9l3zqrifoRHqS+a4XHqwIC2sp+nSKod93bjFpWecv8bgja9oZCoMc4Ywo8vPzEcXYwZCz31cPIGAN/7G9A/dA+3OJu1Kn29s0gPBEBmBhHk2dOkW8+O5raph/kOjQqp14/cHnHcjginEXVFJuG2E0LOcgqhGanZAuBmeo72ZsbuepGo0V0pL9vqZ54ZWvml/bbpzb1t7YNIAgE7hzQ5947GHq1b+L6Dl5oHz96/dFal62Ou+TV9Q1O/4Qg2L66fhpv5QFbFbLJ5SckWp2cTOovO04e+Zh28HeLpLAxi7CVZG8wWIvOq0WXsre1O3eNi1EY/CdmR046BXx/nuv6gdc0U9+8PF89bWv31VBieTztz+hu6b/cB02Eq1brxvzbAjwZRDaGSh74g7INm0jFYOLQfAuPwZsEQVrtJqXX6Dw8WoLwMOZz1BgW7CvYtMUCEOpAdwEwyBnDZs2Y6pY9MMXChJp0v2TblPunnIH9iUB1a9pcpp0PhDXBlZVVFJMMHjS5n3b5eBBV+h4fw4WqpFUk1mTZC2Mv1cnB/HWB2WWxYl1jdJv0t7VpnJbBxA2rAF7gIrOT3A5Jio0PEQ88vBdurnz30bS7p28uRb6qSk9telvo57DSThzEUvNwNhxeI+aXphJV48YrJgRY8SJqkB9YJTWCbg0NABVd3N0kkogbOMC3lXGropNAwgTU2oEaeelwywwczFiFej9996mjBw3hGb+5yHTviP7ocaDULEtqLkK7sUMiYPyeVkQlvzQy1+9a55607VKRItwLahMozi8ZxNABE0M3vYLRw4w+IzlRpmdk016Rcluri401n1sGkB4egvKSssoPz+ftRutz0yJEpNSaPDAK/RpBRnKtU/MoEW/LcHPmFJ2XzQ1kFA/a1zZ+Tmw95Rj0YaeXvryHbNroEF5+skH9ZyX2hHBarBhaXYh8FjtPKZIF2oaA6i0tEyzFaGDmY01sc1Vj00L0RiEFCSLIqSnQ4hEe6FTkJYuM4vuufcJ2rf/sES+Qj2HdNw+92H11y1r5WM336dEtWyraNZoq2bWWPIRJprT2xWXlkDmKQK10GGpT7l85pO31a9WfC/GjblGeezx55EN2Czd3N0EVHjs7a5TkMFVBxasuTY0+1CVbTE45CM3Lw+7IhYwy0turolvrPvYNIDwdCZCOzHGx8c7Xj1yEHITqtpGcF/Nf5cqTCbNRTB2wi0U7BaoFEI+mvD4NPP4gSNp0vDxSseWUYRkU6BITGRBnSoDqfLn6kayErlg9lMKe1MptvXmwgI9BGb1xfnvqPFpCbqOHdoJZCRTk5JTmBDqigqLwJJyWXg2g0opv635g35avFxeN3EMNnhGBv1K92cAIaQW6feKeblzUnXNsdXfbRpAIDBJSNaTvmfvgXArAHjAPWFncXByooO/racKJIoqcsqRRSWuvJe6/oPFn8lF63+R7cPby+F9rpTdozqLlqGRwsfDSxjgLhDM5jRMVQEVzxAmlieXdzFk7YqF2wp47RlALNOA8sjtEJa/X7WYNuzeQg88OEuZdvNHcIR6Efa/QNMsEgGMh6KgoFCxgCqVTp5MFBs2bIGXxSinT4O/rlIBWaWEhFOirLysyNXFJQVukEpHbf+jTQMIsk8uXBm7N27cGp5w7IQMhwbGAVo8mex0YuGUJ3rsiD7ieGKqfHjIeLpqUA/sVVEupt43l3bG7qUWSNcCamUO8Q9SWgZH6EL9glQEj6lhQaHC19NHeLq5Y2tVZKwHpWKtiutntwSr5UWlxTIzJ1MeTUpQt+z7i3bF7teAAiOh0jaqlemZpx/FFs8ch8Za4tnJxup73ptVIDejTtslkakZZCBQGbS/ijqPY0di4wVYXwaWOdtdumCbBhBPCajQTydOJo77/sclNHXK9eSOPeHZQAfNhYYPu1LMun2GWAT2kJWZJR64+zbqEt2a1NI8mvPQzeKFN36kq3sPhatS6tZsXy+Xb1yNzKr9ZOGGAjUjLUN4urqbHfWOOn8vP6zScEUuQ0eV5xqala6guAALPvJkalY6fHEFYmjPAcr00ZMBM0W+/d3H5junTyNsfieqW5VqMT+w5nXWNsh2ocrsi/vHsUNxccfwSTmFWKci/s2eis0DyGAoXlpY6HRwwXdLOl3Rvw9nGNOSf0NAxWSoNHH8SBo2dIC4/c7ZMi0zT5CrH6iIjqZcNwrh0nrxzcJfkZG1VB5NSJJPPPa4eOSRR3Rr167Vvf7G65BRiuWVfVo7XNG7szkjO593TYZbX2rbhIdg7/molmF0MjmD7nj8bfV46kn6+JevTYqjIu955Fblrtun6RnEdSlVwcMaWDHCXo8fPyGwxe5RbGVViY7VpeZLd67NAygriwrd3BxewFP63YLvFhPWomvqMD/hGmfAnly8lAZxyEgOxXvMS6T0dSGdgwss19PolpuniAMH4+i6Wx8jzoaBzGBgLy50NC5etI+K1L/0/JPk4eqgkxxQr/EhbHMA+eqXZetozaa9NGbMVdSyRSiNGT9K3njjRMXHyxMalhfS2jV8+29+CJJT0pBdJJU1sP2XDgb1v7PNA4i7hqxhC7H099oFCxZN2rfvEHIXRiCzvIE1Mc7NTEmJKXToUJxISc9ga+5pIODNDPOjmycdPHpK+vkFUkREhAY2nrj8/Dx543WjVY+QcEXCb0V6y8OPfSgp+VQyzX7+Y1WFGfDjb1eytK0OHthPad0qUjEjKL8xwMP94iVAiFiUubn5yHPkuA/Ll/hnuyp2ASCMKGcHewh/Bh5POBmIWGMzfEcqNnETrkiaGRIcqHTo0FbdtmMfhFrW3NlmA0oCDUeFIfKT+d/TuPETwSYs3QUgmRXKa4YNUHhps1UCFlCxORz1nkf+LY8eSxBDhlwJOWug6NO7u541v0MHj5A3Ypc9sOEKGwqZBVnYEmtvtZ93vo5fJaCYv676XYHQnoarD9e+Bts5014AxBPmhLXjBqjBNGH8SAU2FnYTwNbjDBC50GFQoIce+T/zN198r588aaxmDS4tKaGXX3mfsvNK1Fm3zTwTawMVm1qEBcuWLcJ1MCtrsyGgOWWnI13MrNlqUnqmmHnrVPHzL78if89OGjiwn5x03VjClgkCQf6UAWMmYn40eQwhGxqYOJ7HCowLT68FZKyFQc2H4bCQ8DDwKg7ewGUbQG13Vmjup90ACGp1sE6ndw8PC0GscSCntUOsjcVOqIdt5yo4Mee+8C/57MvvqO9/ukCJjAyX0N5o+459NP/L+cLP72y8OttaeHce7AkGsx87rHS0a8de9d6HngXXU8Sbr/9bBAb6M1Bp2fLVBCCJ9eu3yH59e5hHjx4hYrp3UcygSLlgnwxivr+DI+QwUDjezYdZJFNB/semAaaGLLMxy63AfY0AIcgeffPfhWoi2CXW+39pj+zLrgCEp9sfTzm2sPQgfz9fLQTUqtXwk8/l9lk36665ajAm/Tfa8MdW0aNXDGVm5yEheLR23PqnFO6I4ycSlQ8//5Zuu3UKvfnOZ+oHny6QOXn54v15LwI8AYJdKGFhwXDczqLrQX3eff9z8euva3Vbtu6QYaHBNHzEIJp640S29wAQcPjiZWFjNfAytJOt2OC89Oln38pv/vuTAuH/dySXWmZtm729/z+9/gayVkllegAAAABJRU5ErkJggg==" alt="">
+      <div>
+        <span class="lbl">作成者</span>
+        <span class="nm">きょう（i-money）</span>
+      </div>
+    </div>
+
+    <div class="datebar">
+      <div class="field">
+        <label for="dod">亡くなった日</label>
+        <input type="date" id="dod">
+      </div>
+      <div class="field">
+        <label for="preset">表示</label>
+        <select id="preset">
+          <option value="all">すべての手続き</option>
+          <option value="todo">まだ終わっていないものだけ</option>
+        </select>
+      </div>
+      <p class="hint">日付はこの端末にだけ保存されます。チェックの状態も残るので、少しずつ進めて大丈夫です。</p>
+      <button class="btn btn-ghost" id="reset">入力をリセット</button>
+    </div>
+  </header>
+</div>
+
+<nav class="tabs">
+  <div class="tabs-inner" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="t1">期限とやること</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="t2">もらえるお金・戻るお金</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="t3">相続税がかかるか調べる</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="t4">つまずきやすい所</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ========== TAB 1 ========== -->
+  <section class="panel" id="t1" data-active role="tabpanel">
+    <div class="sec-head">
+      <h2>期限とやること</h2>
+      <p>上から順に進めれば大丈夫です。期限が近いものから色が変わります。ひとつずつチェックを付けてください。</p>
+    </div>
+
+    <div class="progress">
+      <div class="bar"><span id="pbar"></span></div>
+      <div class="cnt"><b id="pdone">0</b> / <span id="ptotal">0</span> 件</div>
+    </div>
+
+    <div class="callout">
+      <b>まず落ち着いて。</b>本当に急ぐのは「死亡届（7日）」「年金の受給停止（10〜14日）」の2つだけです。あとの手続きは、葬儀が終わってからで間に合います。
+    </div>
+
+    <div class="tl" id="timeline"></div>
+  </section>
+
+  <!-- ========== TAB 2 ========== -->
+  <section class="panel" id="t2" role="tabpanel">
+    <div class="sec-head">
+      <h2>もらえるお金・戻ってくるお金</h2>
+      <p>どれも<b>申請しないと1円も出ません</b>。役所や年金事務所から「もらえますよ」と教えてくれることは、ほとんどありません。</p>
+    </div>
+    <div class="grid" id="money"></div>
+    <p class="note" style="margin-top:24px">金額は2026年（令和8年）時点の代表的な水準です。葬祭費など自治体ごとに差があるものは、必ずお住まいの市区町村の窓口・公式サイトでご確認ください。</p>
+  </section>
+
+  <!-- ========== TAB 3 ========== -->
+  <section class="panel" id="t3" role="tabpanel">
+    <div class="sec-head">
+      <h2>相続税がかかるか調べる</h2>
+      <p>亡くなった方の財産が「基礎控除」以下なら、相続税はかかりませんし、申告も要りません。実際、相続税がかかるのは亡くなった方のうち1割前後です。</p>
+    </div>
+
+    <div class="callout">
+      基礎控除 ＝ <b>3,000万円 ＋ 600万円 × 法定相続人の数</b>。たとえば父が亡くなり、母と子2人が相続人なら、3,000＋600×3＝<b>4,800万円</b>までは相続税ゼロです。
+    </div>
+
+    <div class="calc">
+      <div class="inputs">
+        <div class="row">
+          <label for="heirs">法定相続人の数</label>
+          <div class="unit"><input type="number" id="heirs" min="1" max="20" value="2"><span>人</span></div>
+          <small>配偶者＋子。子がいなければ配偶者＋親、それもいなければ配偶者＋兄弟姉妹。相続放棄した人も数に含めます。</small>
+        </div>
+        <div class="row">
+          <label for="assets">財産の合計（不動産・預貯金・株など）</label>
+          <div class="unit"><input type="number" id="assets" min="0" step="10" value="3000"><span>万円</span></div>
+          <small>自宅は「固定資産税の課税明細」の評価額がおよその目安（土地は路線価で計算するため実際は上下します）。</small>
+        </div>
+        <div class="row">
+          <label for="ins">死亡保険金</label>
+          <div class="unit"><input type="number" id="ins" min="0" step="10" value="0"><span>万円</span></div>
+          <small>500万円 × 相続人の数 までは非課税。超えた分だけ課税財産に加えます。</small>
+        </div>
+        <div class="row">
+          <label for="taishoku">死亡退職金</label>
+          <div class="unit"><input type="number" id="taishoku" min="0" step="10" value="0"><span>万円</span></div>
+          <small>こちらも 500万円 × 相続人の数 までは非課税です。</small>
+        </div>
+        <div class="row">
+          <label for="zouyo">亡くなる前3年以内に受けた贈与</label>
+          <div class="unit"><input type="number" id="zouyo" min="0" step="10" value="0"><span>万円</span></div>
+          <small>相続で財産をもらう人が生前にもらった分は、財産に足し戻して計算します。年110万円以下の贈与も対象。2026年の相続は3年分ですが、2027年から段階的に伸び、7年分になるのは2031年以降の相続からです。</small>
+        </div>
+        <div class="row">
+          <label for="debt">借金・葬式費用</label>
+          <div class="unit"><input type="number" id="debt" min="0" step="10" value="0"><span>万円</span></div>
+          <small>住宅ローン、未払いの医療費・税金、葬儀にかかった費用は財産から引けます（香典返し・法要は除く）。</small>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="verdict" id="verdict">—</div>
+        <div class="bars">
+          <div class="barrow">
+            <div class="t"><span>課税される財産</span><b id="kazei">—</b></div>
+            <div class="track"><div class="fill b" id="fillB" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="t"><span>基礎控除</span><b id="kiso">—</b></div>
+            <div class="track"><div class="fill a" id="fillA" style="width:0"></div></div>
+          </div>
+        </div>
+        <p class="note" id="calcnote"></p>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:24px">この判定はあくまで概算です。とくに<b>「配偶者の税額軽減」や「小規模宅地等の特例」を使って税額がゼロになる場合でも、相続税の申告は必要</b>です（申告しないと特例が使えません）。境界線に近いときは税理士にご相談を。</p>
+  </section>
+
+  <!-- ========== TAB 4 ========== -->
+  <section class="panel" id="t4" role="tabpanel">
+    <div class="sec-head">
+      <h2>つまずきやすい所</h2>
+      <p>実際に多くの人が後悔するポイントを、先回りしてお伝えします。</p>
+    </div>
+    <div class="faq" id="faq"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="fw">
+    <p><b>ご利用にあたって。</b>本ツールは2026年（令和8年）7月時点の公的情報をもとにした一般的な解説であり、個別の税務・法律相談ではありません。金額・期限は制度改正や自治体によって変わります。実際の手続きは、市区町村・年金事務所・法務局・税務署などの公式情報、または税理士・司法書士・弁護士にご確認ください。</p>
+    <p style="margin-top:14px">入力内容はこの端末のブラウザ内にのみ保存され、外部に送信されません。</p>
+    <p style="margin-top:14px">作成：きょう（i-money）</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  const KEY = "kyou.souzoku.v1";
+
+  /* ---------- data ---------- */
+  // off: {d:日数} or {m:月} or {y:年} from date of death
+  const PHASES = [
+    {
+      id:"p1", title:"すぐに（〜14日）", when:"死亡直後",
+      note:"役所と年金。ここだけは日数が短いので、葬儀社に任せきりにせず自分でも把握しておきます。",
+      items:[
+        {id:"hansou", t:"搬送と葬儀社は、分けて考える", off:{d:2},
+         d:"病院で亡くなると「すぐ搬送先を決めてください」と言われますが、病院が紹介した業者に葬儀まで頼む義務はありません。搬送だけ依頼して、葬儀社は落ち着いてから選び直せます。料金体系は会社ごとに大きく違うので、可能なら2社以上に見積もりを。",
+         w:"— 契約前に、総額と内訳の書面を必ずもらう"},
+        {id:"todokede", t:"死亡届・火葬許可申請", off:{d:7},
+         d:"死亡診断書とセットで市区町村へ。実務は葬儀社が代行してくれることがほとんどですが、提出は7日以内。",
+         w:"市区町村役場（死亡地・本籍地・届出人の住所地のいずれか）"},
+        {id:"copies", t:"死亡診断書のコピーを5枚とる", off:{d:7},
+         d:"提出すると手元に残りません。保険金請求や名義変更で何度も使うので、出す前に必ずコピーを。",
+         w:"— 原本は役所へ提出"},
+        {id:"kousei", t:"厚生年金の受給停止", off:{d:10},
+         d:"亡くなった方が厚生年金を受け取っていた場合。届出が遅れて振り込まれ続けると、あとで全額返還になります。",
+         w:"年金事務所・街角の年金相談センター"},
+        {id:"kokumin", t:"国民年金の受給停止", off:{d:14},
+         d:"日本年金機構にマイナンバーが登録済みなら届出を省略できる場合があります。あわせて「未支給年金」の請求も。",
+         w:"市区町村役場・年金事務所"},
+        {id:"setai", t:"世帯主の変更届", off:{d:14},
+         d:"亡くなった方が世帯主で、残る世帯員が2人以上いる場合のみ必要（残りが1人なら不要）。",
+         w:"市区町村役場"},
+        {id:"kenpo", t:"健康保険証・介護保険証の返却", off:{d:14},
+         d:"国民健康保険・後期高齢者医療は資格喪失届。会社員だった場合は勤務先が手続きします。",
+         w:"市区町村役場（会社員なら勤務先）"},
+        {id:"ryoshu", t:"葬儀の領収書をすべて保管する", off:{d:14},
+         d:"通夜・告別式・火葬・お寺へのお布施・心づけまで、葬儀費用は相続財産から差し引けます（＝相続税が下がる）。領収書が出ないお布施などは、日付・金額・相手先をメモに残せば認められます。ただし香典返し、初七日など法要の費用、墓石・仏壇の購入費は差し引けません。",
+         w:"— 相続税の申告で使うので、10か月後まで保管"}
+      ]
+    },
+    {
+      id:"p2", title:"落ち着いたら（1〜2か月）", when:"葬儀のあと",
+      note:"ここで「財産と借金がいくらあるか」を洗い出します。3か月の期限が静かに迫っているためです。",
+      items:[
+        {id:"koseki", t:"戸籍を集めて相続人を確定する", off:{m:2},
+         d:"亡くなった方の出生から死亡までの連続した戸籍が必要。2024年から本籍地でなくても最寄りの役所でまとめて取れます（広域交付）。",
+         w:"市区町村役場"},
+        {id:"ichiran", t:"法定相続情報一覧図をつくる", off:{m:2},
+         d:"戸籍の束の代わりに1枚で証明できる無料の書類。銀行・法務局・税務署で使い回せるので、手続きが一気にラクになります。",
+         w:"法務局（無料・何通でも）"},
+        {id:"zaisan", t:"財産と借金の一覧をつくる", off:{m:2},
+         d:"預貯金・不動産・株・保険。そして借金。通帳、郵便物、スマホの明細を確認。2026年2月からは全国の不動産を一括で調べられる「所有不動産記録証明制度」も使えます。",
+         w:"金融機関・法務局（1通1,600円）・信用情報機関（CIC/JICC/KSC）"},
+        {id:"yuigon", t:"遺言書があるか確認する", off:{m:2},
+         d:"自宅で見つかった手書きの遺言は、勝手に開封せず家庭裁判所で「検認」を。法務局に預けてある場合と公正証書遺言は検認不要。",
+         w:"家庭裁判所・法務局・公証役場"},
+        {id:"karibarai", t:"必要なら預貯金の仮払いを受ける", off:{m:2},
+         d:"口座は死亡を知らせると凍結されます。遺産分割前でも、1金融機関あたり最大150万円までは引き出せる制度があります（残高×1/3×自分の法定相続分が上限）。",
+         w:"各金融機関"},
+        {id:"genkin", t:"引き出した現金の金額と使い道を記録する", off:{m:2}, hard:true,
+         d:"相続税は「亡くなった日の残高」で計算します。凍結前に下ろした現金も、まだ財産の中にあるものとして申告が必要です。葬儀に使った分は葬式費用として差し引けますが、余った分は財産に戻す。ここは税務調査で最初に見られる場所です。下ろしたお金は自分のものではなく、一時的に借りているだけと考えてください。",
+         w:"— 通帳の記帳と領収書をセットで保管"},
+        {id:"card", t:"クレジットカードの死亡連絡", off:{m:2},
+         d:"カード会社に連絡して解約します。ただし止まるのは決済だけで、サブスクなどの契約そのものは残ります。「カードを止めれば全部止まる」わけではなく、支払えないまま延滞・未払いになるので、下の解約も必要です。",
+         w:"各カード会社"},
+        {id:"kaiyaku", t:"サブスク・携帯・公共料金の解約と名義変更", off:{m:2},
+         d:"何を契約していたかは、スマホのアプリ一覧、通帳とカードの引き落とし履歴、メールの領収書から洗い出します。電気・ガス・水道は、同居の家族が住み続けるなら解約ではなく名義変更で足ります。",
+         w:"各サービス・携帯会社・電力/ガス/水道"}
+      ]
+    },
+    {
+      id:"p3", title:"3か月以内", when:"期限あり",
+      note:"借金を相続したくないなら、この期限を1日でも過ぎたら原則もう放棄できません。",
+      items:[
+        {id:"houki", t:"相続放棄・限定承認の判断", off:{m:3}, hard:true,
+         d:"借金のほうが多いなら「相続放棄」。プラスの範囲でだけ引き継ぐのが「限定承認」。財産を使ったり処分したりすると、承認したとみなされ放棄できなくなります。調査が終わらないときは期間の伸長を申し立てられます。",
+         w:"家庭裁判所（亡くなった方の最後の住所地）"}
+      ]
+    },
+    {
+      id:"p4", title:"4か月以内", when:"期限あり",
+      note:"",
+      items:[
+        {id:"junkakutei", t:"準確定申告", off:{m:4}, hard:true,
+         d:"亡くなった年の1月1日から死亡日までの所得を、相続人が代わりに申告します。年金収入のみで一定額以下なら不要なことも。逆に、医療費が多かった人は申告すると税金が戻ってきます。",
+         w:"亡くなった方の住所地の税務署"}
+      ]
+    },
+    {
+      id:"p5", title:"10か月以内", when:"期限あり",
+      note:"遺産の分け方が決まっていないと、税金を安くする特例が使えません。逆算して動きます。",
+      items:[
+        {id:"bunkatsu", t:"遺産分割協議・協議書の作成", off:{m:9},
+         d:"相続人全員の合意と実印・印鑑証明が必要。ひとりでも欠けると無効です。まとまらなければ家庭裁判所の調停へ。",
+         w:"相続人全員"},
+        {id:"meigi", t:"預貯金・株・車などの名義変更", off:{m:10},
+         d:"協議書ができたら各機関で解約・移管。必要書類は機関ごとに微妙に違うので、事前に電話で確認を。",
+         w:"金融機関・証券会社・陸運局"},
+        {id:"souzokuzei", t:"相続税の申告と納付", off:{m:10}, hard:true,
+         d:"基礎控除を超える場合のみ。現金一括納付が原則です。特例で税額ゼロになる場合も申告は必要。",
+         w:"亡くなった方の住所地の税務署"}
+      ]
+    },
+    {
+      id:"p6", title:"1年〜3年", when:"忘れがち",
+      note:"ここまで来れば一段落。ただし相続登記は義務で、放置すると過料の対象です。",
+      items:[
+        {id:"iryubun", t:"遺留分侵害額請求（必要な場合）", off:{y:1}, hard:true,
+         d:"遺言で自分の取り分が極端に少なかったとき、最低限の取り分を請求できる権利。侵害を知ってから1年で時効です。",
+         w:"相手方への意思表示（内容証明郵便）・家庭裁判所"},
+        {id:"seiho", t:"生命保険金の請求", off:{y:3},
+         d:"請求期限は原則3年。受取人固有の財産なので、遺産分割を待たずに請求でき、相続放棄をしても受け取れます。",
+         w:"保険会社"},
+        {id:"touki", t:"相続登記（不動産の名義変更）", off:{y:3}, hard:true,
+         d:"2024年4月から義務化。相続を知り、かつ不動産を取得したと知った日から3年以内。正当な理由なく怠ると10万円以下の過料。すぐに分割協議がまとまらないときは「相続人申告登記」を。",
+         w:"法務局"},
+        {id:"izoku", t:"遺族年金・寡婦年金などの請求", off:{y:5},
+         d:"時効は5年。親を亡くしたケースでは、残された親（配偶者）が受け取れることがあります。",
+         w:"年金事務所・市区町村役場"}
+      ]
+    }
+  ];
+
+  const MONEY = [
+    {t:"葬祭費", amt:"3万〜7万円",
+     p:"国民健康保険・後期高齢者医療に入っていた方が亡くなったとき、葬儀を行った人に支給されます。金額は自治体によって差があり、東京23区は7万円、多くの市町村は5万円です。",
+     who:"喪主・葬儀を行った人", where:"市区町村役場", lim:"葬儀の翌日から2年"},
+    {t:"埋葬料", amt:"一律 5万円",
+     p:"会社の健康保険（協会けんぽ・健保組合）に入っていた方が亡くなったとき。生計を維持されていた家族に支給されます。家族がいない場合は、実際に埋葬した人に上限5万円の「埋葬費」。",
+     who:"生計を同じくしていた家族", where:"協会けんぽ・健保組合", lim:"死亡の翌日から2年"},
+    {t:"未支給年金", amt:"1〜2か月分",
+     p:"年金は後払いのため、亡くなった月の分までは必ず未払いが残ります。同居していた配偶者・子などが請求すれば受け取れます。請求しないと支給されません。",
+     who:"生計を同じくしていた遺族", where:"年金事務所・市区町村役場", lim:"支払日の翌月から5年"},
+    {t:"高額療養費の払い戻し", amt:"数万〜数十万円",
+     p:"入院で医療費がかさんだ月があれば、自己負担の上限を超えた分が戻ります。亡くなったあとでも相続人が請求可能。2026年8月から上限額が改定されています。",
+     who:"相続人", where:"市区町村役場・健保組合", lim:"診療月の翌月1日から2年"},
+    {t:"生命保険金", amt:"契約による",
+     p:"受取人固有の財産なので、遺産分割協議を待たずに請求できます。相続放棄をしても受け取れるのが大きな特徴。500万円×相続人の数までは相続税もかかりません。",
+     who:"契約で指定された受取人", where:"保険会社", lim:"原則3年"},
+    {t:"遺族年金", amt:"年 約85万円〜",
+     p:"残された配偶者や子が受け取れます。遺族基礎年金は年847,300円＋子の加算（第1・2子は各243,800円）。会社員だった方なら遺族厚生年金も上乗せされます。",
+     who:"配偶者・18歳以下の子など", where:"年金事務所・市区町村役場", lim:"5年"},
+    {t:"預貯金の仮払い", amt:"1行あたり最大150万円",
+     p:"口座凍結後でも、葬儀費用や当面の生活費のために引き出せる制度。上限は「残高 × 1/3 × 自分の法定相続分」、かつ1金融機関150万円まで。",
+     who:"各相続人", where:"各金融機関", lim:"遺産分割が終わるまで"},
+    {t:"所得税・住民税の還付", amt:"人による",
+     p:"準確定申告をすると、亡くなった年の医療費控除や、源泉徴収されすぎた税金が戻ってくることがあります。入院が長かった方は要チェック。",
+     who:"相続人", where:"税務署", lim:"死亡を知った日の翌日から4か月"}
+  ];
+
+  const FAQ = [
+    {q:"銀行に死亡を伝えると口座が凍結されると聞きました。伝えないほうがいい？",
+     a:["伝えるべきです。凍結は、勝手に引き出されて相続人同士がもめるのを防ぐための仕組みです。","ただし、凍結前後に相続人のひとりが預金を引き出して使ってしまうと、法律上「単純承認」＝相続を認めたとみなされ、あとから借金が見つかっても相続放棄ができなくなる恐れがあります。当面のお金が必要なら、勝手に引き出さず「預貯金の仮払い制度」を使ってください。"]},
+    {q:"借金があるかどうか、どうやって調べればいいですか？",
+     a:["まず郵便物と通帳の引き落とし履歴。次に、信用情報機関（CIC・JICC・全国銀行個人信用情報センター）に相続人として開示請求ができます。3機関すべてに請求すれば、カードローンや消費者金融の借入はほぼ把握できます。","注意が必要なのは、個人間の借金や、他人の借金の連帯保証人になっているケース。これらは信用情報に載りません。3か月では調べきれないときは、家庭裁判所に「熟慮期間の伸長」を申し立てられます。"]},
+    {q:"相続放棄をしたら、生命保険金や遺族年金も受け取れなくなりますか？",
+     a:["いいえ、受け取れます。","生命保険金は受取人固有の財産、遺族年金は遺族自身の権利であって、どちらも「亡くなった方の遺産」ではないためです。ただし、生命保険金の受取人が「亡くなった本人」になっている契約は遺産扱いになるので、そこだけ注意してください。","なお、相続放棄をしても、生命保険金にかかる相続税の計算上は非課税枠（500万円×相続人の数）が使えなくなる点にはご留意を。"]},
+    {q:"実家を空き家のまま放置しています。問題ありますか？",
+     a:["2つの意味で問題があります。ひとつは相続登記。2024年4月から義務化され、正当な理由なく3年以内に登記しないと10万円以下の過料の対象です。過去に相続した分も対象になっています。","もうひとつは固定資産税。管理されていない空き家は「特定空家」「管理不全空家」に指定されると、住宅用地の特例（税額が6分の1）が外れ、固定資産税が最大6倍になります。売る予定がなくても、まず登記と最低限の管理を。"]},
+    {q:"相続人が誰かで、いつももめます。順番を教えてください。",
+     a:["配偶者は常に相続人です。それに加えて、第1順位が子（亡くなっていれば孫）、子がいなければ第2順位の親、親もいなければ第3順位の兄弟姉妹（亡くなっていれば甥・姪）。上位がひとりでもいれば、下位には移りません。","取り分は、配偶者と子なら 1/2 ずつ（子が複数なら子の1/2を頭割り）、配偶者と親なら 2/3 と 1/3、配偶者と兄弟姉妹なら 3/4 と 1/4 です。"]},
+    {q:"遺産分割が10か月以内にまとまりませんでした。相続税はどうなりますか？",
+     a:["いったん「法定相続分で分けたもの」として申告・納税します。この段階では、配偶者の税額軽減や小規模宅地等の特例（自宅の土地の評価が最大8割減）は使えません。つまり本来より重い税金を先に払うことになります。","そのとき「申告期限後3年以内の分割見込書」を一緒に出しておけば、3年以内に分割がまとまった時点で特例を適用し直し、払いすぎた分の還付を受けられます。この書類を出し忘れる人が多いので、必ず添付してください。"]},
+    {q:"凍結される前に、親の口座からお金を下ろしておいても大丈夫ですか？",
+     a:["下ろすこと自体で刑務所に入ることはありません。子が親の預金を引き出すのは直系血族どうしなので、刑法244条の親族相盗例により窃盗罪の刑は免除されます。「逮捕される」という脅し文句を見かけますが、現実的ではありません。","本当のリスクは3つです。ひとつは、財産を使ってしまうと「単純承認」とみなされ、あとから借金が見つかっても相続放棄ができなくなること。ふたつめは、ほかの相続人から使い込みを疑われ、返還を求められること。みっつめが、税務署に指摘されることです。","なお、社会通念上ふつうの範囲の葬儀費用に充てるだけなら、相続放棄はできると判断した裁判例（大阪高裁 平成14年7月3日）があります。それでも、下ろした金額と使い道は必ず記録に残してください。"]},
+    {q:"下ろしたお金は、相続税の申告にどう影響しますか？",
+     a:["相続税は「亡くなった日の残高」で計算します。ですから、死亡後に下ろした現金は、まだ財産の中にあるものとして申告しなければなりません。葬儀に使った分は葬式費用として差し引けますが、余った分をそのまま自分のものにして申告しなければ、それは申告漏れです。","下ろしたお金は自分のものではなく、一時的に借りているだけ。そう考えるのが安全です。税務調査で最初に見られるのが、この死亡前後の預金の動きです。"]},
+    {q:"相続税の申告をしたら、税務調査は来ますか？",
+     a:["全員に来るわけではありません。2024事務年度（令和6事務年度）の実地調査は9,512件。相続税の課税対象になった方は年間16万人ほどなので、実際に調査官が訪ねてくるのは6%前後です。電話や書面での「簡易な接触」を含めても2割弱にとどまります。","ただし、調査に入られた場合はかなり厳しい。9,512件のうち7,826件、実に82%で申告漏れが見つかっています。時期は申告のおおむね1〜2年後。財産が多い、預金の動きが不自然、名義預金がある、といったケースが選ばれやすくなります。","財産が基礎控除ぎりぎり、あるいは不動産が多い場合は、相続専門の税理士に依頼したほうが結果的に安くなることが多いです。報酬の相場は財産額の0.5〜1%程度です。"]},
+    {q:"手続きが多すぎて、何から手を付ければいいか分かりません。",
+     a:["最初の2週間は「死亡届」と「年金の受給停止」だけで十分です。ほかは待ってくれます。","次に、戸籍を集めて相続人を確定し、「法定相続情報一覧図」を法務局で無料でつくってください。これ1枚で、銀行・法務局・税務署のほとんどの手続きを進められるようになり、戸籍の束を毎回持ち歩く必要がなくなります。ここが一番の分岐点です。","そのうえで、不動産があるなら司法書士、相続税がかかりそうなら税理士。どちらも初回相談が無料の事務所が多くあります。"]}
+  ];
+
+  /* ---------- date helpers ---------- */
+  function addDays(d,n){const x=new Date(d); x.setDate(x.getDate()+n); return x;}
+  function addMonths(d,n){
+    const x=new Date(d), day=x.getDate();
+    x.setDate(1); x.setMonth(x.getMonth()+n);
+    const last=new Date(x.getFullYear(), x.getMonth()+1, 0).getDate();
+    x.setDate(Math.min(day,last));
+    return x;
+  }
+  function addYears(d,n){return addMonths(d,n*12);}
+  function dueDate(base, off){
+    if(off.d!==undefined) return addDays(base, off.d);
+    if(off.m!==undefined) return addMonths(base, off.m);
+    return addYears(base, off.y);
+  }
+  const WD = ["日","月","火","水","木","金","土"];
+  function fmt(d){return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日(${WD[d.getDay()]})`;}
+  function shortFmt(d){return `${d.getMonth()+1}/${d.getDate()}`;}
+  function daysBetween(a,b){
+    const ms = new Date(b.getFullYear(),b.getMonth(),b.getDate()) - new Date(a.getFullYear(),a.getMonth(),a.getDate());
+    return Math.round(ms/86400000);
+  }
+  function todayMid(){const t=new Date(); return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+
+  /* ---------- state ---------- */
+  let state = {dod:"", checks:{}, preset:"all"};
+  try{ const raw = localStorage.getItem(KEY); if(raw) state = Object.assign(state, JSON.parse(raw)); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+  /* ---------- render timeline ---------- */
+  const tl = document.getElementById("timeline");
+
+  function dueMarkup(off){
+    if(!state.dod) return `<span class="placeholder">日付を入れると<br>締切が出ます</span>`;
+    const base = new Date(state.dod + "T00:00:00");
+    if(isNaN(base)) return `<span class="placeholder">—</span>`;
+    const due = dueDate(base, off);
+    const left = daysBetween(todayMid(), due);
+    let cls, txt;
+    if(left < 0){ cls="over"; txt=`${Math.abs(left)}日 経過`; }
+    else if(left <= 14){ cls="urgent"; txt = left===0 ? "今日まで" : `あと${left}日`; }
+    else if(left <= 60){ cls="soon"; txt=`あと${left}日`; }
+    else { cls="calm"; txt=`あと${left}日`; }
+    return `<span class="d">${fmt(due)}</span><br><span class="r ${cls}">${txt}</span>`;
+  }
+
+  function renderTimeline(){
+    tl.innerHTML = PHASES.map(ph=>{
+      const items = ph.items.filter(it => state.preset==="all" || !state.checks[it.id]);
+      if(!items.length) return "";
+      return `
+      <div class="phase">
+        <div class="phase-head">
+          <h3>${ph.title}</h3>
+          <span class="phase-when">${ph.when}</span>
+        </div>
+        ${ph.note ? `<p class="phase-note">${ph.note}</p>` : ""}
+        ${items.map(it=>`
+          <div class="item${state.checks[it.id]?" done":""}">
+            <input type="checkbox" class="chk" id="c_${it.id}" data-id="${it.id}" ${state.checks[it.id]?"checked":""} aria-label="${it.t} を完了にする">
+            <div>
+              <label class="it-title" for="c_${it.id}">${it.t}</label>
+              <p class="it-desc">${it.d}</p>
+              <p class="it-where"><b>窓口</b> ${it.w}</p>
+            </div>
+            <div class="due">${dueMarkup(it.off)}</div>
+          </div>`).join("")}
+      </div>`;
+    }).join("");
+
+    tl.querySelectorAll(".chk").forEach(c=>{
+      c.addEventListener("change", ()=>{
+        state.checks[c.dataset.id] = c.checked;
+        save(); renderTimeline(); renderProgress();
+      });
+    });
+  }
+
+  const total = PHASES.reduce((n,p)=>n+p.items.length,0);
+  document.getElementById("ptotal").textContent = total;
+  function renderProgress(){
+    const done = PHASES.reduce((n,p)=>n+p.items.filter(i=>state.checks[i.id]).length,0);
+    document.getElementById("pdone").textContent = done;
+    document.getElementById("pbar").style.width = (done/total*100)+"%";
+  }
+
+  /* ---------- money ---------- */
+  document.getElementById("money").innerHTML = MONEY.map(m=>`
+    <article class="mcard">
+      <h3>${m.t}</h3>
+      <div class="amt">${m.amt}</div>
+      <p>${m.p}</p>
+      <div class="meta">
+        <span><b>もらえる人</b> ${m.who}</span>
+        <span><b>窓口</b> ${m.where}</span>
+        <span><b>時効</b> ${m.lim}</span>
+      </div>
+    </article>`).join("");
+
+  /* ---------- faq ---------- */
+  document.getElementById("faq").innerHTML = FAQ.map(f=>`
+    <details>
+      <summary>${f.q}</summary>
+      <div class="a">${f.a.map(p=>`<p>${p}</p>`).join("")}</div>
+    </details>`).join("");
+
+  /* ---------- tax calc ---------- */
+  const ids = ["heirs","assets","ins","taishoku","zouyo","debt"];
+  const yen = n => n.toLocaleString("ja-JP") + "万円";
+  function calc(){
+    const v = {};
+    ids.forEach(i => v[i] = Math.max(0, Number(document.getElementById(i).value) || 0));
+    const n = Math.max(1, Math.round(v.heirs));
+    const kisoM = 3000 + 600*n;
+    const nonTaxIns = Math.max(0, v.ins - 500*n);
+    const nonTaxTai = Math.max(0, v.taishoku - 500*n);
+    const kazeiM = Math.max(0, v.assets + nonTaxIns + nonTaxTai + v.zouyo - v.debt);
+
+    document.getElementById("kiso").textContent = yen(kisoM);
+    document.getElementById("kazei").textContent = yen(kazeiM);
+
+    const max = Math.max(kisoM, kazeiM, 1);
+    document.getElementById("fillA").style.width = (kisoM/max*100)+"%";
+    document.getElementById("fillB").style.width = (kazeiM/max*100)+"%";
+
+    const vd = document.getElementById("verdict");
+    const note = document.getElementById("calcnote");
+    if(kazeiM <= kisoM){
+      const room = kisoM - kazeiM;
+      vd.className = "verdict no";
+      vd.textContent = "相続税はかかりません";
+      note.innerHTML = `基礎控除まで、あと <b>${yen(room)}</b> の余裕があります。申告も原則不要です。ただし土地の評価額は路線価で計算すると想定より大きくなることがあり、境界線が近いときは一度専門家に確認を。`;
+    } else {
+      const over = kazeiM - kisoM;
+      vd.className = "verdict yes";
+      vd.textContent = "相続税の申告が必要です";
+      note.innerHTML = `基礎控除を <b>${yen(over)}</b> 超えています。期限は<b>亡くなった日の翌日から10か月以内</b>。ただし「配偶者の税額軽減」（配偶者は1億6,000万円まで非課税）や「小規模宅地等の特例」（自宅の土地の評価を最大8割減）を使えば、納税額そのものは0円になるケースも多くあります。いずれも申告が使用の条件です。`;
+    }
+  }
+  ids.forEach(i => document.getElementById(i).addEventListener("input", calc));
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll(".tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected", String(b===btn)));
+      document.querySelectorAll(".panel").forEach(p=>{
+        if(p.id===btn.dataset.tab) p.setAttribute("data-active",""); else p.removeAttribute("data-active");
+      });
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  });
+
+  /* ---------- date input ---------- */
+  const dod = document.getElementById("dod");
+  const preset = document.getElementById("preset");
+  dod.value = state.dod || "";
+  preset.value = state.preset || "all";
+  dod.max = new Date().toISOString().slice(0,10);
+  dod.addEventListener("change", ()=>{ state.dod = dod.value; save(); renderTimeline(); });
+  preset.addEventListener("change", ()=>{ state.preset = preset.value; save(); renderTimeline(); });
+
+  document.getElementById("reset").addEventListener("click", ()=>{
+    state = {dod:"", checks:{}, preset:"all"};
+    save(); dod.value=""; preset.value="all";
+    renderTimeline(); renderProgress();
+  });
+
+  renderTimeline(); renderProgress(); calc();
+})();
+</script>
