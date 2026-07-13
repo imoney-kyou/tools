@@ -49,6 +49,7 @@ h1{font-size:clamp(24px,5.6vw,34px); font-weight:800; letter-spacing:-.01em; lin
 
 /* ---------- layout ---------- */
 main{max-width:1080px; margin:0 auto; padding:14px 14px 60px; display:grid; gap:16px}
+main > *, #results > *{min-width:0}
 @media (min-width:960px){
   main{grid-template-columns:400px 1fr; align-items:start}
   #inputPanel{position:sticky; top:14px}
