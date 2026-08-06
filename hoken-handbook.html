@@ -1,4 +1,5 @@
 <title>公的保険ハンドブック 2026</title>
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root{
@@ -150,8 +151,31 @@
     border-bottom:1px solid var(--line);
     margin-top:8px;
   }
-  .cats-inner{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:10px 0 0}
+  .cats{position:relative}
+  .cats-inner{
+    display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:10px 0 0;
+    touch-action:pan-x;overscroll-behavior-x:contain;
+  }
   .cats-inner::-webkit-scrollbar{display:none}
+  .cats::after{
+    content:"";position:absolute;top:0;right:0;bottom:0;width:48px;
+    background:linear-gradient(to left,var(--bg) 15%,transparent);
+    pointer-events:none;opacity:1;transition:opacity .25s;
+  }
+  .cats.at-end::after{opacity:0}
+  .scroll-hint{display:none}
+  @media (max-width:700px){
+    .scroll-hint{
+      display:inline-flex;align-items:center;gap:3px;
+      position:absolute;right:6px;top:50%;transform:translateY(-50%);
+      font-size:10px;letter-spacing:.04em;color:var(--ink2);
+      background:var(--surface);border:1px solid var(--line);
+      border-radius:999px;padding:3px 9px;
+      pointer-events:none;z-index:1;
+      opacity:1;transition:opacity .3s;
+    }
+    .cats.at-end .scroll-hint,.cats.hint-hidden .scroll-hint{opacity:0}
+  }
   .cat-tab{
     appearance:none;border:none;background:none;cursor:pointer;
     font:inherit;color:var(--ink2);
@@ -351,6 +375,7 @@
 
   <nav class="cats" aria-label="保険の分類">
     <div class="cats-inner" id="catTabs" role="tablist"></div>
+    <span class="scroll-hint" aria-hidden="true">スライドで切替 →</span>
   </nav>
 
   <div class="toolbar">
@@ -880,7 +905,23 @@ dlg.addEventListener("click",(e)=>{ if(e.target===dlg) dlg.close(); });
 
 $("q").addEventListener("input",(e)=>{ state.q = e.target.value.trim(); render(); });
 
+/* category tab bar: edge fade + swipe hint */
+const catsNav = document.querySelector("nav.cats");
+const catsInner = $("catTabs");
+function updateCatFade(){
+  const scrollable = catsInner.scrollWidth > catsInner.clientWidth + 4;
+  const atEnd = catsInner.scrollLeft + catsInner.clientWidth >= catsInner.scrollWidth - 4;
+  catsNav.classList.toggle("at-end", !scrollable || atEnd);
+}
+catsInner.addEventListener("scroll", ()=>{
+  catsNav.classList.add("hint-hidden");
+  updateCatFade();
+}, {passive:true});
+catsInner.addEventListener("click", ()=>catsNav.classList.add("hint-hidden"));
+window.addEventListener("resize", updateCatFade);
+
 buildTabs();
 buildChips();
 render();
+updateCatFade();
 </script>
