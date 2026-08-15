@@ -1,4 +1,14 @@
 <title>必須設定チェックシート</title>
+
+<!-- Google tag (gtag.js) ─ Cookieなし設定 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DK2L1F2WGN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DK2L1F2WGN', { client_storage: 'none' });
+  function track(label){ if (typeof gtag === 'function') gtag('event', 'cta_click', { cta: label }); }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="楽天証券12コ・SBI証券9コ。口座をつくったあとにやっておく設定を、タップしながら1つずつ潰していくチェックリスト。">
 
@@ -539,12 +549,15 @@ function render(){
     el.querySelector(".row").addEventListener("click", ()=>{
       state[id] = !state[id];
       if(!state[id]) delete state[id];
+      else track(BROKERS[current] + "_" + String(i+1).padStart(2,"0") + "_" + d.k);
       save(); render();
     });
     el.querySelector(".more").addEventListener("click", ()=>{
       const open = el.classList.toggle("open");
       el.querySelector(".more").textContent = open ? "やり方を閉じる" : "やり方を見る";
     });
+    const src = el.querySelector("a.src");
+    if(src) src.addEventListener("click", ()=> track("公式_" + BROKERS[current] + "_" + d.k));
     listEl.appendChild(el);
   });
   updateProgress();
@@ -565,7 +578,9 @@ function updateProgress(){
   for(const b in BROKERS){
     document.getElementById("n-"+b).textContent = count(b) + " / " + DATA[b].length;
   }
-  document.getElementById("clear").classList.toggle("on", done === total);
+  const allDone = done === total;
+  document.getElementById("clear").classList.toggle("on", allDone);
+  if(allDone && !window.__cleared){ window.__cleared = true; track("21コすべて完了"); }
 }
 
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
@@ -573,6 +588,7 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e
 document.querySelectorAll("button.tab").forEach(t=>{
   t.addEventListener("click", ()=>{
     current = t.dataset.b;
+    track("タブ_" + BROKERS[current]);
     document.querySelectorAll("button.tab").forEach(x=> x.setAttribute("aria-selected", String(x === t)));
     render();
     window.scrollTo({ top:0, behavior:"smooth" });
