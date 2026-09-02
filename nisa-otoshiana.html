@@ -1,5 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>9割が知らない 新NISAの落とし穴7選</title>
 <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
 
 <style>
   :root{
@@ -53,9 +61,9 @@
   h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--gold-soft) 62%);padding:0 .1em;}
   .head p{margin:0 0 .7rem;color:var(--ink-soft);font-size:.92rem;} .head p:last-child{margin-bottom:0;}
 
-  h2.sec{font-family:var(--mincho);font-size:1.12rem;font-weight:600;margin:2rem 0 .9rem;
-    padding-top:1.4rem;border-top:1px solid var(--line);}
-  h2.sec:first-of-type{border-top:none;padding-top:0;margin-top:0;}
+  h2.sec{font-family:var(--mincho);font-size:1.38rem;font-weight:700;line-height:1.35;margin:1.6rem 0 1rem;
+    padding:.15rem 0 .15rem .85rem;border-left:4px solid var(--gold);color:var(--ink);text-wrap:balance;}
+  h2.sec:first-of-type{margin-top:0;}
   h3{font-size:.97rem;font-weight:700;margin:1.6rem 0 .5rem;}
   p{font-size:.9rem;line-height:1.85;color:var(--ink-soft);margin:0 0 .9rem;}
   p b,li b,td b{color:var(--ink);}
@@ -67,15 +75,9 @@
   .pit .top{display:grid;grid-template-columns:2.6rem 1fr;}
   .pit .no{display:flex;align-items:center;justify-content:center;background:var(--gold-soft);
     border-right:1px solid var(--line);font-family:var(--mono);font-size:.95rem;font-weight:600;color:var(--gold);}
-  .pit .hd{padding:.95rem 1rem .3rem;}
-  .pit h4{font-size:1rem;font-weight:700;line-height:1.55;margin:0 0 .35rem;}
-  .pit .sym{font-size:.8rem;color:var(--danger);line-height:1.65;margin:0 0 .6rem;}
-  .pit .bd{padding:0 1rem .3rem 1rem;}
-  .pit .bd p{font-size:.86rem;line-height:1.8;margin:0 0 .7rem;}
-  .fix{background:var(--accent-soft);border-left:2px solid var(--accent);border-radius:0 3px 3px 0;
-    padding:.7rem .9rem;margin:0 1rem .9rem;font-size:.83rem;line-height:1.75;color:var(--ink-soft);}
-  .fix b{color:var(--accent);display:block;margin-bottom:.15rem;font-size:.78rem;
-    font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;}
+  .pit .hd{padding:.9rem 1rem .8rem;}
+  .pit .lbl{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--ink-faint);margin:0 0 .25rem;}
+  .pit h4{font-size:1.02rem;font-weight:700;line-height:1.55;margin:0;text-wrap:balance;}
 
   .tog{display:flex;align-items:center;gap:.6rem;width:100%;padding:.8rem 1rem;
     border:none;border-top:1px solid var(--line);background:transparent;cursor:pointer;
@@ -96,20 +98,56 @@
   .cnt .big small{font-size:1.1rem;color:var(--ink-faint);}
   .cnt p{margin:.6rem 0 0;font-size:.87rem;color:var(--ink-soft);}
   .todo{display:flex;flex-direction:column;gap:.55rem;counter-reset:t;}
-  .ti{display:grid;grid-template-columns:2.3rem 1fr;background:var(--surface);border:1px solid var(--line);
-    border-radius:3px;box-shadow:var(--shadow);overflow:hidden;counter-increment:t;}
-  .ti::before{content:counter(t);display:flex;align-items:center;justify-content:center;
-    background:var(--accent-soft);border-right:1px solid var(--line);font-family:var(--mono);
-    font-size:.9rem;font-weight:600;color:var(--accent);}
-  .ti .b{padding:.8rem .95rem;}
-  .ti b{display:block;font-size:.92rem;margin-bottom:.15rem;}
-  .ti p{margin:0;font-size:.82rem;line-height:1.7;}
+  .ti{background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--shadow);
+    overflow:hidden;counter-increment:t;}
+  .ti .th{display:flex;align-items:center;gap:.75rem;padding:.85rem .95rem;background:var(--accent-soft);
+    border-bottom:1px solid var(--line);}
+  .ti .ic{width:2.6rem;height:2.6rem;border-radius:50%;background:var(--surface);border:1.5px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;}
+  .ti .ic svg{width:1.4rem;height:1.4rem;}
+  .ti .n{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--accent);display:block;margin-bottom:.1rem;}
+  .ti .n::before{content:"やること " counter(t);}
+  .ti .th strong{display:block;font-size:1rem;line-height:1.45;color:var(--ink);}
+  .ti .tb{padding:.85rem .95rem .95rem;display:flex;flex-direction:column;gap:.55rem;}
+  .ti .row{display:grid;grid-template-columns:1.4rem 1fr;gap:.55rem;align-items:start;}
+  .ti .row svg{width:1.3rem;height:1.3rem;margin-top:.15rem;}
+  .ti .lab{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;display:block;margin-bottom:.1rem;}
+  .ti .row p{margin:0;font-size:.82rem;line-height:1.65;}
+  .ti .ng svg,.ti .ng .lab{color:var(--danger);}
+  .ti .ng p{font-weight:700;color:var(--danger);}
+  .ti .wh svg{color:var(--ink-faint);}
+  .ti .wh p{color:var(--ink-soft);font-size:.78rem;}
+  .ti .ok{background:var(--ground);border-radius:3px;padding:.65rem .75rem;margin-top:.15rem;}
+  .ti .ok svg,.ti .ok .lab{color:var(--accent);}
+  .ti .ok p{color:var(--ink);}
   .empty{text-align:center;padding:2.4rem 1rem;color:var(--ink-faint);font-size:.88rem;line-height:1.9;}
 
   .note{background:var(--gold-soft);border-left:2px solid var(--gold);border-radius:0 3px 3px 0;
     padding:.85rem 1rem;margin:1rem 0;font-size:.84rem;line-height:1.8;color:var(--ink-soft);}
   .note b{color:var(--ink);display:block;margin-bottom:.2rem;font-size:.82rem;}
 
+  .kill{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:3px;
+    box-shadow:var(--shadow);padding:1.3rem var(--pad) 1.2rem;margin:.6rem 0 1rem;text-align:center;}
+  .kill .eb{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;color:var(--gold);margin:0 0 .5rem;}
+  .kill h3{font-family:var(--mincho);font-size:1.5rem;line-height:1.4;margin:0;color:var(--ink);text-wrap:balance;}
+  .kill h3 em{font-style:normal;background:linear-gradient(transparent 62%,var(--gold-soft) 62%);}
+  .kill p{margin:.7rem 0 0;font-size:.84rem;}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 1.5rem;}
+  .cmp>div{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:.85rem .7rem .9rem;text-align:center;}
+  .cmp .t{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink-faint);margin:0;}
+  .cmp svg{width:100%;height:60px;display:block;margin:.4rem 0 .45rem;}
+  .cmp .r{margin:0;font-size:.98rem;font-weight:700;line-height:1.4;}
+  .cmp .r small{display:block;font-size:.72rem;font-weight:500;color:var(--ink-soft);margin-top:.3rem;line-height:1.55;}
+  .cmp .ok .r{color:var(--accent);}
+  .cmp .ng{border-color:var(--danger);}
+  .cmp .ng .r{color:var(--danger);}
+  .g4{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 1.2rem;counter-reset:g;}
+  .g4>div{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:.9rem .85rem 1rem;position:relative;counter-increment:g;}
+  .g4>div::after{content:counter(g);position:absolute;top:.6rem;right:.7rem;font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);}
+  .g4 svg{width:28px;height:28px;color:var(--accent);display:block;margin-bottom:.55rem;}
+  .g4 b{display:block;font-size:.9rem;line-height:1.45;margin-bottom:.35rem;}
+  .g4 p{margin:0;font-size:.76rem;line-height:1.65;color:var(--ink-soft);}
+  .g4 p em{font-style:normal;font-family:var(--mono);color:var(--ink);}
   ul.chk{list-style:none;margin:0 0 1rem;padding:0;display:flex;flex-direction:column;gap:.65rem;}
   ul.chk li{font-size:.88rem;line-height:1.8;color:var(--ink-soft);padding-left:1.4rem;position:relative;}
   ul.chk li::before{content:"";position:absolute;left:.25rem;top:.72em;width:.4rem;height:.4rem;
@@ -150,7 +188,7 @@
     <p class="eyebrow">New NISA Pitfalls</p>
     <h1>NISAは、<em>始めたあと</em>に<br>落とし穴があります。</h1>
     <p>「とりあえず始めた」で止まっている人が、あとで気づいて損をするポイントを7つ集めました。制度の話なので、調べないと一生知らないままです。</p>
-    <p>読みながら<b>「これ、自分かも」にチェック</b>を入れてください。最後にやることだけがまとまります。</p>
+    <p>各項目に当てはまりそうなら<b>「これ、自分かも」にチェック</b>を入れてください。チェックした分だけ、やることが「やること」タブにまとまります。</p>
   </div>
 
   <!-- ===== 1 落とし穴 ===== -->
@@ -172,28 +210,55 @@
   <!-- ===== 3 制度より大事なこと ===== -->
   <div class="pane" id="p3" hidden>
     <h2 class="sec">制度より大事な、たった1つのこと</h2>
-    <p>ここまで7つの落とし穴を書いてきましたが、正直に言うと、<b>どれも致命傷にはなりません</b>。気づいた時点で直せます。</p>
-    <p>致命傷になるのは、たった1つです。</p>
+    <p>7つの落とし穴は、どれも<b>気づいた時点で直せます</b>。致命傷になるのは、たった1つです。</p>
 
-    <div class="note" style="border-left-width:3px;">
-      <b>下がったときに、売ってしまうこと</b>
-      NISAの非課税は、<b style="display:inline;color:var(--ink)">利益が出たときにしか意味がありません</b>。
-      暴落で売れば、非課税の恩恵はゼロ。しかも損益通算もできないので、課税口座より不利になります。
-      制度をどれだけ完璧に使っても、ここで売ったら全部台無しです。
+    <div class="kill">
+      <p class="eb">致命傷はこれだけ</p>
+      <h3><em>下がったときに、売ってしまう</em>こと</h3>
+      <p>NISAの非課税は、利益が出たときにしか意味がありません。</p>
+    </div>
+
+    <div class="cmp">
+      <div class="ok">
+        <p class="t">上がって売る</p>
+        <svg viewBox="0 0 120 60" aria-hidden="true"><path d="M8 48 L34 40 L52 44 L78 24 L112 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"/><circle cx="112" cy="12" r="4" fill="var(--accent)"/></svg>
+        <p class="r">非課税の恩恵あり<small>利益に税金がかからない</small></p>
+      </div>
+      <div class="ng">
+        <p class="t">下がって売る</p>
+        <svg viewBox="0 0 120 60" aria-hidden="true"><path d="M8 14 L30 22 L50 18 L76 38 L112 50" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--danger)"/><circle cx="112" cy="50" r="4" fill="var(--danger)"/></svg>
+        <p class="r">恩恵ゼロ<small>損益通算もできず、課税口座より不利</small></p>
+      </div>
     </div>
 
     <h3>売らずに済む状態を、先に作る</h3>
-    <ul class="chk">
-      <li><b>生活防衛費を先に確保する。</b>支出の6か月分の現金があれば、相場が下がっても売る必要がありません。売らざるを得ない状況を作らないことが、最大の防御です。</li>
-      <li><b>5年以内に使うお金は入れない。</b>教育費、住宅資金、車の買い替え。これらをNISAに入れると、使いたいタイミングと相場が合わないことがあります。</li>
-      <li><b>毎日見ない。</b>積立の設定をしたら、あとは見ない。見る回数と成績は反比例します。</li>
-      <li><b>下がったときにどうするかを、上がっているうちに決めておく。</b>「20%下がっても続ける」と先に決めておけば、そのときに考えずに済みます。判断は、平常時にしかできません。</li>
-    </ul>
+    <div class="g4">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+        <b>生活防衛費を先に確保</b>
+        <p>支出の<em>6か月分</em>の現金。売らざるを得ない状況を作らないのが最大の防御。</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 15h3M13 15h3M8 18h3"/></svg>
+        <b>5年以内に使うお金は入れない</b>
+        <p>教育費・住宅資金・車。使う時期と相場は合わせられない。</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.1A10 10 0 0 1 12 5c5 0 9 4 10 7a11 11 0 0 1-2.6 3.8M6.6 6.6A11 11 0 0 0 2 12c1 3 5 7 10 7a9.8 9.8 0 0 0 4.3-1"/></svg>
+        <b>毎日見ない</b>
+        <p>積立の設定をしたら、あとは見ない。見る回数と成績は反比例。</p>
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg>
+        <b>下がったときの方針を、今決める</b>
+        <p>「<em>20%</em>下がっても続ける」と先に決める。判断は平常時にしかできない。</p>
+      </div>
+    </div>
 
     <div class="note">
       <b>ボクの考え</b>
       NISAの相談でいちばん多いのは、制度の質問ではなく「いま下がってるけど大丈夫ですか」です。
-      <b style="display:inline;color:var(--ink)">つまり多くの人にとっての本当の課題は、知識ではなく、続けられる設計になっているかどうか。</b>
+      <b style="display:inline;color:var(--ink)">本当の課題は知識ではなく、続けられる設計になっているか。</b>
       落とし穴を7つ塞ぐより、生活防衛費を6か月分つくるほうが、結果的にリターンを守ります。
     </div>
   </div>
@@ -225,62 +290,62 @@
 
   var PITS=[
     {
-      h:"配当金の受け取り方を変えないと、非課税になりません",
-      sym:"個別株・ETF・REITを買っている人は要注意",
-      p:["NISA口座で株やETFを買っても、<b>配当金の受取方法が「株式数比例配分方式」になっていないと、約20%が課税されます</b>。値上がり益は非課税なのに、配当だけ取られる状態です。",
-         "初期設定が別の方式になっている証券会社もあり、自分では気づけません。しかも一度設定すれば、すべての口座に適用されます。"],
-      fix:"証券会社にログインして、配当金の受取方法が「株式数比例配分方式」になっているか確認する。投資信託だけの人は対象外です。",
-      todo:["配当金の受取方式を確認する","証券会社の設定画面で「株式数比例配分方式」になっているかを見る。違っていたら変更する。"]
+      h:"NISAで個別株・ETF・REITを買っている（買う予定がある）",
+      pit:"配当金の受け取り方を変えないと、非課税になりません",
+      why:"受取方法が「株式数比例配分方式」以外だと、NISAでも配当に約20%課税されます。値上がり益は非課税なのに、配当だけ取られる状態です。初期設定が別の方式になっている証券会社もあります。",
+      act:["配当金の受取方式を確認する","証券会社にログインして「株式数比例配分方式」になっているか見る。違っていたら変更する。投資信託だけの人は対象外です。"]
     },
     {
-      h:"売っても、枠が戻るのは翌年です",
-      sym:"「売ってまた買えばいい」と思っている人",
-      p:["売却した分の非課税枠は復活しますが、<b>戻ってくるのは翌年</b>です。その年のうちに買い直そうとしても、枠は空いていません。",
-         "しかも戻るのは「買ったときの価格」の分だけ。値上がりして売っても、戻る枠は取得時の金額です。<b>NISAは頻繁な売買に向いていません。</b>"],
-      fix:"短期で売買するつもりなら、NISAではなく課税口座を使う。NISAは長く持つ前提の枠だと理解しておく。",
-      todo:["売買の方針を決めておく","NISAは長期保有用。短期売買をするなら課税口座と使い分ける。"]
+      h:"「売ってまた買えばいい」と思っている",
+      pit:"売っても、枠が戻るのは翌年です",
+      why:"売った分の枠は、その年のうちには戻りません。翌年に戻るのも「買ったときの金額」の分だけ。値上がりした分は戻りません。",
+      act:["売る前に、今年の残り枠を確認する","買い直す予定があるなら、年間枠（つみたて120万円・成長240万円）の残りで足りるかを先に見る。足りなければ、売る時期を翌年にずらすのも一案。"]
     },
     {
-      h:"損したとき、NISAは課税口座より不利になります",
-      sym:"「非課税だから絶対おトク」だと思っている人",
-      p:["NISAは<b>損益通算も繰越控除もできません</b>。課税口座なら、損失を他の利益と相殺したり、翌年以降3年間繰り越したりできます。NISAではそれができません。",
-         "つまり<b>利益が出たときだけ有利で、損したときはむしろ不利</b>。「非課税＝必ずおトク」ではありません。"],
-      fix:"利益が出る前提で組まない。長期・分散・積立で、利益が出る確率を上げる設計にする。",
-      todo:["利益が出る設計になっているか見直す","一点集中や短期売買になっていないか。長期・分散・積立が基本。"]
+      h:"「非課税だから絶対おトク」だと思っている",
+      pit:"損したとき、NISAは課税口座より不利になります",
+      why:"NISAは損益通算も繰越控除もできません。利益が出たときだけ有利で、損したときはむしろ不利です。",
+      act:["利益が出る設計になっているか見直す","一点集中になっていないかを確認する。長期・分散・積立が基本。"]
     },
     {
-      h:"金融機関の変更は、年1回・条件つきです",
-      sym:"手数料や品揃えに不満がある人",
-      p:["NISA口座は1人1口座で、金融機関の変更は<b>年単位</b>。しかも<b>その年に1円でも買付があると、その年は変更できません</b>（翌年からになります）。",
-         "手続きの受付期間も決まっていて、変更したい年の前年10月1日から、その年の9月30日までです。思い立ってすぐ、とはいきません。"],
-      fix:"変更したいなら、その年の買付を止めたうえで手続きする。年末に慌てないよう、秋のうちに動く。",
-      todo:["金融機関を変えるか判断する","変えるなら、その年の買付を止めてから手続き。受付は前年10月〜その年9月末。"]
+      h:"今の金融機関の手数料や品揃えに不満がある",
+      pit:"金融機関の変更は、年1回・条件つきです",
+      why:"その年に1円でも買付があると、その年は変更できません。受付は前年10月1日〜その年9月30日です。",
+      act:["金融機関を変えるか判断する","変えるなら、その年の買付を止めてから手続きする。年末に慌てないよう、秋のうちに動く。"]
     },
     {
-      h:"成長投資枠でも、買えない商品があります",
-      sym:"窓口や広告で勧められた商品を買おうとしている人",
-      p:["成長投資枠は自由に見えますが、<b>除外されている商品があります</b>。①整理・監理銘柄 ②信託期間20年未満の投信 ③毎月分配型の投信 ④デリバティブを使った高レバレッジ型。",
-         "これらが外されているのは、<b>長期の資産形成に向かないと判断されたから</b>です。逆に言えば、対象外の商品を勧められたら、その理由を考える価値があります。"],
-      fix:"買う前に、その商品がNISA対象かを確認する。特に毎月分配型は、資産形成の目的とは逆方向です。",
-      todo:["買おうとしている商品を確認する","毎月分配型・高レバレッジ型になっていないか。対象外なら理由を考える。"]
+      h:"窓口や広告で勧められた商品を買おうとしている",
+      pit:"成長投資枠でも、買えない商品があります",
+      why:"整理・監理銘柄、信託期間20年未満、毎月分配型、高レバレッジ型は対象外。長期の資産形成に向かないと判断された商品です。",
+      act:["買おうとしている商品を確認する","買う前にNISA対象かを確認する。対象外なら、なぜ勧められたのかを考える。"]
     },
     {
-      h:"年末の買付は、その年の枠に入らないことがあります",
-      sym:"年末に枠を使い切ろうとしている人",
-      p:["枠を使ったかどうかは<b>約定日ではなく「受渡日」で決まります</b>。国内株なら約定の2営業日後、投資信託は商品によってさらに後ろになります。",
-         "12月末に駆け込みで注文しても、受渡が翌年になれば<b>その年の枠は使えないまま消えます</b>。枠は繰り越せません。"],
-      fix:"年内に枠を使い切りたいなら、12月中旬までに済ませる。金融機関が公表する「年内最終受付日」を毎年確認する。",
-      todo:["年内の締切日を確認しておく","利用中の金融機関のサイトで、NISAの年内最終受付日を調べてメモしておく。"]
+      h:"年末に枠を使い切ろうとしている",
+      pit:"年末の買付は、その年の枠に入らないことがあります",
+      why:"枠を使ったかどうかは約定日ではなく「受渡日」で決まります。受渡が翌年になれば、その年の枠は消えます。",
+      act:["年内の締切日を確認しておく","金融機関のサイトで「年内最終受付日」を調べてメモする。12月中旬までに済ませる。"]
     },
     {
-      h:"家族名義の口座を自分のお金で埋めると、贈与になります",
-      sym:"配偶者や子どもの分も自分が入金している人",
-      p:["夫の資金で妻名義のNISAを埋める、といったケースです。名義が違えば<b>贈与とみなされる可能性</b>があります。年間110万円を超える部分には贈与税がかかります。",
-         "さらに、名義だけ配偶者で実質は本人の資産だと判断されると、相続のときに<b>名義預金</b>として扱われることもあります。"],
-      fix:"名義人本人の収入や資産から拠出する。難しい場合は、贈与の記録を残す（贈与契約書・振込記録）などの形を整える。",
-      todo:["家族名義の口座の出どころを整理する","誰のお金で誰の口座を埋めているかを確認。必要なら贈与の記録を残す。"]
+      h:"配偶者や子どもの分も、自分のお金で入金している",
+      pit:"家族名義の口座を自分のお金で埋めると、贈与になります",
+      why:"名義が違えば贈与とみなされ、年110万円を超える部分に贈与税がかかります。相続のとき名義預金として扱われることもあります。",
+      act:["家族名義の口座の出どころを整理する","名義人本人のお金から拠出するのが基本。難しければ、贈与契約書や振込記録を残す。"]
     }
   ];
+
+  var ICONS=[
+    '<path d="M7 4l5 8 5-8M12 12v8M8 14h8M8 17h8"/>',
+    '<path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/>',
+    '<path d="M12 3v18M7 21h10"/><path d="M12 6H5l-3 6a3 3 0 0 0 6 0L5 6"/><path d="M12 6h7l3 6a3 3 0 0 1-6 0l3-6"/>',
+    '<path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9M3 19h18"/>',
+    '<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="8.5" r="1.5"/>',
+    '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13v3l2 1"/>',
+    '<circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15a5 5 0 0 1 6 5"/>'
+  ];
+  var svgOpen='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var iWarn=svgOpen+'<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17.5v.01"/></svg>';
+  var iWhy=svgOpen+'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>';
+  var iDo=svgOpen+'<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>';
 
   var checked=[];
 
@@ -291,9 +356,7 @@
   $('pits').innerHTML = PITS.map(function(p,i){
     return '<div class="pit" id="pit'+i+'">'+
       '<div class="top"><div class="no">'+String(i+1).padStart(2,'0')+'</div>'+
-        '<div class="hd"><h4>'+esc(p.h)+'</h4><p class="sym">'+esc(p.sym)+'</p></div></div>'+
-      '<div class="bd">'+p.p.map(function(x){return '<p>'+x+'</p>';}).join('')+'</div>'+
-      '<div class="fix"><b>どうする</b>'+esc(p.fix)+'</div>'+
+        '<div class="hd"><p class="lbl">こんな人</p><h4>'+esc(p.h)+'</h4></div></div>'+
       '<button class="tog" data-i="'+i+'" aria-pressed="false">'+
         '<span class="box">'+check+'</span>これ、自分かも</button>'+
     '</div>';
@@ -324,8 +387,16 @@
       '<div class="cnt"><div class="big">'+checked.length+'<small> / 7</small></div>'+
       '<p>この'+checked.length+'つを片づければ、あなたのNISAは穴がなくなります。</p></div>'+
       '<div class="todo">'+ checked.map(function(i){
-        var t=PITS[i].todo;
-        return '<div class="ti"><div class="b"><b>'+esc(t[0])+'</b><p>'+esc(t[1])+'</p></div></div>';
+        var q=PITS[i];
+        return '<div class="ti">'+
+          '<div class="th"><div class="ic">'+svgOpen+ICONS[i]+'</svg></div>'+
+            '<div><span class="n"></span><strong>'+esc(q.act[0])+'</strong></div></div>'+
+          '<div class="tb">'+
+            '<div class="row ng">'+iWarn+'<div><span class="lab">落とし穴</span><p>'+esc(q.pit)+'</p></div></div>'+
+            '<div class="row wh">'+iWhy+'<div><span class="lab">なぜ</span><p>'+esc(q.why)+'</p></div></div>'+
+            '<div class="row ok">'+iDo+'<div><span class="lab">こうする</span><p>'+esc(q.act[1])+'</p></div></div>'+
+          '</div>'+
+        '</div>';
       }).join('') +'</div>'+
       '<div class="note"><b>上から順に、1つずつ</b>まとめてやろうとすると止まります。今日は1つ目だけで構いません。</div>';
   }
@@ -342,3 +413,6 @@
   });
 })();
 </script>
+
+</body>
+</html>
