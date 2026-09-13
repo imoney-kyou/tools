@@ -1,6 +1,6 @@
 {
  "updatedAt": "2026-09-14",
- "generatedAt": "2026-09-14T08:03+09:00",
+ "generatedAt": "2026-09-14T08:43+09:00",
  "companies": {
   "reale": {
    "ok": true,
@@ -61,6 +61,11 @@
    "ok": true,
    "count": 10,
    "error": ""
+  },
+  "ag": {
+   "ok": false,
+   "count": 0,
+   "error": "カードを読めませんでした（サイト構造の変更の可能性）"
   }
  },
  "funds": [
@@ -665,7 +670,7 @@
    "months": 6,
    "min": "1万円",
    "minYen": 10000,
-   "when": "募集開始まで 10時間56分",
+   "when": "募集開始まで 10時間15分",
    "status": "pre",
    "method": "抽選方式",
    "note": "",
@@ -681,7 +686,7 @@
    "months": 12,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 56分",
+   "when": "残り 15分",
    "status": "open",
    "method": "抽選方式",
    "note": "",
@@ -1453,7 +1458,7 @@
    "status": "done",
    "method": "抽選式",
    "note": "",
-   "img": "",
+   "img": "img/batsunagu-690071ef9a.jpg",
    "srcImg": "https://batsunagu-funding.com/wp-content/uploads/2026/08/fond_img_260825.png"
   },
   {
