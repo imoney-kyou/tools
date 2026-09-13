@@ -29,6 +29,7 @@ COMPANIES = {
     "capima":    {"url": "https://www.capima.jp/fund", "card": {"link": r"/fund/\d+"}},
     "batsunagu": {"url": "https://batsunagu-funding.com/", "card": {"sel": ".fund-card"}, "cloudflare": True},
     "crowdbank": {"url": "https://crowdbank.jp/funds/search/", "card": {"link": r"/funds/crowd/A\d+", "climb_img": True}},
+    "ag":        {"url": "https://ag-crowdfunding.co.jp/", "card": {"text": True}},   # トップの「最新ファンド」を本文テキストから読む
 }
 
 # ---------------------------------------------------------------- 共通ヘルパ
@@ -171,7 +172,19 @@ def p_crowdbank(c):
                 when=("残り " + first(r"残り時間\s*(\d+日)", t)) if first(r"残り時間\s*(\d+日)", t) else ("〜" + first(r"募集終了日時\s*(\d{1,2}月\d{1,2}日\s*\d{1,2}:\d{2})", t) if first(r"募集終了日時\s*(\d{1,2}月\d{1,2}日)", t) else ""),
                 url=c["href"], method=first(r"(先着|抽選)方式", t))
 
-PARSERS = dict(reale=p_reale, lseed=p_lseed, torches=p_cassette, rakutama=p_cassette, gates=p_gates, cozuchi=p_cozuchi,
+def p_ag(c):
+    """トップページ本文: '募集中 アイフルファンド #63 申込金額 8,745,715円 予定利回 1.65% 募集金額 300,000,000円 運用期間 6か月 募集状況 2% 募集終了まで11日13時間30分' の繰り返し"""
+    t = c["text"]
+    out = []
+    for m in re.finditer(r"(募集中|募集終了|募集前|運用中|運用終了|償還済み?)\s+(.+?)\s+申込金額\s*([\d,]+)円\s*予定利回\s*([\d.]+)%\s*募集金額\s*([\d,]+)円\s*運用期間\s*(\S+)\s*募集状況\s*(\d+)%\s*(募集終了まで\S+|－|-)?", t):
+        st = status_from(m.group(1))
+        when = m.group(8) or ""
+        when = ("残り " + when.replace("募集終了まで", "")) if "募集終了まで" in when else ""
+        out.append(dict(name=m.group(2), status=st, yield_=m.group(4), term=m.group(6), min_="1円", when=when,
+                        url="https://ag-crowdfunding.co.jp/", method=""))
+    return out
+
+PARSERS = dict(ag=p_ag, reale=p_reale, lseed=p_lseed, torches=p_cassette, rakutama=p_cassette, gates=p_gates, cozuchi=p_cozuchi,
                fantas=p_fantas, rimawari=p_rimawari, funds=p_funds, capima=p_capima, batsunagu=p_batsunagu, crowdbank=p_crowdbank)
 
 # ---------------------------------------------------------------- 取得
@@ -212,6 +225,9 @@ async def fetch_cards(ctx, key, cfg, max_cards=12):
             pass
         await page.wait_for_timeout(2500)
         c = dict(cfg["card"]); c["max"] = max_cards
+        if c.get("text"):
+            body = await page.inner_text("body")
+            return [{"text": norm(body), "alt": "", "href": cfg["url"], "img": "", "deadline_visible": False}]
         cards = await page.evaluate(JS_CARDS, c)
         return cards
     finally:
@@ -255,18 +271,20 @@ async def main():
                         d = PARSERS[key](c)
                     except Exception as e:
                         continue
-                    if not d or not (d.get("name") or "").strip():
+                    ds = d if isinstance(d, list) else [d]
+                    for d in ds:
+                      if not d or not (d.get("name") or "").strip():
                         continue
-                    yl = d.get("yield_", "")
-                    fund = {
-                        "co": key, "name": norm(d["name"])[:80], "url": d.get("url") or cfg["url"],
-                        "yield": (yl + "%") if yl else "", "term": norm(d.get("term", "")), "months": term_months(d.get("term", "")),
-                        "min": norm(d.get("min_", "")), "minYen": yen_min(d.get("min_", "")), "when": norm(d.get("when", "")),
-                        "status": d.get("status") or "", "method": norm(d.get("method", "")), "note": norm(d.get("note", "")),
-                        "img": "", "srcImg": c.get("img", ""),
-                    }
-                    if fund["min"] and fund["minYen"]: fund["min"] = fmt_min(fund["minYen"])
-                    result["funds"].append(fund); n += 1
+                      yl = d.get("yield_", "")
+                      fund = {
+                          "co": key, "name": norm(d["name"])[:80], "url": d.get("url") or cfg["url"],
+                          "yield": (yl + "%") if yl else "", "term": norm(d.get("term", "")), "months": term_months(d.get("term", "")),
+                          "min": norm(d.get("min_", "")), "minYen": yen_min(d.get("min_", "")), "when": norm(d.get("when", "")),
+                          "status": d.get("status") or "", "method": norm(d.get("method", "")), "note": norm(d.get("note", "")),
+                          "img": "", "srcImg": c.get("img", ""),
+                      }
+                      if fund["min"] and fund["minYen"]: fund["min"] = fmt_min(fund["minYen"])
+                      result["funds"].append(fund); n += 1
                 info["ok"] = n > 0; info["count"] = n
                 if n == 0: info["error"] = "カードを読めませんでした（サイト構造の変更の可能性）"
             except Exception as e:
@@ -298,6 +316,7 @@ async def main():
     per = {}
     for f in result["funds"]:
         per.setdefault(f["co"], 0)
+        if not f["srcImg"]: continue
         if f["status"] in ("open", "pre", "lot") or per[f["co"]] < 2:
             f["img"] = save_image(f["srcImg"], f["co"], args.out)
             per[f["co"]] += 1
