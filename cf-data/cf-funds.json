@@ -1,6 +1,6 @@
 {
- "updatedAt": "2026-09-13",
- "generatedAt": "2026-09-13T10:18+09:00",
+ "updatedAt": "2026-09-14",
+ "generatedAt": "2026-09-14T08:03+09:00",
  "companies": {
   "reale": {
    "ok": true,
@@ -665,7 +665,7 @@
    "months": 6,
    "min": "1万円",
    "minYen": 10000,
-   "when": "募集開始まで 1日8時間",
+   "when": "募集開始まで 10時間56分",
    "status": "pre",
    "method": "抽選方式",
    "note": "",
@@ -681,7 +681,7 @@
    "months": 12,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 22時間40分",
+   "when": "残り 56分",
    "status": "open",
    "method": "抽選方式",
    "note": "",
@@ -873,7 +873,7 @@
    "months": 12,
    "min": "1万円",
    "minYen": 10000,
-   "when": "あと3日",
+   "when": "あと2日",
    "status": "open",
    "method": "抽選式",
    "note": "",
@@ -1634,8 +1634,8 @@
   },
   {
    "co": "crowdbank",
-   "name": "系統用蓄電池事業支援ファンド第67号",
-   "url": "https://crowdbank.jp/funds/crowd/A00009029/",
+   "name": "系統用蓄電池事業支援ファンド第66号",
+   "url": "https://crowdbank.jp/funds/crowd/A00009028/",
    "yield": "6.5%",
    "term": "9ヶ月",
    "months": 9,
@@ -1645,8 +1645,8 @@
    "status": "open",
    "method": "先着",
    "note": "",
-   "img": "img/crowdbank-549ddfaf8b.jpg",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009029.jpg?ts=1789103663"
+   "img": "img/crowdbank-cded335f34.jpg",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009028.jpg?ts=1789103663"
   },
   {
    "co": "crowdbank",
@@ -1663,6 +1663,38 @@
    "note": "",
    "img": "img/crowdbank-84101501be.jpg",
    "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009030.jpg?ts=1789103663"
+  },
+  {
+   "co": "crowdbank",
+   "name": "NEW日本その他系統用蓄電池事業支援ファンド第69号",
+   "url": "https://crowdbank.jp/funds/crowd/A00009031/",
+   "yield": "6.5%",
+   "term": "9ヶ月",
+   "months": 9,
+   "min": "1万円",
+   "minYen": 10000,
+   "when": "残り 3日",
+   "status": "open",
+   "method": "先着",
+   "note": "",
+   "img": "img/crowdbank-6a808c1163.jpg",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009031.jpg?ts=1789103663"
+  },
+  {
+   "co": "crowdbank",
+   "name": "系統用蓄電池事業支援ファンド第67号",
+   "url": "https://crowdbank.jp/funds/crowd/A00009029/",
+   "yield": "6.5%",
+   "term": "9ヶ月",
+   "months": 9,
+   "min": "1万円",
+   "minYen": 10000,
+   "when": "〜9月13日 23:41",
+   "status": "run",
+   "method": "先着",
+   "note": "",
+   "img": "",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009029.jpg?ts=1789103663"
   },
   {
    "co": "crowdbank",
@@ -1695,22 +1727,6 @@
    "note": "",
    "img": "",
    "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009032.jpg?ts=1789103663"
-  },
-  {
-   "co": "crowdbank",
-   "name": "系統用蓄電池事業支援ファンド第66号",
-   "url": "https://crowdbank.jp/funds/crowd/A00009028/",
-   "yield": "6.5%",
-   "term": "9ヶ月",
-   "months": 9,
-   "min": "1万円",
-   "minYen": 10000,
-   "when": "〜9月9日 12:07",
-   "status": "run",
-   "method": "先着",
-   "note": "",
-   "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009028.jpg?ts=1789103663"
   },
   {
    "co": "crowdbank",
@@ -1759,22 +1775,6 @@
    "note": "",
    "img": "",
    "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009024.jpg?ts=1789103663"
-  },
-  {
-   "co": "crowdbank",
-   "name": "スター・マイカ・ホールディングス【東証プライム市場上場】コラボレーションファンド第42号",
-   "url": "https://crowdbank.jp/funds/crowd/A00009022/",
-   "yield": "4.0%",
-   "term": "13ヶ月",
-   "months": 13,
-   "min": "1万円",
-   "minYen": 10000,
-   "when": "〜8月24日 13:11",
-   "status": "run",
-   "method": "先着",
-   "note": "",
-   "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009022.jpg?ts=1789103663"
   }
  ]
 }
