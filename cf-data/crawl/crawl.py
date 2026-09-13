@@ -29,7 +29,7 @@ COMPANIES = {
     "capima":    {"url": "https://www.capima.jp/fund", "card": {"link": r"/fund/\d+"}},
     "batsunagu": {"url": "https://batsunagu-funding.com/", "card": {"sel": ".fund-card"}, "cloudflare": True},
     "crowdbank": {"url": "https://crowdbank.jp/funds/search/", "card": {"link": r"/funds/crowd/A\d+", "climb_img": True}},
-    "ag":        {"url": "https://ag-crowdfunding.co.jp/", "card": {"text": True}},   # トップの「最新ファンド」を本文テキストから読む
+    "ag":        {"url": "https://ag-crowdfunding.co.jp/", "card": {"text": True, "wait_text": "予定利回"}, "fallback": "https://ag-crowdfunding.co.jp/fund/list"},   # トップの「最新ファンド」を本文テキストから読む。ダメなら一覧表
 }
 
 # ---------------------------------------------------------------- 共通ヘルパ
@@ -176,6 +176,12 @@ def p_ag(c):
     """トップページ本文: '募集中 アイフルファンド #63 申込金額 8,745,715円 予定利回 1.65% 募集金額 300,000,000円 運用期間 6か月 募集状況 2% 募集終了まで11日13時間30分' の繰り返し"""
     t = c["text"]
     out = []
+    if c.get("fallback"):
+        # 一覧表: 'ファンド名 詳細 運用状況 運用スタイル 運用中金額 単価 想定利回り 予定運用期間' の行が並ぶ（古い順）
+        for m in re.finditer(r"(.{3,60}?)\s+詳細\s+(募集中|募集前|募集終了|運用中|最終償還済|償還済み?|運用終了)\s+(\S+)\s+([\d,]+)\s*円\s+([\d,]+)\s*円\s+([\d.]+)\s*%\s+(\d{4}/\d{1,2}/\d{1,2}\s*~\s*\d{4}/\d{1,2}/\d{1,2})", t):
+            st = status_from(m.group(2)) or "done"
+            out.append(dict(name=m.group(1).strip(), status=st, yield_=m.group(6), term=m.group(7), min_="1円", when="", url=c["href"], method=""))
+        return out[-12:][::-1]
     for m in re.finditer(r"(募集中|募集終了|募集前|運用中|運用終了|償還済み?)\s+(.+?)\s+申込金額\s*([\d,]+)円\s*予定利回\s*([\d.]+)%\s*募集金額\s*([\d,]+)円\s*運用期間\s*(\S+)\s*募集状況\s*(\d+)%\s*(募集終了まで\S+|－|-)?", t):
         st = status_from(m.group(1))
         when = m.group(8) or ""
@@ -226,8 +232,21 @@ async def fetch_cards(ctx, key, cfg, max_cards=12):
         await page.wait_for_timeout(2500)
         c = dict(cfg["card"]); c["max"] = max_cards
         if c.get("text"):
+            if c.get("wait_text"):
+                for _ in range(10):
+                    body = await page.inner_text("body")
+                    if c["wait_text"] in body: break
+                    await page.wait_for_timeout(2000)
             body = await page.inner_text("body")
-            return [{"text": norm(body), "alt": "", "href": cfg["url"], "img": "", "deadline_visible": False}]
+            cards = [{"text": norm(body), "alt": "", "href": cfg["url"], "img": "", "deadline_visible": False}]
+            if cfg.get("fallback") and c.get("wait_text") and c["wait_text"] not in body:
+                await page.goto(cfg["fallback"], wait_until="domcontentloaded", timeout=60000)
+                for _ in range(10):
+                    body2 = await page.inner_text("body")
+                    if "想定利回り" in body2 or "予定運用期間" in body2: break
+                    await page.wait_for_timeout(2000)
+                cards.append({"text": norm(await page.inner_text("body")), "alt": "", "href": cfg["fallback"], "img": "", "deadline_visible": False, "fallback": True})
+            return cards
         cards = await page.evaluate(JS_CARDS, c)
         return cards
     finally:
@@ -286,7 +305,9 @@ async def main():
                       if fund["min"] and fund["minYen"]: fund["min"] = fmt_min(fund["minYen"])
                       result["funds"].append(fund); n += 1
                 info["ok"] = n > 0; info["count"] = n
-                if n == 0: info["error"] = "カードを読めませんでした（サイト構造の変更の可能性）"
+                if n == 0:
+                    head = norm(cards[0]["text"])[:140] if cards else "(カード0件)"
+                    info["error"] = "カードを読めませんでした（サイト構造の変更か、アクセス制限の可能性）: " + head
             except Exception as e:
                 info["error"] = (str(e).splitlines() or ["error"])[0][:200]
             result["companies"][key] = info
