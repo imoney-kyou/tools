@@ -1,0 +1,47 @@
+name: クラファン手帳 データ更新
+
+on:
+  schedule:
+    # 毎週月曜 06:00 JST（= 日曜 21:00 UTC）
+    - cron: "0 21 * * 0"
+  workflow_dispatch:   # GitHubの画面から手動でも実行できる
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cf-crawl
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: Python を準備
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 依存パッケージとブラウザを入れる
+        run: |
+          pip install -r cf-data/crawl/requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: 12社の募集一覧を読み取る
+        run: python cf-data/crawl/crawl.py --out cf-data
+
+      - name: 変更があればコミットして公開
+        run: |
+          git config user.name "cf-crawl bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add cf-data/cf-funds.json cf-data/img
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "cf-data: 募集一覧を更新 ($(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M'))"
+            git push
+          fi
