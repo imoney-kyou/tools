@@ -942,7 +942,10 @@ const COMPANIES = [
      "status": "open",
      "img": ""
     }
-   ]
+   ],
+   "asof": "2026年9月13日",
+   "manual": true,
+   "noteExtra": "この会社のサイトは海外のサーバーからのアクセスを受け付けないため、自動更新の対象外です。最新の募集は募集ページで確認してください。"
   }
  }
 ];
@@ -1170,7 +1173,12 @@ function applyLive(){
   COMPANIES.forEach(c=>{
     const mine=LIVE.funds.filter(f=>f.co===c.key);
     const ci=LIVE.companies&&LIVE.companies[c.key];
-    if(!mine.length){ if(ci&&!ci.ok){ c.hot={items:[],note:'今週は自動で読み取れませんでした。募集ページで確認してください。'}; } return; }
+    if(!mine.length){
+      if(ci&&!ci.ok){
+        if(c.hot&&c.hot.manual){ c.liveFail=true; return; }
+        c.hot={items:[],note:'今週は自動で読み取れませんでした。募集ページで確認してください。'};
+      }
+      return; }
     const rank={open:0,pre:1,lot:2};
     const act=mine.filter(f=>rank[f.status]!=null).sort((a,b)=>rank[a.status]-rank[b.status]).slice(0,2);
     if(act.length){ c.hot={items:act.map(liveToItem)}; }
@@ -1206,7 +1214,9 @@ function hotHtml(c){
       '<span class="stt'+cls+'">'+st+'</span>'+
       '<button type="button" class="btn sm addbtn" data-co="'+esc(c.key)+'" data-i="'+idx+'">この案件をマイ案件に追加</button></div>';
   }).join('');
-  return '<div class="hot"><div class="ht"><span class="star">★ 注目の案件</span><small>'+esc(HOT_ASOF)+'時点・最新は募集ページで</small></div>'+body+'</div>';
+  const asof = h.asof ? (esc(h.asof)+'時点'+(h.manual?'・手動更新':'')) : (esc(HOT_ASOF)+'時点');
+  const extra = h.noteExtra ? '<div class="none">'+esc(h.noteExtra)+'</div>' : '';
+  return '<div class="hot"><div class="ht"><span class="star">★ 注目の案件</span><small>'+asof+'・最新は募集ページで</small></div>'+body+extra+'</div>';
 }
 function renderCos(){
   const mine={};
