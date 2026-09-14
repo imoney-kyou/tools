@@ -107,12 +107,17 @@ def p_cassette(c):  # torches / rakutama
                 min_=first(r"最低出資\s*金額\s*\(\d+口\)\s*(¥[\d,]+)", t), when=("あと" + first(r"募集終了まであと\s*(\S+)", t)) if c.get("deadline_visible") else "",
                 url=c["href"], method=first(r"募集方式\s*(\S+)", t))
 
+def fund_id_url(href, base):
+    """?fund_id=32&__ssn__=... のような href から fund_id だけを残したURLにする（セッション等は捨てる）"""
+    m = re.search(r"[?&]fund_id=(\d+)", href or "")
+    return f"{base}?fund_id={m.group(1)}" if m else base
+
 def p_gates(c):
     t = c["text"]
     name = re.sub(r"のファンドイメージ$", "", c["alt"] or "") or first(r"(GATES FUNDING\s*\d+号)", t)
     return dict(name=name, status=status_from(t), yield_=first(r"([\d.]+)%\s*\d+\s*[ヵヶか]月", t),
                 term=first(r"[\d.]+%\s*(\d+\s*[ヵヶか]月)", t).replace(" ", ""), min_=first(r"([\d,]+円)\s*\d{4}/\d{2}/\d{2}", t),
-                when=first(r"(\d{4}/\d{2}/\d{2}\s*\d{2}:\d{2})", t) + "〜", url="https://funding.gatestokyo.co.jp/investment/fund_list.html", method=first(r"(抽選式|先着式|先着順)", t))
+                when=first(r"(\d{4}/\d{2}/\d{2}\s*\d{2}:\d{2})", t) + "〜", url=fund_id_url(c["href"], "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html"), method=first(r"(抽選式|先着式|先着順)", t))
 
 def p_cozuchi(c):
     t = c["text"]
@@ -138,7 +143,7 @@ def p_rimawari(c):
     t = c["text"]
     return dict(name=first(r"^(利回り不動産\d+号ファンド（[^）]*）)", t) or first(r"^(\S+ファンド[^ ]*)", t), status=status_from(t.split("詳細はこちら")[-1]) or status_from(t),
                 yield_=first(r"予定利回り[^\d]*([\d.]+)%", t), term=first(r"運用期間\s*(\S+)", t), min_=first(r"最低投資金額\s*(¥[\d,]+)", t),
-                when=first(r"申込期間\s*(\S+)", t), url=c["href"])
+                when=first(r"申込期間\s*(\S+)", t), url=fund_id_url(c["href"], "https://rimawari.co.jp/investment/investment_entry.html"))
 
 def p_funds(c):
     t = c["text"]
