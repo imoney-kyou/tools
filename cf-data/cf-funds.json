@@ -1,6 +1,6 @@
 {
  "updatedAt": "2026-09-14",
- "generatedAt": "2026-09-14T09:01+09:00",
+ "generatedAt": "2026-09-14T17:18+09:00",
  "companies": {
   "reale": {
    "ok": true,
@@ -95,11 +95,11 @@
    "min": "1万円",
    "minYen": 10000,
    "when": "2026/09/02 PM 06:00 ~ 09/14 PM 12:59",
-   "status": "open",
+   "status": "done",
    "method": "",
    "note": "",
-   "img": "img/lseed-cb464cccf5.jpg",
-   "srcImg": "https://lseed.net/crowdfunding/_next/image?url=https%3A%2F%2Fcdn.lnetclub.com%2Ffund%2Ffund_id%3Dae32edbe-70fd-4247-acff-e036504487d7%2F%E5%8B%9F%E9%9B%86%E4%B8%AD_%E5%85%88%E7%9D%80_%E5%84%AA%E5%85%88.png&w=1920&q=75"
+   "img": "img/lseed-15e29cee95.jpg",
+   "srcImg": "https://lseed.net/crowdfunding/_next/image?url=https%3A%2F%2Fcdn.lnetclub.com%2Ffund%2Ffund_id%3Dae32edbe-70fd-4247-acff-e036504487d7%2F%E5%8B%9F%E9%9B%86%E7%B5%82%E4%BA%86_%E5%85%88%E7%9D%80_%E5%84%AA%E5%85%88.png&w=1920&q=75"
   },
   {
    "co": "lseed",
@@ -360,7 +360,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 28号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=32",
    "yield": "10.0%",
    "term": "4ヵ月",
    "months": 4,
@@ -376,7 +376,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 27号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=31",
    "yield": "10%",
    "term": "4ヵ月",
    "months": 4,
@@ -392,7 +392,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 26号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=30",
    "yield": "10%",
    "term": "4ヵ月",
    "months": 4,
@@ -408,7 +408,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 25号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=29",
    "yield": "10.0%",
    "term": "4ヵ月",
    "months": 4,
@@ -424,7 +424,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 24号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=28",
    "yield": "10.0%",
    "term": "4ヵ月",
    "months": 4,
@@ -440,7 +440,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 23号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=27",
    "yield": "10.0%",
    "term": "12ヵ月",
    "months": 12,
@@ -456,7 +456,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 22号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=26",
    "yield": "10.0%",
    "term": "6ヵ月",
    "months": 6,
@@ -472,7 +472,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 21号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=25",
    "yield": "8.5%",
    "term": "8ヵ月",
    "months": 8,
@@ -488,7 +488,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 20号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=24",
    "yield": "9.5%",
    "term": "6ヵ月",
    "months": 6,
@@ -504,7 +504,7 @@
   {
    "co": "gates",
    "name": "GATES FUNDING 19号",
-   "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+   "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=23",
    "yield": "8.0%",
    "term": "6ヵ月",
    "months": 6,
@@ -670,7 +670,7 @@
    "months": 6,
    "min": "1万円",
    "minYen": 10000,
-   "when": "募集開始まで 9時間57分",
+   "when": "募集開始まで 1時間40分",
    "status": "pre",
    "method": "抽選方式",
    "note": "",
@@ -744,7 +744,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産91号ファンド（墨田区立花区分マンション）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=149",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=149",
    "yield": "5.0%",
    "term": "12ヶ月",
    "months": 12,
@@ -760,7 +760,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産90号ファンド（世田谷上馬区分バルクPJ第4回）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=148",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=148",
    "yield": "6.5%",
    "term": "12ヶ月",
    "months": 12,
@@ -776,7 +776,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産89号ファンド（南青山5丁目区分店舗 第2回）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=147",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=147",
    "yield": "8.9%",
    "term": "12ヶ月",
    "months": 12,
@@ -792,7 +792,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産88号ファンド（東高円寺区分マンション）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=146",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=146",
    "yield": "5.0%",
    "term": "12ヶ月",
    "months": 12,
@@ -808,7 +808,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産87号ファンド（赤坂7丁目区分マンション 第2回）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=145",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=145",
    "yield": "7.0%",
    "term": "12ヶ月",
    "months": 12,
@@ -824,7 +824,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産86号ファンド（北海道千歳市マンション第3回）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=144",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=144",
    "yield": "7.0%",
    "term": "12ヶ月",
    "months": 12,
@@ -840,7 +840,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産85号ファンド（青森県ヘルスケア施設3 第2回）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=143",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=143",
    "yield": "9.5%",
    "term": "12ヶ月",
    "months": 12,
@@ -856,7 +856,7 @@
   {
    "co": "rimawari",
    "name": "利回り不動産84号ファンド（東京・神奈川賃貸住宅＜5戸＞）",
-   "url": "https://rimawari.co.jp/investment/investment_entry.html?command=new&fund_id=141",
+   "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=141",
    "yield": "7.0%",
    "term": "12ヶ月",
    "months": 12,
@@ -894,8 +894,8 @@
    "months": 12,
    "min": "1万円",
    "minYen": 10000,
-   "when": "2026年9月14日 12:00",
-   "status": "pre",
+   "when": "あと3日",
+   "status": "open",
    "method": "抽選式",
    "note": "",
    "img": "img/rakutama-8197be9b05.jpg",
@@ -1255,6 +1255,22 @@
   },
   {
    "co": "capima",
+   "name": "白馬バレー 大町 地域創生支援（ファンド121号）",
+   "url": "https://www.capima.jp/fund/130",
+   "yield": "8%",
+   "term": "12ヶ月",
+   "months": 12,
+   "min": "1万円",
+   "minYen": 10000,
+   "when": "",
+   "status": "pre",
+   "method": "",
+   "note": "",
+   "img": "img/capima-85a1673b24.jpg",
+   "srcImg": "https://assets.capima.jp/funds/130/summary.jpg?1789374008"
+  },
+  {
+   "co": "capima",
    "name": "沖縄 事業用地取得（ファンド120号）",
    "url": "https://www.capima.jp/fund/129",
    "yield": "8%",
@@ -1282,7 +1298,7 @@
    "status": "run",
    "method": "",
    "note": "",
-   "img": "img/capima-1c80f1425d.jpg",
+   "img": "",
    "srcImg": "https://assets.capima.jp/funds/127/summary.jpeg"
   },
   {
@@ -1430,22 +1446,6 @@
    "srcImg": "https://assets.capima.jp/funds/113/summary.jpeg"
   },
   {
-   "co": "capima",
-   "name": "薬膳火鍋（ファンド105号）",
-   "url": "https://www.capima.jp/fund/112",
-   "yield": "8%",
-   "term": "12ヶ月",
-   "months": 12,
-   "min": "1万円",
-   "minYen": 10000,
-   "when": "",
-   "status": "run",
-   "method": "",
-   "note": "",
-   "img": "",
-   "srcImg": "https://assets.capima.jp/funds/112/summary.jpeg"
-  },
-  {
    "co": "batsunagu",
    "name": "世田谷区深沢店舗共同住宅リノベーションファンド",
    "url": "https://invest.batsunagu-funding.com/#/opportunities/296",
@@ -1458,7 +1458,7 @@
    "status": "done",
    "method": "抽選式",
    "note": "",
-   "img": "img/batsunagu-690071ef9a.jpg",
+   "img": "",
    "srcImg": "https://batsunagu-funding.com/wp-content/uploads/2026/08/fond_img_260825.png"
   },
   {
@@ -1634,24 +1634,8 @@
    "status": "open",
    "method": "先着",
    "note": "",
-   "img": "img/crowdbank-e0fe554c81.jpg",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009033.jpg?ts=1789103663"
-  },
-  {
-   "co": "crowdbank",
-   "name": "系統用蓄電池事業支援ファンド第66号",
-   "url": "https://crowdbank.jp/funds/crowd/A00009028/",
-   "yield": "6.5%",
-   "term": "9ヶ月",
-   "months": 9,
-   "min": "1万円",
-   "minYen": 10000,
-   "when": "残り 2日",
-   "status": "open",
-   "method": "先着",
-   "note": "",
-   "img": "img/crowdbank-cded335f34.jpg",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009028.jpg?ts=1789103663"
+   "img": "img/crowdbank-bf73639c87.jpg",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009033.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1666,8 +1650,8 @@
    "status": "open",
    "method": "先着",
    "note": "",
-   "img": "img/crowdbank-84101501be.jpg",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009030.jpg?ts=1789103663"
+   "img": "img/crowdbank-883fbabb7c.jpg",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009030.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1682,8 +1666,24 @@
    "status": "open",
    "method": "先着",
    "note": "",
-   "img": "img/crowdbank-6a808c1163.jpg",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009031.jpg?ts=1789103663"
+   "img": "img/crowdbank-feb56a2ecb.jpg",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009031.jpg?ts=1789357980"
+  },
+  {
+   "co": "crowdbank",
+   "name": "系統用蓄電池事業支援ファンド第66号",
+   "url": "https://crowdbank.jp/funds/crowd/A00009028/",
+   "yield": "6.5%",
+   "term": "9ヶ月",
+   "months": 9,
+   "min": "1万円",
+   "minYen": 10000,
+   "when": "〜9月14日 09:38",
+   "status": "run",
+   "method": "先着",
+   "note": "",
+   "img": "",
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009028.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1699,7 +1699,7 @@
    "method": "先着",
    "note": "",
    "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009029.jpg?ts=1789103663"
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009029.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1715,7 +1715,7 @@
    "method": "先着",
    "note": "",
    "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009027.jpg?ts=1789103663"
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009027.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1731,7 +1731,7 @@
    "method": "先着",
    "note": "",
    "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009032.jpg?ts=1789103663"
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009032.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1747,7 +1747,7 @@
    "method": "先着",
    "note": "",
    "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009026.jpg?ts=1789103663"
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009026.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1763,7 +1763,7 @@
    "method": "先着",
    "note": "",
    "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009023.jpg?ts=1789103663"
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009023.jpg?ts=1789357980"
   },
   {
    "co": "crowdbank",
@@ -1779,7 +1779,7 @@
    "method": "先着",
    "note": "",
    "img": "",
-   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009024.jpg?ts=1789103663"
+   "srcImg": "https://d1nt23r8ejviab.cloudfront.net/img/fund/main/A00009024.jpg?ts=1789357980"
   }
  ]
 }
