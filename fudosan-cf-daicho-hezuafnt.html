@@ -613,7 +613,7 @@ const COMPANIES = [
      "total": "1億2,240万円",
      "type": "",
      "place": "",
-     "url": "https://funding.gatestokyo.co.jp/investment/fund_list.html",
+     "url": "https://funding.gatestokyo.co.jp/investment/lottery_application_entry.html?fund_id=32",
      "status": "open",
      "when": "9/8 19:00〜",
      "img": "gates"
@@ -899,7 +899,7 @@ const COMPANIES = [
      "total": "3,357万円",
      "type": "区分マンション",
      "place": "東京都墨田区立花",
-     "url": "https://rimawari.co.jp/investment/fund_list.html",
+     "url": "https://rimawari.co.jp/investment/investment_entry.html?fund_id=149",
      "status": "pre",
      "when": "9/14〜9/17",
      "img": "rimawari"
@@ -1265,7 +1265,17 @@ function otherFromUrl(u){
   const h=hostOf(u); if(!h) return null; const rd=regDomain(h);
   const k=Object.keys(KNOWN_OTHERS).find(d=>regDomain(d)===rd); return k?KNOWN_OTHERS[k]:null;
 }
-function normUrl(u){ try{ const x=new URL(u); return (x.hostname.replace(/^www\./,'')+x.pathname).replace(/\/+$/,'').toLowerCase(); }catch(e){ return String(u||'').trim().toLowerCase(); } }
+function normUrl(u){
+  try{
+    const x=new URL(String(u||'').trim());
+    let s=(x.hostname.replace(/^www\./,'')+x.pathname).replace(/\/+$/,'').toLowerCase();
+    // 案件を区別するのがクエリの会社（GATES・利回り不動産など）は fund_id 系だけ残す
+    const keep=['fund_id','id','investmentrecruitmenttype4id'];
+    const q=[]; x.searchParams.forEach((v,k)=>{ if(keep.includes(k.toLowerCase())) q.push(k.toLowerCase()+'='+v); });
+    if(q.length) s+='?'+q.sort().join('&');
+    return s;
+  }catch(e){ return String(u||'').trim().toLowerCase(); }
+}
 function hotFromUrl(u){
   const n=normUrl(u); if(!n) return null;
   if(LIVE){ const f=LIVE.funds.find(x=>x.url && normUrl(x.url)===n); if(f){ const c=COMPANIES.find(x=>x.key===f.co); if(c) return {c:c,f:liveToItem(f)}; } }
