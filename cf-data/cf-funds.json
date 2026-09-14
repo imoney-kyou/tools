@@ -1,6 +1,6 @@
 {
  "updatedAt": "2026-09-14",
- "generatedAt": "2026-09-14T08:43+09:00",
+ "generatedAt": "2026-09-14T09:01+09:00",
  "companies": {
   "reale": {
    "ok": true,
@@ -65,7 +65,7 @@
   "ag": {
    "ok": false,
    "count": 0,
-   "error": "カードを読めませんでした（サイト構造の変更の可能性）"
+   "error": "カードを読めませんでした（サイト構造の変更か、アクセス制限の可能性）: 403 Forbidden"
   }
  },
  "funds": [
@@ -670,7 +670,7 @@
    "months": 6,
    "min": "1万円",
    "minYen": 10000,
-   "when": "募集開始まで 10時間15分",
+   "when": "募集開始まで 9時間57分",
    "status": "pre",
    "method": "抽選方式",
    "note": "",
@@ -686,8 +686,8 @@
    "months": 12,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 15分",
-   "status": "open",
+   "when": "",
+   "status": "run",
    "method": "抽選方式",
    "note": "",
    "img": "img/fantas-aafef6310d.jpg",
@@ -1630,7 +1630,7 @@
    "months": 12,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 7日",
+   "when": "残り 6日",
    "status": "open",
    "method": "先着",
    "note": "",
@@ -1646,7 +1646,7 @@
    "months": 9,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 3日",
+   "when": "残り 2日",
    "status": "open",
    "method": "先着",
    "note": "",
@@ -1662,7 +1662,7 @@
    "months": 9,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 3日",
+   "when": "残り 2日",
    "status": "open",
    "method": "先着",
    "note": "",
@@ -1678,7 +1678,7 @@
    "months": 9,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 3日",
+   "when": "残り 2日",
    "status": "open",
    "method": "先着",
    "note": "",
