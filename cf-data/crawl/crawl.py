@@ -301,7 +301,7 @@ async def main():
                         continue
                       yl = d.get("yield_", "")
                       fund = {
-                          "co": key, "name": norm(d["name"])[:80], "url": d.get("url") or cfg["url"],
+                          "co": key, "name": re.sub(r"^(?:NEW|新着|募集中|募集前|運用中)\s*", "", norm(d["name"]))[:80], "url": d.get("url") or cfg["url"],
                           "yield": (yl + "%") if yl else "", "term": norm(d.get("term", "")), "months": term_months(d.get("term", "")),
                           "min": norm(d.get("min_", "")), "minYen": yen_min(d.get("min_", "")), "when": norm(d.get("when", "")),
                           "status": d.get("status") or "", "method": norm(d.get("method", "")), "note": norm(d.get("note", "")),
@@ -343,7 +343,8 @@ async def main():
         per = {}
         order = {"open": 0, "pre": 1, "lot": 2, "run": 3, "done": 9}
         for f in sorted(result["funds"], key=lambda x: order.get(x["status"], 9)):
-            if f["co"] in SKIP_DETAIL or f["status"] == "done" or not f["url"]: continue
+            # トーチーズ・らくたまは一覧で「運用中」と「募集終了」を区別できず done になるので、直近の案件も見に行く
+            if f["co"] in SKIP_DETAIL or (f["status"] == "done" and f["co"] not in ("torches", "rakutama")) or not f["url"]: continue
             per.setdefault(f["co"], 0)
             if per[f["co"]] >= 6: continue
             per[f["co"]] += 1
