@@ -1,6 +1,6 @@
 {
  "updatedAt": "2026-09-18",
- "generatedAt": "2026-09-18T10:37+09:00",
+ "generatedAt": "2026-09-18T11:41+09:00",
  "companies": {
   "reale": {
    "ok": true,
@@ -198,9 +198,9 @@
    "note": "",
    "img": "img/torches-0b8f8e4473.jpg",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/dfbd1156dd36feb983370301f2b590f6.jpg",
-   "start": "",
-   "end": "",
-   "payout": ""
+   "start": "2026-09-30",
+   "end": "2026-12-25",
+   "payout": "2027-01-12"
   },
   {
    "co": "torches",
@@ -217,9 +217,9 @@
    "note": "",
    "img": "img/torches-66588cebde.jpg",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/b152fa7b4ff2cd1922323a6b98e4cd96.jpg",
-   "start": "",
-   "end": "",
-   "payout": ""
+   "start": "2026-09-17",
+   "end": "2027-07-16",
+   "payout": "2027-08-02"
   },
   {
    "co": "torches",
@@ -236,9 +236,9 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/09134bbdfcbdd487f2129656cddd8f12.jpg",
-   "start": "",
-   "end": "",
-   "payout": ""
+   "start": "2026-09-17",
+   "end": "2027-07-16",
+   "payout": "2027-08-02"
   },
   {
    "co": "torches",
@@ -255,9 +255,9 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/7384b895ac287963778f3a1643d30f21.jpeg",
-   "start": "",
-   "end": "",
-   "payout": ""
+   "start": "2026-09-09",
+   "end": "2027-07-08",
+   "payout": "2027-07-23"
   },
   {
    "co": "torches",
@@ -274,9 +274,9 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/1746ffacae72fb93eb73081682f9d3c3.jpeg",
-   "start": "",
-   "end": "",
-   "payout": ""
+   "start": "2026-09-09",
+   "end": "2027-07-08",
+   "payout": "2027-07-23"
   },
   {
    "co": "torches",
@@ -293,9 +293,9 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/5a304772d21981e2ae7fb2d589f7eef6.jpg",
-   "start": "",
-   "end": "",
-   "payout": ""
+   "start": "2026-08-31",
+   "end": "2027-06-30",
+   "payout": "2027-07-14"
   },
   {
    "co": "torches",
@@ -781,7 +781,7 @@
    "months": 6,
    "min": "1万円",
    "minYen": 10000,
-   "when": "残り 5日22時間",
+   "when": "残り 5日21時間",
    "status": "open",
    "method": "抽選方式",
    "note": "",
@@ -1034,8 +1034,8 @@
    "note": "",
    "img": "img/rakutama-2a0689ca61.jpg",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/50aaddfbe1a08f4e5154424dade40fbd.png",
-   "start": "",
-   "end": "",
+   "start": "2026-10-02",
+   "end": "2027-09-29",
    "payout": ""
   },
   {
@@ -1053,8 +1053,8 @@
    "note": "",
    "img": "img/rakutama-07988acbb0.jpg",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/0c0e97f5ade07abaa83fd3fb732c0a7b.png",
-   "start": "",
-   "end": "",
+   "start": "2026-10-02",
+   "end": "2027-09-29",
    "payout": ""
   },
   {
@@ -1072,8 +1072,8 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/d6e4b3ae60a19a9627d26159a4f16dfc.png",
-   "start": "",
-   "end": "",
+   "start": "2026-08-31",
+   "end": "2027-08-26",
    "payout": ""
   },
   {
@@ -1091,8 +1091,8 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/e04b317a7c737e4ede1e803d8dee5b3d.png",
-   "start": "",
-   "end": "",
+   "start": "2026-08-15",
+   "end": "2027-08-12",
    "payout": ""
   },
   {
@@ -1110,8 +1110,8 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/525b86c80f0d051c81e2324e821fa8b8.png",
-   "start": "",
-   "end": "",
+   "start": "2026-06-19",
+   "end": "2027-06-17",
    "payout": ""
   },
   {
@@ -1129,8 +1129,8 @@
    "note": "",
    "img": "",
    "srcImg": "https://dr2s84yomh3bk.cloudfront.net/store/7818aa2547be071e3f19ea087f1352d2.png",
-   "start": "",
-   "end": "",
+   "start": "2026-06-02",
+   "end": "2027-05-28",
    "payout": ""
   },
   {
@@ -1716,7 +1716,7 @@
    "status": "done",
    "method": "抽選式",
    "note": "",
-   "img": "img/batsunagu-690071ef9a.jpg",
+   "img": "",
    "srcImg": "https://batsunagu-funding.com/wp-content/uploads/2026/08/fond_img_260825.png",
    "start": "",
    "end": "",
@@ -1756,8 +1756,8 @@
    "note": "",
    "img": "",
    "srcImg": "https://batsunagu-funding.com/wp-content/uploads/2026/08/fond_img_260804.png",
-   "start": "",
-   "end": "",
+   "start": "2026-08-23",
+   "end": "2027-02-22",
    "payout": ""
   },
   {
@@ -1832,8 +1832,8 @@
    "note": "",
    "img": "",
    "srcImg": "https://batsunagu-funding.com/wp-content/uploads/2026/03/fond_img_0303.png",
-   "start": "",
-   "end": "",
+   "start": "2026-03-31",
+   "end": "2026-09-29",
    "payout": ""
   },
   {
@@ -1914,7 +1914,7 @@
   },
   {
    "co": "crowdbank",
-   "name": "NEW日本その他系統用蓄電池事業支援ファンド第70号",
+   "name": "日本その他系統用蓄電池事業支援ファンド第70号",
    "url": "https://crowdbank.jp/funds/crowd/A00009035/",
    "yield": "7.1%",
    "term": "10ヶ月",
@@ -1933,7 +1933,7 @@
   },
   {
    "co": "crowdbank",
-   "name": "NEW日本その他系統用蓄電池事業支援ファンド第71号",
+   "name": "日本その他系統用蓄電池事業支援ファンド第71号",
    "url": "https://crowdbank.jp/funds/crowd/A00009036/",
    "yield": "7.1%",
    "term": "10ヶ月",
