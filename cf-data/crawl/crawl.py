@@ -169,7 +169,7 @@ def p_batsunagu(c):
                 url=(c["href"] or "https://batsunagu-funding.com/").split("?")[0], method=first(r"【(抽選式|先着式)】", t))
 
 def p_crowdbank(c):
-    t = c["text"]
+    t = re.sub(r"^(?:NEW|新着)\s*", "", c["text"])   # 新着ラベルが先頭に付くと地域・分類の切り落としが効かなくなる
     name = first(r"^(?:日本|カナダ/米国|中国|アジア/オセアニア|欧州|アフリカ/中南米/その他)?\s*(?:建設/不動産事業|太陽光|風力|バイオマス|水力|地熱|物流|宿泊/飲食|エンターテイメント|医療/ヘルスケア|水処理|廃棄物処理|金融/マイクロファイナンス|IT/ソフトウェア|その他)?\s*(.+?)\s*(?:JPY|先着|抽選)", t)
     st = status_from(t)
     return dict(name=name, status=st, yield_=first(r"目標利回り\s*([\d.]+)\s*%", t) or first(r"([\d.]+)%\s*\d+ヶ月", t),
