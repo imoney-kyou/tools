@@ -306,6 +306,7 @@ async def main():
                           "min": norm(d.get("min_", "")), "minYen": yen_min(d.get("min_", "")), "when": norm(d.get("when", "")),
                           "status": d.get("status") or "", "method": norm(d.get("method", "")), "note": norm(d.get("note", "")),
                           "img": "", "srcImg": c.get("img", ""),
+                        "start": "", "end": "", "payout": "",
                       }
                       if fund["min"] and fund["minYen"]: fund["min"] = fmt_min(fund["minYen"])
                       result["funds"].append(fund); n += 1
@@ -317,26 +318,53 @@ async def main():
                 info["error"] = (str(e).splitlines() or ["error"])[0][:200]
             result["companies"][key] = info
             print(f"[{key}] ok={info['ok']} count={info['count']} {info['error']}", flush=True)
-        # 募集期間が取れなかった募集前/募集中の案件は詳細ページを見に行く（最大8件）
-        n_detail = 0
-        for f in result["funds"]:
-            if f["status"] in ("open", "pre") and not f["when"] and f["url"] and n_detail < 8 and f["co"] in ("torches", "rakutama", "reale", "lseed", "cozuchi", "capima"):
-                n_detail += 1
-                try:
-                    pg = await ctx.new_page()
-                    await pg.goto(f["url"], wait_until="domcontentloaded", timeout=45000)
-                    await pg.wait_for_timeout(2000)
-                    body = norm(await pg.inner_text("body"))
-                    await pg.close()
+        # 案件ページを見に行って、運用開始日・運用終了日・償還予定日・募集期間を取る（各社6件まで・募集中/募集前を優先）
+        DATE = r"(\d{4})\s*[/年.\-]\s*(\d{1,2})\s*[/月.\-]\s*(\d{1,2})"
+        def iso(m):
+            try: return f"{int(m.group(1)):04d}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+            except Exception: return ""
+        def dates_from(body):
+            out = {}
+            m = re.search(r"運用期間[^0-9]{0,14}" + DATE + r"\s*日?\s*\d{0,2}:?\d{0,2}\s*[〜～~\-–]\s*" + DATE, body)
+            if m:
+                out["start"] = iso(m); out["end"] = f"{int(m.group(4)):04d}-{int(m.group(5)):02d}-{int(m.group(6)):02d}"
+            ms = re.search(r"運用開始\s*(?:予定)?\s*日?\s*[:：]?\s*" + DATE, body)
+            me = re.search(r"運用終了\s*(?:予定)?\s*日?\s*[:：]?\s*" + DATE, body)
+            if ms and not out.get("start"): out["start"] = iso(ms)
+            if me and not out.get("end"): out["end"] = iso(me)
+            # Funds型: 日付のあとにラベル
+            ms2 = re.search(DATE + r"\s*運用開始日?（予定）", body); me2 = re.search(DATE + r"\s*運用終了日?（予定）", body)
+            if ms2 and not out.get("start"): out["start"] = iso(ms2)
+            if me2 and not out.get("end"): out["end"] = iso(me2)
+            mp = re.search(r"(?:償還予定日|払い?戻し(?:予定)?(?:日|期日)|分配及び払い戻し予定日\s*1期[:：])\s*" + DATE, body)
+            if mp: out["payout"] = iso(mp)
+            return out
+        SKIP_DETAIL = {"ag", "gates", "rimawari", "crowdbank", "cozuchi"}   # 案件ページに運用日が無い／ログインが要る会社
+        per = {}
+        order = {"open": 0, "pre": 1, "lot": 2, "run": 3, "done": 9}
+        for f in sorted(result["funds"], key=lambda x: order.get(x["status"], 9)):
+            if f["co"] in SKIP_DETAIL or f["status"] == "done" or not f["url"]: continue
+            per.setdefault(f["co"], 0)
+            if per[f["co"]] >= 6: continue
+            per[f["co"]] += 1
+            try:
+                pg = await ctx.new_page()
+                await pg.goto(f["url"], wait_until="domcontentloaded", timeout=45000)
+                await pg.wait_for_timeout(2500)
+                body = norm(await pg.inner_text("body"))
+                await pg.close()
+                d = dates_from(body)
+                for k in ("start", "end", "payout"):
+                    if d.get(k): f[k] = d[k]
+                if not f["when"] and f["status"] in ("open", "pre"):
                     m = re.search(r"募集期間[:：]?\s*(\d{4}[/年.]\d{1,2}[/月.]\d{1,2}[^ ]{0,8}\s*\d{0,2}:?\d{0,2}\s*[〜～~-]\s*\d{0,4}[/年.]?\d{1,2}[/月.]\d{1,2}[^ ]{0,8}\s*\d{0,2}:?\d{0,2})", body)
                     if not m:
                         m = re.search(r"募集(?:開始|期間)[^\d]{0,8}(\d{4}[/年.]\d{1,2}[/月.]\d{1,2}[^ ]{0,8}\s*\d{0,2}:?\d{0,2})", body)
-                    if m:
-                        f["when"] = norm(m.group(1))[:40]
-                    if f["co"] == "torches" and f["status"] == "pre" and "募集開始前" not in body and "募集中" in body:
-                        f["status"] = "open"
-                except Exception:
-                    pass
+                    if m: f["when"] = norm(m.group(1))[:40]
+                if f["co"] == "torches" and f["status"] == "pre" and "募集開始前" not in body and "募集中" in body:
+                    f["status"] = "open"
+            except Exception:
+                pass
         await browser.close()
     # 画像: 募集中/募集前は全部、それ以外は各社2件まで
     per = {}
