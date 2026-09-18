@@ -1171,7 +1171,7 @@ function renderLedger(){
 }
 
 function fmtJp(s){ const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s||''); return m? (+m[1])+'年'+(+m[2])+'月'+(+m[3])+'日' : (s||''); }
-function liveToItem(f){ return {name:f.name||'', yield:f.yield||'', term:f.term||'', min:f.min||'', when:f.when||'', url:f.url||'', status:(f.status==='open'||f.status==='pre'||f.status==='lot')?f.status:'', img:f.img?('cf-data/'+f.img):'', months:f.months||'', minYen:f.minYen||'', live:true}; }
+function liveToItem(f){ return {name:f.name||'', yield:f.yield||'', term:f.term||'', min:f.min||'', when:f.when||'', url:f.url||'', status:(f.status==='open'||f.status==='pre'||f.status==='lot')?f.status:'', img:f.img?('cf-data/'+f.img):'', months:f.months||'', minYen:f.minYen||'', start:f.start||'', end:f.payout||f.end||'', rawStatus:f.status||'', live:true}; }
 function applyLive(){
   if(!LIVE) return;
   HOT_ASOF = fmtJp(LIVE.updatedAt)+'（自動更新）';
@@ -1239,7 +1239,7 @@ function renderCos(){
       hotHtml(c)+
       (mine[c.key]?'<div class="mine">あなたの投資：'+mine[c.key].n+'件・'+man(mine[c.key].a)+'</div>':'')+
       '<div class="bt3">'+(c.blog?'<a class="btn blog" href="'+esc(c.blog)+'" target="_blank" rel="noopener sponsored">口座開設ガイドを読む（ブログ）</a>':'')+
-      '<div class="bt"><a class="btn pri" href="'+esc(c.funds)+'" target="_blank" rel="noopener sponsored">募集中の案件</a><a class="btn" href="'+esc(c.aff||c.url)+'" target="_blank" rel="noopener sponsored">'+(c.aff?'公式サイトで登録':'公式サイト')+'</a></div></div>'+
+      '<div class="bt"><a class="btn pri" href="'+esc(c.aff||c.funds)+'" target="_blank" rel="noopener sponsored">募集中の案件</a><a class="btn" href="'+esc(c.aff||c.url)+'" target="_blank" rel="noopener sponsored">'+(c.aff?'公式サイトで登録':'公式サイト')+'</a></div></div>'+
     '</div>';
   document.getElementById('cos').innerHTML =
     (feat.length?'<div class="grp hotg">いま注目の'+feat.length+'社<small>募集が近い・案件に勢いがある会社</small></div>'+feat.map(c=>card(c,true)).join(''):'')+
@@ -1296,7 +1296,8 @@ function hotToRecord(c,f){
   const ptype=/ホテル|宿泊/.test(ty)?'ホテル・宿泊':/一棟|共同住宅|レジデンス/.test(ty+f.name)?'一棟マンション・アパート':/区分|マンション|居宅/.test(ty)?'区分マンション':/店舗|オフィス|ビル/.test(ty)?'オフィス・商業ビル':/土地|用地|開発/.test(ty)?'土地・開発':(c.kind==='loan'?'貸付（事業者向け）':PTYPES[0]);
   if(f.months) months=f.months; if(!amount&&f.minYen) amount=f.minYen;
   const imgv = f.img ? (FIMG[f.img] || (/[\/]/.test(f.img)? f.img : '')) : '';
-  return {id:uid(),co:c.key,coName:'',name:f.name||'',status:'apply',amount:amount,rate:y,start:u2s(TODAY),months:months,end:'',pay:'lump',ptype:ptype,place:f.place||'',sub:'',url:f.url||'',memo:f.when?('募集期間: '+f.when):'',actual:'',img:imgv};
+  const st = f.rawStatus==='run' ? 'run' : 'apply';
+  return {id:uid(),co:c.key,coName:'',name:f.name||'',status:st,amount:amount,rate:y,start:f.start||u2s(TODAY),months:months,end:f.end||'',pay:'lump',ptype:ptype,place:f.place||'',sub:'',url:f.url||'',memo:f.when?('募集期間: '+f.when):'',actual:'',img:imgv};
 }
 
 function renderData(){
@@ -1331,7 +1332,7 @@ function openForm(id, preset){
   const sheet=document.createElement('div'); sheet.className='sheet'; sheet.id='sheet';
   sheet.innerHTML = '<div class="box" role="dialog" aria-modal="true" aria-labelledby="fTitle">'+
     '<h2 id="fTitle">'+(r?'案件を編集':(preset?'注目の案件から追加':'案件を追加'))+'<button type="button" id="fClose" aria-label="閉じる">×</button></h2>'+
-    '<div class="f"><label for="fUrl">案件ページのURL<i class="blk">先に貼ると事業者を自動で判定。13社の最近の案件なら案件名・利回り・期間も自動で入ります（古い案件は手入力）</i></label><input type="url" id="fUrl" value="'+esc(v.url)+'" placeholder="https://">'+(v.url?'<div class="actions" style="margin-top:6px"><a class="btn sm" href="'+esc(v.url)+'" target="_blank" rel="noopener">案件ページを開く</a></div>':'')+'</div>'+
+    '<div class="f"><label for="fUrl">案件ページのURL<i class="blk">先に貼ると事業者を自動で判定。13社の最近の案件なら案件名・利回り・期間・運用開始日・戻ってくる予定日も自動で入ります（古い案件や、案件ページに日付のない会社は手入力）</i></label><input type="url" id="fUrl" value="'+esc(v.url)+'" placeholder="https://">'+(v.url?'<div class="actions" style="margin-top:6px"><a class="btn sm" href="'+esc(v.url)+'" target="_blank" rel="noopener">案件ページを開く</a></div>':'')+'</div>'+
     '<div class="f2">'+
       '<div class="f"><label for="fCo">事業者 <i>（あいうえお順）</i></label><select id="fCo">'+coOpts+'</select></div>'+
       '<div class="f"><label for="fStatus">状態</label><select id="fStatus">'+Object.entries(STATUS).map(([k,l])=>'<option value="'+k+'"'+(v.status===k?' selected':'')+'>'+l+'</option>').join('')+'</select></div>'+
@@ -1391,6 +1392,8 @@ function openForm(id, preset){
   sheet.querySelectorAll('input,select,textarea').forEach(el=>{ if(el.id==='fImg') return; el.addEventListener('input',upd); el.addEventListener('change',upd); });
   $('#fPtype').addEventListener('change',drawImg);
   let monthsTouched = false; $('#fMonths').addEventListener('input',()=>{ monthsTouched=true; });
+  let startTouched = false; $('#fStart').addEventListener('input',()=>{ startTouched=true; });
+  let statusTouched = false; $('#fStatus').addEventListener('change',()=>{ statusTouched=true; });
   const applyUrl=()=>{
     const u=$('#fUrl').value.trim(); if(!u) return;
     const c=companyFromUrl(u);
@@ -1407,6 +1410,9 @@ function openForm(id, preset){
       if(!$('#fName').value.trim()&&rec.name){ $('#fName').value=rec.name; filled++; }
       if(!$('#fRate').value&&rec.rate!==''){ $('#fRate').value=rec.rate; filled++; }
       if((!$('#fMonths').value||(!r&&!monthsTouched))&&rec.months!==''){ $('#fMonths').value=rec.months; filled++; }
+      if(!r && hit.f.start && !startTouched){ $('#fStart').value=hit.f.start; filled++; }
+      if(!r && hit.f.end){ $('#fEnd').value=hit.f.end; endTouched=true; filled++; }
+      if(!r && hit.f.rawStatus==='run' && !statusTouched){ $('#fStatus').value='run'; }
       if(!$('#fAmount').value&&rec.amount!==''){ $('#fAmount').value=fmtMoney(rec.amount); filled++; }
       if(rec.ptype){ $('#fPtype').value=rec.ptype; }
       if(!img&&rec.img){ img=rec.img; drawImg(); filled++; }
