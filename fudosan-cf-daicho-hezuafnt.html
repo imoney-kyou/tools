@@ -119,7 +119,7 @@ main > *, .view > *, .tiles > *, .cos > *, .rec > *, .co > *{min-width:0}
 .days.pos{background:var(--pos-soft);color:var(--pos)}
 
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media (min-width:600px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:600px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .tile{padding:12px 14px;text-align:left;width:100%;cursor:pointer;font-family:inherit;color:inherit}
 .tile.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
 .tile .k::after{content:" ▾";font-size:10px;opacity:.7}
@@ -271,6 +271,13 @@ details.acc[open] summary::after{content:"－"}
 details.acc summary small{font-weight:700;color:var(--muted);font-size:11px;margin-left:auto;margin-right:8px}
 details.acc .body{padding:10px 14px 4px;border-top:1px solid var(--line)}
 input.money{font-variant-numeric:tabular-nums;text-align:right;padding-right:3.2em}
+/* ---------- form: distributions ---------- */
+.dist{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) 36px;gap:6px;align-items:center;margin-bottom:6px}
+.dist input{min-height:42px;padding:8px 10px;font-size:15px}
+.dist .withunit input{padding-right:2.6em}
+.dist .del{width:36px;height:36px}
+.dist-sum{font-size:12px;color:var(--muted);margin:4px 0 6px}
+.dist-sum b{color:var(--pos);font-weight:800}
 /* ---------- form: photo ---------- */
 .imgbox{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .imgbox .thumb{width:84px;height:84px;border-radius:12px}
@@ -419,7 +426,7 @@ a.sns-i .arw{margin-left:auto;color:var(--accent);font-weight:800}
       <div class="step"><div class="no">1</div><div><b>マイ案件で「＋ 案件を追加」。案件ページのURLを貼ると自動で入ります</b><span>13社の最近の案件は、URLを貼るだけで事業者・案件名・利回り・期間・画像が入ります。古い案件や一覧にない案件は、利回りと期間だけ手で入れてください。投資額と運用開始日を確認して保存すれば、戻ってくる日と額が出ます。</span></div></div>
       <div class="step"><div class="no">2</div><div><b>応募したら「応募中」、当選・入金したら「運用中」に</b><span>抽選待ちの案件も忘れずに残しておけます。</span></div></div>
       <div class="step"><div class="no">3</div><div><b>「いつ戻る？」の画面で次に戻る日を確認</b><span>30日以内は赤、90日以内は黄色の表示になります。</span></div></div>
-      <div class="step"><div class="no">4</div><div><b>戻ってきたら状態を「戻ってきた」に変えて、実際の戻り額をメモ</b><span>予定と実績の差もあとから見返せます。</span></div></div>
+      <div class="step"><div class="no">4</div><div><b>途中の分配金は「受け取った分配金」に記録。戻ってきたら状態を「戻ってきた」に</b><span>振り込まれた額を日付つきで残せます。累計と今年の合計は「いつ戻る？」のタイルに出ます。</span></div></div>
     </div>
   </div>
 
@@ -970,7 +977,7 @@ function imgOf(r){ if(!r||!r.img) return ''; if(r.img.charAt(0)==='@'){ return F
 const SAMPLE = [
   {id:'s1',sample:true,co:'torches',coName:'',name:'No.65 Hotel Vintage 築地・神楽坂・目黒不動前 3棟ファンド',status:'run',amount:100000,rate:24.0,start:'2026-09-30',months:1,end:'',pay:'lump',ptype:'ホテル・宿泊',place:'東京都中央区ほか',sub:1,url:'https://www.torches.fund/projects/fund-065',memo:'',actual:'',img:'@torches'},
   {id:'s2',sample:true,co:'rakutama',coName:'',name:'らくたま47号（クリオ横濱元町通り）',status:'run',amount:50000,rate:6.1,start:'2026-10-02',months:12,end:'',pay:'lump',ptype:'区分マンション',place:'横浜市中区元町',sub:12,url:'https://rakutama.jp/projects/47',memo:'',actual:'',img:'@rakutama_47'},
-  {id:'s3',sample:true,co:'funds',coName:'',name:'Bareeモビリティ ECファンド#5',status:'run',amount:200000,rate:4.5,start:'2026-10-01',months:19,end:'',pay:'quarter',ptype:'貸付（事業者向け）',place:'',sub:'',url:'https://funds.jp/fund/detail/Baree-Mobility05',memo:'',actual:'',img:'@funds_baree'},
+  {id:'s3',sample:true,co:'funds',coName:'',name:'Bareeモビリティ ECファンド#5',status:'run',amount:200000,rate:4.5,start:'2026-04-01',months:19,end:'',pay:'quarter',ptype:'貸付（事業者向け）',place:'',sub:'',url:'https://funds.jp/fund/detail/Baree-Mobility05',memo:'',actual:'',img:'@funds_baree',dists:[{date:'2026-07-01',amount:1791,memo:'1回目'}]},
   {id:'s4',sample:true,co:'reale',coName:'',name:'【REALE1号】恵比寿一棟レジデンス',status:'apply',amount:50000,rate:6.5,start:'2026-10-13',months:6,end:'',pay:'lump',ptype:'一棟マンション・アパート',place:'東京都目黒区三田',sub:30,url:'https://reale-fund.jp/fund/1',memo:'9/16 12:00 募集開始',actual:'',img:'@reale'}
 ];
 
@@ -1037,6 +1044,7 @@ function daysBadge(n, status){
   return '<span class="days '+cls+'">あと'+n+'日</span>';
 }
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),1800); }
+function received(r){ return (r&&r.dists||[]).reduce((s,d)=>s+(+d.amount||0),0); }
 function fmtMoney(v){ if(v===''||v==null||isNaN(+v)) return ''; return Math.round(+v).toLocaleString('ja-JP'); }
 function parseMoney(s){ const d=String(s||'').replace(/[^\d]/g,''); return d===''?'':+d; }
 function bindMoney(el){ el.addEventListener('input',()=>{ const d=el.value.replace(/[^\d]/g,''); const f=d?(+d).toLocaleString('ja-JP'):''; if(el.value!==f){ el.value=f; try{ el.setSelectionRange(f.length,f.length); }catch(e){} } }); }
@@ -1072,14 +1080,18 @@ function renderDash(){
   const back = running.reduce((s,r)=>s+r._c.back,0);
   const net = running.reduce((s,r)=>s+r._c.net,0);
   const yr = TODAY.getUTCFullYear();
+  const recAll = rs.reduce((s,r)=>s+received(r),0);
+  const recYear = rs.reduce((s,r)=>s+(r.dists||[]).filter(d=>String(d.date||'').slice(0,4)==String(yr)).reduce((a,d)=>a+(+d.amount||0),0),0);
   const thisYear = active.filter(r=>r._end && r._end.slice(0,4)==String(yr)).reduce((s,r)=>s+r._c.back,0);
   document.getElementById('tiles').innerHTML =
     tile('いま預けているお金', man(principal),'acc','principal')+
     tile('戻ってくる予定', man(back),'pos','back')+
     tile('もらえる分配金（税引後）', man(net),'pos','net')+
+    tile('受け取った分配金（累計）', man(recAll),'pos','recv')+
+    tile('今年受け取った分配金', man(recYear),'pos','recvY')+
     tile('案件数', running.length+'<small>運用中</small>'+(applying.length?' / '+applying.length+'<small>応募中</small>':''),'','');
-  document.querySelectorAll('#tiles .tile[data-bd]').forEach(b=>b.addEventListener('click',()=>{ state.bd = (state.bd===b.dataset.bd)?'':b.dataset.bd; save(); renderBreakdown(running); }));
-  renderBreakdown(running);
+  document.querySelectorAll('#tiles .tile[data-bd]').forEach(b=>b.addEventListener('click',()=>{ state.bd = (state.bd===b.dataset.bd)?'':b.dataset.bd; save(); renderBreakdown(running, rs); }));
+  renderBreakdown(running, rs);
 
   // schedule
   const sc=document.getElementById('schedule');
@@ -1116,11 +1128,21 @@ function tile(k,v,cls,bd){
   if(!bd) return '<div class="panel tile static"><div class="k">'+k+'</div><div class="v num '+cls+'">'+v+'</div></div>';
   return '<button type="button" class="panel tile'+(state.bd===bd?' on':'')+'" data-bd="'+bd+'" aria-expanded="'+(state.bd===bd?'true':'false')+'"><div class="k">'+k+'</div><div class="v num '+cls+'">'+v+'</div></button>';
 }
-function renderBreakdown(running){
+function renderBreakdown(running, all){
   const el=document.getElementById('bd'); const bd=state.bd||'';
   document.querySelectorAll('#tiles .tile[data-bd]').forEach(b=>{ b.classList.toggle('on',b.dataset.bd===bd); b.setAttribute('aria-expanded',b.dataset.bd===bd?'true':'false'); });
   if(!bd){ el.hidden=true; el.innerHTML=''; return; }
   el.hidden=false;
+  if(bd==='recv'||bd==='recvY'){
+    const yr=String(TODAY.getUTCFullYear());
+    const rows=[]; (all||[]).forEach(r=>(r.dists||[]).forEach(d=>{ if(bd==='recvY' && String(d.date||'').slice(0,4)!==yr) return; rows.push({r:r,d:d}); }));
+    rows.sort((a,b)=>String(b.d.date||'')<String(a.d.date||'')?-1:1);
+    const tot=rows.reduce((s,x)=>s+(+x.d.amount||0),0);
+    let h='<div class="bh">'+(bd==='recv'?'これまでに受け取った分配金':yr+'年に受け取った分配金')+'<small>'+rows.length+'回・'+yen(tot)+'</small></div>';
+    h+= rows.length ? rows.map(x=>'<div class="r">'+coMark(x.r,'')+'<div><div class="nm">'+esc(x.r.name||'（案件名なし）')+'</div><div class="sub">'+fmtDate(x.d.date)+(x.d.memo?'・'+esc(x.d.memo):'')+'</div></div><div class="v num pos">'+yen(+x.d.amount||0)+'</div></div>').join('') : '<div class="empty">まだ記録がありません。マイ案件の編集画面で「＋ 分配金を追加」から入れられます。</div>';
+    h+='<div class="foot">案件ごとに記録した「受け取った分配金」（振り込まれた額）の合計です。</div>';
+    el.innerHTML=h; return;
+  }
   if(!running.length){ el.innerHTML='<div class="bh">内訳</div><div class="empty">運用中の案件がありません。</div>'; return; }
   let html='';
   if(bd==='principal'||bd==='back'){
@@ -1134,7 +1156,7 @@ function renderBreakdown(running){
   }else{
     const list=running.slice().sort((x,y)=>y._c.net-x._c.net);
     html+='<div class="bh">どの案件でいくらもらえる？<small>運用中 '+running.length+'件の合計</small></div>';
-    html+=list.map(r=>'<div class="r">'+coMark(r,'')+'<div><div class="nm">'+esc(r.name||'（案件名なし）')+'</div><div class="sub">'+(+r.rate||0)+'%・'+(+r.months||0)+'か月・戻る日 '+fmtDate(r._end)+'</div></div><div class="v num pos">'+yen(r._c.net)+'<small>税引前 '+yen(r._c.gross)+'</small></div></div>').join('');
+    html+=list.map(r=>'<div class="r">'+coMark(r,'')+'<div><div class="nm">'+esc(r.name||'（案件名なし）')+'</div><div class="sub">'+(+r.rate||0)+'%・'+(+r.months||0)+'か月・戻る日 '+fmtDate(r._end)+'</div></div><div class="v num pos">'+yen(r._c.net)+'<small>'+(received(r)?'受取済み '+yen(received(r))+'・残り '+yen(Math.max(0,r._c.net-received(r))):'税引前 '+yen(r._c.gross))+'</small></div></div>').join('');
     html+='<div class="foot">運用中のすべての案件について、運用期間いっぱいでもらえる分配金（源泉20.42%を引いた後）の合計です。すでに受け取った分も含みます。</div>';
   }
   el.innerHTML=html;
@@ -1164,6 +1186,7 @@ function renderLedger(){
         '<div class="kv"><div class="k">戻る予定日</div><div class="v num">'+fmtDate(r._end)+'</div></div>'+
         '<div class="kv"><div class="k">分配（税引後）</div><div class="v num">'+yen(r._c.net)+'</div></div>'+
       '</div>'+
+      (received(r)?'<div class="prop">受け取った分配金 <b class="num" style="color:var(--pos)">'+yen(received(r))+'</b>（'+r.dists.length+'回）'+(r.status!=='done'?'・残り '+yen(Math.max(0,r._c.net-received(r))):'')+'</div>':'')+
       (prop?'<div class="prop">'+esc(prop)+'</div>':'')+
     '</button>';
   }).join('');
@@ -1297,7 +1320,7 @@ function hotToRecord(c,f){
   if(f.months) months=f.months; if(!amount&&f.minYen) amount=f.minYen;
   const imgv = f.img ? (FIMG[f.img] || (/[\/]/.test(f.img)? f.img : '')) : '';
   const st = f.rawStatus==='run' ? 'run' : 'apply';
-  return {id:uid(),co:c.key,coName:'',name:f.name||'',status:st,amount:amount,rate:y,start:f.start||u2s(TODAY),months:months,end:f.end||'',pay:'lump',ptype:ptype,place:f.place||'',sub:'',url:f.url||'',memo:f.when?('募集期間: '+f.when):'',actual:'',img:imgv};
+  return {id:uid(),co:c.key,coName:'',name:f.name||'',status:st,amount:amount,rate:y,start:f.start||u2s(TODAY),months:months,end:f.end||'',pay:'lump',ptype:ptype,place:f.place||'',sub:'',url:f.url||'',memo:f.when?('募集期間: '+f.when):'',actual:'',img:imgv,dists:[]};
 }
 
 function renderData(){
@@ -1327,7 +1350,7 @@ function renderAll(){ renderNotice(); renderDash(); renderLedger(); renderCos();
 /* ===================== form ===================== */
 function openForm(id, preset){
   const r = id ? state.records.find(x=>x.id===id) : null;
-  const v = r ? Object.assign({},r) : preset ? Object.assign({},preset) : {id:uid(),co:COMPANIES[0].key,coName:'',name:'',status:'run',amount:'',rate:'',start:u2s(TODAY),months:12,end:'',pay:'lump',ptype:PTYPES[0],place:'',sub:'',url:'',memo:'',actual:'',img:''};
+  const v = r ? Object.assign({},r) : preset ? Object.assign({},preset) : {id:uid(),co:COMPANIES[0].key,coName:'',name:'',status:'run',amount:'',rate:'',start:u2s(TODAY),months:12,end:'',pay:'lump',ptype:PTYPES[0],place:'',sub:'',url:'',memo:'',actual:'',img:'',dists:[]};
   const coOpts = COMPANIES.map(c=>'<option value="'+c.key+'"'+(v.co===c.key?' selected':'')+'>'+esc(c.name)+'</option>').join('')+'<option value="other"'+(!v.co||v.co==='other'?' selected':'')+'>その他（自分で入力）</option>';
   const sheet=document.createElement('div'); sheet.className='sheet'; sheet.id='sheet';
   sheet.innerHTML = '<div class="box" role="dialog" aria-modal="true" aria-labelledby="fTitle">'+
@@ -1350,6 +1373,7 @@ function openForm(id, preset){
     '</div>'+
     '<div class="f"><label for="fEnd">戻ってくる予定日<i class="blk">開始日と期間から自動で入ります。案件ページの日付が分かれば書き換えてOK</i></label><input type="date" id="fEnd" value="'+esc(v.end||calcEnd(v))+'"></div>'+
     '<div class="f"><label for="fPay">分配のタイミング</label><select id="fPay">'+Object.entries(PAYS).map(([k,l])=>'<option value="'+k+'"'+(v.pay===k?' selected':'')+'>'+l+'</option>').join('')+'</select></div>'+
+    '<div class="f"><label>受け取った分配金<i class="blk">途中で分配があったら記録。振り込まれた額（税引後）で入れてください</i></label><div id="fDists"></div><button type="button" class="btn sm" id="fDistAdd">＋ 分配金を追加</button></div>'+
     '<div class="calc" id="fCalc"></div>'+
     '<div class="f" id="fActualWrap"'+(v.status==='done'?'':' hidden')+'><label for="fActual">実際に戻った額<i class="blk">任意。元本＋分配金の合計</i></label><div class="withunit"><input type="text" class="money" id="fActual" inputmode="numeric" autocomplete="off" value="'+fmtMoney(v.actual)+'"><span class="u">円</span></div></div>'+
     '<details class="acc"><summary>物件の詳細<small>任意・タップで開く</small></summary><div class="body">'+
@@ -1367,8 +1391,17 @@ function openForm(id, preset){
   const $=s=>sheet.querySelector(s);
   let img = imgOf(v) || '';
   const drawImg=()=>{ $('#fImgPrev').innerHTML = thumb({img:img, ptype:$('#fPtype').value}); $('#fImgDel').hidden = !img; };
+  let dists = (v.dists||[]).map(d=>Object.assign({},d));
+  const renderDists=()=>{
+    const box=$('#fDists');
+    box.innerHTML = dists.map((d,i)=>'<div class="dist"><input type="date" data-i="'+i+'" data-k="date" value="'+esc(d.date||'')+'"><div class="withunit"><input type="text" class="money" inputmode="numeric" autocomplete="off" data-i="'+i+'" data-k="amount" value="'+fmtMoney(d.amount)+'" placeholder="金額"><span class="u">円</span></div><button type="button" class="del" data-i="'+i+'" aria-label="この分配金を削除">×</button></div>').join('');
+    const sum=dists.reduce((s,d)=>s+(+d.amount||0),0);
+    if(dists.length) box.innerHTML += '<div class="dist-sum">受け取り済み <b>'+yen(sum)+'</b>（'+dists.length+'回）</div>';
+    box.querySelectorAll('input').forEach(el=>{ if(el.classList.contains('money')) bindMoney(el); el.addEventListener('input',()=>{ const d=dists[+el.dataset.i]; if(!d) return; d[el.dataset.k] = el.dataset.k==='amount' ? parseMoney(el.value) : el.value; upd(); }); });
+    box.querySelectorAll('.del').forEach(b=>b.addEventListener('click',()=>{ dists.splice(+b.dataset.i,1); renderDists(); upd(); }));
+  };
   const read=()=>({
-    id:v.id, sample:false, img:img,
+    id:v.id, sample:false, img:img, dists:dists.filter(d=>d.date||d.amount),
     co:$('#fCo').value, coName:$('#fCoName').value.trim(), name:$('#fName').value.trim(), status:$('#fStatus').value,
     amount:parseMoney($('#fAmount').value), rate:$('#fRate').value===''?'':+$('#fRate').value,
     start:$('#fStart').value, months:$('#fMonths').value===''?'':+$('#fMonths').value, end:(endTouched?$('#fEnd').value:''), pay:$('#fPay').value,
@@ -1383,6 +1416,7 @@ function openForm(id, preset){
       '<div class="r"><span>分配金（税引前）</span><b class="num">'+yen(c.gross)+'</b></div>'+
       '<div class="r"><span>源泉徴収 20.42%</span><b class="num">−'+yen(c.tax)+'</b></div>'+
       '<div class="r"><span>分配金（税引後）</span><b class="num">'+yen(c.net)+'</b></div>'+
+      (dists.length?'<div class="r"><span>受け取り済みの分配金</span><b class="num">'+yen(dists.reduce((s,d)=>s+(+d.amount||0),0))+'</b></div>':'')+
       '<div class="r tot"><span>戻ってくる予定額</span><b class="num">'+yen(c.back)+'</b></div>'+
       '<div class="r"><span>戻ってくる予定日</span><b class="num">'+(end?fmtDate(end):'開始日と期間を入れると出ます')+'</b></div>'+
       '<div class="h">予定利回りにもとづく概算です。保証されたものではありません。</div>';
@@ -1391,6 +1425,8 @@ function openForm(id, preset){
   };
   sheet.querySelectorAll('input,select,textarea').forEach(el=>{ if(el.id==='fImg') return; el.addEventListener('input',upd); el.addEventListener('change',upd); });
   $('#fPtype').addEventListener('change',drawImg);
+  $('#fDistAdd').addEventListener('click',()=>{ dists.push({date:u2s(TODAY),amount:'',memo:''}); renderDists(); const last=$('#fDists').querySelector('.dist:last-of-type input.money'); if(last) last.focus(); });
+  renderDists();
   let monthsTouched = false; $('#fMonths').addEventListener('input',()=>{ monthsTouched=true; });
   let startTouched = false; $('#fStart').addEventListener('input',()=>{ startTouched=true; });
   let statusTouched = false; $('#fStatus').addEventListener('change',()=>{ statusTouched=true; });
@@ -1508,7 +1544,7 @@ document.getElementById('importBtn').addEventListener('click',()=>{
     const o=JSON.parse(txt);
     const recs=Array.isArray(o)?o:(o&&Array.isArray(o.records)?o.records:null);
     if(!recs) throw 0;
-    const clean=recs.filter(x=>x&&typeof x==='object').map(x=>Object.assign({id:uid(),status:'run',pay:'lump',ptype:PTYPES[0],co:'other',coName:'',name:'',amount:'',rate:'',start:'',months:'',end:'',place:'',sub:'',url:'',memo:'',actual:'',img:''},x,{sample:false}));
+    const clean=recs.filter(x=>x&&typeof x==='object').map(x=>Object.assign({id:uid(),status:'run',pay:'lump',ptype:PTYPES[0],co:'other',coName:'',name:'',amount:'',rate:'',start:'',months:'',end:'',place:'',sub:'',url:'',memo:'',actual:'',img:'',dists:[]},x,{sample:false}));
     if(!confirm(clean.length+'件を読み込みます。いまの内容（仮の案件を除く）に追加します。よろしいですか？')) return;
     const ids=new Set(state.records.map(r=>r.id));
     clean.forEach(x=>{ if(ids.has(x.id)) x.id=uid(); });
