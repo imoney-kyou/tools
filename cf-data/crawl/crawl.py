@@ -27,7 +27,7 @@ COMPANIES = {
     "rakutama":  {"url": "https://rakutama.jp/projects", "card": {"sel": "a.cassette-link"}},
     "funds":     {"url": "https://funds.jp/fund/list", "card": {"link": r"/fund/detail/[^/#?]+$"}},
     "capima":    {"url": "https://www.capima.jp/fund", "card": {"link": r"/fund/\d+"}},
-    "batsunagu": {"url": "https://batsunagu-funding.com/", "card": {"sel": ".fund-card"}, "cloudflare": True},
+    "sense":     {"url": "https://sense-owners.jp/projects", "card": {"sel": "a.cassette-link"}},
     "crowdbank": {"url": "https://crowdbank.jp/funds/search/", "card": {"link": r"/funds/crowd/A\d+", "climb_img": True}},
     "ag":        {"url": "https://ag-crowdfunding.co.jp/", "card": {"text": True, "wait_text": "予定利回"}, "fallback": "https://ag-crowdfunding.co.jp/fund/list"},   # トップの「最新ファンド」を本文テキストから読む。ダメなら一覧表
 }
@@ -94,7 +94,7 @@ def p_lseed(c):
                 term=first(r"運用期間\s*(\d+\s*年(?:\s*\d+\s*[ヶか]月)?|\d+\s*[ヶか]月)", t).replace(" ", ""), min_="1万円",
                 when=first(r"募集期間\s*(\d{4}/\d{2}/\d{2}.*)$", t), url=c["href"])
 
-def p_cassette(c):  # torches / rakutama
+def p_cassette(c):  # torches / rakutama / sense
     t = c["text"]
     name = c["alt"] or first(r"^(.+?)\s*応募金額", t)
     applied = first(r"応募金額\s*¥([\d,]+)", t).replace(",", "")
@@ -161,13 +161,6 @@ def p_capima(c):
     return dict(name=name, status=st, yield_=first(r"想定利回り\s*([\d.]+)\s*[%％]", t), term=first(r"運用期間\s*(\d+\s*[ヶか]月)", t).replace(" ", ""),
                 min_="1万円", when="", url=c["href"])
 
-def p_batsunagu(c):
-    t = c["text"]
-    name = first(r"^(?:募集終了|運用中|募集中|募集前|運用終了|募集開始前|償還済み?)?\s*(?:償還済み?\s*)?(.+?)(?:【|\s本プロジェクトの特徴)", t)
-    return dict(name=name, status=status_from(t.split(" ")[0]) or status_from(t), yield_=first(r"想定利回り\s*([\d.]+)\s*%", t), term=first(r"想定運用期間\s*(\S+)", t),
-                min_="1万円", when=(lambda m: (m.group(1) + " " + m.group(2) + "〜") if m else "")(re.search(r"募集開始日\s*(\d{4}/\d{1,2}/(?:3[01]|[12]\d|0?[1-9]))\s*((?:[01]?\d|2[0-3]):\d{2})", t)),
-                url=(c["href"] or "https://batsunagu-funding.com/").split("?")[0], method=first(r"【(抽選式|先着式)】", t))
-
 def p_crowdbank(c):
     t = re.sub(r"^(?:NEW|新着)\s*", "", c["text"])   # 新着ラベルが先頭に付くと地域・分類の切り落としが効かなくなる
     name = first(r"^(?:日本|カナダ/米国|中国|アジア/オセアニア|欧州|アフリカ/中南米/その他)?\s*(?:建設/不動産事業|太陽光|風力|バイオマス|水力|地熱|物流|宿泊/飲食|エンターテイメント|医療/ヘルスケア|水処理|廃棄物処理|金融/マイクロファイナンス|IT/ソフトウェア|その他)?\s*(.+?)\s*(?:JPY|先着|抽選)", t)
@@ -196,7 +189,7 @@ def p_ag(c):
     return out
 
 PARSERS = dict(ag=p_ag, reale=p_reale, lseed=p_lseed, torches=p_cassette, rakutama=p_cassette, gates=p_gates, cozuchi=p_cozuchi,
-               fantas=p_fantas, rimawari=p_rimawari, funds=p_funds, capima=p_capima, batsunagu=p_batsunagu, crowdbank=p_crowdbank)
+               fantas=p_fantas, rimawari=p_rimawari, funds=p_funds, capima=p_capima, sense=p_cassette, crowdbank=p_crowdbank)
 
 # ---------------------------------------------------------------- 取得
 JS_CARDS = """
@@ -343,8 +336,8 @@ async def main():
         per = {}
         order = {"open": 0, "pre": 1, "lot": 2, "run": 3, "done": 9}
         for f in sorted(result["funds"], key=lambda x: order.get(x["status"], 9)):
-            # トーチーズ・らくたまは一覧で「運用中」と「募集終了」を区別できず done になるので、直近の案件も見に行く
-            if f["co"] in SKIP_DETAIL or (f["status"] == "done" and f["co"] not in ("torches", "rakutama")) or not f["url"]: continue
+            # トーチーズ・らくたま・センスオーナーズは一覧で「運用中」と「募集終了」を区別できず done になるので、直近の案件も見に行く
+            if f["co"] in SKIP_DETAIL or (f["status"] == "done" and f["co"] not in ("torches", "rakutama", "sense")) or not f["url"]: continue
             per.setdefault(f["co"], 0)
             if per[f["co"]] >= 6: continue
             per[f["co"]] += 1
