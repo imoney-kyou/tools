@@ -106,6 +106,20 @@ main > *, .view > *, .tiles > *, .cos > *, .rec > *, .co > *{min-width:0}
 .notice .btn.sub{border-color:transparent;background:transparent;font-weight:600}
 .howto{margin:8px 0 0;padding:10px 12px;background:var(--accent-soft);border-radius:10px;font-size:12.5px;line-height:1.7;color:var(--ink)}
 .step .howto b{display:inline}
+.news{padding:14px 14px 12px;border:2px solid var(--accent);background:var(--card);border-radius:14px;display:grid;gap:10px;margin-bottom:12px}
+.news .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.news .tag{font-size:11.5px;font-weight:800;color:var(--accent-ink);background:var(--accent);border-radius:999px;padding:2px 10px}
+.news .dt{font-size:11.5px;color:var(--muted)}
+.news h2{margin:0;font-size:17px;line-height:1.4;color:var(--ink)}
+.news p{margin:0;font-size:13px;line-height:1.7;color:var(--ink)}
+.news ol{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.news li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;font-size:13.5px;font-weight:700;line-height:1.5;background:var(--accent-soft);border-radius:10px;padding:8px 10px}
+.news li i{font-style:normal;width:22px;height:22px;border-radius:7px;background:var(--accent);color:var(--accent-ink);font-size:12px;display:flex;align-items:center;justify-content:center}
+.news li small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.news .row2{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.news .btn{min-height:42px;font-size:13.5px}
+.news .btn.main{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.news .btn.sub{border-color:transparent;background:transparent;font-weight:600;color:var(--muted)}
 .bkstat{font-size:12.5px;color:var(--muted);margin:0 0 10px}
 /* ---------- hero: next redemption ---------- */
 .hero{padding:18px 16px 16px;background:linear-gradient(150deg,var(--accent-soft),transparent 60%),var(--card)}
@@ -386,6 +400,7 @@ a.sns-i .arw{margin-left:auto;color:var(--accent);font-weight:800}
 
 <!-- ===== 償還予定 ===== -->
 <section class="view" id="view-dash">
+  <div class="news" id="news" hidden></div>
   <div class="notice" id="noticeDash" hidden></div>
   <div class="panel hero" id="hero"></div>
   <div class="tiles" id="tiles"></div>
@@ -1370,11 +1385,27 @@ function renderData(){
   bs.textContent = !recs.length ? '' : (state.backupAt ? '前回のバックアップ：'+state.backupAt+(state.dirty?'（そのあと変更あり）':'') : 'まだバックアップを取っていません');
 }
 
+// トップのお知らせ欄。内容を変えるときは NEWS_ID も変える（読んだ人にもう一度出る）
+const NEWS_ID = '2026-10-12';
+function newsOn(){ return state.newsRead !== NEWS_ID; }
+function renderNews(){
+  const el=document.getElementById('news');
+  if(!newsOn()){ el.hidden=true; el.innerHTML=''; return; }
+  el.hidden=false;
+  el.innerHTML='<div class="hd"><span class="tag">お知らせ</span><span class="dt">2026年10月12日</span></div>'+
+    '<h2>先に読んでね！<br>入れた案件を消さないために</h2>'+
+    '<p>「入れた案件が消えてしまった」という声をもらいました。手帳の中身はスマホのブラウザの中にだけ保存されるので、長く開かないでいるとブラウザ側で消されることがあります。次の2つをやっておくと安心です。</p>'+
+    '<ol><li><i>1</i><span>ホーム画面に追加して、そこから開く<small>iPhoneのSafariは1週間ほど開かないと消されることがあります</small></span></li>'+
+    '<li><i>2</i><span>案件を入れたら、バックアップを取る<small>URLではなく、{ で始まる長い文字をコピーして残します</small></span></li></ol>'+
+    '<div class="row2"><button type="button" class="btn main go">やり方を見る</button><button type="button" class="btn sub ok">読んだ（閉じる）</button></div>';
+  el.querySelector('.go').addEventListener('click',()=>goBackup('a2hsStep'));
+  el.querySelector('.ok').addEventListener('click',()=>{ state.newsRead=NEWS_ID; save(); renderNews(); renderNotice(); });
+}
 function renderNotice(){
   const n=state.records.filter(r=>r.sample).length;
   const real=state.records.length-n;
-  const needBk = real>0 && (state.dirty || !state.backupAt);
-  const needHome = real>0 && isMobile() && !isStandalone() && !state.a2hsOff;
+  const needBk = !newsOn() && real>0 && (state.dirty || !state.backupAt);
+  const needHome = !newsOn() && real>0 && isMobile() && !isStandalone() && !state.a2hsOff;
   ['noticeDash','noticeLedger'].forEach(id=>{
     const el=document.getElementById(id);
     if(n){
@@ -1398,7 +1429,7 @@ function clearSamples(){
   if(!n){ toast('仮の案件はありません'); return; }
   state.records=state.records.filter(r=>!r.sample); save(); renderAll(); toast('仮の案件'+n+'件を消しました。ここからは自分の手帳です');
 }
-function renderAll(){ renderNotice(); renderDash(); renderLedger(); renderCos(); renderData(); }
+function renderAll(){ renderNews(); renderNotice(); renderDash(); renderLedger(); renderCos(); renderData(); }
 
 /* ===================== form ===================== */
 function openForm(id, preset){
