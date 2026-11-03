@@ -26,7 +26,6 @@ COMPANIES = {
     "rimawari":  {"url": "https://rimawari.co.jp/investment/fund_list.html", "card": {"link": r"(investment_entry|fund_detail)", "climb_img": True}},
     "rakutama":  {"url": "https://rakutama.jp/projects", "card": {"sel": "a.cassette-link"}},
     "funds":     {"url": "https://funds.jp/fund/list", "card": {"link": r"/fund/detail/[^/#?]+$"}},
-    "capima":    {"url": "https://www.capima.jp/fund", "card": {"link": r"/fund/\d+"}},
     "sense":     {"url": "https://sense-owners.jp/projects", "card": {"sel": "a.cassette-link"}},
     "crowdbank": {"url": "https://crowdbank.jp/funds/search/", "card": {"link": r"/funds/crowd/A\d+", "climb_img": True}},
     "ag":        {"url": "https://ag-crowdfunding.co.jp/", "card": {"text": True, "wait_text": "予定利回"}, "fallback": "https://ag-crowdfunding.co.jp/fund/list"},   # トップの「最新ファンド」を本文テキストから読む。ダメなら一覧表
@@ -154,12 +153,6 @@ def p_funds(c):
                 min_="1円", when=first(r"(\d{4}/\d{1,2}/\d{1,2}\s*\([^)]*\)\s*\d{1,2}:\d{2})\s*(?:先着|抽選)?募集終了", t) and ("〜" + first(r"(\d{4}/\d{1,2}/\d{1,2}\s*\([^)]*\)\s*\d{1,2}:\d{2})\s*(?:先着|抽選)?募集終了", t)),
                 url=c["href"], method=first(r"(先着|抽選)募集", t) and (first(r"(先着|抽選)募集", t)))
 
-def p_capima(c):
-    t = c["text"]
-    st = status_from(t)
-    name = c["alt"] or first(r"^(?:募集終了|抽選済|運用中|募集中|募集前|運用終了)?\s*(\S+（ファンド\d+号）)", t)
-    return dict(name=name, status=st, yield_=first(r"想定利回り\s*([\d.]+)\s*[%％]", t), term=first(r"運用期間\s*(\d+\s*[ヶか]月)", t).replace(" ", ""),
-                min_="1万円", when="", url=c["href"])
 
 def p_crowdbank(c):
     t = re.sub(r"^(?:NEW|新着)\s*", "", c["text"])   # 新着ラベルが先頭に付くと地域・分類の切り落としが効かなくなる
@@ -189,7 +182,7 @@ def p_ag(c):
     return out
 
 PARSERS = dict(ag=p_ag, reale=p_reale, lseed=p_lseed, torches=p_cassette, rakutama=p_cassette, gates=p_gates, cozuchi=p_cozuchi,
-               fantas=p_fantas, rimawari=p_rimawari, funds=p_funds, capima=p_capima, sense=p_cassette, crowdbank=p_crowdbank)
+               fantas=p_fantas, rimawari=p_rimawari, funds=p_funds, sense=p_cassette, crowdbank=p_crowdbank)
 
 # ---------------------------------------------------------------- 取得
 JS_CARDS = """
