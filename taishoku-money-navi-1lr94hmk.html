@@ -1,6 +1,12 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>退職したらもらえるお金ナビ 2026</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 <style>
 :root{
   --paper:#F3F5F8; --surface:#FFFFFF; --ink:#17242F; --sub:#55687A;
@@ -159,7 +165,7 @@ footer b{color:var(--ink)}
 
   <div class="card">
     <h2>失業手当シミュレーター</h2>
-    <p class="lede">4つ答えるだけ。令和7年8月改定の給付率・上限額で計算します。</p>
+    <p class="lede">4つ答えるだけ。令和8年8月1日改定の給付率・上限額で計算します。</p>
 
     <div class="field">
       <label>退職前6ヶ月の平均月収（額面・残業代込み）<span class="val" id="salaryVal">30万円</span></label>
@@ -243,7 +249,7 @@ footer b{color:var(--ink)}
 </section>
 
 <footer>
-  <b>ご注意：</b>本アプリは2026年7月時点の公開情報（令和7年8月1日改定の基本手当日額上限、2025年4月・10月施行の雇用保険法改正）に基づく<b>概算シミュレーション</b>です。実際の受給額・受給可否は離職票の内容や個別事情により異なります。正確な金額は<b>ハローワーク</b>・年金事務所・お住まいの自治体で必ずご確認ください。
+  <b>ご注意：</b>本アプリは2026年11月時点の公開情報（令和8年8月1日改定の基本手当日額、2025年4月・10月施行の雇用保険法改正）に基づく<b>概算シミュレーション</b>です。実際の受給額・受給可否は離職票の内容や個別事情により異なります。正確な金額は<b>ハローワーク</b>・年金事務所・お住まいの自治体で必ずご確認ください。
 </footer>
 </div>
 
@@ -252,23 +258,23 @@ footer b{color:var(--ink)}
 /* ───────── state ───────── */
 const S = { salary: 30, age: 35, years: 7, reason: "self" };
 
-/* ───────── 基本手当 計算（令和7年8月1日〜） ───────── */
-const CAPS = a => a < 30 ? 7255 : a < 45 ? 8055 : a < 60 ? 8870 : 7623; // 基本手当日額上限
-const MIN_DAILY = 2411;
+/* ───────── 基本手当 計算（令和8年8月1日〜・厚労省「基本手当日額の計算式及び金額」） ───────── */
+const CAPS = a => a < 30 ? 7450 : a < 45 ? 8270 : a < 60 ? 9110 : 7830; // 基本手当日額上限
+const MIN_DAILY = 2562;
 
 function dailyAllowance(monthlyMan, age) {
   const w = (monthlyMan * 10000 * 6) / 180; // 賃金日額
   let d;
   if (age >= 60 && age <= 64) {
-    if (w < 5110) d = w * 0.8;
-    else if (w <= 11300) { const r = (w - 5110) / (11300 - 5110); d = w * (0.8 - 0.35 * r); }
+    if (w < 5480) d = w * 0.8;
+    else if (w <= 12120) { const r = (w - 5480) / (12120 - 5480); d = Math.min(w * (0.8 - 0.35 * r), 0.05 * w + 12120 * 0.4); }
     else d = w * 0.45;
   } else {
-    if (w < 5110) d = w * 0.8;
-    else if (w <= 12580) { const r = (w - 5110) / (12580 - 5110); d = w * (0.8 - 0.3 * r); }
+    if (w < 5480) d = w * 0.8;
+    else if (w <= 13490) { const r = (w - 5480) / (13490 - 5480); d = w * (0.8 - 0.3 * r); }
     else d = w * 0.5;
   }
-  return Math.round(Math.min(Math.max(d, MIN_DAILY), CAPS(age)));
+  return Math.floor(Math.min(Math.max(d, MIN_DAILY), CAPS(age))); // 1円未満切り捨て
 }
 
 /* 所定給付日数 */
@@ -345,7 +351,7 @@ document.getElementById("salary").addEventListener("input", e => { S.salary = +e
 /* ───────── 図鑑データ ───────── */
 const BENEFITS = [
   { id:"kihon", name:"失業手当（基本手当）", amount:"給与の50〜80% × 90〜330日",
-    desc:"退職後の生活を支える柱。<b>2025年4月から自己都合でも約1ヶ月で受給開始</b>、教育訓練を受ければ待期7日のみに。日額上限は令和7年8月改定で引き上げ（30〜44歳：8,055円）。",
+    desc:"退職後の生活を支える柱。<b>2025年4月から自己都合でも約1ヶ月で受給開始</b>、教育訓練を受ければ待期7日のみに。日額上限は令和8年8月改定で引き上げ（30〜44歳：8,270円）。",
     tags:[["new","2025年4月改正"],["who","ほぼ全員"]] },
   { id:"saishu", name:"再就職手当", amount:"残日数 × 日額 × 60〜70%",
     desc:"給付日数を<b>2/3以上残して就職すると残りの70%を一括支給</b>（1/3以上なら60%）。「早く決まると損」は誤解。就職後6ヶ月続けて賃金が下がった場合は就業促進定着手当も。",
@@ -436,3 +442,5 @@ tabs.forEach(t => t.addEventListener("click", () => {
 
 render();
 </script>
+</body>
+</html>
